@@ -1,0 +1,16 @@
+.wrapper {
+  padding: 0.65em;
+  position: relative;
+  width: 280px;
+  height: auto;
+  min-height: 240px;
+  margin: 0;
+  background: linear-gradient(
+    35deg,
+    #222222 1%,
+    whitesmoke 5%,
+    white 95%,
+    #FF00FF 99%
+  );
+}
+

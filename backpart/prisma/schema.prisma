@@ -1,0 +1,102 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  username String
+  password String
+  email String @unique
+  role Role @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // Relations
+  articles  Article[]
+
+  @@map("users")
+}
+
+model Article {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(255)
+  description String
+  content     String
+
+  authorId    Int
+  author      User     @relation(fields: [authorId], references: [id], onDelete: Restrict)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("articles")
+}
+
+model Game {
+  id          Int @id @default(autoincrement())
+  location    String
+  date        DateTime
+  gameNum     String
+  homeTeam    String
+  awayTeam    String
+  nbGoalHome  Int
+  nbGoalAway  Int
+  note        String
+  forfeit     Boolean
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("games")
+}
+
+model Player {
+  id 			    Int @id @default(autoincrement())
+  firstname 	String
+  lastname 	  String
+  email 		  String @unique
+  address 	  String
+  age 		    Int
+  dob			    DateTime
+  position	  String
+  nbGoal		  Int
+  nbAssist	  Int
+  nbGame		  Int
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("players")
+}
+
+model Partner {
+  id			    Int @id @default(autoincrement())
+  name		    String
+  description String
+  email		    String @unique
+  phone		    String?
+  logo		    String?
+  video		    String?
+  activity	  String
+  address		  String
+  contact		  String?
+  socialMedia String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("partners")
+}
+
+enum Role {
+  ADMIN
+  USER
+}

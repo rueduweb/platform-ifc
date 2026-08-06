@@ -1,0 +1,78 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres-db-dev
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    networks:
+      - ifc-network
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backups:/backups
+      - ./postgres-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backpart
+      dockerfile: Dockerfile.dev
+
+    container_name: nest-backpart-dev
+
+    working_dir: /app
+
+    volumes:
+      - ./backpart:/app
+      - /app/node_modules
+
+    env_file:
+      - ./backpart/.env
+
+    environment:
+      NODE_ENV: development
+
+    ports:
+      - "3000:3000"
+
+    restart: unless-stopped
+
+    command: npm run start:dev
+
+    networks:
+      - ifc-network
+
+  frontend:
+    build:
+      context: ./frontpart
+      dockerfile: Dockerfile.dev
+
+    container_name: angular-frontpart-dev
+
+    ports:
+      - "4200:4200"
+
+    depends_on:
+      - backend
+
+    command: ng serve --host 0.0.0.0 --poll 2000
+
+    restart: unless-stopped
+
+    networks:
+      - ifc-network
+
+networks:
+  ifc-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

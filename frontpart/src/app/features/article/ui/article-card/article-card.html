@@ -1,0 +1,56 @@
+<div class="wrapper relative w-[360px] rounded-xl bg-[#f5efdf]
+shadow-lg border border-neutral-300 overflow-hidden">
+
+    <!-- Badge NEWS -->
+
+    @if(firstElement()){ <span class="absolute left-0 top-0 rounded-full px-3 py-1
+      text-xs z-33 font-semibold bg-yellow-300 text-fuchsia-600">
+        news
+      </span>
+    }
+
+    <div class="p-6">
+
+      <h2 class="text-center text-fuchsia-950">
+        <b>{{ article().title }}</b>
+      </h2>
+
+      <div class="p-2">
+        {{ article().description }}
+      </div>
+
+      <div class="mt-4 h-34 bg-neutral-200 flex items-center justify-center rounded">
+        image ou vidéo
+      </div>
+
+      <p class="mt-5 text-neutral-600 text-[0.9em]">
+        {{ preview() }}
+      </p>
+
+      <a [routerLink]="['/article', article().id]"
+      class="text-blue-600 underline text-xs">
+        tout lire
+      </a>
+
+      <div class="mt-5 flex justify-end items-center">
+
+        @if(editable()){
+          <div class="flex gap-3">
+
+            <button class="cursor-pointer" (click)="onEdit($event)">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+
+            <button class="cursor-pointer" (click)="onDelete($event)">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+
+          </div>
+        }
+        <div class="text-sm">
+          auteur {{ article().authorId }}
+        </div>
+
+      </div>
+    </div>
+</div>

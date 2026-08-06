@@ -1,0 +1,48 @@
+@if (articlesService.loading()) {
+
+  <p>Chargement...</p>
+
+}
+@else {
+
+  <h1 class="title cust-border max-w-7xl text-4xl font-light text-center">
+  Liste des articles
+  <span [routerLink]="['/article-form']" class="absolute bottom-2 -right-10 cursor-pointer text-gray-700" title="Ajouter un article"><i class="fa-solid fa-square-plus"></i></span>
+  </h1>
+
+
+<div class="
+  max-w-2xl mx-auto px-4 py-8 justify-center
+	lg:max-w-7xl grid grid-cols-1 gap-y-8 gap-x-5
+	sm:grid-cols-2
+  md:grid-cols-3
+	lg:grid-cols-3
+	xl:grid-cols-4
+">
+
+  @for(article of articlesService.articles(); track article.id; let first = $first){
+    @if(first) {
+      <app-article-card
+          [article]="article"
+          [editable]="true"
+          [firstElement]="true"
+          (edit)="onEdit(article)"
+          (remove)="onDelete(article.id)">
+      </app-article-card>
+
+    } @else {
+      <app-article-card
+          [article]="article"
+          [editable]="true"
+          [firstElement]="false"
+          (edit)="onEdit(article)"
+          (remove)="onDelete(article.id)">
+      </app-article-card>
+    }
+
+  }
+
+</div>
+
+}
+

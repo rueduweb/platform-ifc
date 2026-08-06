@@ -1,0 +1,33 @@
+.title {
+  padding: 12px 8px 6px 8px;
+  border-radius: 0.5rem 0;
+  background: linear-gradient(35deg, #FF00FF 1%, #FFFFFF 11%,#FFFFFF 96%, #000000 97%);
+}
+.cust-wrap {
+  padding: 0.8em 1em;
+  background: linear-gradient(35deg, #000000 1%, #FFFFFF 3%,#FFFFFF 97%, #FF00FF 98%);
+}
+.cust-border {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-image: linear-gradient(to right, #222222, #FF00FF) 1;
+}
+.cust-label {
+  padding: 0.15em 0.6em;
+  font-size: 1.1rem;
+}
+.cust-field {
+  margin-bottom: 0.5em;
+  padding: 0.3em 0.5em;
+}
+.cust-action {
+  margin: 0.2em 0;
+  padding: 0.6em 1em;
+}
+.cust-btn {
+  min-width: 120px;
+  width: auto;
+  padding: 0.2em 0.35em;
+}
+
+

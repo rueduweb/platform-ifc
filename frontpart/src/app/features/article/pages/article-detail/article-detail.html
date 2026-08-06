@@ -1,0 +1,48 @@
+<div class="rounded-2xl h-[auto]">
+
+@if(articles.loading()) {
+  <p>Chargement...</p>
+} @else if (articles.selectedArticle(); as article) {
+  <h1 class="title cust-border text-4xl font-light text-center">
+    {{ article.title }}
+  </h1>
+
+  <div class="description bg-white">
+    {{ article.description }}
+  </div>
+
+  <div class="bg-neutral-200 h-[360px] flex items-center justify-center">
+    image ou vidéo
+  </div>
+
+  <div class="content bg-white border-0 border min-h-[220px]">
+    {{ article.content }}
+  </div>
+
+  <a routerLink="/article" class="underline">
+    retour à la liste
+  </a>
+
+  @if(editable()){
+
+    <div class="flex gap-4">
+
+      <button
+      (click)="edit.emit(article)">
+        <i class="fa-solid fa-pen"></i>
+      </button>
+
+      <button
+      (click)="remove.emit(article)">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+
+    </div>
+  }
+
+  <small>{{ article.authorId }}</small>
+} @else {
+  <p>Article non trouvé.</p>
+}
+
+</div>

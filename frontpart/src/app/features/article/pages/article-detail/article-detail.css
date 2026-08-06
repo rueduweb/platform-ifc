@@ -1,0 +1,18 @@
+.title {
+  padding: 12px 8px 6px 8px;
+  border-radius: 0.5rem 0;
+  background: linear-gradient(35deg, #FF00FF 1%, #FFFFFF 11%,#FFFFFF 96%, #000000 97%);
+}
+.content {
+  text-indent: 16px;
+  padding: 8px 12px;
+}
+.description {
+  padding: 8px 12px;
+}
+
+.cust-border {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-image: linear-gradient(to right, #222222, #FF00FF) 1;
+}

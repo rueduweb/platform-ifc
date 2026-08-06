@@ -1,0 +1,22 @@
+.sidenav-collapsed {
+  width: 16.5625rem;
+}
+
+.sidenav-nav {
+  height: calc(100% - 3.65rem);
+}
+
+.sidenav-nav-link {
+  position: relative;
+  padding: 0 2px;
+}
+
+.active {
+  background: linear-gradient(35deg, #259b4d 75%, #1e1e1e 76%);
+  border-radius: 10px;
+}
+
+.sidenav-link-icon.active,
+.sidenav-link-text.active {
+  color: #222;
+}

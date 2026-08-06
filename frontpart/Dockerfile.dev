@@ -1,0 +1,16 @@
+# step1: We build the angular app using the production config
+FROM node:24.18.0-alpine AS build
+# Set the working directory
+WORKDIR /app
+# Copy the package json and package-lock.json files
+COPY package*.json ./
+# Run a clean install of the dependencies
+RUN npm install
+# Install Angular CLI globally
+RUN npm install -g @angular/cli
+# Copy all files
+COPY . .
+# Expose port 4200
+EXPOSE 4200
+# Start app local
+CMD ["ng", "serve", "--host", "0.0.0.0", "--poll", "2000"]
