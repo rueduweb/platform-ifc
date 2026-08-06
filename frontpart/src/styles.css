@@ -16,18 +16,10 @@ body {
   background: linear-gradient(
     35deg,
     #222222 1%,
-    whitesmoke 5%,
-    white 95%,
+    #313030 5%,
+    whitesmoke 50%,
+    #e076e0 95%,
     #FF00FF 99%
   );
-}
-body::before{
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: url('../public/assets/images/the_lawn_two.jpg') center/cover no-repeat;
-  opacity: 0.6;
-  pointer-events: none; /* permet d'éviter d'interférer avec l'interaction */
-  z-index: -1;
 }
 

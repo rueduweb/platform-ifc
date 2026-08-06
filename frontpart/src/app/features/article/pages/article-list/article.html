@@ -18,6 +18,9 @@
   md:grid-cols-2
 	lg:grid-cols-3
 	xl:grid-cols-4
+  max-h-[86vh]
+  overflow-y-auto
+  overflow-x-hidden
 ">
 
   @for(article of articlesService.articles(); track article.id; let first = $first){
