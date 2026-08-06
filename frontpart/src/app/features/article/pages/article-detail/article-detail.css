@@ -6,6 +6,9 @@
 .content {
   text-indent: 16px;
   padding: 8px 12px;
+  max-height: 26vh;
+  height: auto;
+  overflow-y: auto;
 }
 .description {
   padding: 8px 12px;
@@ -15,4 +18,10 @@
   border-bottom-width: 1px;
   border-bottom-style: solid;
   border-image: linear-gradient(to right, #222222, #FF00FF) 1;
+}
+
+.cust-foot {
+  padding: 0.215em 0.8em;
+  display: flex;
+  justify-content: end;
 }

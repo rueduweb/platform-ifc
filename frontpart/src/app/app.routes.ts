@@ -34,26 +34,10 @@ export const routes: Routes = [
   },
   {
     path: 'article',
-    title: 'Articles',
-		loadComponent: () =>
-		import('./features/article/pages/article-list/article').then((a) => a.ArticleList)
-  },
-  {
-    path: 'article/:id',
-    title: 'Article',
-    loadComponent: () =>
-    import('./features/article/pages/article-detail/article-detail').then((a) => a.ArticleDetail)
-  },
-  {
-    path: 'article-form',
-    title: 'Ajout article',
-    loadComponent: () =>
-    import('./features/article/pages/article-form/article-form').then((a) => a.ArticleForm)
-  },
-  {
-    path: 'article-edit',
-    title: 'Edition article',
-    loadComponent: () =>
-    import('./features/article/pages/article-edit/article-edit').then((a) => a.ArticleEdit)
+    loadChildren: () =>
+      import('./features/article/article.route').then(
+        (m) => m.ARTICLE_ROUTES
+      )
   }
+
 ];

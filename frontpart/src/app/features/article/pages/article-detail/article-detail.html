@@ -1,4 +1,4 @@
-<div class="rounded-2xl h-[auto]">
+<div class="max-w-5xl rounded-2xl h-[auto]">
 
 @if(articles.loading()) {
   <p>Chargement...</p>
@@ -19,12 +19,15 @@
     {{ article.content }}
   </div>
 
-  <a routerLink="/article" class="underline">
-    retour à la liste
-  </a>
+  <div class="cust-foot bg-white border-2-t-gray-500 text-sm">
+    <a routerLink="/article" class="text-blue-500">
+      Retour à la liste
+    </a>
+  </div>
+
 
   @if(editable()){
-
+    <!-- TO DO improve when access rights will follow -->
     <div class="flex gap-4">
 
       <button

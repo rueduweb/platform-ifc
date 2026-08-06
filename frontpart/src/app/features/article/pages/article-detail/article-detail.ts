@@ -15,7 +15,7 @@ export class ArticleDetail {
 
   readonly id = input.required<string>();
 
-  readonly editable = input(false);
+  readonly editable = input(false); // TO DO improve when access rights will follow
 
   readonly edit = output<Article>();
 
