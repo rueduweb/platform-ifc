@@ -1,23 +1,27 @@
-<section class="w-[100%] flex justify-center items-center p-2">
+<section class="max-w-7xl flex justify-center items-center">
 
-  <div class="w-[50%] h-[40%] bg-[#f5efdf] flex justify-center items-center rounded-2xl p-2">
+  <div class="cust-wrap w-[60%] h-[auto] flex justify-center items-center rounded-2xl">
 
-    <main class="max-w-7xl mx-auto px-8 py-8">
+    <main class="mx-auto px-8 py-8">
 
         <!-- Titre -->
-        <h1 class="text-4xl font-normal text-center text-black pb-3 mb-10">
-            Bienvenue sur le tableau de bord d'administration
+        <h1 class="text-4xl font-light text-center text-black pb-3 mb-10">
+            Bienvenue sur le tableau de bord
         </h1>
         <br>
         <!-- Texte -->
-        <div class="flex justify-center text-[16px] leading-[1.6] text-black">
-            <p class="flex items-center w-[70%] text-justify">
-                La saison 2026–2027 du championnat FLA se dessine convenablement pour
-                l'équipe qui est en phase de réinscription. Au niveau des équipements
-                sportifs, des vestes de survêtements pour le staff et les joueurs ont été
-                commandées. En fuschia et noir, elles représentent bien nos couleurs !
-                Nous sommes en train de réaliser le flocage du logo sur nos maillots et
-                des insignes de partenaires désireux de nous accompagner.
+        <div class="flex justify-center text-[16px] leading-[1.6] text-gray-800">
+            <p class="flex items-center w-[80%] text-justify">
+              Cette page est primordiale pour la gestion de la plateforme.
+              Le tableau de bord est le coeur du traitement du contenu de toutes
+              les parties dynamiques des pages. La responsabilité est à la charge
+              des profils admins de la plateforme.
+              Mise à part l'authentification des utilisateurs accédants sur le site,
+              Ils ont les permissions et les droits d'accès pour faire en sorte que
+              la plateforme puisse fonctionner correctement en veillant à ce que
+              le contenu soit toujours accessible aux visiteurs, aux auteurs d'articles
+              et aux admins selon le périmètre de leur possibilité. Pour plus de sécurité,
+              seuls les admins ont accès au tableau de bord.
             </p>
         </div>
         <br>
@@ -25,6 +29,25 @@
         <p class="flex justify-center px-4 mt-16 italic text-emerald-700">
             {{today() | customDateFormat}}
         </p>
+        <br>
+        <!-- example of dashboard panel -->
+        <section class="grid md:grid-cols-3 auto-rows-[50%]">
+          <div class="cust-wrap h-[90px] border-0 rounded-sm p-2 shadow-sm flex flex-col items-center justify-center gap-4">
+            <span class="text-sm text-shadow-purple-800">Panel-Utilisateurs</span>
+          </div>
+          <div class="cust-wrap h-[auto] border-0 rounded-sm p-2 shadow-sm flex flex-col items-center justify-center gap-4 md:row-span-2">
+            <span class="text-sm text-shadow-purple-800">Panel-Articles</span>
+          </div>
+          <div class="cust-wrap h-[90px] border-0 rounded-sm p-2 shadow-sm flex flex-col items-center justify-center gap-4">
+            <span class="text-sm text-shadow-purple-800">Panel-Matchs</span>
+          </div>
+          <div class="cust-wrap h-[90px] border-0 rounded-sm p-2 shadow-sm flex flex-col items-center justify-center gap-4">
+            <span class="text-sm text-shadow-purple-800">Panel-Sponsors</span>
+          </div>
+          <div class="cust-wrap h-[90px] border-0 rounded-sm p-2 shadow-sm flex flex-col items-center justify-center gap-4">
+            <span class="text-sm text-shadow-purple-800">Panel-Joueurs</span>
+          </div>
+        </section>
 
     </main>
 
