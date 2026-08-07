@@ -22,6 +22,11 @@ body {
     #FF00FF 99%
   );
 }
+html {
+  /* scrolibar */
+  scrollbar-width: thin;
+  scrollbar-color: #afadaf transparent;
+}
 
 /* CUSTOM ELEMENTS */
 /* title */

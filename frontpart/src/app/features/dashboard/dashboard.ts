@@ -1,9 +1,8 @@
 import { Component, signal } from '@angular/core';
-import { CustomDateFormatPipe } from '../../shared/pipes/custom-date-format.pipe';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CustomDateFormatPipe],
+  imports: [],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
