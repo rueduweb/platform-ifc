@@ -1,12 +1,21 @@
 import { Component, signal } from '@angular/core';
-import { CustomDateFormatPipe } from '../../shared/pipes/custom-date-format.pipe';
+import { CarouselThreed } from "../../shared/ui/carousel-threed/carousel-threed";
 
 @Component({
   selector: 'app-team',
-  imports: [CustomDateFormatPipe],
+  imports: [CarouselThreed],
   templateUrl: './team.html',
   styleUrl: './team.css',
 })
 export class Team {
-  protected readonly today = signal<Date>(new Date());
+
+  carouselItems = signal<string[]>([
+    'assets/images/p1.jpg',
+    'assets/images/p2.jpg',
+    'assets/images/p3.jpg',
+    'assets/images/p4.jpg',
+    'assets/images/p5.jpg',
+    'assets/images/p6.jpg',
+    'assets/images/p7.jpg'
+  ]);
 }
