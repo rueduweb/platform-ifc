@@ -88,7 +88,7 @@ export class CarouselAnimation implements RenderPlugin {
 
     const angleStep = (Math.PI * 2) / this.cardCount;
 
-    const target = this.currentIndex * angleStep;
+    const target = -this.currentIndex * angleStep;
 
     this.targetRotation = this.getShortestTargetRotation(target);
 
@@ -203,7 +203,7 @@ export class CarouselAnimation implements RenderPlugin {
 
     const angleStep = (Math.PI * 2) / this.cardCount;
 
-    const target = this.currentIndex * angleStep;
+    const target = -this.currentIndex * angleStep;
 
     this.targetRotation = this.getShortestTargetRotation(target);
 
@@ -235,7 +235,7 @@ export class CarouselAnimation implements RenderPlugin {
 
     return THREE.MathUtils.euclideanModulo(
       Math.round(
-        this.currentRotation /
+        -this.currentRotation /
         angleStep
       ),
       this.cardCount

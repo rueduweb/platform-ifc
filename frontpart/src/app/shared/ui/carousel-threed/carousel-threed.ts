@@ -7,8 +7,6 @@ import { CarouselItem } from './models/carousel-item.model';
 import { CarouselCard } from './services/carousel-card';
 import { CarouselDragDirective } from './directives/carousel-drag';
 import { CarouselNavigation } from './services/carousel-navigation';
-
-
 @Component({
   selector: 'app-carousel-threed',
   imports: [CarouselDragDirective],
@@ -105,7 +103,10 @@ export class CarouselThreed implements AfterViewInit, OnDestroy {
 
   private async initializeCarousel(): Promise<void> {
 
-    const positions = this.layout.calculatePositions(this.items().length, 5);
+    const positions = this.layout.calculatePositions(
+      this.items().length,
+      4
+    );
 
     for (let index = 0;index < this.items().length;index++) {
 

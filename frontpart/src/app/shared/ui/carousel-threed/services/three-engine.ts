@@ -55,8 +55,11 @@ export class ThreeEngine {
 
     this.renderer = new THREE.WebGLRenderer({
       canvas,
-      antialias: true
+      antialias: true,
+      alpha: true
     });
+
+    this.renderer.setClearColor(0x000000, 0.3);
 
     this.renderer.setPixelRatio(
       Math.min(window.devicePixelRatio, 2)

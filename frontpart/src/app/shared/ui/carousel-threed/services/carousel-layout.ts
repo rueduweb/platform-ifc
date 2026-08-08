@@ -4,7 +4,7 @@ import { CarouselPosition } from '../models/carousel-position.model';
 @Service()
 export class CarouselLayout {
 
-  calculatePositions(itemCount: number, radius: 5): CarouselPosition[] {
+  calculatePositions(itemCount: number, radius: number = 5): CarouselPosition[] {
     const positions: CarouselPosition[] = [];
 
     for (let index = 0; index < itemCount; index++) {

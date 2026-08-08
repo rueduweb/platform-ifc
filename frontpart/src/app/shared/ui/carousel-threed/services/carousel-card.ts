@@ -18,8 +18,8 @@ export class CarouselCard {
     const texture = await this.textureLoader.load(item.image);
 
     const geometry = new THREE.PlaneGeometry(
-      2,
-      1.2
+      3.13,
+      3.5
     );
 
     const material = new THREE.MeshStandardMaterial({
