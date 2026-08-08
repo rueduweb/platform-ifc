@@ -3,12 +3,17 @@ import * as THREE from 'three';
 
 import { CarouselItem } from '../models/carousel-item.model';
 import { TextureLoader } from './texture-loader';
+import { ThreeEngine } from './three-engine';
 
 @Service()
 export class CarouselCard {
   private readonly textureLoader = inject(TextureLoader);
 
+  private readonly threeEngine = inject(ThreeEngine);
+
   async createCard(item: CarouselItem): Promise<THREE.Mesh> {
+
+    const anisotropy = this.threeEngine.getMaxAnisotropy();
 
     const texture = await this.textureLoader.load(item.image);
 
@@ -17,8 +22,13 @@ export class CarouselCard {
       1.2
     );
 
-    const material = new THREE.MeshBasicMaterial({
+    const material = new THREE.MeshStandardMaterial({
       map: texture,
+      color: 0xffffff,
+
+      roughness: 0.7,
+      metalness: 0,
+
       side: THREE.DoubleSide
     });
 

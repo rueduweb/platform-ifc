@@ -22,9 +22,30 @@ export class ThreeEngine {
   init(canvas: HTMLCanvasElement): void {
 
     this.scene = new THREE.Scene();
+
+    const ambientLight = new THREE.AmbientLight(
+      0xffffff,
+      1.5
+    );
+
+    this.scene.add(ambientLight);
+
+    const keyLight = new THREE.DirectionalLight(
+      0xffffff,
+      2
+    );
+
+    keyLight.position.set(
+      3,
+      4,
+      6
+    );
+
+    this.scene.add(keyLight);
+
     this.camera = new THREE.PerspectiveCamera(
       75,
-      window.innerWidth / window.innerHeight,
+      1,
       0.1,
       1000
     );
@@ -40,6 +61,8 @@ export class ThreeEngine {
     this.renderer.setPixelRatio(
       Math.min(window.devicePixelRatio, 2)
     );
+
+    this.renderer.outputColorSpace = THREE.SRGBColorSpace;
 
     this.resize();
 
@@ -94,8 +117,14 @@ export class ThreeEngine {
   }
 
   private resize = (): void => {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const canvas = this.renderer.domElement;
+
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+
+    if (width === 0 || height === 0) {
+      return;
+    }
 
     this.camera.aspect = width / height;
 
@@ -103,7 +132,8 @@ export class ThreeEngine {
 
     this.renderer.setSize(
       width,
-      height
+      height,
+      false
     );
   }
 
@@ -117,6 +147,12 @@ export class ThreeEngine {
 
   getRenderer(): THREE.WebGLRenderer {
     return this.renderer;
+  }
+
+  getMaxAnisotropy(): number {
+    return this.renderer
+      .capabilities
+      .getMaxAnisotropy();
   }
 
   destroy(): void {

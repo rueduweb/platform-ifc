@@ -6,6 +6,7 @@ import { CarouselAnimation } from './services/carousel-animation';
 import { CarouselItem } from './models/carousel-item.model';
 import { CarouselCard } from './services/carousel-card';
 import { CarouselDragDirective } from './directives/carousel-drag';
+import { CarouselNavigation } from './services/carousel-navigation';
 
 
 @Component({
@@ -26,6 +27,8 @@ export class CarouselThreed implements AfterViewInit, OnDestroy {
   private readonly animation = inject(CarouselAnimation);
 
   private readonly cardService = inject(CarouselCard);
+
+  protected readonly navigation = inject(CarouselNavigation);
 
   private carouselGroup = new THREE.Group();
 
@@ -129,15 +132,6 @@ export class CarouselThreed implements AfterViewInit, OnDestroy {
     this.animation.setCardCount(this.items().length);
 
     this.threeEngine.registerPlugin(this.animation);
-  }
-
-  next(): void {
-    console.log('clicked Next()');
-    this.animation.next();
-  }
-  previous(): void {
-    console.log('clicked Previous()');
-    this.animation.previous();
   }
 
 }

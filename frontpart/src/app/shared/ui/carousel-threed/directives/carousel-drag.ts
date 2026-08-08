@@ -12,11 +12,9 @@ import { CarouselAnimation } from '../services/carousel-animation';
 })
 export class CarouselDragDirective {
 
-  private readonly element =
-    inject(ElementRef<HTMLElement>);
+  private readonly element = inject(ElementRef<HTMLElement>);
 
-  private readonly animation =
-    inject(CarouselAnimation);
+  private readonly animation = inject(CarouselAnimation);
 
   private dragging = false;
 
@@ -34,8 +32,7 @@ export class CarouselDragDirective {
 
     this.lastX = event.clientX;
 
-    this.lastTime =
-      performance.now();
+    this.lastTime = performance.now();
 
     this.animation.startDrag();
 
@@ -54,56 +51,38 @@ export class CarouselDragDirective {
       return;
     }
 
-    const now =
-      performance.now();
+    const now = performance.now();
 
-    const deltaX =
-      event.clientX - this.lastX;
+    const deltaX = event.clientX - this.lastX;
 
-    const deltaTime =
-      (now - this.lastTime) / 1000;
-
+    const deltaTime = (now - this.lastTime) / 1000;
 
     this.animation.drag(
       deltaX,
       deltaTime
     );
 
+    this.lastX = event.clientX;
 
-    this.lastX =
-      event.clientX;
-
-    this.lastTime =
-      now;
+    this.lastTime = now;
   }
 
 
   @HostListener('pointerup', ['$event'])
-  onPointerUp(
-    event: PointerEvent
-  ): void {
-
+  onPointerUp(event: PointerEvent): void {
     this.stopDragging(
       event.pointerId
     );
   }
-
 
   @HostListener('pointercancel', ['$event'])
-  onPointerCancel(
-    event: PointerEvent
-  ): void {
-
+  onPointerCancel(event: PointerEvent): void {
     this.stopDragging(
       event.pointerId
     );
   }
 
-
-  private stopDragging(
-    pointerId: number
-  ): void {
-
+  private stopDragging(pointerId: number): void {
     if (!this.dragging) {
       return;
     }

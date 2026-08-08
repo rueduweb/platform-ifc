@@ -1,13 +1,15 @@
 <div class="carousel-container">
   <canvas #canvas appCarouselDrag></canvas>
+  <button (click)="navigation.previous()"
+    class="carousel-button carousel-button-previous bg-emerald-300 text-gray-900">
+    <i class="fa-solid fa-circle-left text-2xl"></i>
+  </button>
+  <button (click)="navigation.next()"
+    class="carousel-button carousel-button-next bg-emerald-300 text-gray-900">
+    <i class="fa-solid fa-circle-right text-2xl"></i>
+  </button>
 </div>
-<button (click)="next()"
-  class="bg-amber-300 text-gray-900 cursor-pointer absolute z-1 top-[50%] left-0">
-  Suivant
-</button>
-<button (click)="previous()"
-  class="bg-amber-300 text-gray-900 cursor-pointer absolute z-1 top-[50%] right-0">
-  Précédent
-</button>
+
+
 
 
