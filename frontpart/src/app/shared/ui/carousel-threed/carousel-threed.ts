@@ -7,6 +7,8 @@ import { CarouselItem } from './models/carousel-item.model';
 import { CarouselCard } from './services/carousel-card';
 import { CarouselDragDirective } from './directives/carousel-drag';
 import { CarouselNavigation } from './services/carousel-navigation';
+import { CarouselHover } from './services/carousel-hover';
+import { CarouselHoverState } from './models/carousel-hover.model';
 @Component({
   selector: 'app-carousel-threed',
   imports: [CarouselDragDirective],
@@ -26,9 +28,15 @@ export class CarouselThreed implements AfterViewInit, OnDestroy {
 
   private readonly cardService = inject(CarouselCard);
 
+  private readonly hover = inject(CarouselHover);
+
   protected readonly navigation = inject(CarouselNavigation);
 
   private carouselGroup = new THREE.Group();
+
+  private handleHoverChange = (state: CarouselHoverState): void => {
+    this.animation.setHoverState(state);
+  };
 
   private readonly items = signal<CarouselItem[]>([
     {
@@ -93,10 +101,35 @@ export class CarouselThreed implements AfterViewInit, OnDestroy {
     // Ajouter le groupe à la scène
     scene.add(this.carouselGroup);
 
+    this.carouselGroup.rotation.y = Math.PI / 2;
+
+
+    this.hover.setContainer(
+      this.canvas.nativeElement
+    );
+
+    this.hover.setCamera(
+      this.threeEngine.getCamera()
+    );
+
+    this.hover.setGroup(
+      this.carouselGroup
+    );
+
+    this.hover.registerListener(
+      this.handleHoverChange
+    );
+
     this.initializeCarousel();
   }
 
   ngOnDestroy(): void {
+
+    this.hover.unregisterListener(
+      this.handleHoverChange
+    );
+
+    this.hover.dispose();
     this.threeEngine.unregisterPlugin(this.animation);
     this.threeEngine.destroy();
   }
@@ -116,6 +149,8 @@ export class CarouselThreed implements AfterViewInit, OnDestroy {
 
       const card = await this.cardService.createCard(item);
 
+      card.userData['carouselItemId'] = item.id;
+
       card.position.set(
         position.x,
         position.y,
@@ -127,6 +162,32 @@ export class CarouselThreed implements AfterViewInit, OnDestroy {
       this.carouselGroup.add(card);
 
     }
+    // TEST
+    const firstCard = this.carouselGroup.children[0];
+
+if (firstCard) {
+
+  // Position initiale
+  this.carouselGroup.rotation.set(0, 0, 0);
+
+  this.carouselGroup.updateMatrix();
+  this.carouselGroup.updateMatrixWorld(true);
+
+  const before = new THREE.Vector3();
+  firstCard.getWorldPosition(before);
+
+  // Rotation du parent
+  this.carouselGroup.rotation.y = Math.PI / 2;
+
+  this.carouselGroup.updateMatrix();
+  this.carouselGroup.updateMatrixWorld(true);
+
+  const after = new THREE.Vector3();
+  firstCard.getWorldPosition(after);
+}
+
+
+
 
     this.animation.setGroup(this.carouselGroup);
 
