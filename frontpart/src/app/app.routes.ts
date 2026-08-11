@@ -12,7 +12,7 @@ export const routes: Routes = [
     path: 'championship',
     title: 'Championnat',
 		loadComponent: () =>
-		import('./features/championship/championship').then((c) => c.Championship)
+		import('./features/game/pages/game-list/game').then((c) => c.Game)
   },
   {
     path: 'team',

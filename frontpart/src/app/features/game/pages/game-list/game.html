@@ -1,0 +1,814 @@
+<section class="mx-auto max-w-7xl p-6">
+
+  <h1 class="title cust-border max-w-7xl text-4xl font-light text-center">
+  Liste des matchs du championnat
+  <span class="absolute bottom-2 -right-10 cursor-pointer text-gray-700" title="Ajouter une rencontre"><i class="fa-solid fa-square-plus"></i></span>
+  </h1>
+
+  <section class="mx-auto w-full max-w-[1600px]">
+
+  <!-- =========================================================================
+       TOOLBAR
+       ========================================================================= -->
+
+  <div
+    class="
+      mb-4
+      flex
+      flex-col
+      gap-3
+
+      sm:flex-row
+      sm:items-center
+      sm:justify-between
+    "
+  >
+
+    <!-- Recherche -->
+    <div
+      class="
+        relative
+        w-full
+
+        sm:max-w-sm
+        lg:max-w-md
+      "
+    >
+
+      <label
+        for="game-search"
+        class="sr-only"
+      >
+        Rechercher un match
+      </label>
+
+      <input
+        id="game-search"
+        type="search"
+        [value]="gamesStore.search()"
+        placeholder="Rechercher..."
+        autocomplete="off"
+        class="
+          w-full
+          rounded-md
+          border
+          border-slate-300
+          bg-white
+          px-4
+          py-2
+          pr-10
+          text-sm
+          text-slate-700
+          placeholder:text-slate-400
+
+          focus:border-blue-500
+          focus:outline-none
+          focus:ring-2
+          focus:ring-blue-100
+        "
+        (input)="onSearch($event)"
+      />
+
+      @if (gamesStore.search()) {
+
+        <button
+          type="button"
+          class="
+            absolute
+            right-2
+            top-1/2
+            -translate-y-1/2
+            rounded
+            px-2
+            py-1
+            text-slate-400
+            hover:bg-slate-100
+            hover:text-slate-700
+          "
+          aria-label="Effacer la recherche"
+          (click)="clearSearch()"
+        >
+          ×
+        </button>
+
+      }
+
+    </div>
+
+
+    <!-- Nombre de résultats -->
+    <div class="text-sm text-slate-500">
+      {{ gamesStore.totalGames() }}
+      match{{ gamesStore.totalGames() > 1 ? 's' : '' }}
+    </div>
+
+  </div>
+
+
+  <!-- =========================================================================
+       ERREUR
+       ========================================================================= -->
+
+  @if (gamesStore.error()) {
+
+    <div
+      role="alert"
+      class="
+        mb-4
+        rounded-md
+        border
+        border-red-200
+        bg-red-50
+        px-4
+        py-3
+        text-sm
+        text-red-700
+      "
+    >
+      {{ gamesStore.error() }}
+    </div>
+
+  }
+
+
+  <!-- =========================================================================
+       MOBILE / TABLET HINT
+       ========================================================================= -->
+
+  <div
+    class="
+      mb-2
+      text-right
+      text-xs
+      text-slate-400
+
+      lg:hidden
+    "
+  >
+    Liste des matchs
+  </div>
+
+
+  <!-- =========================================================================
+       TABLE
+       ========================================================================= -->
+
+  <div
+    class="
+      w-full
+      rounded-sm
+      border
+      border-slate-300
+      bg-white
+    "
+  >
+
+    <table
+      class="
+        game-table
+        w-full
+        border-collapse
+        text-xs
+
+        sm:text-sm
+      "
+    >
+
+      <!-- =====================================================================
+           HEADER
+           ===================================================================== -->
+
+      <thead>
+
+        <tr
+          class="
+            border-b
+            border-slate-300
+            bg-white
+            text-left
+            text-slate-700
+          "
+        >
+
+          <!-- N° -->
+          <th
+            scope="col"
+            class="
+              w-16
+              px-3
+              py-3
+              font-normal
+            "
+          >
+            N°
+          </th>
+
+
+          <!-- Date -->
+          <th
+            scope="col"
+            class="
+              w-40
+              border-l
+              border-slate-200
+              px-3
+              py-3
+            "
+          >
+
+            <button
+              type="button"
+              class="table-sort-button"
+              [attr.aria-sort]="
+                isSortedBy('date')
+                  ? gamesStore.sortDirection()
+                  : 'none'
+              "
+              (click)="sortBy('date')"
+            >
+
+              <span>
+                Date
+              </span>
+
+              <span
+                class="sort-icon"
+                [class.sort-icon--active]="isSortedBy('date')"
+                [class.sort-icon--desc]="
+                  isSortedBy('date') &&
+                  gamesStore.sortDirection() === 'desc'
+                "
+                aria-hidden="true"
+              >
+                ▲
+              </span>
+
+            </button>
+
+          </th>
+
+
+          <!-- Heure -->
+          <th
+            scope="col"
+            class="
+              w-24
+              border-l
+              border-slate-200
+              px-3
+              py-3
+            "
+          >
+
+            <button
+              type="button"
+              class="table-sort-button"
+              [attr.aria-sort]="
+                isSortedBy('date')
+                  ? gamesStore.sortDirection()
+                  : 'none'
+              "
+              (click)="sortBy('date')"
+            >
+
+              <span>
+                Heure
+              </span>
+
+              <span
+                class="sort-icon"
+                [class.sort-icon--active]="isSortedBy('date')"
+                [class.sort-icon--desc]="
+                  isSortedBy('date') &&
+                  gamesStore.sortDirection() === 'desc'
+                "
+                aria-hidden="true"
+              >
+                ▲
+              </span>
+
+            </button>
+
+          </th>
+
+
+          <!-- Lieu -->
+          <th
+            scope="col"
+            class="
+              min-w-40
+              border-l
+              border-slate-200
+              px-3
+              py-3
+            "
+          >
+
+            <button
+              type="button"
+              class="table-sort-button"
+              [attr.aria-sort]="
+                isSortedBy('location')
+                  ? gamesStore.sortDirection()
+                  : 'none'
+              "
+              (click)="sortBy('location')"
+            >
+
+              <span>
+                Lieu
+              </span>
+
+              <span
+                class="sort-icon"
+                [class.sort-icon--active]="
+                  isSortedBy('location')
+                "
+                [class.sort-icon--desc]="
+                  isSortedBy('location') &&
+                  gamesStore.sortDirection() === 'desc'
+                "
+                aria-hidden="true"
+              >
+                ▲
+              </span>
+
+            </button>
+
+          </th>
+
+
+          <!-- Locaux -->
+          <th
+            scope="col"
+            class="
+              min-w-40
+              border-l
+              border-slate-200
+              px-3
+              py-3
+              font-normal
+            "
+          >
+            Locaux
+          </th>
+
+
+          <!-- Score -->
+          <th
+            scope="col"
+            class="
+              w-28
+              border-l
+              border-slate-200
+              px-3
+              py-3
+              font-normal
+            "
+          >
+            Score
+          </th>
+
+
+          <!-- Visiteurs -->
+          <th
+            scope="col"
+            class="
+              min-w-40
+              border-l
+              border-slate-200
+              px-3
+              py-3
+              font-normal
+            "
+          >
+            Visiteurs
+          </th>
+
+
+          <!-- Forfait -->
+          <th
+            scope="col"
+            class="
+              w-24
+              border-l
+              border-slate-200
+              px-3
+              py-3
+            "
+          >
+
+            <button
+              type="button"
+              class="table-sort-button"
+              [attr.aria-sort]="
+                isSortedBy('forfeit')
+                  ? gamesStore.sortDirection()
+                  : 'none'
+              "
+              (click)="sortBy('forfeit')"
+            >
+
+              <span>
+                Forfait
+              </span>
+
+              <span
+                class="sort-icon"
+                [class.sort-icon--active]="
+                  isSortedBy('forfeit')
+                "
+                [class.sort-icon--desc]="
+                  isSortedBy('forfeit') &&
+                  gamesStore.sortDirection() === 'desc'
+                "
+                aria-hidden="true"
+              >
+                ▲
+              </span>
+
+            </button>
+
+          </th>
+
+
+          <!-- Actions -->
+          <th
+            scope="col"
+            class="
+              w-24
+              border-l
+              border-slate-200
+              px-3
+              py-3
+              text-center
+              font-normal
+            "
+          >
+            Actions
+          </th>
+
+        </tr>
+
+      </thead>
+
+
+      <!-- =====================================================================
+           BODY
+           ===================================================================== -->
+
+      <tbody>
+
+        @if (gamesStore.loading()) {
+
+          <tr>
+            <td
+              colspan="9"
+              class="
+                px-4
+                py-12
+                text-center
+                text-slate-500
+              "
+            >
+              Chargement des matchs...
+            </td>
+          </tr>
+
+        } @else {
+
+          @for (
+            game of gamesStore.paginatedGames();
+            track game.id
+          ) {
+
+            <tr>
+
+              <!-- N° -->
+              <td
+                data-label="N°"
+                class="
+                  px-3
+                  py-3
+                  text-slate-500
+                "
+              >
+                {{ game.gameNum }}
+              </td>
+
+
+              <!-- Date -->
+              <td
+                data-label="Date"
+                class="
+                  px-3
+                  py-3
+                  font-semibold
+                  text-slate-700
+                "
+              >
+                {{ game.date | date:'dd/MM/yyyy':timezone }}
+              </td>
+
+
+              <!-- Heure -->
+              <td
+                data-label="Heure"
+                class="
+                  px-3
+                  py-3
+                  font-bold
+                  text-slate-700
+                "
+              >
+                {{ game.date | date:"HH'h'mm":timezone }}
+              </td>
+
+
+              <!-- Lieu -->
+              <td
+                data-label="Lieu"
+                class="
+                  min-w-40
+                  px-3
+                  py-3
+                  text-slate-700
+                "
+              >
+                <span
+                  class="block"
+                  [title]="game.location"
+                >
+                  {{ game.location }}
+                </span>
+              </td>
+
+
+              <!-- Locaux -->
+              <td
+                data-label="Locaux"
+                class="
+                  min-w-40
+                  px-3
+                  py-3
+                  font-semibold
+                  text-slate-700
+                "
+              >
+                <span
+                  class="block"
+                  [title]="game.homeTeam"
+                >
+                  {{ game.homeTeam }}
+                </span>
+              </td>
+
+
+              <!-- Score -->
+              <td
+                data-label="Score"
+                class="px-3 py-2"
+              >
+
+                <div
+                  class="
+                    flex
+                    items-center
+                    gap-2
+                  "
+                >
+
+                  <span class="score">
+                    {{ game.nbGoalHome }}
+                  </span>
+
+                  <span class="text-slate-400">
+                    -
+                  </span>
+
+                  <span class="score">
+                    {{ game.nbGoalAway }}
+                  </span>
+
+                </div>
+
+              </td>
+
+
+              <!-- Visiteurs -->
+              <td
+                data-label="Visiteurs"
+                class="
+                  min-w-40
+                  px-3
+                  py-3
+                  font-semibold
+                  text-slate-700
+                "
+              >
+                <span
+                  class="block"
+                  [title]="game.awayTeam"
+                >
+                  {{ game.awayTeam }}
+                </span>
+              </td>
+
+
+              <!-- Forfait -->
+              <td
+                data-label="Forfait"
+                class="
+                  px-3
+                  py-3
+                  text-slate-700
+                "
+              >
+                {{ game.forfeit ? 'oui' : 'non' }}
+              </td>
+
+
+              <!-- Actions -->
+              <td
+                data-label="Actions"
+                class="
+                  px-3
+                  py-3
+                "
+              >
+
+                <div
+                  class="
+                    flex
+                    items-center
+                    gap-3
+                  "
+                >
+
+                  <button
+                    type="button"
+                    class="action-button"
+                    aria-label="Modifier le match"
+                  >
+                    <i class="fa-solid fa-edit"></i>
+                  </button>
+
+
+                  <button
+                    type="button"
+                    class="action-button"
+                    aria-label="Supprimer le match"
+                  >
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+          } @empty {
+
+            <tr>
+              <td
+                colspan="9"
+                class="
+                  px-4
+                  py-12
+                  text-center
+                  text-slate-500
+                "
+              >
+                Aucun match trouvé.
+              </td>
+            </tr>
+
+          }
+
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+
+  <!-- =========================================================================
+       PAGINATION
+       ========================================================================= -->
+
+  <footer
+    class="
+      flex
+      flex-col
+      gap-3
+      px-2
+      py-3
+      text-sm
+      text-slate-500
+
+      sm:flex-row
+      sm:items-center
+      sm:justify-between
+    "
+  >
+
+    <!-- Nombre -->
+    <span>
+      {{ gamesStore.totalGames() }}
+      match{{ gamesStore.totalGames() > 1 ? 's' : '' }}
+    </span>
+
+
+    <!-- Navigation -->
+    <div
+      class="
+        flex
+        items-center
+        gap-4
+      "
+    >
+
+      <button
+        type="button"
+        class="pagination-button"
+        [disabled]="gamesStore.page() <= 1"
+        (click)="previousPage()"
+      >
+        &lt;Précédent
+      </button>
+
+      <span class="whitespace-nowrap">
+        Page
+        {{ gamesStore.page() }}/{{ gamesStore.totalPages() || 1 }}
+      </span>
+
+      <button
+        type="button"
+        class="pagination-button"
+        [disabled]="
+          gamesStore.page() >= gamesStore.totalPages()
+        "
+        (click)="nextPage()"
+      >
+        Suivant&gt;
+      </button>
+
+    </div>
+
+
+    <!-- Taille de page -->
+    <div
+      class="
+        flex
+        items-center
+        gap-2
+      "
+    >
+
+      <label for="game-page-size">
+        Afficher
+      </label>
+
+      <select
+        id="game-page-size"
+        class="
+          rounded-md
+          border
+          border-slate-300
+          bg-white
+          px-3
+          py-2
+        "
+        [value]="gamesStore.pageSize()"
+        (change)="onPageSizeChange($event)"
+      >
+
+        <option value="10">
+          10
+        </option>
+
+        <option value="25">
+          25
+        </option>
+
+        <option value="50">
+          50
+        </option>
+
+      </select>
+
+      <span>
+        par page
+      </span>
+
+    </div>
+
+  </footer>
+
+</section>
+
+
+</section>

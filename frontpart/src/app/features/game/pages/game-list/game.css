@@ -1,0 +1,424 @@
+:host {
+  display: block;
+}
+
+
+/* ==========================================================================
+   TABLE
+   ========================================================================== */
+
+.game-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.game-table th,
+.game-table td {
+  border-color: #e2e8f0;
+}
+
+
+/* ==========================================================================
+   TRI DES COLONNES
+   ========================================================================== */
+
+.table-sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  padding: 0;
+
+  border: 0;
+  background: transparent;
+
+  color: inherit;
+
+  font: inherit;
+  font-weight: 400;
+
+  cursor: pointer;
+}
+
+.table-sort-button:hover {
+  color: #164e78;
+}
+
+.table-sort-button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+
+/* Flèche de tri */
+
+.sort-icon {
+  display: inline-block;
+
+  color: #cbd5e1;
+
+  font-size: 0.65rem;
+  line-height: 1;
+
+  transition:
+    color 150ms ease,
+    transform 150ms ease;
+}
+
+.sort-icon--active {
+  color: #164e78;
+}
+
+.sort-icon--desc {
+  transform: rotate(180deg);
+}
+
+
+/* ==========================================================================
+   SCORE
+   ========================================================================== */
+
+.score {
+  display: inline-flex;
+
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 4px solid #d1d1d1;
+  border-radius: 50%;
+
+  background: #151515;
+
+  color: #ffffff;
+
+  box-shadow:
+    inset 0 0 0 2px #e5c400;
+
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+
+/* ==========================================================================
+   ACTIONS
+   ========================================================================== */
+
+.action-button {
+  display: inline-flex;
+
+  width: 32px;
+  height: 32px;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: 4px;
+
+  background: transparent;
+
+  color: #94a3b8;
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.action-button:hover {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.action-button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.action-button svg {
+  width: 20px;
+  height: 20px;
+
+  fill: none;
+
+  stroke: currentColor;
+  stroke-width: 2;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+/* ==========================================================================
+   PAGINATION
+   ========================================================================== */
+
+.pagination-button {
+  color: #475569;
+
+  cursor: pointer;
+}
+
+.pagination-button:hover:not(:disabled) {
+  color: #164e78;
+}
+
+.pagination-button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.pagination-button:disabled {
+  color: #cbd5e1;
+  cursor: default;
+}
+
+
+/* ==========================================================================
+   MOBILE + TABLET
+   <= 1023px
+
+   La table classique devient une liste de fiches.
+
+   Exemple :
+
+   ┌────────────┬──────────────────────┐
+   │ Date       │ 03/10/2026           │
+   ├────────────┼──────────────────────┤
+   │ Heure      │ 20h00                │
+   ├────────────┼──────────────────────┤
+   │ Lieu       │ Complexe Lenglen T2  │
+   └────────────┴──────────────────────┘
+   ========================================================================== */
+
+@media (max-width: 1023px) {
+
+  /*
+   * Le header horizontal n'est plus nécessaire.
+   */
+  .game-table thead {
+    display: none;
+  }
+
+
+  /*
+   * Le tbody devient une liste verticale.
+   */
+  .game-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+
+  /*
+   * Chaque match devient une carte.
+   */
+  .game-table tbody tr {
+    display: block;
+
+    overflow: hidden;
+
+    border: 1px solid #d1d5db;
+    border-radius: 2px;
+
+    background: #ffffff;
+  }
+
+
+  /*
+   * Chaque cellule devient une ligne
+   * label | valeur.
+   */
+  .game-table tbody td {
+    display: grid;
+
+    grid-template-columns:
+      90px
+      minmax(0, 1fr);
+
+    width: 100%;
+
+    padding: 0.75rem;
+
+    border: 0;
+    border-bottom: 1px solid #d1d5db;
+
+    text-align: left;
+
+    overflow-wrap: break-word;
+  }
+
+
+  /*
+   * Pas de bordure sur la dernière ligne.
+   */
+  .game-table tbody td:last-child {
+    border-bottom: 0;
+  }
+
+
+  /*
+   * Le label est généré à partir de data-label.
+   */
+  .game-table tbody td::before {
+    content: attr(data-label);
+
+    min-width: 0;
+
+    color: #334155;
+
+    font-weight: 400;
+  }
+
+
+  /*
+   * N°.
+   */
+  .game-table tbody td[data-label="N°"] {
+    color: #6489b7;
+  }
+
+
+  /*
+   * Date.
+   */
+  .game-table tbody td[data-label="Date"] {
+    font-weight: 600;
+    color: #334155;
+  }
+
+
+  /*
+   * Heure.
+   */
+  .game-table tbody td[data-label="Heure"] {
+    font-weight: 700;
+    color: #334155;
+  }
+
+
+  /*
+   * Équipes.
+   */
+  .game-table tbody td[data-label="Locaux"],
+  .game-table tbody td[data-label="Visiteurs"] {
+    font-weight: 600;
+  }
+
+
+  /*
+   * Score.
+   */
+  .game-table tbody td[data-label="Score"] {
+    align-items: center;
+  }
+
+
+  /*
+   * Actions.
+   */
+  .game-table tbody td[data-label="Actions"] {
+    align-items: center;
+  }
+
+
+  /*
+   * Empêche un contenu long de casser la fiche.
+   */
+  .game-table tbody td > * {
+    min-width: 0;
+  }
+
+}
+
+
+/* ==========================================================================
+   MOBILE
+   < 640px
+   ========================================================================== */
+
+@media (max-width: 639px) {
+
+  .game-table tbody {
+    gap: 0.75rem;
+  }
+
+
+  .game-table tbody td {
+    grid-template-columns:
+      78px
+      minmax(0, 1fr);
+
+    padding: 0.65rem 0.7rem;
+
+    font-size: 0.875rem;
+  }
+
+
+  .score {
+    width: 36px;
+    height: 36px;
+
+    border-width: 3px;
+
+    font-size: 0.875rem;
+  }
+
+
+  .action-button {
+    width: 34px;
+    height: 34px;
+  }
+
+}
+
+
+/* ==========================================================================
+   TABLET
+   640px -> 1023px
+   ========================================================================== */
+
+@media (min-width: 640px) and (max-width: 1023px) {
+
+  .game-table tbody {
+    gap: 1rem;
+  }
+
+
+  .game-table tbody td {
+    grid-template-columns:
+      110px
+      minmax(0, 1fr);
+
+    padding: 0.8rem 1rem;
+  }
+
+}
+
+
+/* ==========================================================================
+   LAPTOP + LARGE SCREEN
+   >= 1024px
+
+   Retour à une vraie table classique.
+   ========================================================================== */
+
+@media (min-width: 1024px) {
+
+  .game-table tbody tr {
+    border-bottom: 1px solid #d1d5db;
+  }
+
+}

@@ -59,7 +59,7 @@ export class ThreeEngine {
       alpha: true
     });
 
-    this.renderer.setClearColor(0x000000, 0.3);
+    this.renderer.setClearColor(0x000000, 0);
 
     this.renderer.setPixelRatio(
       Math.min(window.devicePixelRatio, 2)
