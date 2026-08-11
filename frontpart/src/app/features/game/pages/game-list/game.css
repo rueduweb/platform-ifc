@@ -2,6 +2,38 @@
   display: block;
 }
 
+/* ==========================================================================
+   INPUT SERACH
+   ========================================================================== */
+.input-search {
+  margin: 1rem 0;
+  padding: 6px 12px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  font-size: medium;
+  outline: none;
+}
+
+.header {
+  position: relative;
+  width: 100%;
+}
+
+.info-bubble {
+  position: absolute;
+  top: 1rem;
+  right: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  font-size: 15px;
+  background: linear-gradient(35deg, rgb(63, 65, 64), #222);
+  border-radius: 50%;
+  color: #fff;
+}
 
 /* ==========================================================================
    TABLE
@@ -10,11 +42,23 @@
 .game-table {
   width: 100%;
   border-collapse: collapse;
+  border-radius: 0.3rem 0.3rem 0 0;
 }
 
 .game-table th,
 .game-table td {
-  border-color: #e2e8f0;
+  border-color: transparent;
+  text-align: center;
+}
+
+.game-table td:first-child {
+  font-size: 16px;
+  color:#6489b7;
+}
+
+.game-table thead tr {
+  height: 44px;
+  background: linear-gradient(35deg, #000000 1%,#ffffff 5%, #ffffff 96%, #ff00ff 99%);
 }
 
 
@@ -162,6 +206,14 @@
 /* ==========================================================================
    PAGINATION
    ========================================================================== */
+.pagination-wrapper {
+  padding: 8px 12px;
+  background-color: #fff;
+  border-radius: 0 0 .3rem .3rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
 
 .pagination-button {
   color: #475569;

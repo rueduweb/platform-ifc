@@ -1,7 +1,7 @@
 <section class="mx-auto max-w-7xl p-6">
 
   <h1 class="title cust-border max-w-7xl text-4xl font-light text-center">
-  Liste des matchs du championnat
+  Championnat 2026-27 : résultats et classement
   <span class="absolute bottom-2 -right-10 cursor-pointer text-gray-700" title="Ajouter une rencontre"><i class="fa-solid fa-square-plus"></i></span>
   </h1>
 
@@ -12,7 +12,7 @@
        ========================================================================= -->
 
   <div
-    class="
+    class="header
       mb-4
       flex
       flex-col
@@ -48,7 +48,7 @@
         [value]="gamesStore.search()"
         placeholder="Rechercher..."
         autocomplete="off"
-        class="
+        class="input-search
           w-full
           rounded-md
           border
@@ -97,9 +97,8 @@
 
 
     <!-- Nombre de résultats -->
-    <div class="text-sm text-slate-500">
-      {{ gamesStore.totalGames() }}
-      match{{ gamesStore.totalGames() > 1 ? 's' : '' }}
+    <div class="info-bubble">
+      <span>{{ gamesStore.totalGames() }}</span>
     </div>
 
   </div>
@@ -700,7 +699,7 @@
        ========================================================================= -->
 
   <footer
-    class="
+    class="pagination-wrapper
       flex
       flex-col
       gap-3
