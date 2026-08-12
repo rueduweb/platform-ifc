@@ -10,12 +10,11 @@
       sm:text-4xl"
     >
       @if (isEditMode()) {
-        Modifier le match
+        Modifier un match
       } @else {
         Ajouter un match
       }
     </h1>
-
 
     <!-- =====================================================================
          FORMULAIRE
@@ -41,7 +40,7 @@
 
           <label
             for="home-team"
-            class="cust-label mb-2 block text-lg text-slate-700"
+            class="cust-label block mb-2 text-gray-600"
           >
             Locaux
           </label>
@@ -52,7 +51,7 @@
             autocomplete="off"
             [formField]="gameForm.homeTeam"
 
-            class="w-full rounded-full border border-slate-300 bg-white
+            class="cust-field w-full rounded-full border border-gray-300 bg-white
                    px-5 py-3
                    focus:outline-none
                    focus:ring-2 focus:ring-gray-300"
@@ -63,9 +62,9 @@
             gameForm.homeTeam().invalid()
           ) {
 
-            <p class="mt-1 text-sm text-red-600">
+            <small class="error text-red-400">
               {{ gameForm.homeTeam().errors()[0].message }}
-            </p>
+            </small>
 
           }
 
@@ -78,7 +77,7 @@
 
           <label
             for="away-team"
-            class="cust-label mb-2 block text-lg text-slate-700"
+            class="cust-label block mb-2 text-gray-600"
           >
             Visiteurs
           </label>
@@ -89,7 +88,7 @@
             autocomplete="off"
             [formField]="gameForm.awayTeam"
 
-            class="w-full rounded-full border border-slate-300 bg-white
+            class="cust-field w-full rounded-full border border-gray-300 bg-white
                    px-5 py-3
                    focus:outline-none
                    focus:ring-2 focus:ring-gray-300"
@@ -100,9 +99,9 @@
             gameForm.awayTeam().invalid()
           ) {
 
-            <p class="mt-1 text-sm text-red-600">
+            <small class="error text-red-400">
               {{ gameForm.awayTeam().errors()[0].message }}
-            </p>
+            </small>
 
           }
 
@@ -115,7 +114,7 @@
 
           <label
             for="game-date"
-            class="cust-label mb-2 block text-lg text-slate-700"
+            class="cust-label block mb-2 text-gray-600"
           >
             Date et heure
           </label>
@@ -125,7 +124,7 @@
             type="datetime-local"
             [formField]="gameForm.date"
 
-            class="w-full rounded-full border border-slate-300 bg-white
+            class="cust-field w-full rounded-full border border-gray-300 bg-white
                    px-5 py-3
                    focus:outline-none
                    focus:ring-2 focus:ring-gray-300"
@@ -136,9 +135,9 @@
             gameForm.date().invalid()
           ) {
 
-            <p class="mt-1 text-sm text-red-600">
+            <small class="error text-red-400">
               {{ gameForm.date().errors()[0].message }}
-            </p>
+            </small>
 
           }
 
@@ -151,7 +150,7 @@
 
           <label
             for="game-note"
-            class="cust-label mb-2 block text-lg text-slate-700"
+            class="cust-label block mb-2 text-gray-600"
           >
             Notes
           </label>
@@ -161,7 +160,7 @@
             rows="3"
             [formField]="gameForm.note"
 
-            class="w-full rounded-2xl border border-slate-300 bg-white
+            class="cust-field w-full rounded-2xl border border-gray-300 bg-white
                    px-5 py-3
                    focus:outline-none
                    focus:ring-2 focus:ring-gray-300"
@@ -172,9 +171,9 @@
             gameForm.note().invalid()
           ) {
 
-            <p class="mt-1 text-sm text-red-600">
+            <small class="error text-red-400">
               {{ gameForm.note().errors()[0].message }}
-            </p>
+            </small>
 
           }
 
@@ -195,9 +194,9 @@
 
           <label
             for="nb-goal-home"
-            class="cust-label mb-2 block text-lg text-slate-700"
+            class="cust-label block mb-2 text-gray-600"
           >
-            Nb buts L.
+            Nb buts Locaux
           </label>
 
           <input
@@ -206,7 +205,7 @@
             step="1"
             [formField]="gameForm.nbGoalHome"
 
-            class="w-full rounded-full border border-slate-300 bg-white
+            class="cust-field w-full rounded-full border border-gray-300 bg-white
                    px-5 py-3
                    focus:outline-none
                    focus:ring-2 focus:ring-gray-300"
@@ -217,9 +216,9 @@
             gameForm.nbGoalHome().invalid()
           ) {
 
-            <p class="mt-1 text-sm text-red-600">
+            <small class="error text-red-400">
               {{ gameForm.nbGoalHome().errors()[0].message }}
-            </p>
+            </small>
 
           }
 
@@ -232,9 +231,9 @@
 
           <label
             for="nb-goal-away"
-            class="cust-label mb-2 block text-lg text-slate-700"
+            class="cust-label block mb-2 text-gray-600"
           >
-            Nb buts V.
+            Nb buts visiteurs
           </label>
 
           <input
@@ -243,7 +242,7 @@
             step="1"
             [formField]="gameForm.nbGoalAway"
 
-            class="w-full rounded-full border border-slate-300 bg-white
+            class="cust-field w-full rounded-full border border-gray-300 bg-white
                    px-5 py-3
                    focus:outline-none
                    focus:ring-2 focus:ring-gray-300"
@@ -254,9 +253,9 @@
             gameForm.nbGoalAway().invalid()
           ) {
 
-            <p class="mt-1 text-sm text-red-600">
+            <small class="error text-red-400">
               {{ gameForm.nbGoalAway().errors()[0].message }}
-            </p>
+            </small>
 
           }
 
@@ -269,7 +268,7 @@
 
           <label
             for="game-location"
-            class="cust-label mb-2 block text-lg text-slate-700"
+            class="cust-label block mb-2 text-gray-600"
           >
             Lieu
           </label>
@@ -278,7 +277,7 @@
             id="game-location"
             [formField]="gameForm.location"
 
-            class="w-full rounded-full border border-slate-300 bg-white
+            class="cust-field w-full rounded-full border border-gray-300 bg-white
                    px-5 py-3
                    focus:outline-none
                    focus:ring-2 focus:ring-gray-300"
@@ -306,9 +305,9 @@
             gameForm.location().invalid()
           ) {
 
-            <p class="mt-1 text-sm text-red-600">
+            <small class="error text-red-400">
               {{ gameForm.location().errors()[0].message }}
-            </p>
+            </small>
 
           }
 
@@ -321,7 +320,7 @@
 
           <label
             for="game-num"
-            class="cust-label mb-2 block text-lg text-slate-700"
+            class="cust-label block mb-2 text-gray-600"
           >
             Journée
           </label>
@@ -330,7 +329,7 @@
             id="game-num"
             [formField]="gameForm.gameNum"
 
-            class="w-full rounded-full border border-slate-300 bg-white
+            class="cust-field w-full rounded-full border border-gray-300 bg-white
                    px-5 py-3
                    focus:outline-none
                    focus:ring-2 focus:ring-gray-300"
@@ -358,9 +357,9 @@
             gameForm.gameNum().invalid()
           ) {
 
-            <p class="mt-1 text-sm text-red-600">
+            <small class="error text-red-400">
               {{ gameForm.gameNum().errors()[0].message }}
-            </p>
+            </small>
 
           }
 
@@ -373,7 +372,7 @@
 
           <label
             class="mt-2 flex cursor-pointer items-center gap-2
-                   text-base text-slate-700"
+                   text-base text-gray-600"
           >
 
             <input
@@ -400,8 +399,8 @@
          ===================================================================== -->
 
     <footer
-      class="cust-action mt-8 flex flex-col gap-3
-             sm:mt-10 sm:flex-row sm:justify-end sm:gap-5"
+      class="cust-action col-span-full mt-8 flex flex-wrap justify-end gap-3
+              sm:mt-10 sm:gap-5"
     >
 
       <!-- Annuler -->

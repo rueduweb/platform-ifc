@@ -1,4 +1,3 @@
-import { anisotropy } from './../../../../../../node_modules/@types/three/src/Three.TSL.d';
 import { Service } from '@angular/core';
 import * as THREE from 'three';
 @Service()

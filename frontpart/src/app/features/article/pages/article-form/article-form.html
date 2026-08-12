@@ -1,128 +1,164 @@
-<form [formRoot]="articleForm" (submit)="onSubmit()" class="max-w-7xl mx-auto bg-white p-8 rounded-xl">
-  <h1 class="title cust-border text-4xl font-light text-center">
-    Formulaire Ajouter un article
-  </h1>
-  <div class="grid grid-cols-2 gap-8">
-    <!-- left column -->
-    <div class="cust-wrap space-y-6">
-      <div>
-        <label class="cust-label block mb-2 text-gray-600">
-          Titre
-        </label>
+<section class="w-full rounded-lg bg-white">
 
-        <input
-          type="text"
-          [formField]="articleForm.title"
-          class=" cust-field w-full rounded-full border border-gray-300 px-5 py-3
-          focus:outline-none focus:ring-2 focus:ring-gray-300">
-        @if (articleForm.title().touched() && articleForm.title().invalid()) {
-          @for (error of articleForm.title().errors(); track error.kind) {
-            <small class="error text-red-400">
-              {{ error.message }}
-            </small>
-          }
-        }
-      </div>
-      <div>
-        <label class="cust-label block mb-2 text-gray-600">
-            Auteur
-        </label>
+  <form
+    [formRoot]="articleForm"
+    (submit)="onSubmit()"
+    class="mx-auto w-full max-w-7xl px-4 py-5 sm:px-6 lg:px-8"
+  >
 
-        <select
-            [value]="article().authorId"
-            (change)="changeAuthor($event)"
-            class="cust-field w-full rounded-full border border-gray-300 px-5 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-gray-300">
+    <h1 class="title cust-border mb-6 text-center text-3xl font-light
+      sm:text-4xl"
+    >
+      Ajouter un article
+    </h1>
 
-            <option [value]="0" selected>
-                Choisir un auteur
-            </option>
+    <!-- =====================================================================
+         FORMULAIRE
+         Mobile / tablette : 1 colonne
+         Laptop / desktop  : 2 colonnes
+         ===================================================================== -->
 
-            @for (user of users(); track user.id) {
+    <div
+      class="grid grid-cols-1 gap-6
+             lg:grid-cols-2 lg:gap-x-10 lg:gap-y-6
+             xl:gap-x-16"
+    >
+      <!-- COLONNE GAUCHE -->
+      <div class="cust-wrap space-y-6">
 
-                <option [value]="user.id">
-                    {{user.id}} - {{ user.username }}
-                </option>
+        <div>
+          <label class="cust-label block mb-2 text-gray-600">
+            Titre
+          </label>
 
+          <input
+            type="text"
+            [formField]="articleForm.title"
+            class=" cust-field w-full rounded-full border border-gray-300 px-5 py-3
+            focus:outline-none focus:ring-2 focus:ring-gray-300">
+          @if (articleForm.title().touched() && articleForm.title().invalid()) {
+            @for (error of articleForm.title().errors(); track error.kind) {
+              <small class="error text-red-400">
+                {{ error.message }}
+              </small>
             }
-
-        </select>
-        @if (articleForm.authorId().touched() && articleForm.authorId().invalid()) {
-          @for (error of articleForm.authorId().errors(); track error.kind) {
-            <small class="error text-red-400">
-              {{ error.message }}
-            </small>
           }
-        }
+        </div>
+
+        <div>
+          <label class="cust-label block mb-2 text-gray-600">
+              Auteur
+          </label>
+
+          <select
+              [value]="article().authorId"
+              (change)="changeAuthor($event)"
+              class="cust-field w-full rounded-full border border-gray-300 px-5 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-gray-300">
+
+              <option [value]="0" selected>
+                  Choisir un auteur
+              </option>
+
+              @for (user of users(); track user.id) {
+
+                  <option [value]="user.id">
+                      {{user.id}} - {{ user.username }}
+                  </option>
+
+              }
+
+          </select>
+          @if (articleForm.authorId().touched() && articleForm.authorId().invalid()) {
+            @for (error of articleForm.authorId().errors(); track error.kind) {
+              <small class="error text-red-400">
+                {{ error.message }}
+              </small>
+            }
+          }
+        </div>
+
+        <div>
+          <label class="cust-label block mb-2 text-gray-600">
+              Description
+          </label>
+
+          <textarea
+            rows="2"
+            [formField]="articleForm.description"
+            class="cust-field w-full rounded-3xl border border-gray-300 p-4 resize-none focus:outline-none focus:ring-2 focus:ring-gray-300">
+          </textarea>
+          @if (articleForm.description().touched() && articleForm.description().invalid()) {
+            @for (error of articleForm.description().errors(); track error.kind) {
+              <small class="error text-red-400">
+                {{ error.message }}
+              </small>
+            }
+          }
+        </div>
+
+        <div>
+          <label class="cust-label block mb-2 text-gray-600">
+              Support visuel
+          </label>
+
+          <input
+            type="file"
+            accept=".jpg, .jpeg, .png"
+            class=" cust-field block w-full rounded-full border
+            border-gray-300 px-4 py-2 text-gray-400">
+        </div>
+
       </div>
-      <div>
+
+      <!-- COLONNE DROITE -->
+      <div class="cust-wrap">
+
         <label class="cust-label block mb-2 text-gray-600">
-            Description
+          Contenu
         </label>
 
         <textarea
-          rows="2"
-          [formField]="articleForm.description"
+          rows="20"
+          [formField]="articleForm.content"
           class="cust-field w-full rounded-3xl border border-gray-300 p-4 resize-none focus:outline-none focus:ring-2 focus:ring-gray-300">
         </textarea>
-        @if (articleForm.description().touched() && articleForm.description().invalid()) {
-          @for (error of articleForm.description().errors(); track error.kind) {
+        @if (articleForm.content().touched() && articleForm.content().invalid()) {
+          @for (error of articleForm.content().errors(); track error.kind) {
             <small class="error text-red-400">
               {{ error.message }}
             </small>
           }
         }
-      </div>
-      <div>
-        <label class="cust-label block mb-2 text-gray-600">
-            Support visuel
-        </label>
 
-        <input
-          type="file"
-          accept=".jpg, .jpeg, .png"
-          class=" cust-field block w-full rounded-full border
-          border-gray-300 px-4 py-2 text-gray-400">
       </div>
-    </div>
-    <!-- right column -->
-    <div class="cust-wrap">
-      <label class="cust-label block mb-2 text-gray-600">
-        Contenu
-      </label>
 
-      <textarea
-        rows="20"
-        [formField]="articleForm.content"
-        class="cust-field w-full rounded-3xl border border-gray-300 p-4 resize-none focus:outline-none focus:ring-2 focus:ring-gray-300">
-      </textarea>
-      @if (articleForm.content().touched() && articleForm.content().invalid()) {
-        @for (error of articleForm.content().errors(); track error.kind) {
-          <small class="error text-red-400">
-            {{ error.message }}
-          </small>
-        }
-      }
+      <!-- ACTIONS -->
+      <footer class="cust-action col-span-full mt-8 flex flex-wrap justify-end gap-3
+        sm:mt-10 sm:gap-5"
+      >
+
+        <button
+          type="button"
+          (click)="onCancel()"
+          class="cust-btn rounded-xl bg-gray-300 px-10 py-3 text-white
+          hover:bg-gray-400 cursor-pointer transition-all transition-300">
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          [disabled]="articleForm().invalid()"
+          class="cust-btn rounded-xl bg-green-500 px-10 py-3 text-white
+          hover:bg-green-600 text-white disabled:opacity-50 disabled:cursor-not-allowed
+          cursor-pointer transition-all transition-300">
+          Ajouter
+        </button>
+
+      </footer>
+
     </div>
 
-  </div>
+  </form>
 
-  <div class="cust-action flex justify-end gap-5 mt-10">
-    <button
-      type="button"
-      (click)="onCancel()"
-      class="cust-btn rounded-xl bg-gray-300 px-10 py-3 text-white
-      hover:bg-gray-400 cursor-pointer transition-all transition-300">
-      Cancel
-    </button>
+</section>
 
-    <button
-      type="submit"
-      [disabled]="articleForm().invalid()"
-      class="cust-btn rounded-xl bg-green-500 px-10 py-3 text-white
-      hover:bg-green-600 text-white disabled:opacity-50 disabled:cursor-not-allowed
-      cursor-pointer transition-all transition-300">
-      Ajouter
-    </button>
-  </div>
-
-</form>
