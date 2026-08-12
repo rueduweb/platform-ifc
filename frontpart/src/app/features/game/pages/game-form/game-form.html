@@ -1,0 +1,463 @@
+<section class="w-full rounded-lg bg-white">
+
+  <form
+    [formRoot]="gameForm"
+    (submit)="onSubmit()"
+    class="mx-auto w-full max-w-7xl px-4 py-5 sm:px-6 lg:px-8"
+  >
+
+    <h1 class="title cust-border mb-6 text-center text-3xl font-light
+      sm:text-4xl"
+    >
+      @if (isEditMode()) {
+        Modifier le match
+      } @else {
+        Ajouter un match
+      }
+    </h1>
+
+
+    <!-- =====================================================================
+         FORMULAIRE
+         Mobile / tablette : 1 colonne
+         Laptop / desktop  : 2 colonnes
+         ===================================================================== -->
+
+    <div
+      class="grid grid-cols-1 gap-6
+             lg:grid-cols-2 lg:gap-x-10 lg:gap-y-6
+             xl:gap-x-16"
+    >
+
+      <!-- ===================================================================
+           COLONNE GAUCHE
+           =================================================================== -->
+
+      <div class="cust-wrap space-y-6">
+
+        <!-- Locaux -->
+
+        <div>
+
+          <label
+            for="home-team"
+            class="cust-label mb-2 block text-lg text-slate-700"
+          >
+            Locaux
+          </label>
+
+          <input
+            id="home-team"
+            type="text"
+            autocomplete="off"
+            [formField]="gameForm.homeTeam"
+
+            class="w-full rounded-full border border-slate-300 bg-white
+                   px-5 py-3
+                   focus:outline-none
+                   focus:ring-2 focus:ring-gray-300"
+          />
+
+          @if (
+            gameForm.homeTeam().touched() &&
+            gameForm.homeTeam().invalid()
+          ) {
+
+            <p class="mt-1 text-sm text-red-600">
+              {{ gameForm.homeTeam().errors()[0].message }}
+            </p>
+
+          }
+
+        </div>
+
+
+        <!-- Visiteurs -->
+
+        <div>
+
+          <label
+            for="away-team"
+            class="cust-label mb-2 block text-lg text-slate-700"
+          >
+            Visiteurs
+          </label>
+
+          <input
+            id="away-team"
+            type="text"
+            autocomplete="off"
+            [formField]="gameForm.awayTeam"
+
+            class="w-full rounded-full border border-slate-300 bg-white
+                   px-5 py-3
+                   focus:outline-none
+                   focus:ring-2 focus:ring-gray-300"
+          />
+
+          @if (
+            gameForm.awayTeam().touched() &&
+            gameForm.awayTeam().invalid()
+          ) {
+
+            <p class="mt-1 text-sm text-red-600">
+              {{ gameForm.awayTeam().errors()[0].message }}
+            </p>
+
+          }
+
+        </div>
+
+
+        <!-- Date -->
+
+        <div>
+
+          <label
+            for="game-date"
+            class="cust-label mb-2 block text-lg text-slate-700"
+          >
+            Date et heure
+          </label>
+
+          <input
+            id="game-date"
+            type="datetime-local"
+            [formField]="gameForm.date"
+
+            class="w-full rounded-full border border-slate-300 bg-white
+                   px-5 py-3
+                   focus:outline-none
+                   focus:ring-2 focus:ring-gray-300"
+          />
+
+          @if (
+            gameForm.date().touched() &&
+            gameForm.date().invalid()
+          ) {
+
+            <p class="mt-1 text-sm text-red-600">
+              {{ gameForm.date().errors()[0].message }}
+            </p>
+
+          }
+
+        </div>
+
+
+        <!-- Notes -->
+
+        <div>
+
+          <label
+            for="game-note"
+            class="cust-label mb-2 block text-lg text-slate-700"
+          >
+            Notes
+          </label>
+
+          <textarea
+            id="game-note"
+            rows="3"
+            [formField]="gameForm.note"
+
+            class="w-full rounded-2xl border border-slate-300 bg-white
+                   px-5 py-3
+                   focus:outline-none
+                   focus:ring-2 focus:ring-gray-300"
+          ></textarea>
+
+          @if (
+            gameForm.note().touched() &&
+            gameForm.note().invalid()
+          ) {
+
+            <p class="mt-1 text-sm text-red-600">
+              {{ gameForm.note().errors()[0].message }}
+            </p>
+
+          }
+
+        </div>
+
+      </div>
+
+
+      <!-- ===================================================================
+           COLONNE DROITE
+           =================================================================== -->
+
+      <div class="cust-wrap space-y-6">
+
+        <!-- Nombre buts locaux -->
+
+        <div>
+
+          <label
+            for="nb-goal-home"
+            class="cust-label mb-2 block text-lg text-slate-700"
+          >
+            Nb buts L.
+          </label>
+
+          <input
+            id="nb-goal-home"
+            type="number"
+            step="1"
+            [formField]="gameForm.nbGoalHome"
+
+            class="w-full rounded-full border border-slate-300 bg-white
+                   px-5 py-3
+                   focus:outline-none
+                   focus:ring-2 focus:ring-gray-300"
+          />
+
+          @if (
+            gameForm.nbGoalHome().touched() &&
+            gameForm.nbGoalHome().invalid()
+          ) {
+
+            <p class="mt-1 text-sm text-red-600">
+              {{ gameForm.nbGoalHome().errors()[0].message }}
+            </p>
+
+          }
+
+        </div>
+
+
+        <!-- Nombre buts visiteurs -->
+
+        <div>
+
+          <label
+            for="nb-goal-away"
+            class="cust-label mb-2 block text-lg text-slate-700"
+          >
+            Nb buts V.
+          </label>
+
+          <input
+            id="nb-goal-away"
+            type="number"
+            step="1"
+            [formField]="gameForm.nbGoalAway"
+
+            class="w-full rounded-full border border-slate-300 bg-white
+                   px-5 py-3
+                   focus:outline-none
+                   focus:ring-2 focus:ring-gray-300"
+          />
+
+          @if (
+            gameForm.nbGoalAway().touched() &&
+            gameForm.nbGoalAway().invalid()
+          ) {
+
+            <p class="mt-1 text-sm text-red-600">
+              {{ gameForm.nbGoalAway().errors()[0].message }}
+            </p>
+
+          }
+
+        </div>
+
+
+        <!-- Lieu -->
+
+        <div>
+
+          <label
+            for="game-location"
+            class="cust-label mb-2 block text-lg text-slate-700"
+          >
+            Lieu
+          </label>
+
+          <select
+            id="game-location"
+            [formField]="gameForm.location"
+
+            class="w-full rounded-full border border-slate-300 bg-white
+                   px-5 py-3
+                   focus:outline-none
+                   focus:ring-2 focus:ring-gray-300"
+          >
+
+            <option value="">
+              Sélectionner un lieu
+            </option>
+
+            @for (
+              location of locations;
+              track location
+            ) {
+
+              <option [value]="location">
+                {{ location }}
+              </option>
+
+            }
+
+          </select>
+
+          @if (
+            gameForm.location().touched() &&
+            gameForm.location().invalid()
+          ) {
+
+            <p class="mt-1 text-sm text-red-600">
+              {{ gameForm.location().errors()[0].message }}
+            </p>
+
+          }
+
+        </div>
+
+
+        <!-- Journée -->
+
+        <div>
+
+          <label
+            for="game-num"
+            class="cust-label mb-2 block text-lg text-slate-700"
+          >
+            Journée
+          </label>
+
+          <select
+            id="game-num"
+            [formField]="gameForm.gameNum"
+
+            class="w-full rounded-full border border-slate-300 bg-white
+                   px-5 py-3
+                   focus:outline-none
+                   focus:ring-2 focus:ring-gray-300"
+          >
+
+            <option value="">
+              Sélectionner une journée
+            </option>
+
+            @for (
+              day of gameDays;
+              track day
+            ) {
+
+              <option [value]="day">
+                {{ day }}
+              </option>
+
+            }
+
+          </select>
+
+          @if (
+            gameForm.gameNum().touched() &&
+            gameForm.gameNum().invalid()
+          ) {
+
+            <p class="mt-1 text-sm text-red-600">
+              {{ gameForm.gameNum().errors()[0].message }}
+            </p>
+
+          }
+
+        </div>
+
+
+        <!-- Forfait -->
+
+        <div class="cust-checkbox">
+
+          <label
+            class="mt-2 flex cursor-pointer items-center gap-2
+                   text-base text-slate-700"
+          >
+
+            <input
+              type="checkbox"
+              [formField]="gameForm.forfeit"
+              class="size-4 accent-fuchsia-500"
+            />
+
+            <span>
+              Forfait déclaré
+            </span>
+
+          </label>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================================
+         ACTIONS
+         ===================================================================== -->
+
+    <footer
+      class="cust-action mt-8 flex flex-col gap-3
+             sm:mt-10 sm:flex-row sm:justify-end sm:gap-5"
+    >
+
+      <!-- Annuler -->
+
+      <button
+        type="button"
+        [disabled]="saving()"
+        (click)="cancel()"
+
+        class="cust-btn w-full cursor-pointer
+               min-w-32 rounded-2xl
+               bg-slate-300 px-6 py-2.5
+               font-medium text-white
+
+               hover:bg-slate-400
+
+               disabled:cursor-not-allowed
+               disabled:opacity-60
+
+               sm:w-auto"
+      >
+        Cancel
+      </button>
+
+
+      <!-- Ajouter -->
+
+      <button
+        type="submit"
+        [disabled]="saving()"
+
+        class="cust-btn w-full cursor-pointer
+               min-w-32 rounded-2xl
+               bg-green-500 px-6 py-2.5
+               font-medium text-white
+
+               hover:bg-green-600
+
+               disabled:cursor-not-allowed
+               disabled:opacity-60
+
+               sm:w-auto"
+      >
+
+        @if (saving()) {
+          Enregistrement...
+        } @else if(isEditMode()){
+          Modifier
+        } @else {
+          Ajouter
+        }
+
+      </button>
+
+    </footer>
+
+  </form>
+
+</section>

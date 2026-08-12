@@ -60,9 +60,9 @@
         </label>
 
         <textarea
-            rows="2"
-            [formField]="articleForm.description"
-            class="cust-field w-full rounded-3xl border border-gray-300 p-4 resize-none focus:outline-none focus:ring-2 focus:ring-gray-300">
+          rows="2"
+          [formField]="articleForm.description"
+          class="cust-field w-full rounded-3xl border border-gray-300 p-4 resize-none focus:outline-none focus:ring-2 focus:ring-gray-300">
         </textarea>
         @if (articleForm.description().touched() && articleForm.description().invalid()) {
           @for (error of articleForm.description().errors(); track error.kind) {

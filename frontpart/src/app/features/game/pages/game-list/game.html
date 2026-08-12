@@ -2,7 +2,7 @@
 
   <h1 class="title cust-border max-w-7xl text-4xl font-light text-center">
   Championnat 2026-27 : résultats et classement
-  <span class="absolute bottom-2 -right-10 cursor-pointer text-gray-700" title="Ajouter une rencontre"><i class="fa-solid fa-square-plus"></i></span>
+  <span (click)="onAdd()" class="absolute bottom-2 -right-10 cursor-pointer text-gray-700" title="Ajouter une rencontre"><i class="fa-solid fa-square-plus"></i></span>
   </h1>
 
   <section class="mx-auto w-full max-w-[1600px]">
@@ -11,49 +11,26 @@
        TOOLBAR
        ========================================================================= -->
 
-  <div
-    class="header
-      mb-4
-      flex
-      flex-col
-      gap-3
-
-      sm:flex-row
-      sm:items-center
-      sm:justify-between
-    "
-  >
+  <div class="header mb-4 flex flex-col gap-3
+    sm:flex-row
+    sm:items-center
+    sm:justify-between
+  ">
 
     <!-- Recherche -->
-    <div
-      class="
-        relative
-        w-full
+    <div class="relative w-full
+      sm:max-w-sm
+      lg:max-w-md
+    ">
 
-        sm:max-w-sm
-        lg:max-w-md
-      "
-    >
-
-      <label
-        for="game-search"
-        class="sr-only"
-      >
+      <label for="game-search" class="sr-only">
         Rechercher un match
       </label>
 
-      <input
-        id="game-search"
-        type="search"
-        [value]="gamesStore.search()"
-        placeholder="Rechercher..."
-        autocomplete="off"
-        class="input-search
-          w-full
-          rounded-md
-          border
-          border-slate-300
-          bg-white
+      <input id="game-search" type="search" [value]="gamesStore.search()"
+        placeholder="Rechercher..." autocomplete="off"
+        (input)="onSearch($event)"
+        class="input-search w-full rounded-md border border-slate-300 bg-white
           px-4
           py-2
           pr-10
@@ -66,19 +43,11 @@
           focus:ring-2
           focus:ring-blue-100
         "
-        (input)="onSearch($event)"
       />
 
       @if (gamesStore.search()) {
 
-        <button
-          type="button"
-          class="
-            absolute
-            right-2
-            top-1/2
-            -translate-y-1/2
-            rounded
+        <button type="button" class="absolute right-2 top-1/2 -translate-y-1/2 rounded
             px-2
             py-1
             text-slate-400
@@ -110,19 +79,8 @@
 
   @if (gamesStore.error()) {
 
-    <div
-      role="alert"
-      class="
-        mb-4
-        rounded-md
-        border
-        border-red-200
-        bg-red-50
-        px-4
-        py-3
-        text-sm
-        text-red-700
-      "
+    <div role="alert"
+      class="mb-4 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
     >
       {{ gamesStore.error() }}
     </div>
@@ -135,13 +93,7 @@
        ========================================================================= -->
 
   <div
-    class="
-      mb-2
-      text-right
-      text-xs
-      text-slate-400
-
-      lg:hidden
+    class="mb-2 text-right text-xs text-slate-400 lg:hidden
     "
   >
     Liste des matchs
@@ -152,26 +104,9 @@
        TABLE
        ========================================================================= -->
 
-  <div
-    class="
-      w-full
-      rounded-sm
-      border
-      border-slate-300
-      bg-white
-    "
-  >
+  <div class="w-full rounded-sm border border-slate-300 bg-white">
 
-    <table
-      class="
-        game-table
-        w-full
-        border-collapse
-        text-xs
-
-        sm:text-sm
-      "
-    >
+    <table class="game-table w-full border-collapse text-xs sm:text-sm">
 
       <!-- =====================================================================
            HEADER
@@ -179,50 +114,21 @@
 
       <thead>
 
-        <tr
-          class="
-            border-b
-            border-slate-300
-            bg-white
-            text-left
-            text-slate-700
-          "
-        >
+        <tr class="border-b border-slate-300 bg-white text-left text-slate-700">
 
           <!-- N° -->
-          <th
-            scope="col"
-            class="
-              w-16
-              px-3
-              py-3
-              font-normal
-            "
-          >
+          <th scope="col" class="w-16 px-3 py-3 font-normal">
             N°
           </th>
 
 
           <!-- Date -->
-          <th
-            scope="col"
-            class="
-              w-40
-              border-l
-              border-slate-200
-              px-3
-              py-3
-            "
-          >
+          <th scope="col" class="w-40 border-l border-slate-200 px-3 py-3">
 
             <button
               type="button"
               class="table-sort-button"
-              [attr.aria-sort]="
-                isSortedBy('date')
-                  ? gamesStore.sortDirection()
-                  : 'none'
-              "
+              [attr.aria-sort]="isSortedBy('date')? gamesStore.sortDirection() : 'none'"
               (click)="sortBy('date')"
             >
 
@@ -250,23 +156,12 @@
           <!-- Heure -->
           <th
             scope="col"
-            class="
-              w-24
-              border-l
-              border-slate-200
-              px-3
-              py-3
-            "
-          >
+            class="w-24 border-l border-slate-200 px-3 py-3">
 
             <button
               type="button"
               class="table-sort-button"
-              [attr.aria-sort]="
-                isSortedBy('date')
-                  ? gamesStore.sortDirection()
-                  : 'none'
-              "
+              [attr.aria-sort]="isSortedBy('date')? gamesStore.sortDirection(): 'none'"
               (click)="sortBy('date')"
             >
 
@@ -277,10 +172,7 @@
               <span
                 class="sort-icon"
                 [class.sort-icon--active]="isSortedBy('date')"
-                [class.sort-icon--desc]="
-                  isSortedBy('date') &&
-                  gamesStore.sortDirection() === 'desc'
-                "
+                [class.sort-icon--desc]="isSortedBy('date') && gamesStore.sortDirection() === 'desc'"
                 aria-hidden="true"
               >
                 ▲
@@ -294,23 +186,13 @@
           <!-- Lieu -->
           <th
             scope="col"
-            class="
-              min-w-40
-              border-l
-              border-slate-200
-              px-3
-              py-3
-            "
+            class="min-w-40 border-l border-slate-200 px-3 py-3"
           >
 
             <button
               type="button"
               class="table-sort-button"
-              [attr.aria-sort]="
-                isSortedBy('location')
-                  ? gamesStore.sortDirection()
-                  : 'none'
-              "
+              [attr.aria-sort]="isSortedBy('location')? gamesStore.sortDirection(): 'none'"
               (click)="sortBy('location')"
             >
 
@@ -320,13 +202,8 @@
 
               <span
                 class="sort-icon"
-                [class.sort-icon--active]="
-                  isSortedBy('location')
-                "
-                [class.sort-icon--desc]="
-                  isSortedBy('location') &&
-                  gamesStore.sortDirection() === 'desc'
-                "
+                [class.sort-icon--active]="isSortedBy('location')"
+                [class.sort-icon--desc]="isSortedBy('location') && gamesStore.sortDirection() === 'desc'"
                 aria-hidden="true"
               >
                 ▲
@@ -340,14 +217,7 @@
           <!-- Locaux -->
           <th
             scope="col"
-            class="
-              min-w-40
-              border-l
-              border-slate-200
-              px-3
-              py-3
-              font-normal
-            "
+            class="min-w-40 border-l border-slate-200 px-3 py-3 font-normal"
           >
             Locaux
           </th>
@@ -645,6 +515,7 @@
                 >
 
                   <button
+                    (click)="editGame(game.id)"
                     type="button"
                     class="action-button"
                     aria-label="Modifier le match"
@@ -654,6 +525,7 @@
 
 
                   <button
+                   (click)="deleteGame(game.id)"
                     type="button"
                     class="action-button"
                     aria-label="Supprimer le match"

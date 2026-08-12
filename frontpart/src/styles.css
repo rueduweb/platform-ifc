@@ -28,40 +28,99 @@ html {
   scrollbar-color: #afadaf transparent;
 }
 
-/* CUSTOM ELEMENTS */
-/* title */
 .title {
-  padding: 12px 8px 6px 8px;
+  padding: 12px 8px 6px;
   border-radius: 0.5rem 0;
-  background: linear-gradient(35deg, #FF00FF 1%, #FFFFFF 11%,#FFFFFF 96%, #000000 97%);
+
+  background: linear-gradient(
+    35deg,
+    #ff00ff 1%,
+    #ffffff 11%,
+    #ffffff 96%,
+    #000000 97%
+  );
 }
+
 .cust-border {
   position: relative;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-image: linear-gradient(to right, #222222, #FF00FF) 1;
+
+  border-image: linear-gradient(
+    to right,
+    #222222,
+    #ff00ff
+  ) 1;
 }
 
-/* form */
 .cust-wrap {
+  width: 100%;
+  min-width: 320px;
   padding: 0.8em 1em;
-  background: linear-gradient(35deg, #000000 1%, #FFFFFF 3%,#FFFFFF 97%, #FF00FF 98%);
+  border-radius: 0.5rem;
+
+  background: linear-gradient(
+    35deg,
+    #000000 1%,
+    #ffffff 3%,
+    #ffffff 97%,
+    #ff00ff 98%
+  );
 }
+
 .cust-label {
+  width: 180px;
   padding: 0.15em 0.6em;
   font-size: 1.1rem;
 }
+
 .cust-field {
+  width: 180px;
   margin-bottom: 0.5em;
   padding: 0.3em 0.5em;
 }
+
 .cust-action {
   margin: 0.2em 0;
   padding: 0.6em 1em;
 }
+
 .cust-btn {
   min-width: 120px;
   width: auto;
   padding: 0.2em 0.35em;
 }
 
+.cust-checkbox {
+  padding: 1rem 0;
+}
+
+/* RESPONSIVE */
+
+/* Mobile */
+
+@media (max-width: 639px) {
+  .cust-wrap {
+    padding: 0.75rem;
+  }
+
+  .cust-action {
+    padding: 0.5rem 0;
+  }
+}
+
+/* Tablette */
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .cust-wrap {
+    padding: 1rem;
+  }
+}
+
+/* Laptop / Desktop */
+
+@media (min-width: 1024px) {
+  .cust-wrap {
+    padding: 1rem 1.25rem;
+  }
+}

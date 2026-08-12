@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@ang
 import { Games } from '../../data/services/games';
 import { GameSortColumn } from '../../data/services/games';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
+import { GameDto } from '../../data/models/game-dto';
 
 @Component({
   selector: 'app-championship',
@@ -14,6 +16,7 @@ export class Game implements OnInit{
 
   readonly timezone = 'Europe/Paris';
   protected readonly gamesStore = inject(Games);
+  protected readonly router = inject(Router);
 
   // ---------------------------------------------------------------------------
   // STATE / SELECTORS
@@ -122,19 +125,40 @@ export class Game implements OnInit{
   }
 
 
-  protected editGame(game: any): void {
-    console.log('Modifier le match :', game);
+  protected editGame(id: number): void {
+    console.log('Modifier le match :', id);
 
-    // TODO :
-    // ouvrir votre modal d'édition
-    // ou naviguer vers /games/:id/edit
+    // naviguer vers /championship/game/:id/edit
+    void this.router.navigate(['/championship/game', id, 'edit']);
   }
 
-  protected deleteGame(game: any): void {
-    console.log('Supprimer le match :', game);
+  protected deleteGame(id: number): void {
+    console.log('Supprimer le match :', id);
 
-    // TODO :
-    // confirmation puis suppression via gamesStore
+    // Confirmation
+    const confirmed = window.confirm('Êtes-vous sûr de vouloir supprimer ce match ?');
+    if (!confirmed) {
+      console.log('Suppression annulée.');
+      return;
+    }
+    // Suppression via gamesStore
+    try {
+
+      this.gamesStore.deleteGame(id);
+
+      console.log('Match supprimé :',id);
+
+    } catch (error) {
+
+      console.error('Erreur lors de la suppression du match :', error);
+
+    }
+
+  }
+
+  onAdd(): void {
+    // TODO add a game go to game form
+    this.router.navigate(['/championship', 'game-add']);
   }
 
   onPageSizeChange(event: Event): void {

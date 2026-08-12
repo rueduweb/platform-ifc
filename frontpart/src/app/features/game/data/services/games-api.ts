@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
-import { Game, GameDto } from '../models/game.model';
+import { GameDto } from '../models/game-dto';
+import { Game } from '../models/game.model';
 
 export type CreateGame = Omit<Game, 'id'>;
 export type UpdateGame = Partial<CreateGame>;

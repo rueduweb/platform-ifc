@@ -270,6 +270,7 @@ export class Games {
 
     return updatedGame;
   }
+
   /* Supprime un match puis le retire du store local. */
   async deleteGame(
     id: number

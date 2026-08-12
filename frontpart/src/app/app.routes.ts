@@ -9,10 +9,18 @@ export const routes: Routes = [
 		import('./home/home').then((h) => h.Home)
   },
   {
+    path: 'article',
+    loadChildren: () =>
+      import('./features/article/article.route').then(
+        (m) => m.ARTICLE_ROUTES
+      )
+  },
+  {
     path: 'championship',
-    title: 'Championnat',
-		loadComponent: () =>
-		import('./features/game/pages/game-list/game').then((c) => c.Game)
+		loadChildren: () =>
+		import('./features/game/game.route').then(
+      (g) => g.GAME_ROUTES
+    )
   },
   {
     path: 'team',
@@ -31,13 +39,6 @@ export const routes: Routes = [
     title: 'Tableau de bord',
 		loadComponent: () =>
 		import('./features/dashboard/dashboard').then((d) => d.Dashboard)
-  },
-  {
-    path: 'article',
-    loadChildren: () =>
-      import('./features/article/article.route').then(
-        (m) => m.ARTICLE_ROUTES
-      )
   }
 
 ];
