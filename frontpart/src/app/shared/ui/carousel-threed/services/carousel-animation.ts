@@ -67,10 +67,23 @@ export class CarouselAnimation implements RenderPlugin, CarouselHoverReceiver {
 
     this.cardCount = Math.max(0, count);
 
-    this.currentIndex = 0;
-    // Démarrer autoscroll avec au moins 2 items
+    if (this.cardCount === 0) {
+
+      this.currentIndex = 0;
+
+      this.autoScrollEnabled = false;
+
+      return;
+    }
+
+    this.currentIndex = THREE.MathUtils.euclideanModulo(
+      this.currentIndex,
+      this.cardCount
+    );
+
     this.autoScrollEnabled = this.cardCount > 1;
   }
+
 
   setHoverState(state: CarouselHoverState): void {
     if (state.isHovered) {
@@ -382,15 +395,13 @@ export class CarouselAnimation implements RenderPlugin, CarouselHoverReceiver {
       return;
     }
 
-    this.group.rotation.y += 0.01;
+    // this.group.rotation.y += 0.01;
 
     this.currentRotation += this.autoScrollSpeed * deltaTime;
 
     this.normalizeRotation();
 
     this.group.rotation.y = this.currentRotation;
-
-    // this.currentIndex = this.calculateSnapIndex();
 
     this.currentIndex = this.calculateSnapIndex();
 

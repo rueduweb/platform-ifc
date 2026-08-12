@@ -24,9 +24,10 @@ export const routes: Routes = [
   },
   {
     path: 'team',
-    title: 'Equipe',
-		loadComponent: () =>
-		import('./features/team/team').then((t) => t.Team)
+		loadChildren: () =>
+		import('./features/player/player.route').then(
+      (p) => p.PLAYER_ROUTES
+    )
   },
   {
     path: 'partner',

@@ -3,5 +3,5 @@ export type CarouselItem = {
   image: string;
   firstname: string;
   position: string;
-  description?: string;
+  nbGame: number;
 }

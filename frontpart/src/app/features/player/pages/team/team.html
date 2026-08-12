@@ -1,5 +1,5 @@
 <section class="container">
-  <app-carousel-threed/>
+  <app-carousel-threed [items]="carouselItems()"/>
 
   <main class="cust-wrap mx-auto px-8 py-8">
 
@@ -15,11 +15,30 @@
         Elle est composée de 2 volets distincts. Le premier est un carousel en 3D pivotant
         qui présente sur des cartes tous les joueurs de l'équipe avec leur prénom et leur poste attitré.
         Le second est constitué d'une liste avec les informations détaillées de chaque
-        joueur. Pour soucis de protection des données personnelles, nous n'affichons que ce qui concerne
-        les informations relatives au championnat FLA telles que les statistiques sur les matchs
+        joueur. Par soucis de protection des données personnelles, nous n'affichons que les statistiques sur les matchs
         servant à établir des classements de buteurs et passeurs décisifs. Cela nous permet en fin de
         saison d'attribuer des prix aux plus méritants.
       </p>
+      <div class="cust-wrap-md flex flex-col py-10 px-16 ">
+
+        <p class="card-action flex justify-center">
+          <button type="button" class="cust-btn cursor-pointer shadow-lg
+          bg-fuchsia-800 hover:bg-fuchsia-700 py-3 px-6
+          rounded text-white transition duration-300">
+            Liste des joueurs
+          </button>
+        </p>
+
+        <p class="card-action flex justify-center">
+          <button type="button" class="cust-btn cursor-pointer shadow-lg
+          outline outline-1 outline-gray-600 py-3 px-6
+          hover:outline-gray-900 hover:text-gray-800
+          rounded text-gray-600 transition duration-300">
+            Ajouter un joueur
+          </button>
+        </p>
+
+      </div>
     </div>
 
   </main>

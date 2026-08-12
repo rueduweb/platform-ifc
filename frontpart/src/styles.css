@@ -68,6 +68,21 @@ html {
   );
 }
 
+.cust-wrap-md {
+  width:300px;
+  max-width: 350px;
+  padding: 0.25em 0.4em;
+  border-radius: 0.5rem;
+
+  background: linear-gradient(
+    35deg,
+    #000000 1%,
+    #ffffff 3%,
+    #ffffff 97%,
+    #ff00ff 98%
+  );
+}
+
 .cust-label {
   min-width: 180px;
   padding: 0.15em 0.6em;
