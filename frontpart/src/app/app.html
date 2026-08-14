@@ -1,8 +1,10 @@
-<app-sidenav (onToggleSidenav)="onToggleSideNav($event)"/>
-<app-body
+<div class="app-layout" [ngClass]="{'sidenav-expanded': isSideNavCollapsed()}">
+  <app-sidenav (onToggleSidenav)="onToggleSideNav($event)"/>
+  <app-body-layout
   [collapsed]="isSideNavCollapsed()"
-  [screenWidth]="screenWidth()"
-/>
+	[screenWidth]="screenWidth()"/>
+</div>
+
 
 
 

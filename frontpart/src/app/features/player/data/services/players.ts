@@ -3,14 +3,7 @@ import {Service, computed, inject, signal} from '@angular/core';
 import { Observable, firstValueFrom } from 'rxjs';
 
 import { PlayersApi } from './players-api';
-import { Player } from '../models/player.model';
-
-
-export interface PlayersState {
-  players: Player[];
-  loading: boolean;
-  error: string | null;
-}
+import { Player, PlayersState } from '../models/player.model';
 
 @Service()
 export class Players {
@@ -99,47 +92,62 @@ export class Players {
 
   }
 
-  async loadPlayer(id: number): Promise<void> {
+  async getPlayer(id: number,): Promise<Player | null> {
 
-    await this.request(
-      this.api.getPlayer(id),
+    let player: Player | null = null;
 
-      player => {
-        this.upsertPlayer(player);
+    await this.request(this.api.getPlayer(id),
+
+      result => {
+
+        player = result;
+
+        this.upsertPlayer(result);
       },
 
-      `Impossible de charger le joueur ${id}.`
+      `Impossible de charger le joueur ${id}.`,
     );
 
+    return player;
   }
 
-  async addPlayer(player: Omit<Player, 'id'>): Promise<void> {
+  async addPlayer(player: Omit<Player, 'id'>): Promise<Player | null> {
+
+    let createdPlayer: Player | null = null;
 
     await this.request(
       this.api.createPlayer(player),
 
-      createdPlayer => {
-        this.upsertPlayer(createdPlayer);
+      player => {
+        createdPlayer = player;
+
+        this.upsertPlayer(player);
       },
 
       'Impossible de créer le joueur.'
     );
 
+    return createdPlayer;
   }
 
 
-  async updatePlayer(id: number, changes: Partial<Omit<Player, 'id'>>): Promise<void> {
+  async updatePlayer(id: number, changes: Partial<Omit<Player, 'id'>>): Promise<Player | null> {
+
+    let updatedPlayer: Player | null = null;
 
     await this.request(
       this.api.updatePlayer(id, changes),
 
-      updatedPlayer => {
-        this.upsertPlayer(updatedPlayer);
+      player => {
+        updatedPlayer = player;
+
+        this.upsertPlayer(player);
       },
 
       'Impossible de modifier le joueur.'
     );
 
+    return updatedPlayer;
   }
 
 

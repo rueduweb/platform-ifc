@@ -1,5 +1,4 @@
 import {
-  max,
   maxLength,
   min,
   required,

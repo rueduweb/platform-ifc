@@ -2,6 +2,10 @@
   width: 16.5625rem;
 }
 
+.sidenav {
+  width: 3rem;
+}
+
 .sidenav-nav {
   height: calc(100% - 3.65rem);
 }
@@ -19,4 +23,15 @@
 .sidenav-link-icon.active,
 .sidenav-link-text.active {
   color: #222;
+}
+
+@media (min-width: 768px) {
+  .sidenav {
+    width: 3rem;
+    height: 100vh;
+  }
+
+  .sidenav.sidenav-collapsed {
+    width: 16.5625rem;
+  }
 }

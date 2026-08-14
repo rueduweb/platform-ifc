@@ -6,5 +6,11 @@ export const PLAYER_ROUTES: Routes = [
     title: 'Equipe',
     loadComponent: () =>
       import('./pages/team/team').then((t) => t.Team)
-  }
+  },
+  {
+    path: 'player-add',
+    title: 'Ajout Joueur',
+    loadComponent: () =>
+      import('./pages/player-form/player-form').then((p) => p.PlayerForm)
+  },
 ];

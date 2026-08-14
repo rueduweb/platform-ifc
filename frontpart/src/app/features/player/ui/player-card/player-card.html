@@ -1,0 +1,423 @@
+<article
+  class="player-card relative flex h-full min-h-[300px]
+         flex-col overflow-hidden rounded-xl
+         bg-white
+         transition duration-300
+         hover:-translate-y-1"
+  [attr.aria-label]="
+    'Carte du joueur ' +
+    player().firstname +
+    ' ' +
+    player().lastname
+  "
+>
+
+  <!-- ===================================================================== -->
+  <!-- HEADER                                                                -->
+  <!-- ===================================================================== -->
+
+  <header
+    class="player-card-header relative flex h-14
+         items-center
+         bg-white px-3 sm:px-4"
+  >
+
+    <!-- Décoration fuschia et noire -->
+    <span
+      class="player-card-corner"
+      aria-hidden="true"
+    ></span>
+
+
+    <!-- ------------------------------------------------------------------- -->
+    <!-- NOM DU JOUEUR                                                       -->
+    <!-- ------------------------------------------------------------------- -->
+
+    <h2
+    class="relative z-10 flex-1
+            text-center
+            truncate
+            font-mono
+            text-lg font-medium text-gray-900
+            sm:text-xl"
+    >
+      {{ player().firstname }}
+    </h2>
+
+
+
+    <!-- ------------------------------------------------------------------- -->
+    <!-- ACTIONS                                                             -->
+    <!-- ------------------------------------------------------------------- -->
+
+    @if (canManage()) {
+
+      <div
+        class="relative z-10 ml-2
+               flex shrink-0 items-center gap-1 sm:gap-2"
+      >
+
+        <!-- EDIT -->
+
+        <button
+          type="button"
+          (click)="onEdit()"
+          class="player-action"
+          aria-label="Modifier le joueur"
+          title="Modifier"
+        >
+          <span aria-hidden="true">
+            ✎
+          </span>
+        </button>
+
+
+        <!-- DELETE -->
+
+        <button
+          type="button"
+          (click)="onDelete()"
+          class="player-action player-action-delete"
+          aria-label="Supprimer le joueur"
+          title="Supprimer"
+        >
+          <span aria-hidden="true">
+            🗑
+          </span>
+        </button>
+
+      </div>
+
+    }
+
+  </header>
+
+
+  <!-- ===================================================================== -->
+  <!-- CONTENU                                                               -->
+  <!-- ===================================================================== -->
+
+  <div
+    class="grid flex-1
+          grid-cols-[minmax(0,1fr)_minmax(125px,0.9fr)]
+          gap-3
+          px-3 py-2
+          sm:gap-4
+          sm:px-4 sm:py-3"
+  >
+
+
+    <!-- =================================================================== -->
+    <!-- COLONNE GAUCHE                                                       -->
+    <!-- =================================================================== -->
+
+    <div class="flex min-w-0 flex-col px-1 sm:px-2">
+
+
+      <!-- ----------------------------------------------------------------- -->
+      <!-- PHOTO                                                              -->
+      <!-- ----------------------------------------------------------------- -->
+
+      <div class="flex justify-center">
+
+        <div
+          class="aspect-square w-full max-w-[135px]
+                 overflow-hidden bg-gray-200"
+        >
+
+          <img
+            [src]="playerImage()"
+            [alt]="
+              'Photo de ' +
+              player().firstname +
+              ' ' +
+              player().lastname
+            "
+            class="h-full w-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+
+        </div>
+
+      </div>
+
+
+      <!-- ----------------------------------------------------------------- -->
+      <!-- LICENCE                                                            -->
+      <!-- ----------------------------------------------------------------- -->
+
+      <div class="mt-4 px-1.5 sm:px-2">
+
+        <span
+          class="font-mono text-base text-gray-800"
+        >
+          Licence
+        </span>
+
+      </div>
+
+
+      <!-- ----------------------------------------------------------------- -->
+      <!-- POSITION                                                            -->
+      <!-- ----------------------------------------------------------------- -->
+
+      <div
+        class="mt-auto flex min-h-[50px]
+               items-center justify-center
+               border border-gray-300
+               px-2 py-2"
+      >
+
+        <span
+          class="text-center text-lg font-medium
+                 text-gray-800 sm:text-xl"
+        >
+          {{ player().position }}
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- =================================================================== -->
+    <!-- COLONNE STATISTIQUES                                                 -->
+    <!-- =================================================================== -->
+
+    <div class="flex min-w-0 flex-col px-2 sm:px-3">
+
+      <!-- ----------------------------------------------------------------- -->
+      <!-- TITRE                                                              -->
+      <!-- ----------------------------------------------------------------- -->
+
+      <h3
+        class="mb-2 border-b border-blue-400
+         px-1 pb-1
+         font-mono text-sm
+         text-blue-500"
+      >
+        statistiques
+      </h3>
+
+
+      <!-- ----------------------------------------------------------------- -->
+      <!-- BUTS                                                               -->
+      <!-- ----------------------------------------------------------------- -->
+
+      <div class="stat-row">
+
+        <span
+          class="stat-icon"
+          aria-hidden="true"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+          >
+            <!-- Contour du ballon -->
+            <circle
+              cx="12"
+              cy="12"
+              r="9"
+              stroke="currentColor"
+              stroke-width="1.5"
+            />
+
+            <!-- Pentagone central -->
+            <path
+              d="M12 8.2
+                L15.2 10.5
+                L14 14.3
+                H10
+                L8.8 10.5
+                Z"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linejoin="round"
+            />
+
+            <!-- Segments -->
+            <path
+              d="M12 8.2
+                V5.2
+                M8.8 10.5
+                L6 9
+                M10 14.3
+                L8.2 17
+                M14 14.3
+                L15.8 17
+                M15.2 10.5
+                L18 9"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+
+
+        <span class="stat-label">
+          Buts
+        </span>
+
+        <span class="stat-value">
+          {{ player().nbGoal }}
+        </span>
+
+      </div>
+
+
+      <!-- ----------------------------------------------------------------- -->
+      <!-- PASSES DECISIVES                                                   -->
+      <!-- ----------------------------------------------------------------- -->
+
+      <div class="stat-row">
+
+        <span
+          class="stat-icon"
+          aria-hidden="true"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+          >
+          <path
+                d="M7.5 3.5
+                  C6.2 5.2 5.8 7.2 6.2 9.1
+                  L8.1 18.5
+                  C8.4 20 9.7 21 11.2 21
+                  H14.8
+                  C16.3 21 17.6 20 17.9 18.5
+                  L19.8 9.1
+                  C20.2 7.2 19.8 5.2 18.5 3.5
+                  L16.5 1.5
+                  L13.5 5
+                  H10.5
+                  L7.5 1.5
+                  Z"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linejoin="round"
+              />
+
+              <path
+                d="M9 9
+                  C10.5 10
+                  13.5 10
+                  15 9"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+
+              <path
+                d="M8.5 14
+                  C10.5 15
+                  13.5 15
+                  15.5 14"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+        </span>
+
+
+        <span class="stat-label">
+          Passes D
+        </span>
+
+        <span class="stat-value">
+          {{ player().nbAssist }}
+        </span>
+
+      </div>
+
+
+      <!-- ----------------------------------------------------------------- -->
+      <!-- CARTONS JAUNES                                                     -->
+      <!-- ----------------------------------------------------------------- -->
+
+      <div class="stat-row">
+
+        <span
+          class="stat-color bg-yellow-400"
+          aria-hidden="true"
+        ></span>
+
+        <span class="stat-label">
+          jaune
+        </span>
+
+        <span class="stat-value">
+          NA
+        </span>
+
+      </div>
+
+
+      <!-- ----------------------------------------------------------------- -->
+      <!-- CARTONS ROUGES                                                     -->
+      <!-- ----------------------------------------------------------------- -->
+
+      <div class="stat-row">
+
+        <span
+          class="stat-color bg-red-500"
+          aria-hidden="true"
+        ></span>
+
+        <span class="stat-label">
+          rouge
+        </span>
+
+        <span class="stat-value">
+          NA
+        </span>
+
+      </div>
+
+
+      <!-- ----------------------------------------------------------------- -->
+      <!-- MATCHS                                                             -->
+      <!-- ----------------------------------------------------------------- -->
+
+      <div class="stat-row">
+
+        <span
+          class="stat-color bg-sky-300"
+          aria-hidden="true"
+        ></span>
+
+        <span class="stat-label">
+          Matchs
+        </span>
+
+        <span class="stat-value">
+          {{ player().nbGame }}
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ===================================================================== -->
+  <!-- DECORATION BAS DROITE                                                  -->
+  <!-- ===================================================================== -->
+
+  <span
+    class="player-card-footer-corner"
+    aria-hidden="true"
+  ></span>
+
+</article>
+

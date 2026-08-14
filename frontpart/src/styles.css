@@ -8,11 +8,18 @@
   box-sizing: border-box;
 }
 
+html {
+  width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: #afadaf transparent;
+}
+
 body {
   position: relative;
-  height: 100vh;
+  width: 100%;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+
   background: linear-gradient(
     35deg,
     #222222 1%,
@@ -22,11 +29,39 @@ body {
     #FF00FF 99%
   );
 }
-html {
-  /* scrolibar */
-  scrollbar-width: thin;
-  scrollbar-color: #afadaf transparent;
+
+/* =========================================
+   SM
+   Hauteur naturelle + scroll navigateur
+   ========================================= */
+
+@media (max-width: 767px) {
+  html,
+  body {
+    min-height: 100%;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
 }
+
+/* =========================================
+   MD / LG / XL
+   Viewport verrouillé à 100vh
+   ========================================= */
+
+@media (min-width: 768px) {
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+/* =============
+  CUSTOM ELEMENTS
+================ */
 
 .title {
   padding: 12px 8px 6px;

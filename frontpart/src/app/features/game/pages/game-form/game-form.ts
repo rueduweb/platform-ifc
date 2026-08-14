@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@ang
 import { FormField, FormRoot, form, submit } from '@angular/forms/signals';
 
 import { Games } from '../../data/services/games';
-import { CreateGame, UpdateGame } from '../../data/services/games-api';
+import { CreateGame } from '../../data/services/games-api';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
