@@ -71,7 +71,7 @@ RESPONSIVE DESIGN SM, MD+ screens
 
 }
 
-
+/* Background Image */
 .body-layout::before {
   content: "";
   position: absolute;

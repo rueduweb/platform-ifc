@@ -1,5 +1,5 @@
 <article
-  class="player-card relative flex h-full min-h-[300px]
+  class="player-card relative flex
          flex-col overflow-hidden rounded-xl
          bg-white
          transition duration-300
@@ -17,7 +17,7 @@
   <!-- ===================================================================== -->
 
   <header
-    class="player-card-header relative flex h-14
+    class="player-card-header relative flex h-11
          items-center
          bg-white px-3 sm:px-4"
   >
@@ -98,12 +98,12 @@
   <!-- ===================================================================== -->
 
   <div
-    class="grid flex-1
+    class="grid
           grid-cols-[minmax(0,1fr)_minmax(125px,0.9fr)]
-          gap-3
-          px-3 py-2
-          sm:gap-4
-          sm:px-4 sm:py-3"
+          gap-2
+          px-3 py-1
+          sm:gap-3
+          sm:px-3 sm:py-1"
   >
 
 
@@ -121,7 +121,7 @@
       <div class="flex justify-center">
 
         <div
-          class="aspect-square w-full max-w-[135px]
+          class="aspect-square w-full max-w-[115px]
                  overflow-hidden bg-gray-200"
         >
 
@@ -147,7 +147,7 @@
       <!-- LICENCE                                                            -->
       <!-- ----------------------------------------------------------------- -->
 
-      <div class="mt-4 px-1.5 sm:px-2">
+      <div class="mt-1 px-1.5 sm:px-2">
 
         <span
           class="font-mono text-base text-gray-800"
@@ -163,10 +163,10 @@
       <!-- ----------------------------------------------------------------- -->
 
       <div
-        class="mt-auto flex min-h-[50px]
+        class="flex min-h-[42px]
                items-center justify-center
                border border-gray-300
-               px-2 py-2"
+               px-2 py-1"
       >
 
         <span
@@ -193,7 +193,7 @@
 
       <h3
         class="mb-2 border-b border-blue-400
-         px-1 pb-1
+         px-1 pb-0.5
          font-mono text-sm
          text-blue-500"
       >
@@ -215,7 +215,7 @@
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
+            class="h-5 w-5"
           >
             <!-- Contour du ballon -->
             <circle
@@ -285,7 +285,7 @@
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
+            class="h-5 w-5"
           >
           <path
                 d="M7.5 3.5
@@ -388,22 +388,19 @@
       <!-- MATCHS                                                             -->
       <!-- ----------------------------------------------------------------- -->
 
-      <div class="stat-row">
-
-        <span
-          class="stat-color bg-sky-300"
-          aria-hidden="true"
-        ></span>
-
-        <span class="stat-label">
-          Matchs
-        </span>
+      <div class="stat-row stat-row-matches">
 
         <span class="stat-value">
           {{ player().nbGame }}
         </span>
 
+        <span class="stat-label">
+          Matchs
+        </span>
+
       </div>
+
+
 
     </div>
 

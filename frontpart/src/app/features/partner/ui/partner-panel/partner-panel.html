@@ -1,0 +1,691 @@
+<article
+  class="cust-panel w-full max-w-5xl
+    overflow-hidden shadow-2xl
+    p-6 text-[#333333]
+  "
+>
+
+  <!-- ========================================================= -->
+  <!-- HEADER : NOM + LOGO                                      -->
+  <!-- ========================================================= -->
+
+  <header
+    class="
+      grid
+      grid-cols-1
+      gap-4
+      md:grid-cols-[2fr_1fr]
+    "
+  >
+
+    <!-- NOM -->
+
+    <div
+      class="
+        relative
+        flex
+        min-h-20
+        items-center
+        border
+        border-gray-300
+        bg-white
+        px-8
+        py-4
+
+        [clip-path:polygon(0_0,94%_0,78%_100%,0_100%)]
+      "
+    >
+
+      <!-- Décoration rose -->
+
+      <div
+        class="
+          absolute
+          left-0
+          top-0
+          h-16
+          w-28
+          bg-fuchsia-500
+
+          [clip-path:polygon(0_50%,45%_0,100%_0,43%_100%)]
+        "
+      ></div>
+
+
+      <!-- Décoration noire -->
+
+      <div
+        class="
+          absolute
+          left-0
+          top-6
+          h-14
+          w-20
+          bg-black
+
+          [clip-path:polygon(0_20%,58%_0,100%_45%,0_100%)]
+        "
+      ></div>
+
+
+      <h2
+        class="
+          absolute
+          left-1/2
+          top-1/2
+          z-10
+          -translate-x-[40%]
+          -translate-y-1/2
+          whitespace-nowrap
+          text-center
+          text-xl
+          font-medium
+          text-[#333333]
+        "
+      >
+        {{ partner().name }}
+      </h2>
+
+
+    </div>
+
+
+    <!-- LOGO -->
+
+    <div
+      class="
+        flex
+        min-h-20
+        items-center
+        justify-center
+        bg-transparent
+        px-6
+        py-4
+      "
+    >
+
+      @if (partner().logo) {
+
+        <img
+          [src]="partner().logo!"
+          [alt]="'Logo de ' + partner().name"
+          class="
+            max-h-16
+            max-w-48
+            object-contain
+          "
+        />
+
+      } @else {
+
+        <span
+          class="
+            text-xl
+            text-gray-400
+          "
+        >
+          {{ partner().name }} Logo
+        </span>
+
+      }
+
+    </div>
+
+  </header>
+
+
+  <!-- ========================================================= -->
+  <!-- DESCRIPTION                                               -->
+  <!-- ========================================================= -->
+
+  <section
+    class="
+      relative
+      mt-6
+      border
+      border-gray-300
+      bg-white
+      px-10
+      py-4
+    "
+  >
+
+    <!-- Triangle gauche -->
+
+    <div
+      class="
+        absolute
+        left-0
+        top-0
+        h-10
+        w-10
+        bg-gray-300
+        [clip-path:polygon(0_0,100%_50%,0_100%)]
+      "
+    ></div>
+
+
+    <!-- Triangle droit -->
+
+    <div
+      class="
+        absolute
+        bottom-0
+        right-0
+        h-10
+        w-10
+        bg-black
+        [clip-path:polygon(100%_0,100%_100%,0_50%)]
+      "
+    ></div>
+
+
+    <p
+      class="
+        text-center
+        text-[14px]
+        leading-6
+        text-[#333333]
+      "
+    >
+      {{ partner().description }}
+    </p>
+
+  </section>
+
+
+  <!-- ========================================================= -->
+  <!-- MEDIA + ACTIVITY                                          -->
+  <!-- ========================================================= -->
+
+  <!-- ========================================================= -->
+<!-- MAIN CONTENT                                               -->
+<!-- ========================================================= -->
+
+<div
+  class="
+    mt-6
+    grid
+    grid-cols-1
+    gap-x-6
+    md:grid-cols-2
+  "
+>
+
+  <!-- ======================================================= -->
+  <!-- COLONNE GAUCHE                                          -->
+  <!-- ======================================================= -->
+
+  <div>
+
+    <!-- ===================================================== -->
+    <!-- IMAGE / VIDEO                                         -->
+    <!-- ===================================================== -->
+
+    <section
+      class="
+        aspect-video
+        overflow-hidden
+        rounded-[3rem]
+        bg-gray-200
+      "
+    >
+
+      @if (hasVideo()) {
+
+        <video
+          class="
+            h-full
+            w-full
+            object-cover
+          "
+          controls
+          preload="metadata"
+        >
+          <source [src]="partner().video!" />
+        </video>
+
+      } @else if (hasLogo()) {
+
+        <img
+          [src]="partner().logo!"
+          [alt]="partner().name"
+          class="
+            h-full
+            w-full
+            object-contain
+            p-8
+          "
+        />
+
+      } @else {
+
+        <div
+          class="
+            flex
+            h-full
+            flex-col
+            items-center
+            justify-center
+            text-[#333333]
+          "
+        >
+
+          <span class="text-xl">
+            image
+          </span>
+
+          <span class="text-xl">
+            ou
+          </span>
+
+          <span class="text-xl">
+            vidéo
+          </span>
+
+          <span class="mt-2 text-3xl">
+            ▶
+          </span>
+
+        </div>
+
+      }
+
+    </section>
+
+    <br>
+    <!-- ===================================================== -->
+    <!-- INFORMATIONS                                         -->
+    <!-- ===================================================== -->
+
+    <div
+      class="
+        mt-2
+        space-y-4
+      "
+    >
+
+      <!-- ADDRESS -->
+
+      <div>
+
+        <div
+          class="
+            flex
+            items-center
+            gap-3
+            text-gray-500
+          "
+        >
+
+          <span
+            class="
+              h-0
+              w-0
+              border-y-[7px]
+              border-l-[8px]
+              border-y-transparent
+              border-l-gray-300
+            "
+          ></span>
+
+          <span class="text-sm">
+            adresse
+          </span>
+
+        </div>
+
+        <p
+          class="
+            mt-1
+            pl-6
+            translate-x-2
+            text-[16px]
+            leading-6
+            text-[#333333]
+          "
+        >
+          {{ partner().address }}
+        </p>
+
+      </div>
+
+
+      <!-- CONTACT -->
+
+      @if (partner().contact) {
+
+        <div>
+
+          <div
+            class="
+              flex
+              items-center
+              gap-3
+              text-gray-500
+            "
+          >
+
+            <span
+              class="
+                h-0
+                w-0
+                border-y-[7px]
+                border-l-[8px]
+                border-y-transparent
+                border-l-gray-300
+              "
+            ></span>
+
+            <span class="text-sm">
+              contacts
+            </span>
+
+          </div>
+
+          <p
+            class="
+              mt-1
+              pl-6
+              translate-x-2
+              text-[15px]
+              leading-6
+              text-[#333333]
+            "
+          >
+            {{ partner().contact }}
+          </p>
+
+        </div>
+
+      }
+
+
+      <!-- EMAIL -->
+
+      <div>
+
+        <div
+          class="
+            flex
+            items-center
+            gap-3
+            text-gray-500
+          "
+        >
+
+          <span
+            class="
+              h-0
+              w-0
+              border-y-[7px]
+              border-l-[8px]
+              border-y-transparent
+              border-l-gray-300
+            "
+          ></span>
+
+          <span class="text-sm">
+            email
+          </span>
+
+        </div>
+
+        <a
+          [href]="'mailto:' + partner().email"
+          class="
+            mt-1
+            block
+            pl-6
+            translate-x-2
+            text-[15px]
+            leading-6
+            text-[#333333]
+            hover:underline
+          "
+        >
+          {{ partner().email }}
+        </a>
+
+      </div>
+
+
+      <!-- PHONE -->
+
+      @if (partner().phone) {
+
+        <div>
+
+          <div
+            class="
+              flex
+              items-center
+              gap-3
+              text-gray-500
+            "
+          >
+
+            <span
+              class="
+                h-0
+                w-0
+                border-y-[7px]
+                border-l-[8px]
+                border-y-transparent
+                border-l-gray-300
+              "
+            ></span>
+
+            <span class="text-sm">
+              téléphone
+            </span>
+
+          </div>
+
+          <a
+            [href]="'tel:' + partner().phone"
+            class="
+              mt-1
+              block
+              pl-6
+              translate-x-2
+              text-[15px]
+              leading-6
+              text-[#333333]
+            "
+          >
+            {{ partner().phone }}
+          </a>
+
+        </div>
+
+      }
+
+    </div>
+
+  </div>
+
+
+  <!-- ======================================================= -->
+  <!-- COLONNE DROITE                                          -->
+  <!-- ======================================================= -->
+
+  <div>
+
+    <!-- ===================================================== -->
+    <!-- ACTIVITY                                              -->
+    <!-- ===================================================== -->
+
+    <section
+      class="
+        flex
+        min-h-64
+        items-center
+        justify-center
+        bg-transparent
+        px-8
+        py-6
+      "
+    >
+
+      <p
+        class="
+          text-center
+          text-[15px]
+          leading-6
+          text-[#333333]
+        "
+      >
+        {{ partner().activity }}
+      </p>
+
+    </section>
+
+
+    <!-- ===================================================== -->
+    <!-- SOCIAL MEDIA                                          -->
+    <!-- ===================================================== -->
+
+    <div
+      class="
+        mt-2
+      "
+    >
+
+      <div
+        class="
+          flex
+          items-center
+          gap-3
+          text-gray-500
+        "
+      >
+
+        <span
+          class="
+            h-0
+            w-0
+            border-y-[7px]
+            border-l-[8px]
+            border-y-transparent
+            border-l-gray-300
+          "
+        ></span>
+
+        <span class="text-sm">
+          réseaux
+        </span>
+
+      </div>
+
+
+      @if (socialMediaLinks().length > 0) {
+
+        <div class="mt-3 space-y-2">
+
+          @for (
+            link of socialMediaLinks();
+            track link
+          ) {
+
+            <a
+              [href]="link"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="
+                block
+                truncate
+                pl-6
+                text-[13px]
+                leading-5
+                text-[#333333]
+                hover:underline
+              "
+            >
+              {{ link }}
+            </a>
+
+          }
+
+        </div>
+
+      } @else {
+
+        <p
+          class="
+            mt-3
+            pl-6
+            text-[13px]
+            text-gray-400
+          "
+        >
+          Aucun lien partagé.
+        </p>
+
+      }
+
+    </div>
+
+  </div>
+
+</div>
+
+
+  <!-- ========================================================= -->
+  <!-- ACTIONS                                                    -->
+  <!-- ========================================================= -->
+
+  @if (canModify()) {
+
+    <footer
+      class="
+        mt-6
+        flex
+        justify-end
+        gap-2
+        border-t
+        border-gray-200
+        pt-4
+      "
+    >
+
+      <button
+        type="button"
+        class="
+          border
+          border-gray-300
+          px-3
+          py-2
+          text-[#333333]
+          transition
+          hover:bg-gray-100
+        "
+        (click)="onEdit()"
+        title="Modifier"
+      >
+        ✎
+      </button>
+
+
+      <button
+        type="button"
+        class="
+          border
+          border-gray-300
+          px-3
+          py-2
+          text-[#333333]
+          transition
+          hover:bg-gray-100
+        "
+        (click)="onRemove()"
+        title="Supprimer"
+      >
+        🗑
+      </button>
+
+    </footer>
+
+  }
+
+</article>

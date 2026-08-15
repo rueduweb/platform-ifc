@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Partner } from './partner';
+import { PartnerPanel } from './partner-panel';
 
-describe('Partner', () => {
-  let component: Partner;
-  let fixture: ComponentFixture<Partner>;
+describe('PartnerPanel', () => {
+  let component: PartnerPanel;
+  let fixture: ComponentFixture<PartnerPanel>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Partner],
+      imports: [PartnerPanel],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Partner);
+    fixture = TestBed.createComponent(PartnerPanel);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

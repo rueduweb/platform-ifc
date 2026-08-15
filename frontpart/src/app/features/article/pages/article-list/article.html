@@ -2,9 +2,20 @@
 
   <p>Chargement...</p>
 
-}
-@else {
+} @else if (articlesService.articles().length === 0) {
 
+  <div class="flex min-h-48 justify-center items-center rounded-xl
+      border
+      border-dashed
+      border-gray-300
+      text-gray-500"
+  >
+    Aucun article trouvé.
+  </div>
+
+} @else {
+
+  <!-- HEADER -->
   <h1 class="title cust-border max-w-7xl text-4xl font-light text-center">
   Liste des articles
   <span (click)="onAdd()" class="absolute bottom-2 -right-10 cursor-pointer text-gray-700" title="Ajouter un article"><i class="fa-solid fa-square-plus"></i></span>
@@ -49,3 +60,16 @@
 
 }
 
+<!-- ERROR -->
+
+@if (articlesService.error(); as error) {
+
+  <div class="mb-4 shrink-0 p-4 rounded-lg border
+      text-sm text-red-700
+      border-red-200
+      bg-red-50"
+  >
+    {{ error }}
+  </div>
+
+}

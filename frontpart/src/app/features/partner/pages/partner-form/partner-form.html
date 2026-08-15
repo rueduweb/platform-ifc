@@ -1,0 +1,338 @@
+<section class="w-full rounded-lg bg-white">
+
+  <form
+    [formRoot]="form"
+    (submit)="submit()"
+    class="mx-auto w-full max-w-7xl px-4 py-5 sm:px-6 lg:px-8"
+  >
+
+    <h1 class="title cust-border mb-6 text-center text-3xl font-light
+      sm:text-4xl"
+    >
+      @if (isEditMode()) {
+        Modifier un partenaire
+      } @else {
+        Ajouter un partenaire
+      }
+    </h1>
+
+    <!-- =====================================================================
+         FORMULAIRE
+         Mobile / tablette : 1 colonne
+         Laptop / desktop  : 2 colonnes
+         ===================================================================== -->
+
+    <div
+      class="grid grid-cols-1 gap-6
+             lg:grid-cols-2 lg:gap-x-10 lg:gap-y-6
+             xl:gap-x-16"
+    >
+
+      <!-- ===================================================================
+           COLONNE GAUCHE
+           =================================================================== -->
+
+      <div class="cust-wrap space-y-6">
+
+        <!-- Nom ou Raison sociale -->
+        <div>
+
+          <label
+            for="name"
+            class="cust-label block mb-2 text-gray-600"
+          >
+            Nom
+          </label>
+
+          <input
+            id="name"
+            type="text"
+            autocomplete="off"
+            [formField]="form.name"
+
+            class="cust-field w-full rounded-full border border-gray-300 bg-white
+                   px-5 py-3
+                   focus:outline-none
+                   focus:ring-2 focus:ring-gray-300"
+          />
+        </div>
+
+        <!-- Email -->
+        <div>
+
+          <label
+            for="email"
+            class="cust-label block mb-2 text-gray-600"
+          >
+            Email
+          </label>
+
+          <input
+            id="email"
+            type="text"
+            autocomplete="off"
+            [formField]="form.email"
+
+            class="cust-field w-full rounded-full border border-gray-300 bg-white
+                   px-5 py-3
+                   focus:outline-none
+                   focus:ring-2 focus:ring-gray-300"
+          />
+        </div>
+
+        <!-- Téléphone -->
+        <div>
+
+          <label
+            for="phone"
+            class="cust-label block mb-2 text-gray-600"
+          >
+            Téléphone
+          </label>
+
+          <input
+            id="phone"
+            type="text"
+            autocomplete="off"
+            [formField]="form.phone"
+
+            class="cust-field w-full rounded-full border border-gray-300 bg-white
+                   px-5 py-3
+                   focus:outline-none
+                   focus:ring-2 focus:ring-gray-300"
+          />
+        </div>
+
+        <!-- Logo -->
+        <div>
+          <label for="logo"
+            class="cust-label block mb-2 text-gray-600">
+              Logo
+          </label>
+
+          <input
+            id="logo"
+            type="file"
+            accept="image/svg+xml,image/png,image/jpeg,image/webp"
+            [formField]="form.logo"
+            class=" cust-field block w-full rounded-full border
+            border-gray-300 px-4 py-2 text-gray-400">
+        </div>
+
+        <!-- Vidéo -->
+        <div>
+          <label for="video"
+            class="cust-label block mb-2 text-gray-600">
+              Vidéo
+          </label>
+
+          <input
+            id="video"
+            type="file"
+            accept="video/mp4,video/webm"
+            [formField]="form.video"
+            accept=".jpg, .jpeg, .png"
+            class=" cust-field block w-full rounded-full border
+            border-gray-300 px-4 py-2 text-gray-400">
+        </div>
+
+        <!-- Description -->
+        <div>
+          <label class="cust-label block mb-2 text-gray-600">
+              Description
+          </label>
+
+          <textarea
+            rows="2"
+            [formField]="form.description"
+            class="cust-field w-full rounded-3xl border border-gray-300 p-4 resize-none focus:outline-none focus:ring-2 focus:ring-gray-300">
+          </textarea>
+        </div>
+
+      </div>
+
+      <!-- ===================================================================
+           COLONNE GAUCHE
+           =================================================================== -->
+
+      <div class="cust-wrap space-y-6">
+
+        <!-- Activité -->
+        <div>
+
+          <label class="cust-label block mb-2 text-gray-600">
+           Décrire son activité
+          </label>
+
+          <textarea
+            rows="6"
+            [formField]="form.activity"
+            class="cust-field w-full rounded-3xl border border-gray-300 p-4 resize-none focus:outline-none focus:ring-2 focus:ring-gray-300">
+          </textarea>
+
+        </div>
+
+        <!-- Adresse -->
+        <div>
+
+          <label
+            for="address"
+            class="cust-label block mb-2 text-gray-600"
+          >
+            Adresse
+          </label>
+
+          <textarea
+            id="address"
+            type="text"
+            autocomplete="off"
+            [formField]="form.address"
+
+            class="cust-field w-full rounded-full border border-gray-300 bg-white
+                   px-5 py-3
+                   focus:outline-none
+                   focus:ring-2 focus:ring-gray-300"
+          ></textarea>
+
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <label
+            for="contact"
+            class="cust-label block mb-2 text-gray-600"
+          >
+            Prénom
+          </label>
+
+          <input
+            id="contact"
+            type="text"
+            autocomplete="off"
+            [formField]="form.contact"
+
+            class="cust-field w-full rounded-full border border-gray-300 bg-white
+                   px-5 py-3
+                   focus:outline-none
+                   focus:ring-2 focus:ring-gray-300"
+          />
+        </div>
+
+        <!-- Réseaux Sociaux -->
+        <div>
+          <label class="cust-label block mb-2 text-gray-600 text-sm">
+            Réseaux sociaux
+          </label>
+
+          <div>
+
+            @if (form.socialMedia.length === 0) {
+
+              <div class="cust-label block mb-1 text-gray-600">
+                <small>Aucun lien saisi.</small>
+              </div>
+
+            } @else {
+
+              @for (link of form.socialMedia; track $index) {
+
+                <div class="flex justify-evenly items-center">
+
+                  <input
+                    class="cust-field-xs w-[85%] text-cyan-700 text-sm font-light
+                    border-1 border-b-gray-400 outline-0 rounded-md"
+                    type="url"
+                    [formField]="form.socialMedia[$index]"
+                    [id]="'socialLink' + $index"
+                    placeholder="https://..."
+                  />
+
+                  <button
+                    type="button"
+                    class="cursor-pointer text-cyan-600"
+                    (click)="removeSocialLink($index)"
+                    title="Retirer ce lien"
+                  >
+                    <i class="fa-solid fa-close"></i>
+                  </button>
+
+                </div>
+
+              }
+
+            }
+            <div class="cust-label mb-1">
+              <button
+                class="cust-btn-xs bg-blue-400 font-ligh
+                rounded-xs text-white cursor-pointer"
+                type="button"
+                (click)="addSocialLink()"
+                title="Ajouter un lien"
+              >
+                + Ajouter un lien
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+
+    <!-- =====================================================================
+        ACTIONS
+        ===================================================================== -->
+    <footer
+    class="cust-action col-span-full mt-8 flex flex-wrap justify-end gap-3
+            sm:mt-10 sm:gap-5"
+    >
+      <!-- Annuler -->
+
+      <button
+        type="button"
+        (click)="cancel()"
+
+        class="cust-btn w-full cursor-pointer
+              min-w-32 rounded-2xl
+              bg-slate-300 px-6 py-2.5
+              font-medium text-white
+
+              hover:bg-slate-400
+
+              disabled:cursor-not-allowed
+              disabled:opacity-60
+
+              sm:w-auto"
+      >
+        Cancel
+      </button>
+
+      <!-- Ajouter -->
+      <button
+        type="submit"
+        class="cust-btn w-full cursor-pointer
+              min-w-32 rounded-2xl
+              bg-green-500 px-6 py-2.5
+              font-medium text-white
+
+              hover:bg-green-600
+
+              disabled:cursor-not-allowed
+              disabled:opacity-60
+
+              sm:w-auto"
+      >
+        @if (isEditMode()) {
+          Modifier
+        } @else {
+          Ajouter
+        }
+      </button>
+
+    </footer>
+
+  </form>
+
+</section>

@@ -31,9 +31,10 @@ export const routes: Routes = [
   },
   {
     path: 'partner',
-    title: 'Partenariat',
-		loadComponent: () =>
-		import('./features/partner/partner').then((p) => p.Partner)
+    loadChildren: () =>
+		import('./features/partner/partner.route').then(
+      (p) => p.PARTNER_ROUTES
+    )
   },
   {
     path: 'dashboard',
