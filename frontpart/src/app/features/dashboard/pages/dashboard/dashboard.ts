@@ -69,12 +69,12 @@ export class Dashboard implements OnInit{
 
     routeLink1: {
       label: 'Liste des joueurs',
-      link: '/player',
+      link: '/team',
     },
 
     routeLink2: {
       label: 'Ajouter un joueur',
-      link: '/player/player-add',
+      link: '/team/player-add',
     },
 
     routeLink3: {
@@ -111,12 +111,12 @@ export class Dashboard implements OnInit{
 
     routeLink1: {
       label: 'Liste des matchs',
-      link: '/game',
+      link: '/championship',
     },
 
     routeLink2: {
-      label: 'Ajouter un joueur',
-      link: '/game/add',
+      label: 'Ajouter un match',
+      link: '/championship/game-add',
     },
 
     routeLink3: {
@@ -174,11 +174,11 @@ export class Dashboard implements OnInit{
       },
       {
         label: 'Ajouter un partenaire',
-        link: '/partner/add',
+        link: '/partner/new',
       },
       {
         label: 'Gestion du partenariat',
-        link: '/partners/manage',
+        link: '/partner/manage',
       },
     ],
 

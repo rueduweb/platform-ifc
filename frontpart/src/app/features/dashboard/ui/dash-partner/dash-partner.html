@@ -38,11 +38,13 @@
 
       @for (
         route of data().routeLinks;
-        track route.link
+        track route.link;
+        let i = $index
       ) {
 
         <a
           class="dash-link"
+          [class.third-route]="i === 2"
           [href]="route.link"
         >
 

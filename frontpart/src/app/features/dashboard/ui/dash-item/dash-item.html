@@ -33,8 +33,8 @@
   >
 
     <a
-      class="dash-link"
-      [href]="data().routeLink1.link"
+      class="dash-link cursor-pointer"
+      (click)="onRedirect(data().routeLink1.link)"
     >
       <span
         class="link-arrow"
@@ -48,8 +48,8 @@
 
 
     <a
-      class="dash-link"
-      [href]="data().routeLink2.link"
+      class="dash-link cursor-pointer"
+      (click)="onRedirect(data().routeLink2.link)"
     >
       <span
         class="link-arrow"
@@ -63,8 +63,8 @@
 
 
     <a
-      class="dash-link"
-      [href]="data().routeLink3.link"
+      class="dash-link cursor-pointer"
+      (click)="onRedirect(data().routeLink3.link)"
     >
       <span
         class="link-arrow"

@@ -18,46 +18,50 @@
   <div class="
   mx-auto px-4 py-8 justify-center
 	max-w-7xl grid grid-cols-1 gap-y-2 gap-x-2
+
+  md:grid-cols-2
+
   max-h-[92vh]
   overflow-y-auto
   overflow-x-hidden
 ">
 
-  <section class="w-[580px] h-[350px]
-  p-2 rounded-2xl
+  <section class="max-w-[580px] h-[350px]
+  w-full min-w-0 p-2 rounded-2xl
   flex justify-center items-center
-  opacity-95 hover:opacity-100
-  transition-opacity transition-300
-  bg-emerald-200 ">
+  opacity-95
+  hover:opacity-100
+  transition-opacity
+  bg-emerald-200">
     <app-dash-item [data]="dataGames()"></app-dash-item>
   </section>
 
-  <section class="w-[580px] h-[350px]
-  p-2 rounded-2xl
+  <section class="max-w-[580px] h-[350px]
+  w-full min-w-0 p-2 rounded-2xl
   flex justify-center items-center
-  opacity-95 hover:opacity-100
-  transition-opacity transition-300
-  transition-300
+  opacity-95
+  hover:opacity-100
+  transition-opacity
   bg-cyan-200">
     <app-dash-item [data]="data()"></app-dash-item>
   </section>
 
-  <section class="w-[580px] h-[350px]
-  p-2 rounded-2xl
+  <section class="max-w-[580px] h-[350px]
+  w-full min-w-0 p-2 rounded-2xl
   flex justify-center items-center
-  opacity-95 hover:opacity-100
-  transition-opacity transition-300
-  transition-300
+  opacity-95
+  hover:opacity-100
+  transition-opacity
   bg-orange-200">
     <app-dash-user [data]="dataUsers()"></app-dash-user>
   </section>
 
-  <section class="w-[580px] h-[350px]
-  p-2 rounded-2xl
+  <section class="max-w-[580px] h-[350px]
+  w-full min-w-0 p-2 rounded-2xl
   flex justify-center items-center
-  opacity-95 hover:opacity-100
-  transition-opacity transition-300
-  transition-300
+  opacity-95
+  hover:opacity-100
+  transition-opacity
   bg-fuchsia-200">
     <app-dash-partner [data]="dataPartner()"></app-dash-partner>
   </section>

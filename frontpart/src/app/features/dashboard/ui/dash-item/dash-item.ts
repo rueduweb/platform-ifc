@@ -7,6 +7,7 @@ import {
   OnDestroy,
   SimpleChanges,
   ViewChild,
+  inject,
   input,
 } from '@angular/core';
 import {
@@ -17,6 +18,7 @@ import {
   Tooltip,
 } from 'chart.js';
 import { PieceData } from '../../data/models/piece-data.model';
+import { Router } from '@angular/router';
 
 
 Chart.register(
@@ -34,6 +36,8 @@ Chart.register(
 export class DashItem implements AfterViewInit, OnChanges, OnDestroy {
 
   readonly data = input.required<PieceData>();
+
+  private readonly router = inject(Router);
 
   @ViewChild('chartCanvas')
   private readonly chartCanvas?: ElementRef<HTMLCanvasElement>;
@@ -167,6 +171,10 @@ export class DashItem implements AfterViewInit, OnChanges, OnDestroy {
     ];
 
     this.chart.update();
+  }
+
+  onRedirect(link: string) : void {
+    this.router.navigate(['/'+link]);
   }
 }
 

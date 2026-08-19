@@ -27,10 +27,6 @@
 
   border-radius: 12px;
 
-  /*
-   * Blanc sur environ 50%,
-   * puis transition douce vers la couleur.
-   */
   background:
     linear-gradient(
       135deg,
@@ -60,13 +56,6 @@
     minmax(0, 42%)
     minmax(0, 58%);
 
-  /*
-   * La partie principale fait 290px,
-   * comme la maquette :
-   *
-   * 32px titre
-   * 258px contenu
-   */
   grid-template-rows:
     32px
     258px;
@@ -144,6 +133,7 @@
   line-height: 32px;
 
   white-space: nowrap;
+
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -319,6 +309,8 @@
     8px;
 
   box-sizing: border-box;
+
+  overflow: hidden;
 }
 
 
@@ -356,9 +348,6 @@
 .dash-footer {
   display: grid;
 
-  /*
-   * Total + nombre variable de stats.
-   */
   grid-template-columns:
     minmax(90px, 1.15fr)
     repeat(
@@ -538,7 +527,176 @@
 
 
 /* ============================================================
-   RESPONSIVE - TABLETTE
+   RESPONSIVE
+   768px → 1230px
+   ============================================================
+
+   Le parent reste en 2 colonnes à partir de 768px.
+
+   Dans cette zone :
+   - DashUser prend 100% de la largeur disponible
+   - les colonnes internes passent à 45% / 55%
+   - le graphique s'adapte à la largeur disponible
+   ============================================================ */
+
+@media (min-width: 768px) and (max-width: 1230px) {
+
+  /* ----------------------------------------------------------
+     CARTE
+     ---------------------------------------------------------- */
+
+  :host {
+    width: 100%;
+    max-width: 556px;
+  }
+
+
+  .dash-main {
+    grid-template-columns:
+      minmax(0, 45%)
+      minmax(0, 55%);
+
+    grid-template-rows:
+      32px
+      258px;
+  }
+
+
+  /* ----------------------------------------------------------
+     GRAPHIQUE
+     ---------------------------------------------------------- */
+
+  .dash-graphic {
+    padding:
+      8px
+      8px
+      8px
+      6px;
+  }
+
+
+  .chart-wrapper {
+    width: 100%;
+    max-width: clamp(185px, 21vw, 235px);
+
+    height: clamp(205px, 20vw, 225px);
+  }
+
+
+  /* ----------------------------------------------------------
+     FOOTER
+     ---------------------------------------------------------- */
+
+  .dash-footer {
+    grid-template-columns:
+      minmax(80px, 1.15fr)
+      repeat(
+        auto-fit,
+        minmax(60px, 1fr)
+      );
+  }
+
+
+  .subtitle,
+  .stat-name {
+    font-size: clamp(9px, 1vw, 12px);
+  }
+
+
+  .total-num {
+    font-size: clamp(17px, 1.75vw, 21px);
+  }
+
+
+  .total-separator,
+  .total-all {
+    font-size: clamp(14px, 1.4vw, 17px);
+  }
+
+
+  .dash-stat strong {
+    font-size: clamp(16px, 1.55vw, 19px);
+  }
+}
+
+
+/* ============================================================
+   PETITE LARGEUR EN 2 COLONNES
+   768px → 887px
+   ============================================================
+
+   Le parent conserve 2 colonnes.
+
+   On réduit :
+   - titre
+   - routeLinks
+   - marges horizontales
+
+   afin d'éviter le tronquage visible sur la capture.
+   ============================================================ */
+
+@media (min-width: 768px) and (max-width: 887px) {
+
+  /* ----------------------------------------------------------
+     TITRE
+     ---------------------------------------------------------- */
+
+  .dash-title {
+    padding-left: 36px;
+    padding-right: 4px;
+  }
+
+
+  .dash-title h2 {
+    font-size: clamp(16px, 2.25vw, 19px);
+
+    line-height: 32px;
+  }
+
+
+  /* ----------------------------------------------------------
+     TRIANGLE
+     ---------------------------------------------------------- */
+
+  .title-arrow {
+    width: 34px;
+    height: 44px;
+  }
+
+
+  /* ----------------------------------------------------------
+     ROUTES
+     ---------------------------------------------------------- */
+
+  .dash-link {
+    padding-left: 22px;
+    padding-right: 4px;
+
+    font-size: clamp(13px, 1.8vw, 15px);
+  }
+
+
+  .dash-link:hover,
+  .dash-link:focus-visible {
+    padding-left: 25px;
+  }
+
+
+  /* ----------------------------------------------------------
+     FLÈCHES
+     ---------------------------------------------------------- */
+
+  .link-arrow {
+    border-top-width: 9px;
+    border-bottom-width: 9px;
+    border-left-width: 14px;
+  }
+}
+
+
+/* ============================================================
+   TABLETTE
+   max-width: 767px
    ============================================================ */
 
 @media (max-width: 767px) {
@@ -592,7 +750,8 @@
 
 
 /* ============================================================
-   RESPONSIVE - MOBILE
+   MOBILE
+   max-width: 639px
    ============================================================ */
 
 @media (max-width: 639px) {
@@ -689,6 +848,7 @@
 
 /* ============================================================
    TRÈS PETIT MOBILE
+   max-width: 420px
    ============================================================ */
 
 @media (max-width: 420px) {

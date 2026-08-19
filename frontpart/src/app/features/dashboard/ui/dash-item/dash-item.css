@@ -1,21 +1,23 @@
 :host {
   display: block;
 
-  width: 556px;
-  height: 330px;
-
+  width: 100%;
   max-width: 556px;
+
+  height: 330px;
   max-height: 330px;
+
+  min-width: 0;
 
   font-family: 'Nunito', sans-serif;
 }
 
 
+
 /* ============================================================
    CARTE
-  ============================================================= */
+   ============================================================ */
 
-/* ============== DERNIERE MODIF DASH-ITEM  ============== */
 .dash-item {
   display: grid;
 
@@ -50,6 +52,7 @@
     0 2px 5px rgba(45, 35, 55, 0.08);
 }
 
+
 /* ============================================================
    TITRE
    ============================================================ */
@@ -80,6 +83,7 @@
   box-sizing: border-box;
 }
 
+
 .dash-title h2 {
   margin: 0;
 
@@ -97,6 +101,7 @@
   text-overflow: ellipsis;
 }
 
+
 .title-arrow {
   position: absolute;
 
@@ -108,9 +113,6 @@
 
   transform: translateY(-50%);
 
-  /*
-   * Le dégradé est coupé exactement à 50%.
-   */
   background:
     linear-gradient(
       to bottom,
@@ -120,9 +122,6 @@
       #000000 100%
     );
 
-  /*
-   * Triangle pointant vers la droite.
-   */
   clip-path: polygon(
     0 0,
     100% 50%,
@@ -131,6 +130,7 @@
 
   pointer-events: none;
 }
+
 
 /* ============================================================
    ROUTES
@@ -197,16 +197,19 @@
     padding-left 120ms ease;
 }
 
+
 .dash-link:hover,
 .dash-link:focus-visible {
   color: var(--dash-color);
   padding-left: 32px;
 }
 
+
 .dash-link:hover .link-arrow,
 .dash-link:focus-visible .link-arrow {
   border-left-color: var(--dash-color);
 }
+
 
 .link-arrow {
   position: absolute;
@@ -227,8 +230,9 @@
   transition: border-left-color 120ms ease;
 }
 
+
 /* ============================================================
-   GRAPHIQUE  DERNIER CHANGEMENT
+   GRAPHIQUE
    ============================================================ */
 
 .dash-graphic {
@@ -247,11 +251,12 @@
   min-width: 0;
   min-height: 0;
 
-  padding-top: 16px;
+  padding: 16px 8px 0;
 
   box-sizing: border-box;
-}
 
+  overflow: hidden;
+}
 
 
 /* ============================================================
@@ -270,13 +275,16 @@
 }
 
 
+/*
+ * Chart.js est responsive.
+ *
+ * On ne force donc pas ici width/height du canvas avec !important.
+ * C'est le .chart-wrapper qui définit la zone disponible.
+ */
+
 .chart-wrapper canvas {
   display: block;
-
-  width: 150px !important;
-  height: 150px !important;
 }
-
 
 
 /* ============================================================
@@ -301,6 +309,8 @@
 
   pointer-events: none;
 }
+
+
 .chart-value span {
   font-size: 0.65em;
 }
@@ -313,9 +323,10 @@
 .graphic-label {
   display: block;
 
-  margin-top: 8px;
-
+  width: 100%;
   max-width: 100%;
+
+  margin-top: 8px;
 
   color: var(--dash-color);
 
@@ -329,11 +340,13 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  box-sizing: border-box;
 }
 
 
 /* ============================================================
-   FOOTER  DERNIER CHANGEMENT
+   FOOTER
    ============================================================ */
 
 .dash-footer {
@@ -356,7 +369,11 @@
 
   border-top: 1px solid rgba(120, 120, 120, 0.30);
 }
-/*==================== DANS LE FOOTER ==================== */
+
+
+/* ============================================================
+   TOTAL
+   ============================================================ */
 
 .dash-total {
   display: flex;
@@ -403,6 +420,7 @@
   white-space: nowrap;
 }
 
+
 .total-num {
   color: var(--dash-color);
 
@@ -411,6 +429,7 @@
 
   line-height: 21px;
 }
+
 
 .total-separator {
   margin: 0 3px;
@@ -421,13 +440,18 @@
   line-height: 21px;
 }
 
+
 .total-all {
   color: #555;
 
   font-size: 17px;
   line-height: 21px;
 }
-/* ================= LES 3 STATS ================ */
+
+
+/* ============================================================
+   LES 3 STATS
+   ============================================================ */
 
 .dash-stat {
   display: flex;
@@ -443,6 +467,7 @@
 
   overflow: hidden;
 }
+
 
 .stat-name {
   display: block;
@@ -464,6 +489,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 
 .dash-stat strong {
   display: flex;
@@ -488,9 +514,11 @@
   box-sizing: border-box;
 }
 
-/*=======================================
-    RESPONSIVE DESIGN
-=======================================*/
+
+/* ============================================================
+   DESKTOP
+   ============================================================ */
+
 @media (min-width: 768px) {
 
   .dash-item {
@@ -504,41 +532,49 @@
     max-height: 330px;
   }
 
+
   .dash-title h2 {
     font-size: 22px;
   }
+
 
   .dash-link {
     font-size: 17px;
   }
 
+
   .chart-wrapper {
     width: 150px;
     height: 150px;
+
     flex: 0 0 150px;
   }
 
-  .chart-wrapper canvas {
-    width: 150px !important;
-    height: 150px !important;
-  }
 
   .chart-value {
     font-size: 30px;
   }
+
 
   .graphic-label {
     font-size: 19px;
   }
 }
 
-/* ==== INTERMEDIAIRE ====== */
+
+/* ============================================================
+   INTERMEDIAIRE
+   640px → 767px
+   ============================================================ */
 
 @media (min-width: 640px) and (max-width: 767px) {
+
   .dash-item {
     grid-template-columns: 48% 52%;
     grid-template-rows: 32px 258px 40px;
   }
+
+
   .chart-wrapper {
     width: 130px;
     height: 130px;
@@ -546,21 +582,23 @@
     flex: 0 0 130px;
   }
 
-  .chart-wrapper canvas {
-    width: 130px !important;
-    height: 130px !important;
-  }
 
   .chart-value {
     font-size: 26px;
   }
+
 
   .graphic-label {
     font-size: 16px;
   }
 }
 
-/* =====  Mobile first ===== */
+
+/* ============================================================
+   MOBILE
+   max-width: 639px
+   ============================================================ */
+
 @media (max-width: 639px) {
 
   .dash-item {
@@ -571,51 +609,57 @@
     height: 330px;
   }
 
+
   .dash-title {
     padding-left: 38px;
   }
 
+
   .dash-title h2 {
     font-size: 18px;
   }
+
 
   .dash-link {
     padding-left: 23px;
     font-size: 14px;
   }
 
+
   .chart-wrapper {
     width: 125px;
     height: 125px;
+
     flex-basis: 125px;
   }
 
-  .chart-wrapper canvas {
-    width: 125px !important;
-    height: 125px !important;
-  }
 
   .chart-value {
     font-size: 24px;
   }
 
+
   .graphic-label {
     font-size: 15px;
   }
+
 
   .subtitle,
   .stat-name {
     font-size: 9px;
   }
 
+
   .total-num {
     font-size: 17px;
   }
+
 
   .total-all,
   .total-separator {
     font-size: 14px;
   }
+
 
   .dash-stat strong {
     font-size: 16px;
@@ -623,5 +667,200 @@
 }
 
 
+/* ============================================================
+   RESPONSIVE 968px → 1230px
+   ============================================================
 
+   Largeur du composant :
+     968px  → environ 380px
+     1230px → environ 556px
+
+   La colonne graphique passe à 55%.
+   Le doughnut se réduit progressivement afin de garder
+   une séparation nette avec graphic-label.
+   ============================================================ */
+
+@media (min-width: 968px) and (max-width: 1230px) {
+
+  /* ----------------------------------------------------------
+     LARGEUR DU COMPOSANT
+     ---------------------------------------------------------- */
+
+  :host {
+    width: clamp(
+      380px,
+      calc(67.2vw - 270px),
+      556px
+    );
+
+    max-width: 556px;
+  }
+
+
+  /* ----------------------------------------------------------
+     CARTE
+     ---------------------------------------------------------- */
+
+  .dash-item {
+    width: 100%;
+    max-width: 100%;
+
+    grid-template-columns: 45% 55%;
+    grid-template-rows: 32px 258px 40px;
+  }
+
+
+  /* ----------------------------------------------------------
+     TITRE
+     ---------------------------------------------------------- */
+
+  .dash-title {
+    padding-left: clamp(38px, 4vw, 45px);
+  }
+
+
+  .dash-title h2 {
+    font-size: clamp(18px, 1.8vw, 22px);
+  }
+
+
+  /* ----------------------------------------------------------
+     LIENS
+     ---------------------------------------------------------- */
+
+  .dash-link {
+    padding-left: clamp(23px, 2.6vw, 29px);
+
+    font-size: clamp(14px, 1.4vw, 17px);
+  }
+
+
+  .dash-link:hover,
+  .dash-link:focus-visible {
+    padding-left: clamp(26px, 2.9vw, 32px);
+  }
+
+
+  /* ----------------------------------------------------------
+     ZONE GRAPHIQUE
+     ---------------------------------------------------------- */
+
+  .dash-graphic {
+    padding: 16px 8px 0;
+
+    overflow: hidden;
+  }
+
+
+  /* ----------------------------------------------------------
+     DOUGHNUT RESPONSIVE
+     ---------------------------------------------------------- */
+
+  .chart-wrapper {
+    width: clamp(105px, 13vw, 150px);
+    height: clamp(105px, 13vw, 150px);
+
+    flex: 0 0 auto;
+  }
+
+
+  /* ----------------------------------------------------------
+     VALEUR CENTRALE
+     ---------------------------------------------------------- */
+
+  .chart-value {
+    font-size: clamp(21px, 2.45vw, 30px);
+  }
+
+
+  /* ----------------------------------------------------------
+     LABEL GRAPHIQUE
+     ---------------------------------------------------------- */
+
+  .graphic-label {
+    width: 100%;
+    max-width: 100%;
+
+    margin-top: clamp(6px, 0.8vw, 10px);
+
+    font-size: clamp(13px, 1.55vw, 19px);
+  }
+
+
+  /* ----------------------------------------------------------
+     FOOTER
+     ---------------------------------------------------------- */
+
+  .dash-footer {
+    grid-template-columns:
+      1.15fr
+      1fr
+      1fr
+      1fr;
+  }
+
+
+  .subtitle,
+  .stat-name {
+    font-size: clamp(9px, 1vw, 12px);
+  }
+
+
+  .total-num {
+    font-size: clamp(17px, 1.75vw, 21px);
+  }
+
+
+  .total-separator,
+  .total-all {
+    font-size: clamp(14px, 1.4vw, 17px);
+  }
+
+
+  .dash-stat strong {
+    font-size: clamp(16px, 1.55vw, 19px);
+  }
+}
+/* ============================================================
+   PETITE LARGEUR EN 2 COLONNES
+   768px → 887px
+
+   Le parent reste en 2 colonnes.
+   On réduit uniquement le titre et les routeLinks.
+   ============================================================ */
+
+@media (min-width: 768px) and (max-width: 887px) {
+
+  /* ----------------------------------------------------------
+     TITRE
+     ---------------------------------------------------------- */
+
+  .dash-title {
+    padding-left: 36px;
+    padding-right: 4px;
+  }
+
+  .dash-title h2 {
+    font-size: clamp(16px, 2.25vw, 19px);
+    line-height: 32px;
+  }
+
+
+  /* ----------------------------------------------------------
+     ROUTE LINKS
+     ---------------------------------------------------------- */
+
+  .dash-link {
+    padding-left: 22px;
+    padding-right: 4px;
+
+    font-size: clamp(13px, 1.8vw, 15px);
+  }
+
+
+  .dash-link:hover,
+  .dash-link:focus-visible {
+    padding-left: 25px;
+  }
+}
 

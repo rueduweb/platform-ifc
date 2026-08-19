@@ -1,11 +1,10 @@
 :host {
   display: block;
 
-  width: 556px;
-  height: 330px;
-
+  width: 100%;
   max-width: 556px;
-  max-height: 330px;
+
+  min-width: 0;
 
   font-family: 'Nunito', sans-serif;
 }
@@ -20,13 +19,18 @@
 
   display: grid;
 
-  grid-template-columns: 42% 58%;
-  grid-template-rows: 290px 40px;
+  grid-template-columns:
+    minmax(0, 42%)
+    minmax(0, 58%);
 
-  width: 556px;
-  height: 330px;
+  grid-template-rows:
+    290px
+    40px;
 
+  width: 100%;
   max-width: 556px;
+
+  height: 330px;
   max-height: 330px;
 
   min-width: 0;
@@ -55,29 +59,6 @@
     0 2px 5px rgba(45, 35, 55, 0.08);
 }
 
-/* ============================================================
-   ZONE PRINCIPALE
-   ============================================================ */
-
-.dash-main {
-  display: grid;
-
-  grid-template-columns:
-    minmax(0, 42%)
-    minmax(0, 58%);
-
-  grid-template-rows:
-    35px
-    105px;
-
-  width: 100%;
-
-  min-width: 0;
-  min-height: 0;
-
-  box-sizing: border-box;
-}
-
 
 /* ============================================================
    GAUCHE
@@ -89,7 +70,9 @@
 
   display: grid;
 
-  grid-template-rows: 35px 105px;
+  grid-template-rows:
+    35px
+    105px;
 
   width: 100%;
   height: 290px;
@@ -196,11 +179,18 @@
   display: flex;
   flex-direction: column;
 
+  align-items: stretch;
+  justify-content: flex-start;
+
   width: 100%;
   height: 105px;
 
+  min-width: 0;
+  min-height: 0;
+
   box-sizing: border-box;
 }
+
 
 .dash-link {
   position: relative;
@@ -248,12 +238,18 @@
 
 
 .link-label {
+  display: block;
+
+  flex: 1 1 auto;
+
   min-width: 0;
+  width: 0;
 
   overflow: hidden;
-
+  white-space: nowrap;
   text-overflow: ellipsis;
 }
+
 
 
 /* ============================================================
@@ -288,7 +284,7 @@
 
 
 /* ============================================================
-   DROITE : GRID DES LOGOS
+   DROITE : ZONE DES LOGOS
    ============================================================ */
 
 .dash-logos {
@@ -309,16 +305,25 @@
   padding: 12px;
 
   box-sizing: border-box;
+
+  overflow: hidden;
 }
 
+
 /* ============================================================
-   MINI GRID
+   GRID DES LOGOS
+   ============================================================
+
+   IMPORTANT :
+   On conserve TOUJOURS 3 colonnes.
+   La taille des cellules et les espacements s'adaptent.
    ============================================================ */
+
 .logo-grid {
   display: grid;
 
   grid-template-columns:
-    repeat(3, 1fr);
+    repeat(3, minmax(0, 1fr));
 
   grid-auto-rows: 62px;
 
@@ -327,10 +332,6 @@
   width: 100%;
   max-width: 300px;
 
-  /*
-   * On laisse suffisamment de place
-   * pour que les logos soient réellement lisibles.
-   */
   max-height: 230px;
 
   align-content: center;
@@ -338,7 +339,10 @@
 
   min-width: 0;
   min-height: 0;
+
+  box-sizing: border-box;
 }
+
 
 /* ============================================================
    CELLULE LOGO
@@ -367,6 +371,8 @@
     rgba(130, 130, 130, 0.20);
 
   border-radius: 7px;
+
+  overflow: hidden;
 
   transition:
     transform 140ms ease,
@@ -417,6 +423,7 @@
 
   width: 100%;
   height: 40px;
+
   min-height: 40px;
   max-height: 40px;
 
@@ -443,16 +450,19 @@
   justify-content: center;
 
   min-width: 0;
+
   height: 40px;
 
   padding:
-    1px 8px 1px 12px;
+    1px
+    8px
+    1px
+    12px;
 
   box-sizing: border-box;
 
   overflow: hidden;
 }
-
 
 
 .subtitle {
@@ -507,10 +517,12 @@
   flex: 1 1 0;
 
   flex-direction: column;
+
   align-items: center;
   justify-content: center;
 
   min-width: 0;
+
   height: 40px;
 
   padding:
@@ -521,6 +533,7 @@
   overflow: hidden;
 }
 
+
 .stat-name {
   display: block;
 
@@ -528,7 +541,7 @@
   height: 13px;
   min-height: 13px;
 
-  color: #665;
+  color: #666;
 
   font-size: 12px;
   font-weight: 500;
@@ -567,4 +580,592 @@
   line-height: 22px;
 
   box-sizing: border-box;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   968px → 1230px
+   ============================================================
+
+   Deux cartes côte à côte.
+
+   La carte devient fluide et passe à :
+       45% gauche
+       55% droite
+
+   Le GRID des logos reste impérativement à 3 colonnes.
+   ============================================================ */
+
+@media (min-width: 968px) and (max-width: 1230px) {
+
+  :host {
+    width: 100%;
+    max-width: 556px;
+  }
+
+
+  .dash-partner {
+    width: 100%;
+    max-width: 556px;
+
+    grid-template-columns:
+      minmax(0, 45%)
+      minmax(0, 55%);
+  }
+
+
+  /* ----------------------------------------------------------
+     TITRE
+     ---------------------------------------------------------- */
+
+  .dash-title {
+    padding-left: 40px;
+    padding-right: 6px;
+  }
+
+
+  /* ----------------------------------------------------------
+     LOGOS
+     ---------------------------------------------------------- */
+
+  .dash-logos {
+    padding:
+      10px
+      8px
+      10px
+      6px;
+  }
+
+
+  .logo-grid {
+    width: 100%;
+    max-width: 300px;
+
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+    grid-auto-rows:
+      clamp(52px, 5.2vw, 62px);
+
+    gap:
+      clamp(6px, 0.8vw, 10px);
+  }
+
+
+  .partner-logo {
+    height:
+      clamp(52px, 5.2vw, 62px);
+
+    padding:
+      3px
+      clamp(3px, 0.5vw, 5px);
+  }
+
+
+  /* ----------------------------------------------------------
+     FOOTER
+     ---------------------------------------------------------- */
+
+  .subtitle,
+  .stat-name {
+    font-size: clamp(9px, 1vw, 12px);
+  }
+
+
+  .total-num {
+    font-size: clamp(17px, 1.75vw, 21px);
+  }
+
+
+  .dash-stat strong {
+    font-size: clamp(16px, 1.55vw, 19px);
+  }
+}
+
+
+/* ============================================================
+   PETITE LARGEUR EN 2 COLONNES
+   768px → 887px
+   ============================================================
+
+   Le parent conserve 2 colonnes.
+
+   On réduit principalement :
+   - titre
+   - routeLinks
+   - triangle
+   - taille des logos
+
+   Le logo-grid reste TOUJOURS à 3 colonnes.
+   ============================================================ */
+
+@media (min-width: 768px) and (max-width: 887px) {
+
+  .dash-partner {
+    width: 100%;
+    max-width: 556px;
+
+    grid-template-columns:
+      minmax(0, 45%)
+      minmax(0, 55%);
+  }
+
+
+  /* ----------------------------------------------------------
+     TITRE
+     ---------------------------------------------------------- */
+
+  .dash-title {
+    padding-left: 36px;
+    padding-right: 4px;
+  }
+
+
+  .dash-title h2 {
+    font-size: clamp(16px, 2.25vw, 19px);
+
+    line-height: 35px;
+  }
+
+
+  /* ----------------------------------------------------------
+     TRIANGLE TITRE
+     ---------------------------------------------------------- */
+
+  .title-arrow {
+    width: 34px;
+    height: 44px;
+  }
+
+
+  /* ----------------------------------------------------------
+     ROUTES
+     ---------------------------------------------------------- */
+
+  .dash-link {
+    padding-left: 22px;
+    padding-right: 4px;
+
+    font-size: clamp(13px, 1.8vw, 15px);
+  }
+
+
+  .dash-link:hover,
+  .dash-link:focus-visible {
+    padding-left: 25px;
+  }
+
+
+  /* ----------------------------------------------------------
+     PETITES FLÈCHES
+     ---------------------------------------------------------- */
+
+  .link-arrow {
+    border-top-width: 9px;
+    border-bottom-width: 9px;
+    border-left-width: 14px;
+  }
+
+
+  /* ----------------------------------------------------------
+     LOGOS
+     ----------------------------------------------------------
+
+     On garde 3 colonnes.
+
+     La largeur de la zone droite étant réduite,
+     les cellules doivent pouvoir descendre en taille.
+     ---------------------------------------------------------- */
+
+  .dash-logos {
+    padding:
+      8px
+      6px
+      8px
+      4px;
+  }
+
+
+  .logo-grid {
+    width: 100%;
+
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+    grid-auto-rows:
+      clamp(45px, 6vw, 55px);
+
+    gap:
+      clamp(5px, 0.8vw, 8px);
+
+    max-height: 210px;
+  }
+
+
+  .partner-logo {
+    height:
+      clamp(45px, 6vw, 55px);
+
+    padding:
+      2px
+      3px;
+
+    border-radius: 6px;
+  }
+
+
+  /* ----------------------------------------------------------
+     FOOTER
+     ---------------------------------------------------------- */
+
+  .subtitle,
+  .stat-name {
+    font-size: clamp(9px, 1vw, 11px);
+  }
+
+
+  .total-num {
+    font-size: clamp(16px, 1.8vw, 19px);
+  }
+
+
+  .dash-stat strong {
+    font-size: clamp(15px, 1.65vw, 18px);
+  }
+}
+
+
+/* ============================================================
+   TABLETTE
+   < 768px
+   ============================================================ */
+
+@media (max-width: 767px) {
+
+  .dash-partner {
+    grid-template-columns:
+      minmax(0, 46%)
+      minmax(0, 54%);
+  }
+
+
+  /* ----------------------------------------------------------
+     TITRE
+     ---------------------------------------------------------- */
+
+  .dash-title {
+    padding-left: 38px;
+  }
+
+
+  .dash-title h2 {
+    font-size: 19px;
+  }
+
+
+  .title-arrow {
+    width: 34px;
+    height: 44px;
+  }
+
+
+  /* ----------------------------------------------------------
+     ROUTES
+     ---------------------------------------------------------- */
+
+  .dash-link {
+    padding-left: 24px;
+
+    font-size: 15px;
+  }
+
+  .dash-link:hover,
+  .dash-link:focus-visible {
+    padding-left: 27px;
+  }
+
+  .dash-link:nth-child(3) .link-label {
+
+    max-width: calc(100% - 5px);
+
+  }
+
+  .third-route .link-label {
+    display: block;
+
+    flex: 1 1 auto;
+    width: 0;
+    min-width: 0;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  /* ----------------------------------------------------------
+     LOGOS
+     ---------------------------------------------------------- */
+
+  .dash-logos {
+    padding:
+      8px
+      6px
+      8px
+      4px;
+  }
+
+
+  .logo-grid {
+    width: 100%;
+
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+    grid-auto-rows: 52px;
+
+    gap: 6px;
+
+    max-height: 210px;
+  }
+
+
+  .partner-logo {
+    height: 52px;
+
+    padding:
+      2px
+      3px;
+
+    border-radius: 6px;
+  }
+}
+
+
+/* ============================================================
+   MOBILE
+   < 640px
+   ============================================================ */
+
+@media (max-width: 639px) {
+
+  .dash-partner {
+    grid-template-columns:
+      minmax(0, 45%)
+      minmax(0, 55%);
+  }
+
+
+  /* ----------------------------------------------------------
+     TITRE
+     ---------------------------------------------------------- */
+
+  .dash-title {
+    padding-left: 34px;
+  }
+
+
+  .dash-title h2 {
+    font-size: 17px;
+  }
+
+
+  .title-arrow {
+    width: 30px;
+    height: 40px;
+  }
+
+
+  /* ----------------------------------------------------------
+     ROUTES
+     ---------------------------------------------------------- */
+
+  .dash-link {
+    padding-left: 21px;
+
+    font-size: 13px;
+  }
+
+
+  .dash-link:hover,
+  .dash-link:focus-visible {
+    padding-left: 23px;
+  }
+
+
+  .link-arrow {
+    border-top-width: 8px;
+    border-bottom-width: 8px;
+    border-left-width: 13px;
+  }
+
+
+  /* ----------------------------------------------------------
+     LOGOS
+     ---------------------------------------------------------- */
+
+  .dash-logos {
+    padding:
+      6px
+      4px
+      6px
+      2px;
+  }
+
+
+  .logo-grid {
+    width: 100%;
+
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+    grid-auto-rows: 48px;
+
+    gap: 5px;
+
+    max-height: 200px;
+  }
+
+
+  .partner-logo {
+    height: 48px;
+
+    padding:
+      2px;
+
+    border-radius: 5px;
+  }
+
+
+  /* ----------------------------------------------------------
+     FOOTER
+     ---------------------------------------------------------- */
+
+  .subtitle,
+  .stat-name {
+    font-size: 9px;
+  }
+
+
+  .total-num {
+    font-size: 17px;
+  }
+
+
+  .dash-stat strong {
+    font-size: 16px;
+  }
+}
+
+
+/* ============================================================
+   TRÈS PETIT MOBILE
+   < 420px
+   ============================================================ */
+
+@media (max-width: 420px) {
+
+  .dash-partner {
+    grid-template-columns:
+      minmax(0, 44%)
+      minmax(0, 56%);
+  }
+
+
+  /* ----------------------------------------------------------
+     TITRE
+     ---------------------------------------------------------- */
+
+  .dash-title {
+    padding-left: 31px;
+  }
+
+
+  .dash-title h2 {
+    font-size: 15px;
+  }
+
+
+  .title-arrow {
+    width: 27px;
+    height: 38px;
+  }
+
+
+  /* ----------------------------------------------------------
+     ROUTES
+     ---------------------------------------------------------- */
+
+  .dash-link {
+    padding-left: 19px;
+
+    font-size: 11px;
+  }
+
+
+  .dash-link:hover,
+  .dash-link:focus-visible {
+    padding-left: 21px;
+  }
+
+
+  .link-arrow {
+    border-top-width: 7px;
+    border-bottom-width: 7px;
+    border-left-width: 11px;
+  }
+
+
+  /* ----------------------------------------------------------
+     LOGOS
+     ---------------------------------------------------------- */
+
+  .dash-logos {
+    padding:
+      5px
+      3px
+      5px
+      2px;
+  }
+
+
+  .logo-grid {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+    grid-auto-rows: 44px;
+
+    gap: 4px;
+
+    max-height: 190px;
+  }
+
+
+  .partner-logo {
+    height: 44px;
+
+    padding: 2px;
+
+    border-radius: 5px;
+  }
+
+
+  /* ----------------------------------------------------------
+     FOOTER
+     ---------------------------------------------------------- */
+
+  .subtitle,
+  .stat-name {
+    font-size: 8px;
+  }
+
+
+  .total-num {
+    font-size: 15px;
+  }
+
+
+  .dash-stat strong {
+    font-size: 14px;
+  }
 }
