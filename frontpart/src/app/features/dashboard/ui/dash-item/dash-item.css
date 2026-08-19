@@ -1,0 +1,627 @@
+:host {
+  display: block;
+
+  width: 556px;
+  height: 330px;
+
+  max-width: 556px;
+  max-height: 330px;
+
+  font-family: 'Nunito', sans-serif;
+}
+
+
+/* ============================================================
+   CARTE
+  ============================================================= */
+
+/* ============== DERNIERE MODIF DASH-ITEM  ============== */
+.dash-item {
+  display: grid;
+
+  grid-template-columns: 42% 58%;
+  grid-template-rows: 32px 258px 40px;
+
+  width: 100%;
+  max-width: 556px;
+
+  height: 330px;
+  max-height: 330px;
+
+  min-width: 0;
+  min-height: 0;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      60deg,
+      #ffffff 1%,
+      #e4e6e6 82%,
+      #cacdcd 100%
+    );
+
+  box-shadow:
+    0 5px 14px rgba(45, 35, 55, 0.16),
+    0 2px 5px rgba(45, 35, 55, 0.08);
+}
+
+/* ============================================================
+   TITRE
+   ============================================================ */
+
+.dash-header {
+  grid-column: 1;
+  grid-row: 1;
+
+  width: 100%;
+  height: 32px;
+
+  box-sizing: border-box;
+}
+
+
+.dash-title {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 32px;
+
+  padding-left: 45px;
+  padding-right: 8px;
+
+  box-sizing: border-box;
+}
+
+.dash-title h2 {
+  margin: 0;
+
+  color: #202020;
+
+  font-family: 'Nunito', sans-serif;
+
+  font-size: 22px;
+  font-weight: 600;
+
+  line-height: 32px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.title-arrow {
+  position: absolute;
+
+  left: 0;
+  top: 50%;
+
+  width: 38px;
+  height: 48px;
+
+  transform: translateY(-50%);
+
+  /*
+   * Le dégradé est coupé exactement à 50%.
+   */
+  background:
+    linear-gradient(
+      to bottom,
+      #d32982 0%,
+      #d32982 50%,
+      #000000 50%,
+      #000000 100%
+    );
+
+  /*
+   * Triangle pointant vers la droite.
+   */
+  clip-path: polygon(
+    0 0,
+    100% 50%,
+    0 100%
+  );
+
+  pointer-events: none;
+}
+
+/* ============================================================
+   ROUTES
+   ============================================================ */
+
+.dash-navigation {
+  grid-column: 1;
+  grid-row: 2;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: stretch;
+  justify-content: flex-start;
+
+  width: 100%;
+  height: 258px;
+
+  min-width: 0;
+  min-height: 0;
+
+  padding-top: 4px;
+
+  box-sizing: border-box;
+}
+
+
+/* ============================================================
+   LINKS
+   ============================================================ */
+
+.dash-link {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 35px;
+  min-height: 35px;
+
+  padding-left: 29px;
+  padding-right: 6px;
+
+  box-sizing: border-box;
+
+  color: #343434;
+
+  font-family: 'Nunito', sans-serif;
+
+  font-size: 17px;
+  font-weight: 500;
+
+  line-height: 35px;
+
+  text-decoration: none;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  transition:
+    color 120ms ease,
+    padding-left 120ms ease;
+}
+
+.dash-link:hover,
+.dash-link:focus-visible {
+  color: var(--dash-color);
+  padding-left: 32px;
+}
+
+.dash-link:hover .link-arrow,
+.dash-link:focus-visible .link-arrow {
+  border-left-color: var(--dash-color);
+}
+
+.link-arrow {
+  position: absolute;
+
+  left: 0;
+  top: 50%;
+
+  width: 0;
+  height: 0;
+
+  transform: translateY(-50%);
+
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+
+  border-left: 16px solid #c7c7c7;
+
+  transition: border-left-color 120ms ease;
+}
+
+/* ============================================================
+   GRAPHIQUE  DERNIER CHANGEMENT
+   ============================================================ */
+
+.dash-graphic {
+  grid-column: 2;
+  grid-row: 1 / 3;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 290px;
+
+  min-width: 0;
+  min-height: 0;
+
+  padding-top: 16px;
+
+  box-sizing: border-box;
+}
+
+
+
+/* ============================================================
+   DOUGHNUT
+   ============================================================ */
+
+.chart-wrapper {
+  position: relative;
+
+  width: 150px;
+  height: 150px;
+
+  flex: 0 0 150px;
+
+  box-sizing: border-box;
+}
+
+
+.chart-wrapper canvas {
+  display: block;
+
+  width: 150px !important;
+  height: 150px !important;
+}
+
+
+
+/* ============================================================
+   VALEUR CENTRALE
+   ============================================================ */
+
+.chart-value {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--dash-color);
+
+  font-size: 30px;
+  font-weight: 500;
+
+  line-height: 1;
+
+  pointer-events: none;
+}
+.chart-value span {
+  font-size: 0.65em;
+}
+
+
+/* ============================================================
+   LABEL GRAPHIQUE
+   ============================================================ */
+
+.graphic-label {
+  display: block;
+
+  margin-top: 8px;
+
+  max-width: 100%;
+
+  color: var(--dash-color);
+
+  font-size: 19px;
+  font-weight: 500;
+
+  line-height: 1.1;
+
+  text-align: center;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* ============================================================
+   FOOTER  DERNIER CHANGEMENT
+   ============================================================ */
+
+.dash-footer {
+  grid-column: 1 / 3;
+  grid-row: 3;
+
+  display: grid;
+
+  grid-template-columns:
+    1.15fr
+    1fr
+    1fr
+    1fr;
+
+  width: 100%;
+  height: 40px;
+  min-height: 40px;
+
+  box-sizing: border-box;
+
+  border-top: 1px solid rgba(120, 120, 120, 0.30);
+}
+/*==================== DANS LE FOOTER ==================== */
+
+.dash-total {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  min-width: 0;
+  height: 40px;
+
+  padding: 1px 8px 1px 12px;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+}
+
+
+.subtitle {
+  display: block;
+
+  height: 13px;
+
+  color: #686868;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  line-height: 13px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.total-value {
+  display: flex;
+  align-items: baseline;
+
+  height: 21px;
+
+  margin-top: 1px;
+
+  white-space: nowrap;
+}
+
+.total-num {
+  color: var(--dash-color);
+
+  font-size: 21px;
+  font-weight: 600;
+
+  line-height: 21px;
+}
+
+.total-separator {
+  margin: 0 3px;
+
+  color: #555;
+
+  font-size: 17px;
+  line-height: 21px;
+}
+
+.total-all {
+  color: #555;
+
+  font-size: 17px;
+  line-height: 21px;
+}
+/* ================= LES 3 STATS ================ */
+
+.dash-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  min-width: 0;
+  height: 40px;
+
+  padding: 1px 4px 1px;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+}
+
+.stat-name {
+  display: block;
+
+  width: 100%;
+  height: 13px;
+  min-height: 13px;
+
+  color: #666;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  line-height: 13px;
+
+  text-align: center;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dash-stat strong {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 22px;
+  min-height: 22px;
+
+  margin-top: 1px;
+
+  background: #222;
+
+  color: var(--dash-color);
+
+  font-size: 19px;
+  font-weight: 600;
+
+  line-height: 22px;
+
+  box-sizing: border-box;
+}
+
+/*=======================================
+    RESPONSIVE DESIGN
+=======================================*/
+@media (min-width: 768px) {
+
+  .dash-item {
+    grid-template-columns: 42% 58%;
+    grid-template-rows: 32px 258px 40px;
+
+    width: 100%;
+    max-width: 556px;
+
+    height: 330px;
+    max-height: 330px;
+  }
+
+  .dash-title h2 {
+    font-size: 22px;
+  }
+
+  .dash-link {
+    font-size: 17px;
+  }
+
+  .chart-wrapper {
+    width: 150px;
+    height: 150px;
+    flex: 0 0 150px;
+  }
+
+  .chart-wrapper canvas {
+    width: 150px !important;
+    height: 150px !important;
+  }
+
+  .chart-value {
+    font-size: 30px;
+  }
+
+  .graphic-label {
+    font-size: 19px;
+  }
+}
+
+/* ==== INTERMEDIAIRE ====== */
+
+@media (min-width: 640px) and (max-width: 767px) {
+  .dash-item {
+    grid-template-columns: 48% 52%;
+    grid-template-rows: 32px 258px 40px;
+  }
+  .chart-wrapper {
+    width: 130px;
+    height: 130px;
+
+    flex: 0 0 130px;
+  }
+
+  .chart-wrapper canvas {
+    width: 130px !important;
+    height: 130px !important;
+  }
+
+  .chart-value {
+    font-size: 26px;
+  }
+
+  .graphic-label {
+    font-size: 16px;
+  }
+}
+
+/* =====  Mobile first ===== */
+@media (max-width: 639px) {
+
+  .dash-item {
+    grid-template-columns: 45% 55%;
+    grid-template-rows: 32px 258px 40px;
+
+    width: 100%;
+    height: 330px;
+  }
+
+  .dash-title {
+    padding-left: 38px;
+  }
+
+  .dash-title h2 {
+    font-size: 18px;
+  }
+
+  .dash-link {
+    padding-left: 23px;
+    font-size: 14px;
+  }
+
+  .chart-wrapper {
+    width: 125px;
+    height: 125px;
+    flex-basis: 125px;
+  }
+
+  .chart-wrapper canvas {
+    width: 125px !important;
+    height: 125px !important;
+  }
+
+  .chart-value {
+    font-size: 24px;
+  }
+
+  .graphic-label {
+    font-size: 15px;
+  }
+
+  .subtitle,
+  .stat-name {
+    font-size: 9px;
+  }
+
+  .total-num {
+    font-size: 17px;
+  }
+
+  .total-all,
+  .total-separator {
+    font-size: 14px;
+  }
+
+  .dash-stat strong {
+    font-size: 16px;
+  }
+}
+
+
+
+

@@ -116,7 +116,7 @@
             <!-- RESPONSIVE GRID                                               -->
             <!-- ============================================================= -->
 
-            <div class="grid grid-cols-1 items-start gap-6
+            <div class="grid grid-cols-1 items-start gap-2
               md:grid-cols-2
               lg:grid-cols-3
               xl:grid-cols-4"
@@ -126,7 +126,7 @@
                 <!-- PlayerCard sera ajouté ici -->
                 <app-player-card
                   [player]="player"
-                  [role]="'USER'"
+                  [role]="'ADMIN'"
                   (edit)="onEdit($event)"
                   (delete)="onDelete($event)"
                 />

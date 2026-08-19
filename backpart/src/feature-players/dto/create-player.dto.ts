@@ -8,6 +8,7 @@ import {
   IsDate,
   IsEmail,
   IsOptional,
+  Min
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -50,16 +51,16 @@ export class CreatePlayerDto {
 
   @IsNotEmpty({ message: 'Ce champ est requis.' })
   @IsInt({ message: 'Ce doit être un nombre.' })
-  @IsPositive()
+  @Min(0, { message: 'Le minimum est 0.' })
   nbGoal: number;
 
   @IsNotEmpty({ message: 'Ce champ est requis.' })
   @IsInt({ message: 'Ce doit être un nombre.' })
-  @IsPositive()
+  @Min(0, { message: 'Le minimum est 0.' })
   nbAssist: number;
 
   @IsOptional()
   @IsInt({ message: 'Ce doit être un nombre.' })
-  @IsPositive()
+  @Min(0, { message: 'Le minimum est 0.' })
   nbGame: number;
 }

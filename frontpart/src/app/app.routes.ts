@@ -38,9 +38,10 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    title: 'Tableau de bord',
-		loadComponent: () =>
-		import('./features/dashboard/dashboard').then((d) => d.Dashboard)
+		loadChildren: () =>
+		import('./features/dashboard/dashboard.route').then(
+      (d) => d.DASHBOARD_ROUTES
+    )
   }
 
 ];

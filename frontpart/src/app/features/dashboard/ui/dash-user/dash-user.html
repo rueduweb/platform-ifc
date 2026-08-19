@@ -1,0 +1,152 @@
+<article
+  class="dash-user"
+  [style.--dash-color]="data().color"
+>
+
+  <!-- ========================================================= -->
+  <!-- ZONE PRINCIPALE                                            -->
+  <!-- ========================================================= -->
+
+  <section class="dash-main">
+
+    <!-- ======================================================= -->
+    <!-- COLONNE GAUCHE                                           -->
+    <!-- ======================================================= -->
+
+    <div class="dash-left">
+
+      <!-- TITRE -->
+
+      <header class="dash-header">
+
+        <div class="dash-title">
+
+          <span
+            class="title-arrow"
+            aria-hidden="true"
+          ></span>
+
+          <h2>
+            {{ data().title }}
+          </h2>
+
+        </div>
+
+      </header>
+
+
+      <!-- ROUTES -->
+
+      <nav
+        class="dash-navigation"
+        aria-label="Navigation"
+      >
+
+        @for (
+          route of data().routeLinks;
+          track route.link
+        ) {
+
+          <a
+            class="dash-link"
+            [href]="route.link"
+          >
+
+            <span
+              class="link-arrow"
+              aria-hidden="true"
+            ></span>
+
+            <span class="link-label">
+              {{ route.label }}
+            </span>
+
+          </a>
+
+        }
+
+      </nav>
+
+    </div>
+
+
+    <!-- ======================================================= -->
+    <!-- COLONNE DROITE : BAR CHART                              -->
+    <!-- ======================================================= -->
+
+    <section
+      class="dash-graphic"
+      aria-label="Statistiques"
+    >
+
+      <div class="chart-wrapper">
+
+        <canvas
+          #chartCanvas
+          aria-hidden="true"
+        ></canvas>
+
+      </div>
+
+    </section>
+
+  </section>
+
+
+  <!-- ========================================================= -->
+  <!-- FOOTER                                                     -->
+  <!-- ========================================================= -->
+
+  <footer class="dash-footer">
+
+    <!-- TOTAL -->
+
+    <div class="dash-total">
+
+      <span class="subtitle">
+        {{ data().subtitle }}
+      </span>
+
+      <div class="total-value">
+
+        <span class="total-num">
+          {{ data().num }}
+        </span>
+
+        <span class="total-separator">
+          /
+        </span>
+
+        <span class="total-all">
+          {{ data().all }}
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    @for (
+      stat of data().stats;
+      track stat.stat
+    ) {
+
+      <div class="dash-stat">
+
+        <span class="stat-name">
+          {{ stat.stat }}
+        </span>
+
+        <strong>
+          {{ stat.val }}
+        </strong>
+
+      </div>
+
+    }
+
+  </footer>
+
+</article>

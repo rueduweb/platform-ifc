@@ -6,25 +6,25 @@
   gap: 1rem;
   grid-template-areas: "users" "articles" "games" "partners" "infos" "players";
 
-  @media (width >= 50rem) {
-    grid-template-columns: repeat(4, 1fr);
+   @media (width >= 968px) {
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(5, 1fr);
     grid-template-areas:
-    "users users games games"
-    "users users games games"
-    "partners partners players players"
-    "partners partners players players"
-    "articles articles articles infos";
+    "users articles"
+    "users articles"
+    "players games"
+    "players games"
+    "infos";
   }
 
-  @media (width >= 65rem) {
-    grid-template-columns: repeat(5, 1fr);
+  @media (width >= 1280px) {
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(4, 1fr);
     grid-template-areas:
-    "users users articles games games"
-    "users users articles games games"
-    "partners partners articles players players"
-    "partners partners infos players players";
+    "users articles games"
+    "users articles games"
+    "partners articles players"
+    "partners infos players";
   }
 
 }
@@ -35,11 +35,11 @@
   justify-content: center;
   align-items: center;
   border-radius: 0.3rem;
+  overflow-y: scroll;
 }
 
 .lightgray {
-  background-color: rgb(228, 228, 228);
-  color: #222222;
+  background: transparent;
 }
 
 .users {
@@ -60,4 +60,16 @@
 }
 .players {
   grid-area: players
+}
+
+.info {
+  display: inline-block;
+  min-width: 100%;
+  height: auto;
+  font-size: large;
+  text-align: center;
+  vertical-align: center;
+  border: 1px solid gray;
+  border-bottom: none;
+  background-color: #fdfdfd;
 }

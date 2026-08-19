@@ -3,6 +3,7 @@ import {
   Component,
   DestroyRef,
   inject,
+  OnInit,
   signal,
 } from '@angular/core';
 
@@ -37,7 +38,7 @@ import { Players } from '../../data/services/players';
   templateUrl: './player-form.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PlayerForm {
+export class PlayerForm implements OnInit {
 
   // ===========================================================================
   // DEPENDENCIES
@@ -79,9 +80,7 @@ export class PlayerForm {
    * dob est une string YYYY-MM-DD car <input type="date">
    * manipule une chaîne.
    */
-  readonly playerModel = signal<PlayerFormModel>(
-    prepareEmptyPlayer(),
-  );
+  readonly playerModel = signal<PlayerFormModel>(prepareEmptyPlayer());
 
   // ===========================================================================
   // OPTIONS
@@ -94,18 +93,14 @@ export class PlayerForm {
   // FORM
   // ===========================================================================
 
-  readonly playerForm = form(
-    this.playerModel,
-    playerSchema,
-  );
+  readonly playerForm = form(this.playerModel, playerSchema);
 
   // ===========================================================================
-  // CONSTRUCTOR
+  // ON INIT
   // ===========================================================================
 
-  constructor() {
-
-    this.initialize();
+  ngOnInit(): void {
+     this.initialize();
   }
 
   // ===========================================================================
@@ -114,20 +109,10 @@ export class PlayerForm {
 
   private async initialize(): Promise<void> {
 
-    /**
-     * Récupération du paramètre :id.
-     *
-     * Exemple :
-     *
-     * /team/player/edit/12
-     *
-     * => id = "12"
-     */
     const idParam = this.route.snapshot.paramMap.get('id');
 
-    // -------------------------------------------------------------------------
+
     // CREATION
-    // -------------------------------------------------------------------------
 
     if (!idParam) {
 
@@ -142,9 +127,7 @@ export class PlayerForm {
       return;
     }
 
-    // -------------------------------------------------------------------------
     // VALIDATION DE L'ID
-    // -------------------------------------------------------------------------
 
     const id = Number(idParam);
 
@@ -160,9 +143,8 @@ export class PlayerForm {
       return;
     }
 
-    // -------------------------------------------------------------------------
+
     // MODIFICATION
-    // -------------------------------------------------------------------------
 
     this.playerId.set(id);
 
@@ -171,9 +153,8 @@ export class PlayerForm {
     await this.loadPlayer(id);
   }
 
-  // ===========================================================================
+
   // LOAD PLAYER
-  // ===========================================================================
 
   private async loadPlayer(id: number): Promise<void> {
 
@@ -210,9 +191,8 @@ export class PlayerForm {
     }
   }
 
-  // ===========================================================================
+
   // SUBMIT
-  // ===========================================================================
 
   protected async onSubmit(): Promise<void> {
 

@@ -37,6 +37,10 @@ export class PlayersApi {
 
 
   updatePlayer(id: number, changes: Partial<Omit<Player, 'id'>>): Observable<Player> {
+
+    console.log('PATCH URL:', `${this.API_URL}/${id}`);
+    console.log('PATCH BODY:', changes);
+
     return this.http
       .patch<Player>(`${this.API_URL}/${id}`, changes)
       .pipe(

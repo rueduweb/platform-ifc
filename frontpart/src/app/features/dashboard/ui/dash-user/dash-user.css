@@ -1,0 +1,764 @@
+:host {
+  display: block;
+
+  width: 100%;
+  max-width: 556px;
+
+  min-width: 0;
+
+  font-family: 'Nunito', sans-serif;
+}
+
+
+/* ============================================================
+   CARTE
+   ============================================================ */
+
+.dash-user {
+  --dash-color: #d32982;
+
+  width: 100%;
+
+  min-width: 0;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  border-radius: 12px;
+
+  /*
+   * Blanc sur environ 50%,
+   * puis transition douce vers la couleur.
+   */
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #ffffff 50%,
+      color-mix(
+        in srgb,
+        var(--dash-color) 12%,
+        #ffffff
+      ) 100%
+    );
+
+  box-shadow:
+    0 5px 14px rgba(45, 35, 55, 0.16),
+    0 2px 5px rgba(45, 35, 55, 0.08);
+}
+
+
+/* ============================================================
+   ZONE PRINCIPALE
+   ============================================================ */
+
+.dash-main {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 42%)
+    minmax(0, 58%);
+
+  /*
+   * La partie principale fait 290px,
+   * comme la maquette :
+   *
+   * 32px titre
+   * 258px contenu
+   */
+  grid-template-rows:
+    32px
+    258px;
+
+  width: 100%;
+
+  min-width: 0;
+  min-height: 0;
+
+  box-sizing: border-box;
+}
+
+
+/* ============================================================
+   COLONNE GAUCHE
+   ============================================================ */
+
+.dash-left {
+  grid-column: 1;
+  grid-row: 1 / 3;
+
+  display: grid;
+
+  grid-template-rows:
+    32px
+    258px;
+
+  min-width: 0;
+  min-height: 0;
+}
+
+
+/* ============================================================
+   TITRE
+   ============================================================ */
+
+.dash-header {
+  grid-row: 1;
+
+  width: 100%;
+  height: 32px;
+
+  box-sizing: border-box;
+}
+
+
+.dash-title {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 32px;
+
+  padding-left: 45px;
+  padding-right: 8px;
+
+  box-sizing: border-box;
+}
+
+
+.dash-title h2 {
+  margin: 0;
+
+  min-width: 0;
+
+  color: #202020;
+
+  font-family: 'Nunito', sans-serif;
+
+  font-size: 22px;
+  font-weight: 600;
+
+  line-height: 32px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* ============================================================
+   TRIANGLE FUCHSIA / NOIR
+   ============================================================ */
+
+.title-arrow {
+  position: absolute;
+
+  left: 0;
+  top: 50%;
+
+  width: 38px;
+  height: 48px;
+
+  transform: translateY(-50%);
+
+  background:
+    linear-gradient(
+      to bottom,
+      #d32982 0%,
+      #d32982 50%,
+      #000000 50%,
+      #000000 100%
+    );
+
+  clip-path: polygon(
+    0 0,
+    100% 50%,
+    0 100%
+  );
+
+  pointer-events: none;
+}
+
+
+/* ============================================================
+   ROUTES
+   ============================================================ */
+
+.dash-navigation {
+  grid-row: 2;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: stretch;
+  justify-content: flex-start;
+
+  width: 100%;
+  height: 258px;
+
+  min-width: 0;
+  min-height: 0;
+
+  padding-top: 4px;
+
+  box-sizing: border-box;
+}
+
+
+.dash-link {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 35px;
+  min-height: 35px;
+
+  padding-left: 29px;
+  padding-right: 6px;
+
+  box-sizing: border-box;
+
+  color: #343434;
+
+  font-family: 'Nunito', sans-serif;
+
+  font-size: 17px;
+  font-weight: 500;
+
+  line-height: 35px;
+
+  text-decoration: none;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  transition:
+    color 120ms ease,
+    padding-left 120ms ease;
+}
+
+
+.dash-link:hover,
+.dash-link:focus-visible {
+  color: var(--dash-color);
+
+  padding-left: 32px;
+}
+
+
+.link-label {
+  min-width: 0;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+
+/* ============================================================
+   PETITES FLÈCHES DES ROUTES
+   ============================================================ */
+
+.link-arrow {
+  position: absolute;
+
+  left: 0;
+  top: 50%;
+
+  width: 0;
+  height: 0;
+
+  transform: translateY(-50%);
+
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+
+  border-left: 16px solid #c7c7c7;
+
+  transition:
+    border-left-color 120ms ease;
+}
+
+
+.dash-link:hover .link-arrow,
+.dash-link:focus-visible .link-arrow {
+  border-left-color: var(--dash-color);
+}
+
+
+/* ============================================================
+   GRAPHIQUE - COLONNE DROITE
+   ============================================================ */
+
+.dash-graphic {
+  grid-column: 2;
+  grid-row: 1 / 3;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 290px;
+
+  min-width: 0;
+  min-height: 0;
+
+  padding:
+    8px
+    12px
+    8px
+    8px;
+
+  box-sizing: border-box;
+}
+
+
+/* ============================================================
+   WRAPPER CHART
+   ============================================================ */
+
+.chart-wrapper {
+  position: relative;
+
+  width: 100%;
+  max-width: 235px;
+
+  height: 225px;
+
+  min-width: 0;
+  min-height: 0;
+
+  box-sizing: border-box;
+}
+
+
+.chart-wrapper canvas {
+  display: block;
+
+  width: 100% !important;
+  height: 100% !important;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.dash-footer {
+  display: grid;
+
+  /*
+   * Total + nombre variable de stats.
+   */
+  grid-template-columns:
+    minmax(90px, 1.15fr)
+    repeat(
+      auto-fit,
+      minmax(65px, 1fr)
+    );
+
+  width: 100%;
+  height: 40px;
+  min-height: 40px;
+
+  box-sizing: border-box;
+
+  border-top:
+    1px solid
+    rgba(120, 120, 120, 0.30);
+}
+
+
+/* ============================================================
+   TOTAL
+   ============================================================ */
+
+.dash-total {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  min-width: 0;
+
+  height: 40px;
+
+  padding:
+    1px
+    8px
+    1px
+    12px;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+}
+
+
+.subtitle {
+  display: block;
+
+  height: 13px;
+
+  color: #686868;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  line-height: 13px;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.total-value {
+  display: flex;
+
+  align-items: baseline;
+
+  height: 21px;
+
+  margin-top: 1px;
+
+  white-space: nowrap;
+}
+
+
+.total-num {
+  color: var(--dash-color);
+
+  font-size: 21px;
+  font-weight: 600;
+
+  line-height: 21px;
+}
+
+
+.total-separator {
+  margin: 0 3px;
+
+  color: #555;
+
+  font-size: 17px;
+
+  line-height: 21px;
+}
+
+
+.total-all {
+  color: #555;
+
+  font-size: 17px;
+
+  line-height: 21px;
+}
+
+
+/* ============================================================
+   STATS FOOTER
+   ============================================================ */
+
+.dash-stat {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  min-width: 0;
+
+  height: 40px;
+
+  padding:
+    1px
+    4px;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+}
+
+
+.stat-name {
+  display: block;
+
+  width: 100%;
+  height: 13px;
+  min-height: 13px;
+
+  color: #666;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  line-height: 13px;
+
+  text-align: center;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.dash-stat strong {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 22px;
+  min-height: 22px;
+
+  margin-top: 1px;
+
+  background: #222;
+
+  color: var(--dash-color);
+
+  font-size: 19px;
+  font-weight: 600;
+
+  line-height: 22px;
+
+  box-sizing: border-box;
+}
+
+
+/* ============================================================
+   RESPONSIVE - TABLETTE
+   ============================================================ */
+
+@media (max-width: 767px) {
+
+  .dash-main {
+    grid-template-columns:
+      minmax(0, 46%)
+      minmax(0, 54%);
+  }
+
+
+  .dash-title {
+    padding-left: 38px;
+  }
+
+
+  .title-arrow {
+    width: 34px;
+    height: 44px;
+  }
+
+
+  .dash-title h2 {
+    font-size: 19px;
+  }
+
+
+  .dash-link {
+    padding-left: 24px;
+
+    font-size: 15px;
+  }
+
+
+  .dash-link:hover,
+  .dash-link:focus-visible {
+    padding-left: 27px;
+  }
+
+
+  .dash-graphic {
+    padding-left: 4px;
+    padding-right: 8px;
+  }
+
+
+  .chart-wrapper {
+    max-width: 220px;
+  }
+}
+
+
+/* ============================================================
+   RESPONSIVE - MOBILE
+   ============================================================ */
+
+@media (max-width: 639px) {
+
+  .dash-main {
+    grid-template-columns:
+      minmax(0, 45%)
+      minmax(0, 55%);
+  }
+
+
+  .dash-title {
+    padding-left: 34px;
+  }
+
+
+  .dash-title h2 {
+    font-size: 17px;
+  }
+
+
+  .title-arrow {
+    width: 30px;
+    height: 40px;
+  }
+
+
+  .dash-link {
+    padding-left: 21px;
+
+    font-size: 13px;
+  }
+
+
+  .dash-link:hover,
+  .dash-link:focus-visible {
+    padding-left: 23px;
+  }
+
+
+  .link-arrow {
+    border-top-width: 8px;
+    border-bottom-width: 8px;
+    border-left-width: 13px;
+  }
+
+
+  .dash-graphic {
+    padding:
+      8px
+      4px
+      8px
+      2px;
+  }
+
+
+  .chart-wrapper {
+    height: 215px;
+  }
+
+
+  .dash-footer {
+    grid-template-columns:
+      minmax(75px, 1.15fr)
+      repeat(
+        auto-fit,
+        minmax(50px, 1fr)
+      );
+  }
+
+
+  .subtitle,
+  .stat-name {
+    font-size: 9px;
+  }
+
+
+  .total-num {
+    font-size: 17px;
+  }
+
+
+  .total-all,
+  .total-separator {
+    font-size: 14px;
+  }
+
+
+  .dash-stat strong {
+    font-size: 16px;
+  }
+}
+
+
+/* ============================================================
+   TRÈS PETIT MOBILE
+   ============================================================ */
+
+@media (max-width: 420px) {
+
+  .dash-main {
+    grid-template-columns:
+      minmax(0, 44%)
+      minmax(0, 56%);
+  }
+
+
+  .dash-title {
+    padding-left: 31px;
+  }
+
+
+  .dash-title h2 {
+    font-size: 15px;
+  }
+
+
+  .title-arrow {
+    width: 27px;
+    height: 38px;
+  }
+
+
+  .dash-link {
+    padding-left: 19px;
+
+    font-size: 11px;
+  }
+
+
+  .dash-link:hover,
+  .dash-link:focus-visible {
+    padding-left: 21px;
+  }
+
+
+  .link-arrow {
+    border-top-width: 7px;
+    border-bottom-width: 7px;
+    border-left-width: 11px;
+  }
+
+
+  .chart-wrapper {
+    height: 205px;
+  }
+
+
+  .subtitle,
+  .stat-name {
+    font-size: 8px;
+  }
+
+
+  .total-num {
+    font-size: 15px;
+  }
+
+
+  .total-all,
+  .total-separator {
+    font-size: 12px;
+  }
+
+
+  .dash-stat strong {
+    font-size: 14px;
+  }
+}

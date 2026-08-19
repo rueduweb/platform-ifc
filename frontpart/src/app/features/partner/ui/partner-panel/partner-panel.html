@@ -124,7 +124,7 @@
             text-gray-400
           "
         >
-          {{ partner().name }} Logo
+          {{ partner().logo }} Logo
         </span>
 
       }
@@ -651,37 +651,33 @@
 
       <button
         type="button"
-        class="
-          border
-          border-gray-300
+        class="cursor-pointer
           px-3
           py-2
           text-[#333333]
           transition
           hover:bg-gray-100
         "
-        (click)="onEdit()"
+        (click)="onEdit(partner().id)"
         title="Modifier"
       >
-        ✎
+        <i class="text-sm fa-solid fa-pen"></i>
       </button>
 
 
       <button
         type="button"
-        class="
-          border
-          border-gray-300
+        class="cursor-pointer
           px-3
           py-2
           text-[#333333]
           transition
           hover:bg-gray-100
         "
-        (click)="onRemove()"
+        (click)="onRemove(partner().id)"
         title="Supprimer"
       >
-        🗑
+        <i class="text-sm fa-solid fa-trash"></i>
       </button>
 
     </footer>

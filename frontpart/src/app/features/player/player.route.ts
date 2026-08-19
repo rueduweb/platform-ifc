@@ -13,4 +13,10 @@ export const PLAYER_ROUTES: Routes = [
     loadComponent: () =>
       import('./pages/player-form/player-form').then((p) => p.PlayerForm)
   },
+  {
+    path: 'player-edit/:id',
+    title: 'Edition Joueur',
+    loadComponent: () =>
+      import('./pages/player-form/player-form').then((p) => p.PlayerForm)
+  }
 ];

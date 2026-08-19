@@ -2,11 +2,15 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
   output,
+  signal,
 } from '@angular/core';
 
 import type { Partner } from '../../data/models/partner.model';
+import { Partners } from '../../data/services/partner';
+import { Router } from '@angular/router';
 
 export type UserRole =
   | 'ADMIN'
@@ -20,6 +24,10 @@ export type UserRole =
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PartnerPanel {
+
+  private readonly partnersStore = inject(Partners);
+
+  private readonly router = inject(Router);
   /*
    * ======================
    * INPUT
@@ -30,11 +38,12 @@ export class PartnerPanel {
 
   readonly userRole = input<UserRole>('OTHER');
 
-  readonly canModify = computed(() => {
+  readonly canModify = signal<boolean>(true);
+  /* readonly canModify = computed(() => {
     const role = this.userRole();
 
     return role === 'ADMIN' || role === 'USER';
-  });
+  }); */
 
   /*
    * ======================
@@ -81,12 +90,36 @@ export class PartnerPanel {
    * ======================
    */
 
-  onEdit(): void {
-    this.edit.emit(this.partner());
+  onEdit(id: number): void {
+    // this.edit.emit(this.partner());
+    console.log('Modifier le partenaire :', id);
+
+    // naviguer vers /partner/edit/:id
+    void this.router.navigate(['/partner', 'edit', id]);
   }
 
 
-  onRemove(): void {
-    this.remove.emit(this.partner());
+  onRemove(id: number): void {
+    // this.remove.emit(this.partner());
+    console.log('Supprimer le partenaire :', id);
+
+    // Confirmation
+    const confirmed = window.confirm('Êtes-vous sûr de vouloir supprimer ce partenaire ?');
+    if (!confirmed) {
+      console.log('Suppression annulée.');
+      return;
+    }
+    // Suppression via partnersStore
+    try {
+
+      this.partnersStore.delete(id);
+
+      console.log('Partenaire supprimé :',id);
+
+    } catch (error) {
+
+      console.error('Erreur lors de la suppression du partenaire :', error);
+
+    }
   }
 }

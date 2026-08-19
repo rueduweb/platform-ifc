@@ -9,7 +9,11 @@
     <h1 class="title cust-border mb-6 text-center text-3xl font-light
       sm:text-4xl"
     >
-      Ajouter un joueur
+      @if (isEdit()) {
+        Modifier un joueur
+      } @else {
+        Ajouter un joueur
+      }
     </h1>
 
     <!-- =====================================================================
@@ -319,7 +323,11 @@
 
               sm:w-auto"
       >
+        @if (isEdit()) {
+        Modifier
+      } @else {
         Ajouter
+      }
       </button>
 
     </footer>

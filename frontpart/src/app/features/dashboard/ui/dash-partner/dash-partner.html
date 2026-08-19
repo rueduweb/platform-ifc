@@ -1,0 +1,152 @@
+<article
+  class="dash-partner"
+  [style.--dash-color]="data().color"
+>
+
+  <!-- ========================================================= -->
+  <!-- GAUCHE : TITRE + ROUTES                                    -->
+  <!-- ========================================================= -->
+
+  <section class="dash-left">
+
+    <!-- TITRE -->
+
+    <header class="dash-header">
+
+      <div class="dash-title">
+
+        <span
+          class="title-arrow"
+          aria-hidden="true"
+        ></span>
+
+        <h2>
+          {{ data().title }}
+        </h2>
+
+      </div>
+
+    </header>
+
+
+    <!-- ROUTES -->
+
+    <nav
+      class="dash-navigation"
+      aria-label="Navigation"
+    >
+
+      @for (
+        route of data().routeLinks;
+        track route.link
+      ) {
+
+        <a
+          class="dash-link"
+          [href]="route.link"
+        >
+
+          <span
+            class="link-arrow"
+            aria-hidden="true"
+          ></span>
+
+          <span class="link-label">
+            {{ route.label }}
+          </span>
+
+        </a>
+
+      }
+
+    </nav>
+
+  </section>
+
+
+  <!-- ========================================================= -->
+  <!-- DROITE : LOGOS                                             -->
+  <!-- ========================================================= -->
+
+  <section
+    class="dash-logos"
+    aria-label="Partenaires"
+  >
+
+    <div class="logo-grid">
+
+      @for (
+        logo of data().logos;
+        track logo.src
+      ) {
+
+        <div
+          class="partner-logo"
+          [attr.title]="logo.name"
+        >
+
+          <img
+            [src]="logo.src"
+            [alt]="logo.alt || logo.name"
+            loading="lazy"
+          />
+
+        </div>
+
+      }
+
+    </div>
+
+  </section>
+
+
+  <!-- ========================================================= -->
+  <!-- FOOTER                                                     -->
+  <!-- ========================================================= -->
+
+  <footer class="dash-footer">
+
+    <!-- TOTAL -->
+
+    <div class="dash-total">
+
+      <span class="subtitle">
+        Total
+      </span>
+
+      <div class="total-value">
+
+        <span class="total-num">
+          {{ data().total }}
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    @for (
+      stat of data().stats;
+      track stat.name
+    ) {
+
+      <div class="dash-stat">
+
+        <span class="stat-name">
+          {{ stat.name }}
+        </span>
+
+        <strong>
+          {{ stat.nb }}
+        </strong>
+
+      </div>
+
+    }
+
+  </footer>
+
+
+</article>

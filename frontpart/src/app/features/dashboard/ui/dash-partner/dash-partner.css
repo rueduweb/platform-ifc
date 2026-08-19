@@ -1,0 +1,570 @@
+:host {
+  display: block;
+
+  width: 556px;
+  height: 330px;
+
+  max-width: 556px;
+  max-height: 330px;
+
+  font-family: 'Nunito', sans-serif;
+}
+
+
+/* ============================================================
+   CARTE
+   ============================================================ */
+
+.dash-partner {
+  --dash-color: #af61b5;
+
+  display: grid;
+
+  grid-template-columns: 42% 58%;
+  grid-template-rows: 290px 40px;
+
+  width: 556px;
+  height: 330px;
+
+  max-width: 556px;
+  max-height: 330px;
+
+  min-width: 0;
+  min-height: 0;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #ffffff 50%,
+      color-mix(
+        in srgb,
+        var(--dash-color) 12%,
+        #ffffff
+      ) 100%
+    );
+
+  box-shadow:
+    0 5px 14px rgba(45, 35, 55, 0.16),
+    0 2px 5px rgba(45, 35, 55, 0.08);
+}
+
+/* ============================================================
+   ZONE PRINCIPALE
+   ============================================================ */
+
+.dash-main {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 42%)
+    minmax(0, 58%);
+
+  grid-template-rows:
+    35px
+    105px;
+
+  width: 100%;
+
+  min-width: 0;
+  min-height: 0;
+
+  box-sizing: border-box;
+}
+
+
+/* ============================================================
+   GAUCHE
+   ============================================================ */
+
+.dash-left {
+  grid-column: 1;
+  grid-row: 1;
+
+  display: grid;
+
+  grid-template-rows: 35px 105px;
+
+  width: 100%;
+  height: 290px;
+
+  min-width: 0;
+  min-height: 0;
+
+  box-sizing: border-box;
+}
+
+
+/* ============================================================
+   TITRE
+   ============================================================ */
+
+.dash-header {
+  grid-row: 1;
+
+  width: 100%;
+  height: 35px;
+
+  box-sizing: border-box;
+}
+
+
+.dash-title {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 35px;
+
+  padding-left: 45px;
+  padding-right: 8px;
+
+  box-sizing: border-box;
+}
+
+
+.dash-title h2 {
+  margin: 0;
+
+  min-width: 0;
+
+  color: #202020;
+
+  font-family: 'Nunito', sans-serif;
+
+  font-size: 22px;
+  font-weight: 600;
+
+  line-height: 35px;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* ============================================================
+   TRIANGLE FUCHSIA / NOIR
+   ============================================================ */
+
+.title-arrow {
+  position: absolute;
+
+  left: 0;
+  top: 50%;
+
+  width: 38px;
+  height: 48px;
+
+  transform: translateY(-50%);
+
+  background:
+    linear-gradient(
+      to bottom,
+      #d32982 0%,
+      #d32982 50%,
+      #000000 50%,
+      #000000 100%
+    );
+
+  clip-path: polygon(
+    0 0,
+    100% 50%,
+    0 100%
+  );
+
+  pointer-events: none;
+}
+
+
+/* ============================================================
+   ROUTES
+   ============================================================ */
+
+.dash-navigation {
+  grid-row: 2;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 105px;
+
+  box-sizing: border-box;
+}
+
+.dash-link {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 35px;
+  min-height: 35px;
+
+  padding-left: 29px;
+  padding-right: 6px;
+
+  box-sizing: border-box;
+
+  color: #343434;
+
+  font-family: 'Nunito', sans-serif;
+
+  font-size: 17px;
+  font-weight: 500;
+
+  line-height: 35px;
+
+  text-decoration: none;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  transition:
+    color 120ms ease,
+    padding-left 120ms ease;
+}
+
+
+.dash-link:hover,
+.dash-link:focus-visible {
+  color: var(--dash-color);
+
+  padding-left: 32px;
+}
+
+
+.link-label {
+  min-width: 0;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+
+/* ============================================================
+   TRIANGLE DES ROUTES
+   ============================================================ */
+
+.link-arrow {
+  position: absolute;
+
+  left: 0;
+  top: 50%;
+
+  width: 0;
+  height: 0;
+
+  transform: translateY(-50%);
+
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+
+  border-left: 16px solid #c7c7c7;
+
+  transition:
+    border-left-color 120ms ease;
+}
+
+
+.dash-link:hover .link-arrow,
+.dash-link:focus-visible .link-arrow {
+  border-left-color: var(--dash-color);
+}
+
+
+/* ============================================================
+   DROITE : GRID DES LOGOS
+   ============================================================ */
+
+.dash-logos {
+  grid-column: 2;
+  grid-row: 1;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 290px;
+
+  min-width: 0;
+  min-height: 0;
+
+  padding: 12px;
+
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   MINI GRID
+   ============================================================ */
+.logo-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  grid-auto-rows: 62px;
+
+  gap: 10px;
+
+  width: 100%;
+  max-width: 300px;
+
+  /*
+   * On laisse suffisamment de place
+   * pour que les logos soient réellement lisibles.
+   */
+  max-height: 230px;
+
+  align-content: center;
+  justify-content: center;
+
+  min-width: 0;
+  min-height: 0;
+}
+
+/* ============================================================
+   CELLULE LOGO
+   ============================================================ */
+
+.partner-logo {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 62px;
+
+  min-width: 0;
+
+  padding: 3px 5px;
+
+  box-sizing: border-box;
+
+  background:
+    rgba(255, 255, 255, 0.78);
+
+  border:
+    1px solid
+    rgba(130, 130, 130, 0.20);
+
+  border-radius: 7px;
+
+  transition:
+    transform 140ms ease,
+    box-shadow 140ms ease,
+    background-color 140ms ease;
+}
+
+
+.partner-logo:hover {
+  transform: translateY(-2px);
+
+  background:
+    rgba(255, 255, 255, 0.95);
+
+  box-shadow:
+    0 3px 8px
+    rgba(45, 35, 55, 0.14);
+}
+
+
+/* ============================================================
+   IMAGE
+   ============================================================ */
+
+.partner-logo img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: 100%;
+  max-height: 100%;
+
+  object-fit: contain;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.dash-footer {
+  grid-column: 1 / 3;
+  grid-row: 2;
+
+  display: flex;
+  align-items: stretch;
+
+  width: 100%;
+  height: 40px;
+  min-height: 40px;
+  max-height: 40px;
+
+  box-sizing: border-box;
+
+  border-top:
+    1px solid
+    rgba(120, 120, 120, 0.30);
+
+  overflow: hidden;
+}
+
+
+/* ============================================================
+   TOTAL
+   ============================================================ */
+
+.dash-total {
+  display: flex;
+
+  flex: 1.15 1 0;
+
+  flex-direction: column;
+  justify-content: center;
+
+  min-width: 0;
+  height: 40px;
+
+  padding:
+    1px 8px 1px 12px;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+}
+
+
+
+.subtitle {
+  display: block;
+
+  height: 13px;
+
+  color: #686868;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  line-height: 13px;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.total-value {
+  display: flex;
+
+  align-items: baseline;
+
+  height: 21px;
+
+  margin-top: 1px;
+
+  white-space: nowrap;
+}
+
+
+.total-num {
+  color: var(--dash-color);
+
+  font-size: 21px;
+  font-weight: 600;
+
+  line-height: 21px;
+}
+
+
+/* ============================================================
+   STATS
+   ============================================================ */
+
+.dash-stat {
+  display: flex;
+
+  flex: 1 1 0;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 0;
+  height: 40px;
+
+  padding:
+    1px 4px;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+}
+
+.stat-name {
+  display: block;
+
+  width: 100%;
+  height: 13px;
+  min-height: 13px;
+
+  color: #665;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  line-height: 13px;
+
+  text-align: center;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.dash-stat strong {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 22px;
+
+  min-height: 22px;
+
+  margin-top: 1px;
+
+  background: #222;
+
+  color: var(--dash-color);
+
+  font-size: 19px;
+  font-weight: 600;
+
+  line-height: 22px;
+
+  box-sizing: border-box;
+}

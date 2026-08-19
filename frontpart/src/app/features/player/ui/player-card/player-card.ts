@@ -38,7 +38,7 @@ export class PlayerCard {
     Par défaut :
     VISITOR => aucun bouton Edit/Delete.
    */
-  readonly role = input<PlayerCardRole>('VISITOR');
+  readonly role = input<PlayerCardRole>('ADMIN');
 
   /*
    Demande de modification du joueur.
@@ -102,4 +102,3 @@ export class PlayerCard {
     this.delete.emit(this.player());
   }
 }
-
