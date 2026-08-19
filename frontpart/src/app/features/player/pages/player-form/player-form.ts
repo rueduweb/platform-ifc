@@ -234,12 +234,6 @@ export class PlayerForm implements OnInit {
               return;
             }
 
-            console.log(
-              'Joueur à modifier :',
-              id,
-              player,
-            );
-
             await this.playersStore.updatePlayer(
               id,
               player,
@@ -250,11 +244,6 @@ export class PlayerForm implements OnInit {
             // ---------------------------------------------------------------
             // CREATION
             // ---------------------------------------------------------------
-
-            console.log(
-              'Joueur à créer :',
-              player,
-            );
 
             await this.playersStore.addPlayer(
               player,

@@ -223,13 +223,9 @@ export class GameForm implements OnInit{
               return;
             }
 
-            console.log('Match à modifier :', id, game);
-
             await this.gamesStore.updateGame(id, game);
 
           } else { // CAS DE CREATION
-
-            console.log('Match à créer :', game);
 
             await this.gamesStore.createGame(game);
 

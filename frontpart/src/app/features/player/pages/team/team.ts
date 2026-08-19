@@ -63,10 +63,6 @@ export class Team implements OnInit {
 
     }));
 
-    console.log('Players:', this.players.players());
-
-    console.log('CarouselItems:', items);
-
     return items;
   });
 
@@ -89,32 +85,6 @@ export class Team implements OnInit {
 
     this.router.navigate(['/team','player-edit', player.id]);
   }
-
-  /*protected async onEdit(player: Player): Promise<void> {
-
-    console.log(
-      '[TEAM] onEdit appelé',
-      player
-    );
-
-    const url = [
-      '/team',
-      'player-edit',
-      player.id,
-    ];
-
-    console.log(
-      '[TEAM] navigation vers :',
-      url
-    );
-
-    const result = await this.router.navigate(url);
-
-    console.log(
-      '[TEAM] navigation result :',
-      result
-    );
-  }*/
 
   protected async onDelete(player: Player): Promise<void> {
 

@@ -91,30 +91,21 @@ export class PartnerPanel {
    */
 
   onEdit(id: number): void {
-    // this.edit.emit(this.partner());
-    console.log('Modifier le partenaire :', id);
-
     // naviguer vers /partner/edit/:id
     void this.router.navigate(['/partner', 'edit', id]);
   }
 
 
   onRemove(id: number): void {
-    // this.remove.emit(this.partner());
-    console.log('Supprimer le partenaire :', id);
-
     // Confirmation
     const confirmed = window.confirm('Êtes-vous sûr de vouloir supprimer ce partenaire ?');
     if (!confirmed) {
-      console.log('Suppression annulée.');
       return;
     }
     // Suppression via partnersStore
     try {
 
       this.partnersStore.delete(id);
-
-      console.log('Partenaire supprimé :',id);
 
     } catch (error) {
 

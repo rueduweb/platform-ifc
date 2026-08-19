@@ -126,27 +126,20 @@ export class Game implements OnInit{
 
 
   protected editGame(id: number): void {
-    console.log('Modifier le match :', id);
-
     // naviguer vers /championship/game/:id/edit
     void this.router.navigate(['/championship/game', id, 'edit']);
   }
 
   protected deleteGame(id: number): void {
-    console.log('Supprimer le match :', id);
-
     // Confirmation
     const confirmed = window.confirm('Êtes-vous sûr de vouloir supprimer ce match ?');
     if (!confirmed) {
-      console.log('Suppression annulée.');
       return;
     }
     // Suppression via gamesStore
     try {
 
       this.gamesStore.deleteGame(id);
-
-      console.log('Match supprimé :',id);
 
     } catch (error) {
 
