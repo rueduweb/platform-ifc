@@ -1,8 +1,6 @@
 import {
   IsEmail,
-  IsEnum,
   IsNotEmpty,
-  IsOptional,
   IsString,
   MaxLength,
   MinLength,
@@ -24,9 +22,9 @@ export class SignUpDto {
   @MinLength(8, { message: 'Au moins 8 caractères.' })
   password: string;
 
-  @IsOptional()
+  /*  @IsOptional()
   @IsString({ message: 'Ce doit être une chaîne de caractères.' })
   @IsNotEmpty({ message: 'Ce champ est requis.' })
   @IsEnum(['admin', 'user'], { message: 'Mettre soit admin ou user.' })
-  role: 'admin' | 'user';
+  role: 'admin' | 'user'; */
 }

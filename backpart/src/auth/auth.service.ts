@@ -7,7 +7,6 @@ import { FeatureUserService } from 'src/feature-user/feature-user.service';
 import { SignUpDto } from './dto/signup.dto';
 import { JwtService } from '@nestjs/jwt';
 import { SignInDto } from './dto/signin.dto';
-import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -26,10 +25,8 @@ export class AuthService {
 
     const token = this.generateToken(user.id, user.email);
 
-    const { ...userWithoutPassword } = user;
-
     return {
-      user: userWithoutPassword,
+      user,
       access_token: token,
     };
   }
@@ -40,14 +37,18 @@ export class AuthService {
       throw new UnauthorizedException('Identifiants invalides.');
     }
 
-    const isPwdValid = await bcrypt.compare(signInDto.password, user.password);
+    const isPwdValid = await this.usersService.verifyPwd(
+      signInDto.password,
+      user.password,
+    );
+
     if (!isPwdValid) {
       throw new UnauthorizedException('Identifiants invalides.');
     }
 
     const token = this.generateToken(user.id, user.email);
 
-    const { ...userWithoutPassword } = user;
+    const { password, ...userWithoutPassword } = user;
 
     return {
       user: userWithoutPassword,

@@ -1,18 +1,9 @@
-import {
-  Controller,
-  HttpCode,
-  HttpStatus,
-  Post,
-  Body,
-  Get,
-  Request,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, HttpCode, HttpStatus, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignUpDto } from './dto/signup.dto';
 import { Throttle } from '@nestjs/throttler';
 import { SignInDto } from './dto/signin.dto';
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
+
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -29,15 +20,5 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async login(@Body() signInDto: SignInDto) {
     return this.authService.signin(signInDto);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  @HttpCode(HttpStatus.OK)
-  getProfile(@Request() req) {
-    return {
-      message: 'Vous êtes connecté !',
-      user: req.user,
-    };
   }
 }

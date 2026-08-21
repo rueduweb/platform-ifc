@@ -7,6 +7,7 @@ import {
   MaxLength,
   IsEnum,
 } from 'class-validator';
+import { Role } from '@prisma/client';
 
 export class CreateUserDto {
   @IsString({ message: 'Ce doit être une chaîne de caractère.' })
@@ -25,6 +26,6 @@ export class CreateUserDto {
   email: string;
 
   @IsOptional()
-  @IsEnum(['admin', 'user'], { message: 'Rôle invalide.' })
-  role?: 'admin' | 'user';
+  @IsEnum(Role, { message: 'Rôle invalide.' })
+  role?: Role;
 }
