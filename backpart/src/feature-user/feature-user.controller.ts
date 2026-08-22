@@ -7,7 +7,6 @@ import {
   Param,
   Delete,
   HttpCode,
-  BadRequestException,
   Query,
   NotFoundException,
   ParseIntPipe,
@@ -23,6 +22,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { UpdateMeDto } from './dto/update-me.dto';
+import { DeleteUserDto } from './dto/delete-user.dto';
 
 @Controller('users')
 export class FeatureUserController {
@@ -54,7 +54,7 @@ export class FeatureUserController {
   @Get('me')
   @HttpCode(HttpStatus.OK)
   getMe(@Request() req) {
-    return req.user;
+    return this.featureUserService.findMe(req.user.id);
   }
 
   @Get(':id')
@@ -94,14 +94,14 @@ export class FeatureUserController {
   }
 
   @Delete(':id')
-  @HttpCode(200)
+  @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
-  async remove(@Param('id', ParseIntPipe) id: number) {
-    const user = await this.featureUserService.remove(id);
-    if (!user) {
-      throw new NotFoundException('User not found.');
-    }
-    return user;
+  async remove(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() deleteUserDto: DeleteUserDto,
+    @Request() req,
+  ) {
+    return this.featureUserService.remove(id, deleteUserDto, req.user.id);
   }
 }
