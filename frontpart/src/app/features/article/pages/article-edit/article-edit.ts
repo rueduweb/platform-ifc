@@ -22,7 +22,7 @@ export class ArticleEdit {
   protected readonly articleEditForm = form(this.article, articleSchema);
 
   protected readonly users = toSignal(
-    this.usersService.getAll(), { initialValue: [] }
+    this.usersService.getUsers(), { initialValue: [] }
   );
 
   protected changeAuthor(event: Event) {

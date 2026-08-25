@@ -24,7 +24,7 @@ export class ArticleForm implements OnInit {
   protected readonly articleForm = form(this.article, articleSchema);
 
   protected readonly users = toSignal(
-    this.usersService.getAll(), { initialValue: [] }
+    this.usersService.getUsers(), { initialValue: [] }
   );
 
   protected changeAuthor(event: Event) {

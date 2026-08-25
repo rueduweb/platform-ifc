@@ -1,0 +1,204 @@
+<section class="min-h-full bg-neutral-50 px-6 py-8 md:px-10 lg:px-12">
+
+  <!-- HEADER -->
+  <header class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+
+    <div>
+      <h1
+        class="text-3xl font-semibold tracking-tight text-neutral-900"
+      >
+        Utilisateurs
+      </h1>
+
+      <p class="mt-1 text-sm text-neutral-500">
+        Gestion des utilisateurs
+      </p>
+    </div>
+
+    <!-- Reload -->
+    <button
+      type="button"
+      class="
+        inline-flex items-center justify-center
+        rounded-lg
+        bg-neutral-900
+        px-4 py-2.5
+        text-sm font-medium
+        text-white
+        transition
+        hover:bg-neutral-700
+        disabled:cursor-not-allowed
+        disabled:opacity-50
+      "
+      [disabled]="loading()"
+      (click)="loadUsers()"
+    >
+      @if (loading()) {
+        <span
+          class="
+            mr-2
+            h-4 w-4
+            animate-spin
+            rounded-full
+            border-2
+            border-white/30
+            border-t-white
+          "
+        ></span>
+
+        Chargement...
+      } @else {
+        Actualiser
+      }
+    </button>
+
+  </header>
+
+
+  <!-- ERROR -->
+  @if (error(); as errorMessage) {
+    <div
+      class="
+        mb-6
+        rounded-lg
+        border border-red-200
+        bg-red-50
+        px-4 py-3
+        text-sm
+        text-red-700
+      "
+      role="alert"
+    >
+      <div class="flex items-center justify-between gap-4">
+
+        <span>
+          {{ errorMessage }}
+        </span>
+
+        <button
+          type="button"
+          class="
+            shrink-0
+            font-medium
+            underline
+            hover:no-underline
+          "
+          (click)="loadUsers()"
+        >
+          Réessayer
+        </button>
+
+      </div>
+    </div>
+  }
+
+
+  <!-- LOADING INITIAL -->
+  @if (loading() && users().length === 0) {
+
+    <div
+      class="
+        grid
+        grid-cols-1
+        gap-6
+        md:grid-cols-2
+        xl:grid-cols-3
+      "
+    >
+      @for (item of [1, 2, 3, 4, 5, 6]; track item) {
+
+        <div
+          class="
+            h-[430px]
+            animate-pulse
+            rounded-[0_0_80px_0]
+            border
+            border-neutral-200
+            bg-neutral-100
+          "
+        ></div>
+
+      }
+    </div>
+
+  }
+
+  <!-- EMPTY -->
+  @else if (users().length === 0) {
+
+    <div
+      class="
+        flex
+        min-h-[350px]
+        flex-col
+        items-center
+        justify-center
+        rounded-2xl
+        border
+        border-dashed
+        border-neutral-300
+        bg-white
+        text-center
+      "
+    >
+      <div
+        class="
+          mb-4
+          flex
+          h-16
+          w-16
+          items-center
+          justify-center
+          rounded-full
+          bg-neutral-100
+          text-2xl
+        "
+      >
+        👤
+      </div>
+
+      <h2
+        class="text-lg font-semibold text-neutral-800"
+      >
+        Aucun utilisateur
+      </h2>
+
+      <p
+        class="mt-1 text-sm text-neutral-500"
+      >
+        Aucun utilisateur n'est actuellement disponible.
+      </p>
+    </div>
+
+  }
+
+  <!-- USER LIST -->
+  @else {
+
+    <div
+      class="
+        grid
+        grid-cols-1
+        gap-6
+        md:grid-cols-2
+        xl:grid-cols-3
+        2xl:grid-cols-4
+      "
+    >
+
+      @for (user of users(); track user.id) {
+
+        <app-user-card
+          [user]="user"
+          (edit)="onEditUser($event)"
+          (remove)="onDeleteUser($event)"
+        />
+
+      }
+
+    </div>
+
+  }
+
+</section>
+

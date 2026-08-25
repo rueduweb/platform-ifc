@@ -9,6 +9,14 @@ export const routes: Routes = [
 		import('./home/home').then((h) => h.Home)
   },
   {
+    path: 'auth',
+    title: 'Auth',
+    loadChildren: () =>
+      import('./features/auth/auth.route').then(
+        (a) => a.AUTH_ROUTES
+      )
+  },
+  {
     path: 'article',
     loadChildren: () =>
       import('./features/article/article.route').then(
@@ -41,6 +49,13 @@ export const routes: Routes = [
 		loadChildren: () =>
 		import('./features/dashboard/dashboard.route').then(
       (d) => d.DASHBOARD_ROUTES
+    )
+  },
+  {
+    path: 'user',
+    loadChildren: () =>
+    import('./features/user/user.route').then(
+      (u) => u.USER_ROUTES
     )
   }
 

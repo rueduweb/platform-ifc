@@ -1,0 +1,260 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+/*
+ * Carte
+ */
+.user-card {
+  position: relative;
+  min-height: 380px;
+  isolation: isolate;
+}
+
+/*
+ * ---------------------------------------------------------
+ * FOOTBALL
+ * ---------------------------------------------------------
+ *
+ * Placer l'image ici :
+ *
+ * src/assets/images/football.png
+ *
+ * Le pseudo-element permet de gérer l'opacité sans
+ * diminuer l'opacité du reste de la carte.
+ */
+.user-card__football {
+  position: absolute;
+  z-index: -2;
+
+  left: -65px;
+  top: 95px;
+
+  width: 210px;
+  height: 210px;
+
+  background-image: url('/assets/images/football.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  opacity: 0.3;
+
+  pointer-events: none;
+}
+
+/*
+ * ---------------------------------------------------------
+ * TRIANGLE NOIR
+ * ---------------------------------------------------------
+ */
+.user-card__black-shape {
+  position: absolute;
+  z-index: -1;
+
+  top: 0;
+  left: 0;
+
+  width: 135px;
+  height: 108px;
+
+  background: #000;
+
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    45% 100%
+  );
+}
+
+/*
+ * ---------------------------------------------------------
+ * TRIANGLE ROSE
+ * ---------------------------------------------------------
+ */
+.user-card__pink-shape {
+  position: absolute;
+  z-index: -1;
+
+  top: 73px;
+  left: 62px;
+
+  width: 100px;
+  height: 65px;
+
+  background: #f542cf;
+
+  clip-path: polygon(
+    0 100%,
+    38% 0,
+    100% 100%
+  );
+}
+
+/*
+ * ---------------------------------------------------------
+ * LOGO $index
+ * ---------------------------------------------------------
+ */
+.user-card__logo {
+  position: absolute;
+  z-index: 20;
+
+  top: 12px;
+  left: 10px;
+
+  width: 84px;
+  height: 84px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #99001b;
+  border: 1px solid #f3d400;
+  outline: 5px solid white;
+
+  color: #f2d000;
+
+  font-family: monospace;
+  font-size: 17px;
+  font-weight: 600;
+
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.15),
+    0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+/*
+ * ---------------------------------------------------------
+ * ACTION BUTTONS
+ * ---------------------------------------------------------
+ */
+.user-card__action {
+  width: 48px;
+  height: 40px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 7px;
+
+  cursor: pointer;
+
+  transition:
+    transform 120ms ease,
+    filter 120ms ease,
+    background-color 120ms ease;
+}
+
+.user-card__action:hover {
+  transform: translateY(-1px);
+  filter: brightness(0.95);
+}
+
+.user-card__action:active {
+  transform: translateY(0);
+}
+
+.user-card__action:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: 3px;
+}
+
+.user-card__action svg {
+  width: 25px;
+  height: 25px;
+}
+
+/*
+ * Eye
+ */
+.user-card__action--view {
+  color: #111;
+  background: #ffc900;
+}
+
+/*
+ * Edit
+ */
+.user-card__action--edit {
+  color: #111;
+  background: #009fe3;
+}
+
+/*
+ * Delete
+ */
+.user-card__action--delete {
+  width: 30px;
+  height: 40px;
+
+  border-radius: 0;
+
+  color: #ff4f77;
+  background: transparent;
+
+  border: 2px solid #ff4f77;
+}
+
+.user-card__action--delete svg {
+  width: 23px;
+  height: 23px;
+}
+
+/*
+ * ---------------------------------------------------------
+ * RESPONSIVE
+ * ---------------------------------------------------------
+ */
+@media (max-width: 640px) {
+  .user-card {
+    min-height: auto;
+    border-radius: 0 0 50px 0;
+  }
+
+  .user-card__logo {
+    width: 68px;
+    height: 68px;
+
+    top: 10px;
+    left: 8px;
+
+    font-size: 14px;
+  }
+
+  .user-card__black-shape {
+    width: 110px;
+    height: 95px;
+  }
+
+  .user-card__pink-shape {
+    top: 65px;
+    left: 52px;
+
+    width: 80px;
+    height: 50px;
+  }
+
+  .user-card__football {
+    left: -90px;
+    top: 105px;
+
+    width: 180px;
+    height: 180px;
+  }
+
+  .user-card__action {
+    width: 40px;
+    height: 36px;
+  }
+
+  .user-card__action--delete {
+    width: 28px;
+  }
+}
