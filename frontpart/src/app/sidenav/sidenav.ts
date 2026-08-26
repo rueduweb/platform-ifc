@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, output, signal, OnInit, HostListener } from '@angular/core';
+import { Component, output, signal, OnInit, HostListener, inject } from '@angular/core';
 import { navbarData } from './nav-data';
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { SidenavToggle } from '../shared/interfaces/sidenav-toggle';
+import { Auth } from '../features/auth/data/services/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidenav',
@@ -16,6 +18,9 @@ export class Sidenav implements OnInit {
   public screenWidth = signal<number>(0);
   public collapsed = signal<boolean>(false);
   public navData = signal(navbarData);
+
+  protected readonly auth = inject(Auth);
+  private readonly router = inject(Router);
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -39,4 +44,10 @@ export class Sidenav implements OnInit {
     this.collapsed.set(false);
     this.onToggleSidenav.emit({screenWidth: this.screenWidth(), collapsed: this.collapsed()});
   }
+
+  onLogout(): void {
+    this.auth.logout();
+    this.router.navigate(['/home']);
+  }
+
 }

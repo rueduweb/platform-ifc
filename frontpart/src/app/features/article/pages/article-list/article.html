@@ -18,7 +18,11 @@
   <!-- HEADER -->
   <h1 class="title cust-border max-w-7xl text-4xl font-light text-center">
   Liste des articles
-  <span (click)="onAdd()" class="absolute bottom-2 -right-10 cursor-pointer text-gray-700" title="Ajouter un article"><i class="fa-solid fa-square-plus"></i></span>
+    @if(auth.user()){
+      <button (click)="onAdd()" class="absolute bottom-2 -right-10 cursor-pointer text-gray-700" title="Ajouter un article">
+        <i class="fa-solid fa-square-plus"></i>
+      </button>
+    }
   </h1>
 
 
@@ -38,7 +42,7 @@
     @if(first) {
       <app-article-card
           [article]="article"
-          [editable]="true"
+          [editable]="canManageArticle(article)"
           [firstElement]="true"
           (edit)="onEdit(article)"
           (remove)="onDelete(article.id)">
@@ -47,7 +51,7 @@
     } @else {
       <app-article-card
           [article]="article"
-          [editable]="true"
+          [editable]="canManageArticle(article)"
           [firstElement]="false"
           (edit)="onEdit(article)"
           (remove)="onDelete(article.id)">

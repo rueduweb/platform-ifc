@@ -23,16 +23,5 @@ export const navbarData = [
     routeLink: 'partner',
     icon: 'fa-solid fa-handshake',
     label: 'Partenariat'
-  },
-   {
-    routeLink: 'dashboard',
-    icon: 'fa-solid fa-gauge-simple',
-    label: 'Admin'
-  },
-  {
-    routeLink: 'auth',
-    icon: 'fa-solid fa-user-tie',
-    label: 'Se connecter'
   }
-
 ];

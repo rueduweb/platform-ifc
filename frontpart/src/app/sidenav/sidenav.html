@@ -30,6 +30,59 @@ class="sidenav bg-gray-800 transition-500 transition-all ease-in-out fixed z-1 t
     </li>
 
   }
+  @if(auth.user()) {
+    <li class="sidenav-nav-item w-[70%] ml-[0.625rem] mb-[0.625rem] text-white
+    hover:bg-gray-200 hover:text-black rounded-[0.625rem]">
+      <a
+      class="sidenav-nav-link flex items-center h-[3rem] text-white-700 no-underline
+      transition-all delay-150 duration-300 ease-in-out"
+      [routerLink]="'/dashboard'" routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}">
+        <span class=" sidenav-link-icon w-[2.5rem] text-2xl mx-[0.5rem] text-center">
+          <i class="fa-solid fa-gauge-simple"></i>
+        </span>
+        @if(collapsed()){
+          <span class="sidenav-link-text ml-[1.5rem]">
+            Tableau de bord
+          </span>
+        }
+      </a>
+    </li>
+    <li class="sidenav-nav-item w-[70%] ml-[0.625rem] mb-[0.625rem] text-white
+    hover:bg-gray-200 hover:text-black rounded-[0.625rem]">
+      <button type="button"
+      (click)="onLogout()"
+      class="sidenav-nav-link flex items-center h-[3rem] text-white-700 no-underline
+      transition-all delay-150 duration-300 ease-in-out cursor-pointer">
+        <span class=" sidenav-link-icon w-[2.5rem] text-2xl mx-[0.5rem] text-center">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </span>
+        @if(collapsed()){
+          <span class="sidenav-link-text ml-[1.5rem]">
+            Déconnexion
+          </span>
+        }
+      </button>
+    </li>
+  } @else {
+    <li class="sidenav-nav-item w-[70%] ml-[0.625rem] mb-[0.625rem] text-white
+    hover:bg-gray-200 hover:text-black rounded-[0.625rem]">
+      <a class="sidenav-nav-link flex items-center h-[3rem] text-white-700 no-underline
+      transition-all delay-150 duration-300 ease-in-out"
+      [routerLink]="'/auth'" routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}">
+        <span class=" sidenav-link-icon w-[2.5rem] text-2xl mx-[0.5rem] text-center">
+          <i class="fa-solid fa-user-tie"></i>
+        </span>
+        @if(collapsed()){
+          <span class="sidenav-link-text ml-[1.5rem]">
+            Se connecter
+          </span>
+        }
+      </a>
+    </li>
+  }
+
   </ul>
 
 </div>
