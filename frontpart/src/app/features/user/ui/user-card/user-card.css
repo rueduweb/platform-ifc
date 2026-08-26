@@ -3,158 +3,223 @@
   width: 100%;
 }
 
-/*
- * Carte
- */
 .user-card {
   position: relative;
-  min-height: 380px;
   isolation: isolate;
+
+  width: 100%;
+  min-height: 244px;
+
+  overflow: hidden;
+
+  background: transparent;
+
+  border: 1px solid #a7a7a7;
+  border-radius: 0 0 38px 38px;
+
+  box-sizing: border-box;
 }
 
-/*
- * ---------------------------------------------------------
- * FOOTBALL
- * ---------------------------------------------------------
- *
- * Placer l'image ici :
- *
- * src/assets/images/football.png
- *
- * Le pseudo-element permet de gérer l'opacité sans
- * diminuer l'opacité du reste de la carte.
- */
-.user-card__football {
+
+/* =========================================================
+   FOND BLANC → FUSCHIA CLAIR
+   ========================================================= */
+
+.user-card__gradient {
   position: absolute;
   z-index: -2;
 
-  left: -65px;
-  top: 95px;
+  inset: -35px;
 
-  width: 210px;
-  height: 210px;
+  background:
+    radial-gradient(
+      ellipse 70% 80% at 52% 48%,
+      rgba(245, 245, 245, 0.30) 0%,
+      rgba(245, 245, 245, 0.20) 30%,
+      rgba(255, 255, 255, 0.45) 55%,
+      rgba(167, 231, 181, 0.25) 90%
+    );
 
-  background-image: url('/assets/images/football.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-
-  opacity: 0.3;
+  filter: blur(18px);
 
   pointer-events: none;
 }
 
-/*
- * ---------------------------------------------------------
- * TRIANGLE NOIR
- * ---------------------------------------------------------
- */
-.user-card__black-shape {
+
+
+/* =========================================================
+   BALLON
+   ========================================================= */
+
+.user-card__football {
   position: absolute;
-  z-index: -1;
+  z-index: 5;
 
-  top: 0;
-  left: 0;
+  top: -8px;
+  left: 10px;
 
-  width: 135px;
-  height: 108px;
+  width: 82px;
+  height: 82px;
 
-  background: #000;
+  object-fit: contain;
 
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    45% 100%
-  );
+  pointer-events: none;
+
+  /*
+   * Petite ombre pour détacher le ballon
+   * du fond blanc.
+   */
+  filter:
+    drop-shadow(0 2px 2px rgba(0, 0, 0, 0.15));
 }
 
-/*
- * ---------------------------------------------------------
- * TRIANGLE ROSE
- * ---------------------------------------------------------
- */
-.user-card__pink-shape {
+
+/* =========================================================
+   TRIANGLE FUSCHIA
+   ========================================================= */
+
+.user-card__green-shape {
   position: absolute;
-  z-index: -1;
+  z-index: 4;
 
-  top: 73px;
-  left: 62px;
+  top: 53px;
+  left: 0;
 
-  width: 100px;
-  height: 65px;
+  width: 34px;
+  height: 45px;
 
   background: #f542cf;
 
   clip-path: polygon(
-    0 100%,
-    38% 0,
-    100% 100%
+    0 0,
+    100% 0,
+    0 100%
   );
+
+  pointer-events: none;
 }
 
-/*
- * ---------------------------------------------------------
- * LOGO $index
- * ---------------------------------------------------------
- */
-.user-card__logo {
+
+/* =========================================================
+   ARC FUSCHIA — HAUT DROIT
+   ========================================================= */
+
+.user-card__pink-arc {
   position: absolute;
-  z-index: 20;
+  z-index: 3;
 
-  top: 12px;
-  left: 10px;
+  top: -48px;
+  right: -50px;
 
-  width: 84px;
-  height: 84px;
+  width: 90px;
+  height: 90px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border: 10px solid #f542cf;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
 
   border-radius: 50%;
 
-  background: #99001b;
-  border: 1px solid #f3d400;
-  outline: 5px solid white;
+  transform: rotate(12deg);
 
-  color: #f2d000;
+  filter: blur(0.2px);
 
-  font-family: monospace;
-  font-size: 17px;
-  font-weight: 600;
-
-  box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.15),
-    0 2px 5px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
 }
 
-/*
- * ---------------------------------------------------------
- * ACTION BUTTONS
- * ---------------------------------------------------------
- */
-.user-card__action {
-  width: 48px;
-  height: 40px;
 
+/* Halo fuchsia supplémentaire autour de l'arc */
+
+.user-card__pink-arc::after {
+  content: '';
+
+  position: absolute;
+
+  top: -7px;
+  right: -7px;
+
+  width: 100%;
+  height: 100%;
+
+  border-radius: 50%;
+
+  border: 5px solid rgba(245, 66, 207, 0.15);
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+
+  filter: blur(5px);
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.user-card__header {
+  position: relative;
+  z-index: 6;
+
+  display: flex;
+  align-items: center;
+
+  height: 55px;
+
+  padding: 0 20px 0 78px;
+
+  border-bottom: 1px solid #555;
+
+  box-sizing: border-box;
+}
+
+.user-card__username {
+  min-width: 0;
+  margin: 0;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color: #737373;
+
+  font-family: monospace;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.user-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+
+  margin-left: auto;
+}
+
+.user-card__action {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
+  width: 24px;
+  height: 30px;
+
+  padding: 0;
+
   border: 0;
-  border-radius: 7px;
+  background: transparent;
+
+  color: #999;
 
   cursor: pointer;
 
   transition:
-    transform 120ms ease,
-    filter 120ms ease,
-    background-color 120ms ease;
+    color 120ms ease,
+    transform 120ms ease;
 }
 
 .user-card__action:hover {
   transform: translateY(-1px);
-  filter: brightness(0.95);
+  color: #777;
 }
 
 .user-card__action:active {
@@ -167,94 +232,153 @@
 }
 
 .user-card__action svg {
-  width: 25px;
-  height: 25px;
+  width: 22px;
+  height: 22px;
 }
 
-/*
- * Eye
- */
-.user-card__action--view {
-  color: #111;
-  background: #ffc900;
+
+/* =========================================================
+   BODY
+   ========================================================= */
+
+.user-card__body {
+  position: relative;
+  z-index: 6;
+
+  padding: 19px 24px 22px;
 }
 
-/*
- * Edit
- */
-.user-card__action--edit {
-  color: #111;
-  background: #009fe3;
+.user-card__details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  margin: 0;
 }
 
-/*
- * Delete
- */
-.user-card__action--delete {
-  width: 30px;
-  height: 40px;
+.user-card__row {
+  display: flex;
+  align-items: baseline;
 
-  border-radius: 0;
+  min-width: 0;
 
-  color: #ff4f77;
-  background: transparent;
+  color: #777;
 
-  border: 2px solid #ff4f77;
+  font-family: monospace;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.35;
 }
 
-.user-card__action--delete svg {
-  width: 23px;
-  height: 23px;
+.user-card__row dt {
+  flex: 0 0 auto;
+  margin: 0;
 }
 
-/*
- * ---------------------------------------------------------
- * RESPONSIVE
- * ---------------------------------------------------------
- */
+.user-card__row dd {
+  min-width: 0;
+
+  margin: 0 0 0 13px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color: #333;
+}
+
+.user-card__row--muted {
+  color: #1987a9;
+}
+
+.user-card__row--muted dd {
+  color: #888;
+}
+
+
+/* =========================================================
+   FORME NOIRE BAS GAUCHE
+   ========================================================= */
+
+.user-card::after {
+  content: '';
+
+  position: absolute;
+  z-index: 2;
+
+  left: -25px;
+  bottom: -42px;
+
+  width: 105px;
+  height: 82px;
+
+  background: #222;
+
+  border-radius: 0 65px 0 0;
+
+  transform: rotate(-7deg);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
 @media (max-width: 640px) {
   .user-card {
-    min-height: auto;
-    border-radius: 0 0 50px 0;
-  }
-
-  .user-card__logo {
-    width: 68px;
-    height: 68px;
-
-    top: 10px;
-    left: 8px;
-
-    font-size: 14px;
-  }
-
-  .user-card__black-shape {
-    width: 110px;
-    height: 95px;
-  }
-
-  .user-card__pink-shape {
-    top: 65px;
-    left: 52px;
-
-    width: 80px;
-    height: 50px;
+    min-height: 235px;
+    border-radius: 0 0 32px 32px;
   }
 
   .user-card__football {
-    left: -90px;
-    top: 105px;
+    top: -6px;
+    left: 5px;
 
-    width: 180px;
-    height: 180px;
+    width: 72px;
+    height: 72px;
+  }
+
+  .user-card__header {
+    height: 52px;
+    padding-left: 65px;
+    padding-right: 14px;
+  }
+
+  .user-card__username {
+    font-size: 16px;
+  }
+
+  .user-card__actions {
+    gap: 12px;
   }
 
   .user-card__action {
-    width: 40px;
-    height: 36px;
+    width: 22px;
   }
 
-  .user-card__action--delete {
-    width: 28px;
+  .user-card__body {
+    padding: 17px 18px 20px;
+  }
+
+  .user-card__details {
+    gap: 7px;
+  }
+
+  .user-card__row {
+    font-size: 13px;
+  }
+
+  .user-card__row dd {
+    margin-left: 9px;
+  }
+
+  .user-card__pink-arc {
+    top: -40px;
+    right: -42px;
+
+    width: 78px;
+    height: 78px;
   }
 }

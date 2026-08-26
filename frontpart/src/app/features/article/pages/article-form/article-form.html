@@ -49,25 +49,59 @@
           <label class="cust-label block mb-2 text-gray-600">
               Auteur
           </label>
-
           <select
-              [value]="article().authorId"
-              (change)="changeAuthor($event)"
-              class="cust-field w-full rounded-full border border-gray-300 px-5 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-gray-300">
+            [value]="article().authorId"
+            (change)="changeAuthor($event)"
+            class="cust-field w-full rounded-full border border-gray-300 px-5 py-3
+            bg-white focus:outline-none focus:ring-2 focus:ring-gray-300"
+          >
 
-              <option [value]="0" selected>
-                  Choisir un auteur
+            @if(currentUser()?.role === 'ADMIN') {
+              <option [value]="0">
+                Choisir un auteur
               </option>
+            }
 
-              @for (user of users(); track user.id) {
-
-                  <option [value]="user.id">
-                      {{user.id}} - {{ user.username }}
-                  </option>
-
-              }
+            @for (user of users(); track user.id) {
+              <option [value]="user.id">
+                {{ user.id }} - {{ user.username }}
+              </option>
+            }
 
           </select>
+          <!-- @if(isAdmin()){
+            <select
+                [value]="article().authorId"
+                (change)="changeAuthor($event)"
+                class="cust-field w-full rounded-full border border-gray-300 px-5 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-gray-300">
+
+                <option [value]="0">
+                    Choisir un auteur
+                </option>
+
+                @for (user of users(); track user.id) {
+
+                    <option [value]="user.id">
+                        {{user.id}} - {{ user.username }}
+                    </option>
+
+                }
+
+            </select>
+          } @else {
+            <input
+              type="text"
+              [value]="currentUser()?.username ?? ''"
+              readonly
+              class="cust-field w-full rounded-full border border-gray-300 px-5 py-3 bg-gray-100"
+            >
+            @if (currentUser()) {
+              <small class="text-gray-500">
+                ID : {{ currentUser()!.id }}
+              </small>
+            }
+          } -->
+
           @if (articleForm.authorId().touched() && articleForm.authorId().invalid()) {
             @for (error of articleForm.authorId().errors(); track error.kind) {
               <small class="error text-red-400">

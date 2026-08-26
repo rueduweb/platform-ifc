@@ -18,7 +18,11 @@
   <!-- HEADER -->
   <h1 class="title cust-border max-w-7xl text-4xl font-light text-center">
     Liste des partenaires
-    <span (click)="newPartner()" class="absolute bottom-2 -right-10 cursor-pointer text-gray-700" title="Ajouter un partenaire"><i class="fa-solid fa-square-plus"></i></span>
+    @if(auth.user()?.role === 'ADMIN'){
+      <button (click)="newPartner()" class="absolute bottom-2 -right-10 cursor-pointer text-gray-700" title="Ajouter un partenaire">
+        <i class="fa-solid fa-square-plus"></i>
+      </button>
+    }
   </h1>
 
 
@@ -31,11 +35,26 @@
     overflow-x-hidden
   ">
 
+  @if(auth.user()?.role === 'ADMIN'){
+
     @for (partner of partnersStore.partners(); track partner.id) {
       <!-- PartnerPanelComponent -->
-      <app-partner-panel [partner]="partner"/>
+      <app-partner-panel
+        [partner]="partner"
+        [userRole]="'ADMIN'"
+      />
 
     }
+
+  } @else {
+      @for (partner of partnersStore.partners(); track partner.id) {
+        <!-- PartnerPanelComponent -->
+        <app-partner-panel
+          [partner]="partner"
+        />
+
+      }
+  }
 
   </div>
 

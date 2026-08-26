@@ -64,24 +64,26 @@
 
         </p>
 
-        <p class="card-action flex justify-center">
+        @if(auth.user()?.role === 'ADMIN') {
+          <p class="card-action flex justify-center">
 
-          <button
-            type="button"
-            (click)="onAdd()"
-            class="cust-btn cursor-pointer
-                  rounded px-6 py-3
-                  text-gray-600
-                  outline outline-1
-                  outline-gray-600
-                  shadow-lg transition duration-300
-                  hover:text-gray-800
-                  hover:outline-gray-900"
-          >
-            Ajouter un joueur
-          </button>
+            <button
+              type="button"
+              (click)="onAdd()"
+              class="cust-btn cursor-pointer
+                    rounded px-6 py-3
+                    text-gray-600
+                    outline outline-1
+                    outline-gray-600
+                    shadow-lg transition duration-300
+                    hover:text-gray-800
+                    hover:outline-gray-900"
+            >
+              Ajouter un joueur
+            </button>
 
-        </p>
+          </p>
+        }
 
       </div>
 
@@ -121,9 +123,9 @@
               lg:grid-cols-3
               xl:grid-cols-4"
             >
-
-              @for (player of playerList(); track player.id) {
-                <!-- PlayerCard sera ajouté ici -->
+            @if(auth.user()?.role === 'ADMIN') {
+               @for (player of playerList(); track player.id) {
+                <!-- PlayerCard ADMIN actions -->
                 <app-player-card
                   [player]="player"
                   [role]="'ADMIN'"
@@ -131,7 +133,18 @@
                   (delete)="onDelete($event)"
                 />
               }
+            } @else {
 
+              @for (player of playerList(); track player.id) {
+                <!-- PlayerCard visitée -->
+                <app-player-card
+                  [player]="player"
+                  (edit)="onEdit($event)"
+                  (delete)="onDelete($event)"
+                />
+              }
+
+            }
             </div>
 
           } @else {

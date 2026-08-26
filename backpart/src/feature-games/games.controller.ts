@@ -7,10 +7,15 @@ import {
   Param,
   Delete,
   HttpCode,
+  UseGuards,
 } from '@nestjs/common';
 import { GamesService } from './games.service';
 import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Role } from '@prisma/client';
+import { Roles } from 'src/auth/decorators/roles.decorator';
 
 @Controller('games')
 export class GamesController {
@@ -18,6 +23,8 @@ export class GamesController {
 
   @Post()
   @HttpCode(201)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
   create(@Body() createGameDto: CreateGameDto) {
     return this.gamesService.create(createGameDto);
   }
@@ -36,12 +43,16 @@ export class GamesController {
 
   @Patch(':id')
   @HttpCode(200)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
   update(@Param('id') id: string, @Body() updateGameDto: UpdateGameDto) {
     return this.gamesService.update(+id, updateGameDto);
   }
 
   @Delete(':id')
   @HttpCode(200)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
   remove(@Param('id') id: string) {
     return this.gamesService.remove(+id);
   }

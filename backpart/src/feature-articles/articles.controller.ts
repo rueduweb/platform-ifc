@@ -8,10 +8,17 @@ import {
   Delete,
   HttpCode,
   ParseIntPipe,
+  UseGuards,
+  Request,
 } from '@nestjs/common';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
+import { Role } from '@prisma/client';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import type { RequestWithUser } from 'src/auth/interfaces/request-with-user.interface';
 
 @Controller('articles')
 export class ArticlesController {
@@ -19,8 +26,13 @@ export class ArticlesController {
 
   @Post()
   @HttpCode(201)
-  create(@Body() createArticleDto: CreateArticleDto) {
-    return this.articlesService.create(createArticleDto);
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.USER, Role.ADMIN)
+  create(
+    @Request() req: RequestWithUser,
+    @Body() createArticleDto: CreateArticleDto,
+  ) {
+    return this.articlesService.create(createArticleDto, req.user);
   }
 
   @Get()

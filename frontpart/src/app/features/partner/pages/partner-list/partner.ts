@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Partners } from '../../data/services/partner';
 import { PartnerPanel } from '../../ui/partner-panel/partner-panel';
 import { Partner } from '../../data/models/partner.model';
+import { Auth } from '../../../auth/data/services/auth';
 
 @Component({
   selector: 'app-partner',
@@ -19,6 +20,8 @@ export class PartnerList implements OnInit {
   readonly partnersStore = inject(Partners);
 
   private readonly router = inject(Router);
+
+  protected readonly auth = inject(Auth);
 
   ngOnInit(): void {
     this.partnersStore.load();

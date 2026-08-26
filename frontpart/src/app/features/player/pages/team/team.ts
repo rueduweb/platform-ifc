@@ -18,6 +18,8 @@ import { Player } from '../../data/models/player.model';
 
 import { PlayerCard } from '../../ui/player-card/player-card';
 
+import { Auth } from '../../../auth/data/services/auth';
+
 @Component({
   selector: 'app-team',
   imports: [CarouselThreed, PlayerCard],
@@ -29,6 +31,8 @@ export class Team implements OnInit {
   private readonly players = inject(Players);
 
   private readonly router = inject(Router);
+
+  protected readonly auth = inject(Auth);
 
   /**
    * false => carousel 3D

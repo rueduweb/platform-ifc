@@ -3,8 +3,7 @@ import { Games } from '../../data/services/games';
 import { GameSortColumn } from '../../data/services/games';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { GameDto } from '../../data/models/game-dto';
-
+import { Auth } from '../../../auth/data/services/auth';
 @Component({
   selector: 'app-championship',
   imports: [DatePipe],
@@ -17,6 +16,7 @@ export class Game implements OnInit{
   readonly timezone = 'Europe/Paris';
   protected readonly gamesStore = inject(Games);
   protected readonly router = inject(Router);
+  protected readonly auth = inject(Auth);
 
   // ---------------------------------------------------------------------------
   // STATE / SELECTORS

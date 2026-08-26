@@ -8,8 +8,8 @@ export type UserModel = {
 	email: string;
 	role: UserRole;
 	articles: Article[] | null;
-  createdDate: string | null;
-  updatedDate: string | null;
+  createdAt: string | null;
+  updatedAt: string | null;
 };
 
 export type CurrentUser = {
@@ -17,7 +17,7 @@ export type CurrentUser = {
   username: string;
   email: string;
   articles: Article[] | null;
-  role?: UserRole;
+  role: UserRole;
 };
 
 // Création d'un utilisateur

@@ -23,7 +23,9 @@ export class PlayersService {
   }
 
   async findOne(id: number): Promise<Player | null> {
-    const player = await this.databaseService.player.findUnique({ where: { id } });
+    const player = await this.databaseService.player.findUnique({
+      where: { id },
+    });
     if (!player) {
       throw new NotFoundException('Player not found.');
     }
@@ -31,7 +33,9 @@ export class PlayersService {
   }
 
   async update(id: number, updatePlayerDto: UpdatePlayerDto): Promise<Player> {
-    const player = await this.databaseService.player.findUnique({ where: { id } });
+    const player = await this.databaseService.player.findUnique({
+      where: { id },
+    });
     if (!player) {
       throw new NotFoundException('Player not found.');
     }

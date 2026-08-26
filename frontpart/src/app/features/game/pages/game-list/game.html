@@ -2,7 +2,11 @@
 
   <h1 class="title cust-border max-w-7xl text-4xl font-light text-center">
   Championnat 2026-27 : résultats et classement
-  <span (click)="onAdd()" class="absolute bottom-2 -right-10 cursor-pointer text-gray-700" title="Ajouter une rencontre"><i class="fa-solid fa-square-plus"></i></span>
+    @if(auth.user()?.role === 'ADMIN'){
+      <button (click)="onAdd()" class="absolute bottom-2 -right-10 cursor-pointer text-gray-700" title="Ajouter une rencontre">
+      <i class="fa-solid fa-square-plus"></i>
+      </button>
+    }
   </h1>
 
   <section class="mx-auto w-full max-w-[1600px]">
@@ -302,20 +306,22 @@
 
 
           <!-- Actions -->
-          <th
-            scope="col"
-            class="
-              w-24
-              border-l
-              border-slate-200
-              px-3
-              py-3
-              text-center
-              font-normal
-            "
-          >
-            Actions
-          </th>
+          @if(auth.user()?.role === 'ADMIN'){
+            <th
+              scope="col"
+              class="
+                w-24
+                border-l
+                border-slate-200
+                px-3
+                py-3
+                text-center
+                font-normal
+              "
+            >
+              Actions
+            </th>
+          }
 
         </tr>
 
@@ -498,44 +504,46 @@
 
 
               <!-- Actions -->
-              <td
-                data-label="Actions"
-                class="
-                  px-3
-                  py-3
-                "
-              >
-
-                <div
+              @if(auth.user()?.role === 'ADMIN') {
+                <td
+                  data-label="Actions"
                   class="
-                    flex
-                    items-center
-                    gap-3
+                    px-3
+                    py-3
                   "
                 >
 
-                  <button
-                    (click)="editGame(game.id)"
-                    type="button"
-                    class="action-button"
-                    aria-label="Modifier le match"
+                  <div
+                    class="
+                      flex
+                      items-center
+                      gap-3
+                    "
                   >
-                    <i class="text-sm fa-solid fa-pen"></i>
-                  </button>
+
+                    <button
+                      (click)="editGame(game.id)"
+                      type="button"
+                      class="action-button"
+                      aria-label="Modifier le match"
+                    >
+                      <i class="text-sm fa-solid fa-pen"></i>
+                    </button>
 
 
-                  <button
-                   (click)="deleteGame(game.id)"
-                    type="button"
-                    class="action-button"
-                    aria-label="Supprimer le match"
-                  >
-                    <i class="text-sm fa-solid fa-trash"></i>
-                  </button>
+                    <button
+                    (click)="deleteGame(game.id)"
+                      type="button"
+                      class="action-button"
+                      aria-label="Supprimer le match"
+                    >
+                      <i class="text-sm fa-solid fa-trash"></i>
+                    </button>
 
-                </div>
+                  </div>
 
-              </td>
+                </td>
+              }
 
             </tr>
 

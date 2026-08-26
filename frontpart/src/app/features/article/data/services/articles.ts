@@ -65,13 +65,20 @@ export class Articles {
     );
   }
 
-  create(article: Omit<Article, 'id'>): void {
+  create(
+    article: Omit<Article, 'id'>,
+    onSuccess?: (article: Article) => void
+  ): void {
     this.handleRequest(
       this.api.create(article),
-      (article, state) => ({
-        articles: [...state.articles, article],
-        selectedId: article.id,
-      })
+      (article, state) => {
+        onSuccess?.(article);
+
+        return {
+          articles: [...state.articles, article],
+          selectedId: article.id,
+        };
+      }
     );
   }
 

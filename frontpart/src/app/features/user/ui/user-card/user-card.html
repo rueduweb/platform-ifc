@@ -1,63 +1,26 @@
-<article
-  class="user-card relative isolate overflow-hidden
-         rounded-[0_0_80px_0] border border-neutral-300
-         bg-white shadow-sm"
->
-  <!-- Football en arrière-plan -->
+<article class="user-card">
+  <!-- Halo / dégradé -->
+  <div class="user-card__gradient" aria-hidden="true"></div>
+
+  <!-- Petit arc fuchsia -->
+  <div class="user-card__pink-arc" aria-hidden="true"></div>
+
+  <!-- Ballon -->
+
+
+  <!-- Triangle vert -->
   <div
-    class="user-card__football"
+    class="user-card__green-shape"
     aria-hidden="true"
   ></div>
 
-  <!-- Décorations graphiques -->
-  <div class="user-card__black-shape" aria-hidden="true"></div>
-  <div class="user-card__pink-shape" aria-hidden="true"></div>
-
-  <!-- Logo -->
-  <div
-    class="user-card__logo"
-    aria-hidden="true"
-  >
-    <span>$index</span>
-  </div>
-
   <!-- HEADER -->
-  <header
-    class="relative z-10 flex h-[108px] items-center
-           border-b border-neutral-800 pl-[132px] pr-8"
-  >
-    <h2
-      class="truncate text-[20px] font-normal uppercase
-             tracking-wide text-neutral-700"
-    >
+  <header class="user-card__header">
+    <h2 class="user-card__username">
       {{ user().username }}
     </h2>
 
-    <!-- Actions -->
-    <div class="ml-auto flex items-center gap-5">
-      <!-- Visibility -->
-      <button
-        type="button"
-        class="user-card__action user-card__action--view"
-        title="Afficher"
-        aria-label="Afficher l'utilisateur"
-        (click)="onToggleVisibility()"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          aria-hidden="true"
-        >
-          <path
-            d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"
-          />
-          <circle cx="12" cy="12" r="3" />
-        </svg>
-      </button>
-
-      <!-- Edit -->
+    <div class="user-card__actions">
       <button
         type="button"
         class="user-card__action user-card__action--edit"
@@ -77,7 +40,6 @@
         </svg>
       </button>
 
-      <!-- Delete -->
       <button
         type="button"
         class="user-card__action user-card__action--delete"
@@ -89,90 +51,52 @@
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="2.5"
+          stroke-width="1.8"
           aria-hidden="true"
         >
-          <path d="M6 6 18 18" />
-          <path d="M18 6 6 18" />
+          <path d="M6 7h12" />
+          <path d="M9 7V5h6v2" />
+          <path d="m8 7 .7 12h6.6L16 7" />
+          <path d="M10 10v6" />
+          <path d="M14 10v6" />
         </svg>
       </button>
     </div>
   </header>
 
   <!-- BODY -->
-  <section
-    class="relative z-10 px-9 pb-8 pt-10"
-  >
-    <dl class="space-y-7">
+  <section class="user-card__body">
+    <dl class="user-card__details">
 
-      <!-- Email -->
-      <div>
-        <dt
-          class="text-[20px] font-normal uppercase
-                 tracking-wide text-neutral-700"
-        >
-          Email :
-        </dt>
+      <div class="user-card__row">
+        <dt>Email:</dt>
+        <dd>{{ user().email }}</dd>
+      </div>
 
-        <dd
-          class="mt-2 truncate text-[17px] text-neutral-600"
-        >
-          {{ user().email }}
+      <div class="user-card__row">
+        <dt>Rôle:</dt>
+        <dd>{{ user().role }}</dd>
+      </div>
+
+      <div class="user-card__row">
+        <dt>Auteur avec</dt>
+        <dd>{{ articleCount }} articles</dd>
+      </div>
+
+      <div class="user-card__row">
+        <dt>Crée le:</dt>
+        <dd>
+          {{ user().createdAt ?? 'createdAt' }}
         </dd>
       </div>
 
-      <!-- Role -->
-      <div>
-        <dt
-          class="text-[20px] font-normal uppercase
-                 tracking-wide text-neutral-700"
-        >
-          Role :
-        </dt>
-
-        <dd
-          class="mt-2 text-[17px] text-neutral-600"
-        >
-          {{ user().role }}
-        </dd>
-      </div>
-
-      <!-- Articles -->
-      <div>
-        <dd
-          class="font-mono text-[17px] text-neutral-700"
-        >
-          Auteur avec {{ articleCount }} articles
-        </dd>
-      </div>
-
-      <!-- Created date -->
-      <div>
-        <dd
-          class="font-mono text-[17px] text-neutral-700"
-        >
-          Crée le:
-          <span
-            class="text-neutral-500"
-          >
-            {{ createdDate ?? 'createdDate' }}
-          </span>
-        </dd>
-      </div>
-
-      <!-- Updated date -->
-      <div>
-        <dd
-          class="font-mono text-[15px] text-neutral-400"
-        >
-          dernière modification:
-          <span>
-            {{ updatedDate ?? 'updatedDate' }}
-          </span>
+      <div class="user-card__row user-card__row--muted">
+        <dt>dernière modification:</dt>
+        <dd>
+          {{ user().updatedAt ?? 'updatedAt' }}
         </dd>
       </div>
 
     </dl>
   </section>
 </article>
-

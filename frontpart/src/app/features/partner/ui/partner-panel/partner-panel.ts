@@ -14,8 +14,7 @@ import { Router } from '@angular/router';
 
 export type UserRole =
   | 'ADMIN'
-  | 'USER'
-  | 'OTHER';
+  | 'USER';
 
 @Component({
   selector: 'app-partner-panel',
@@ -36,14 +35,14 @@ export class PartnerPanel {
 
   readonly partner = input.required<Partner>();
 
-  readonly userRole = input<UserRole>('OTHER');
+  readonly userRole = input<UserRole | null>(null);
 
-  readonly canModify = signal<boolean>(true);
-  /* readonly canModify = computed(() => {
+
+  readonly canModify = computed(() => {
     const role = this.userRole();
 
     return role === 'ADMIN' || role === 'USER';
-  }); */
+  });
 
   /*
    * ======================

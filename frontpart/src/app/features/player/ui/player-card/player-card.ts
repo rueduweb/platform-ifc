@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 
 import { Player } from '../../data/models/player.model';
+import { UserRole } from '../../../user/data/models/user.model';
 
 /*
   Rôle de l'utilisateur actuellement connecté.
@@ -18,8 +19,7 @@ import { Player } from '../../data/models/player.model';
  */
 export type PlayerCardRole =
   | 'ADMIN'
-  | 'USER'
-  | 'VISITOR';
+  | 'USER';
 
 @Component({
   selector: 'app-player-card',
@@ -38,7 +38,7 @@ export class PlayerCard {
     Par défaut :
     VISITOR => aucun bouton Edit/Delete.
    */
-  readonly role = input<PlayerCardRole>('ADMIN');
+  readonly role = input<UserRole | null>(null);
 
   /*
    Demande de modification du joueur.

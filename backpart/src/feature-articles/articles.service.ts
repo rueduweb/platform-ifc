@@ -3,14 +3,24 @@ import { Article } from './entities/article.entity';
 import { DatabaseService } from 'src/database/database.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
-
+import { Role } from '@prisma/client';
+import type { RequestWithUser } from 'src/auth/interfaces/request-with-user.interface';
 @Injectable()
 export class ArticlesService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  async create(createArticleDto: CreateArticleDto): Promise<Article> {
+  async create(
+    createArticleDto: CreateArticleDto,
+    user: RequestWithUser['user'],
+  ): Promise<Article> {
+    const authorId =
+      user.role === Role.ADMIN ? createArticleDto.authorId : user.id;
+
     return await this.databaseService.article.create({
-      data: createArticleDto,
+      data: {
+        ...createArticleDto,
+        authorId,
+      },
       include: {
         author: true,
       },

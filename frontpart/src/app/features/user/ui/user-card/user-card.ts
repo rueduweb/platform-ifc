@@ -9,7 +9,6 @@ import { UserModel } from '../../data/models/user.model';
 
 @Component({
   selector: 'app-user-card',
-  standalone: true,
   templateUrl: './user-card.html',
   styleUrl: './user-card.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,11 +25,11 @@ export class UserCardComponent {
    * les fournit, sans modifier immédiatement UserModel.
    */
   protected get createdDate(): string | null {
-    return this.userAsExtended.createdDate ?? null;
+    return this.userAsExtended.createdAt ?? null;
   }
 
   protected get updatedDate(): string | null {
-    return this.userAsExtended.updatedDate ?? null;
+    return this.userAsExtended.updatedAt ?? null;
   }
 
   protected get articleCount(): number {
