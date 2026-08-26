@@ -1,0 +1,416 @@
+:host {
+  display: block;
+  min-height: 100%;
+}
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.signup-page {
+  width: 100%;
+  min-height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px 16px;
+}
+
+
+/* =========================================================
+   CARTE
+   ========================================================= */
+
+.signup-card {
+  position: relative;
+  isolation: isolate;
+  z-index: 0;
+
+  width: 100%;
+  max-width: 360px;
+  min-height: 450px;
+
+  overflow: hidden;
+
+  background: #fff;
+
+  border-radius: 42px;
+
+  /*
+   * Ombre douce :
+   * légèrement visible sous la carte
+   * et davantage sur le côté droit.
+   */
+  box-shadow:
+    2px 4px 0 rgba(0, 0, 0, 0.08),
+    5px 8px 13px rgba(0, 0, 0, 0.18),
+    0 1px 7px rgba(255, 255, 255, 0.9);
+}
+
+
+/* =========================================================
+   ARC GRIS
+   =========================================================
+
+   Dans le PNG cible, l'arc ne part pas du dessus.
+   Il commence plutôt vers le milieu du bord gauche
+   et remonte en courbe vers le haut.
+
+   On utilise une grosse ellipse grise puis une
+   ellipse blanche interne pour "creuser" l'arc.
+   */
+
+.signup-arc {
+  position: absolute;
+  z-index: 0;
+
+  width: 470px;
+  height: 470px;
+
+  /*
+   * Placement fortement décalé vers la gauche.
+   */
+  top: -285px;
+  left: -300px;
+
+  border-radius: 50%;
+
+  background: #eeeeee;
+
+  transform: none;
+}
+
+
+/*
+ * Partie blanche qui découpe l'intérieur
+ * de l'ellipse.
+ */
+.signup-arc::after {
+  content: "";
+
+  position: absolute;
+
+  width: 430px;
+  height: 430px;
+
+  top: 38px;
+  left: 48px;
+
+  border-radius: 50%;
+
+  background: #fff;
+}
+
+
+/* =========================================================
+   COIN FUCHSIA — HAUT DROIT
+   ========================================================= */
+
+.signup-pink-corner {
+  position: absolute;
+  z-index: 0;
+
+  top: -1px;
+  right: -1px;
+
+  width: 78px;
+  height: 70px;
+
+  background: linear-gradient(
+    135deg,
+    #ff1493 0%,
+    #ff1493 25%,
+    #ff75ce 45%,
+    #f5f5f5 75%,
+    #eeeeee 100%
+  );
+
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%
+  );
+}
+
+
+/* =========================================================
+   COIN BAS DROIT
+   ========================================================= */
+
+.signup-black-corner {
+  position: absolute;
+  z-index: 0;
+
+  right: -2px;
+  bottom: -2px;
+
+  width: 96px;
+  height: 66px;
+
+  background: linear-gradient(
+    90deg,
+    #222222 0%,
+    #222222 25%,
+    #555555 50%,
+    #bdbdbd 75%,
+    #d9d9d9 100%
+  );
+
+  clip-path: polygon(
+    100% 0,
+    100% 100%,
+    0 100%
+  );
+}
+
+
+/* =========================================================
+   FORMULAIRE
+   ========================================================= */
+
+.signup-form {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  min-height: 450px;
+
+  padding:
+    25px
+    20px
+    12px;
+}
+
+
+/* =========================================================
+   TITRE
+   ========================================================= */
+
+.signup-title {
+  margin: 0 0 25px;
+
+  text-align: center;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 1;
+
+  color: #222;
+}
+
+
+/* =========================================================
+   CHAMPS
+   ========================================================= */
+
+.signup-fields {
+  display: flex;
+  flex-direction: column;
+
+  /*
+   * Espacement correspondant au PNG.
+   */
+  gap: 21px;
+}
+
+
+.signup-field {
+  width: 100%;
+}
+
+
+.signup-input {
+  display: block;
+
+  width: 100%;
+  height: 46px;
+
+  box-sizing: border-box;
+
+  padding: 0 19px;
+
+  border: 1px solid #d0d0d0;
+  border-radius: 16px;
+
+  background: #fff;
+
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: 400;
+
+  color: #333;
+
+  outline: none;
+
+  transition:
+    border-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+
+.signup-input::placeholder {
+  color: #999;
+  opacity: 1;
+}
+
+
+.signup-input:focus {
+  border-color: #b5b5b5;
+
+  box-shadow:
+    0 0 0 2px rgb(0 0 0 / 4%);
+}
+
+
+.signup-input-error {
+  border-color: #f87171;
+}
+
+
+/* =========================================================
+   ERREURS
+   ========================================================= */
+
+.signup-error {
+  margin: 4px 8px 0;
+
+  font-size: 11px;
+  line-height: 1.2;
+
+  color: #ef4444;
+}
+
+
+.signup-server-error {
+  margin: 7px 0 0;
+  padding: 5px 8px;
+
+  border-radius: 7px;
+
+  background: #fef2f2;
+
+  text-align: center;
+
+  font-size: 11px;
+  line-height: 1.2;
+
+  color: #dc2626;
+}
+
+
+/* =========================================================
+   BOUTON
+   ========================================================= */
+
+.signup-submit {
+  width: 100%;
+  height: 28px;
+
+  margin-top: 25px;
+
+  border: 0;
+  border-radius: 8px;
+
+  background: #08a7e3;
+
+  color: #fff;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+
+  cursor: pointer;
+
+  transition:
+    background-color 120ms ease,
+    opacity 120ms ease;
+}
+
+
+.signup-submit:hover:not(:disabled) {
+  background: #0798d0;
+}
+
+
+.signup-submit:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: 2px;
+}
+
+
+.signup-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+
+/* =========================================================
+   ZONE CONNEXION
+   ========================================================= */
+
+.signup-register {
+  margin-top: auto;
+  padding-top: 8px;
+
+  text-align: center;
+
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.signup-register p {
+  margin: 0;
+
+  font-size: 13px;
+  line-height: 1.25;
+
+  color: #777;
+}
+
+
+.signup-register-link {
+  display: inline-block;
+
+  margin-top: 2px;
+
+  color: #111;
+
+  font-size: 16px;
+  font-weight: 500;
+
+  text-decoration: none;
+}
+
+
+.signup-register-link:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   PETITS ÉCRANS
+   ========================================================= */
+
+@media (max-width: 380px) {
+  .signup-page {
+    padding-inline: 10px;
+  }
+
+  .signup-card {
+    border-radius: 36px;
+  }
+
+  .signup-form {
+    padding-inline: 18px;
+  }
+
+  .signup-input {
+    padding-inline: 17px;
+  }
+}

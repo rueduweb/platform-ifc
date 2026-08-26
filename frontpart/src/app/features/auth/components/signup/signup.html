@@ -1,66 +1,37 @@
-<div class="min-h-[50%] w-full bg-transparent flex items-center justify-center px-4 py-6">
-  <div
-    class="
-      relative isolate w-full max-w-[360px] overflow-hidden
-      rounded-[30px] bg-white
-      shadow-[0_2px_0_#d9d9d9,0_10px_0_#050505]
-      min-h-[470px]
-    "
-  >
-    <!-- Décoration haute gauche -->
+<div class="signup-page">
+  <div class="signup-card">
+
+    <!-- Arc gris latéral -->
     <span
       aria-hidden="true"
-      class="
-        pointer-events-none absolute -left-10 -top-14 -z-10
-        h-32 w-[380px]
-        rounded-[50%]
-        bg-[#eeeeee]
-      "
+      class="signup-arc"
     ></span>
 
-    <!-- Décoration haute droite -->
+    <!-- Angle fuchsia supérieur droit -->
     <span
       aria-hidden="true"
-      class="
-        pointer-events-none absolute right-0 top-0 -z-10
-        h-[70px] w-[78px]
-        bg-[#ff2bbd]
-        [clip-path:polygon(0_0,100%_0,100%_100%)]
-      "
+      class="signup-pink-corner"
     ></span>
 
-    <!-- Décoration basse gauche -->
+    <!-- Angle gris foncé inférieur droit -->
     <span
       aria-hidden="true"
-      class="
-        pointer-events-none absolute -bottom-8 -left-8 -z-10
-        h-24 w-24
-        rounded-full
-        bg-black
-      "
+      class="signup-black-corner"
     ></span>
 
     <form
       [formRoot]="signupForm"
-      class="
-        relative z-10 flex min-h-[470px] flex-col
-        px-5 pb-5 pt-6
-      "
+      class="signup-form"
       novalidate
     >
-      <h1
-        class="
-          mb-6 text-center
-          font-sans text-[25px] font-normal
-          leading-none text-[#222]
-        "
-      >
+      <h1 class="signup-title">
         Créer mon compte
       </h1>
 
-      <div class="space-y-3 space-x-2">
+      <div class="signup-fields">
+
         <!-- Username -->
-        <div>
+        <div class="signup-field">
           <input
             id="username"
             type="text"
@@ -71,17 +42,8 @@
               signupForm.username().touched() &&
               signupForm.username().invalid()
             "
-            class="
-              h-12 w-full rounded-[18px]
-              border border-[#d0d0d0]
-              bg-white px-4
-              font-mono text-[15px] text-[#333]
-              outline-none
-              placeholder:text-[#9a9a9a]
-              focus:border-[#a9a9a9]
-              focus:ring-2 focus:ring-black/5
-            "
-            [class.border-red-400]="
+            class="signup-input"
+            [class.signup-input-error]="
               signupForm.username().touched() &&
               signupForm.username().invalid()
             "
@@ -91,14 +53,14 @@
             signupForm.username().touched() &&
             signupForm.username().invalid()
           ) {
-            <p class="mt-1 px-2 text-xs text-red-500">
+            <p class="signup-error">
               {{ signupForm.username().errors()[0]?.message }}
             </p>
           }
         </div>
 
         <!-- Email -->
-        <div>
+        <div class="signup-field">
           <input
             id="email"
             type="email"
@@ -109,17 +71,8 @@
               signupForm.email().touched() &&
               signupForm.email().invalid()
             "
-            class="
-              h-12 w-full rounded-[18px]
-              border border-[#d0d0d0]
-              bg-white px-4
-              font-mono text-[15px] text-[#333]
-              outline-none
-              placeholder:text-[#9a9a9a]
-              focus:border-[#a9a9a9]
-              focus:ring-2 focus:ring-black/5
-            "
-            [class.border-red-400]="
+            class="signup-input"
+            [class.signup-input-error]="
               signupForm.email().touched() &&
               signupForm.email().invalid()
             "
@@ -129,14 +82,14 @@
             signupForm.email().touched() &&
             signupForm.email().invalid()
           ) {
-            <p class="mt-1 px-2 text-xs text-red-500">
+            <p class="signup-error">
               {{ signupForm.email().errors()[0]?.message }}
             </p>
           }
         </div>
 
         <!-- Password -->
-        <div>
+        <div class="signup-field">
           <input
             id="password"
             type="password"
@@ -147,17 +100,8 @@
               signupForm.password().touched() &&
               signupForm.password().invalid()
             "
-            class="
-              h-12 w-full rounded-[18px]
-              border border-[#d0d0d0]
-              bg-white px-4
-              font-mono text-[15px] text-[#333]
-              outline-none
-              placeholder:text-[#9a9a9a]
-              focus:border-[#a9a9a9]
-              focus:ring-2 focus:ring-black/5
-            "
-            [class.border-red-400]="
+            class="signup-input"
+            [class.signup-input-error]="
               signupForm.password().touched() &&
               signupForm.password().invalid()
             "
@@ -167,14 +111,14 @@
             signupForm.password().touched() &&
             signupForm.password().invalid()
           ) {
-            <p class="mt-1 px-2 text-xs text-red-500">
+            <p class="signup-error">
               {{ signupForm.password().errors()[0]?.message }}
             </p>
           }
         </div>
 
         <!-- Confirmation -->
-        <div>
+        <div class="signup-field">
           <input
             id="confirmPassword"
             type="password"
@@ -185,17 +129,8 @@
               signupForm.confirmPassword().touched() &&
               signupForm.confirmPassword().invalid()
             "
-            class="
-              h-12 w-full rounded-[18px]
-              border border-[#d0d0d0]
-              bg-white px-4
-              font-mono text-[15px] text-[#333]
-              outline-none
-              placeholder:text-[#9a9a9a]
-              focus:border-[#a9a9a9]
-              focus:ring-2 focus:ring-black/5
-            "
-            [class.border-red-400]="
+            class="signup-input"
+            [class.signup-input-error]="
               signupForm.confirmPassword().touched() &&
               signupForm.confirmPassword().invalid()
             "
@@ -205,20 +140,16 @@
             signupForm.confirmPassword().touched() &&
             signupForm.confirmPassword().invalid()
           ) {
-            <p class="mt-1 px-2 text-xs text-red-500">
+            <p class="signup-error">
               {{ signupForm.confirmPassword().errors()[0]?.message }}
             </p>
           }
         </div>
+
       </div>
 
       @if (auth.error(); as error) {
-        <p
-          class="
-            mt-3 rounded-lg bg-red-50 px-3 py-2
-            text-center text-xs text-red-600
-          "
-        >
+        <p class="signup-server-error">
           {{ error }}
         </p>
       }
@@ -226,15 +157,7 @@
       <button
         type="submit"
         [disabled]="signupForm().invalid() || auth.loading()"
-        class="
-          mt-4 h-11 w-full rounded-[8px]
-          bg-[#08a7e3]
-          font-sans text-[16px] font-normal text-white
-          transition-colors
-          hover:bg-[#0798d0]
-          disabled:cursor-not-allowed
-          disabled:opacity-50
-        "
+        class="signup-submit"
       >
         @if (signupForm().submitting()) {
           Création...
@@ -243,22 +166,19 @@
         }
       </button>
 
-      <div class="mt-auto pt-4 text-center">
-        <p class="text-[15px] text-[#777]">
+      <div class="signup-register">
+        <p>
           Vous avez déjà un compte ?
         </p>
 
         <a
           routerLink="/auth"
-          class="
-            mt-1 inline-block
-            font-sans text-[16px] font-medium text-[#111]
-            hover:underline
-          "
+          class="signup-register-link"
         >
           Se connecter
         </a>
       </div>
     </form>
+
   </div>
 </div>

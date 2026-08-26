@@ -24,13 +24,13 @@ import { Auth } from '../../data/services/auth';
 
 @Component({
   selector: 'app-signup-form',
-  standalone: true,
   imports: [
     FormField,
     FormRoot,
-    RouterLink,
+    RouterLink
   ],
   templateUrl: './signup.html',
+  styleUrl: './signup.css'
 })
 export class Signup {
   private readonly authService = inject(Auth);

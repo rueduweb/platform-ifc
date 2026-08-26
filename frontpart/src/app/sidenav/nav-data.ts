@@ -32,7 +32,7 @@ export const navbarData = [
   {
     routeLink: 'auth',
     icon: 'fa-solid fa-user-tie',
-    label: 'Auth'
+    label: 'Se connecter'
   }
 
 ];
