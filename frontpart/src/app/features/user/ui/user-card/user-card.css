@@ -1,6 +1,12 @@
 :host {
   display: block;
   width: 100%;
+
+  /*
+   * Le composant suppose que Nunito est chargé globalement.
+   * Voir la remarque plus bas.
+   */
+  font-family: 'Nunito', sans-serif;
 }
 
 .user-card {
@@ -12,81 +18,124 @@
 
   overflow: hidden;
 
-  background: transparent;
+  box-sizing: border-box;
 
-  border: 1px solid #a7a7a7;
+  background:
+    linear-gradient(
+      135deg,
+      #fdfdfd 0%,
+      #fafafa 45%,
+      #f7f9f7 100%
+    );
+
+  border: 1px solid #a9a9a9;
   border-radius: 0 0 38px 38px;
 
-  box-sizing: border-box;
+  box-shadow: 7px 9px 16px rgba(55, 55, 55, 0.28);
+
 }
 
 
 /* =========================================================
-   FOND BLANC → FUSCHIA CLAIR
+   FOND / HALO TRÈS LÉGER
    ========================================================= */
 
 .user-card__gradient {
   position: absolute;
   z-index: -2;
 
-  inset: -35px;
+  inset: -45px;
+
+  pointer-events: none;
 
   background:
     radial-gradient(
-      ellipse 70% 80% at 52% 48%,
-      rgba(245, 245, 245, 0.30) 0%,
-      rgba(245, 245, 245, 0.20) 30%,
-      rgba(255, 255, 255, 0.45) 55%,
-      rgba(167, 231, 181, 0.25) 90%
+      ellipse 55% 65% at 12% 4%,
+      rgba(185, 255, 0, 0.10) 0%,
+      rgba(185, 255, 0, 0.04) 35%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 60% 75% at 92% 8%,
+      rgba(255, 255, 255, 0.85) 0%,
+      rgba(235, 248, 237, 0.30) 50%,
+      transparent 78%
     );
 
-  filter: blur(18px);
-
-  pointer-events: none;
-}
-
-
-
-/* =========================================================
-   BALLON
-   ========================================================= */
-
-.user-card__football {
-  position: absolute;
-  z-index: 5;
-
-  top: -8px;
-  left: 10px;
-
-  width: 82px;
-  height: 82px;
-
-  object-fit: contain;
-
-  pointer-events: none;
-
-  /*
-   * Petite ombre pour détacher le ballon
-   * du fond blanc.
-   */
-  filter:
-    drop-shadow(0 2px 2px rgba(0, 0, 0, 0.15));
+  filter: blur(16px);
 }
 
 
 /* =========================================================
-   TRIANGLE FUSCHIA
+   COIN HAUT GAUCHE
+   OR + VERT FLUO + LÉGER BRILLANT
    ========================================================= */
 
 .user-card__green-shape {
   position: absolute;
-  z-index: 4;
+  z-index: 0;
 
-  top: 53px;
+  top: 0;
   left: 0;
 
-  width: 34px;
-  height: 45px;
+  width: 93px;
+  height: 60px;
+
+  pointer-events: none;
+
+  border-radius: 0 0 65px 0;
+
+  background:
+    linear-gradient(
+      105deg,
+      #94a767 0%,
+      #94a767 20%,
+      #a3b575 50%,
+      #d8bd55 78%,
+      #e4c45c 100%
+    );
+
+  filter: blur(1.2px);
+
+  opacity: 0.92;
+}
+
+
+/* Petit reflet très discret */
+.user-card__green-shape::after {
+  content: '';
+
+  position: absolute;
+
+  top: 5px;
+  left: 25px;
+
+  width: 42px;
+  height: 18px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 225, 0.20);
+
+  filter: blur(8px);
+
+  transform: rotate(-18deg);
+}
+
+
+/* =========================================================
+   PETIT TRIANGLE FUSCHIA À GAUCHE
+   ========================================================= */
+
+.user-card__pink-arc {
+  position: absolute;
+  z-index: 5;
+
+  top: 60px;
+  left: 0;
+
+  width: 39px;
+  height: 50px;
 
   background: #f542cf;
 
@@ -100,54 +149,23 @@
 }
 
 
-/* =========================================================
-   ARC FUSCHIA — HAUT DROIT
-   ========================================================= */
-
-.user-card__pink-arc {
-  position: absolute;
-  z-index: 3;
-
-  top: -48px;
-  right: -50px;
-
-  width: 90px;
-  height: 90px;
-
-  border: 10px solid #f542cf;
-  border-left-color: transparent;
-  border-bottom-color: transparent;
-
-  border-radius: 50%;
-
-  transform: rotate(12deg);
-
-  filter: blur(0.2px);
-
-  pointer-events: none;
-}
-
-
-/* Halo fuchsia supplémentaire autour de l'arc */
-
+/*
+ * Petit halo rose très discret.
+ */
 .user-card__pink-arc::after {
   content: '';
 
   position: absolute;
+  inset: 0;
 
-  top: -7px;
-  right: -7px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.16),
+      transparent 55%
+    );
 
-  width: 100%;
-  height: 100%;
-
-  border-radius: 50%;
-
-  border: 5px solid rgba(245, 66, 207, 0.15);
-  border-left-color: transparent;
-  border-bottom-color: transparent;
-
-  filter: blur(5px);
+  opacity: 0.7;
 }
 
 
@@ -157,43 +175,62 @@
 
 .user-card__header {
   position: relative;
-  z-index: 6;
+  z-index: 5;
 
   display: flex;
   align-items: center;
 
-  height: 55px;
+  height: 60px;
 
-  padding: 0 20px 0 78px;
-
-  border-bottom: 1px solid #555;
+  padding: 0 17px 0 88px;
 
   box-sizing: border-box;
+
+  background: transparent;
+
+  border-bottom: 1px solid #505050;
+
+  /*
+   * La forme décorative reste confinée
+   * à la hauteur du header.
+   */
+  overflow: hidden;
 }
 
+
 .user-card__username {
+  position: relative;
+  z-index: 1;
+
   min-width: 0;
+
   margin: 0;
 
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  color: #737373;
+  color: #222;
 
-  font-family: monospace;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1;
+  font-family: 'Nunito', sans-serif;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.1;
 }
 
+
 .user-card__actions {
+  position: relative;
+  z-index: 1;
+
   display: flex;
   align-items: center;
-  gap: 22px;
+
+  gap: 18px;
 
   margin-left: auto;
 }
+
 
 .user-card__action {
   display: inline-flex;
@@ -208,28 +245,33 @@
   border: 0;
   background: transparent;
 
-  color: #999;
+  color: #151515;
 
   cursor: pointer;
 
   transition:
     color 120ms ease,
-    transform 120ms ease;
+    transform 120ms ease,
+    opacity 120ms ease;
 }
 
+
 .user-card__action:hover {
+  color: #000;
   transform: translateY(-1px);
-  color: #777;
 }
+
 
 .user-card__action:active {
   transform: translateY(0);
 }
 
+
 .user-card__action:focus-visible {
-  outline: 2px solid #111;
+  outline: 2px solid #222;
   outline-offset: 3px;
 }
+
 
 .user-card__action svg {
   width: 22px;
@@ -245,16 +287,19 @@
   position: relative;
   z-index: 6;
 
-  padding: 19px 24px 22px;
+  padding: 19px 25px 25px;
 }
+
 
 .user-card__details {
   display: flex;
   flex-direction: column;
+
   gap: 8px;
 
   margin: 0;
 }
+
 
 .user-card__row {
   display: flex;
@@ -262,61 +307,116 @@
 
   min-width: 0;
 
-  color: #777;
+  color: #71808a;
 
-  font-family: monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 15px;
   font-weight: 400;
   line-height: 1.35;
 }
 
+
 .user-card__row dt {
   flex: 0 0 auto;
+
   margin: 0;
+
+  color: #71808a;
 }
+
 
 .user-card__row dd {
   min-width: 0;
 
-  margin: 0 0 0 13px;
+  margin: 0 0 0 14px;
 
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  color: #333;
+  color: #252525;
+
+  font-weight: 500;
 }
 
-.user-card__row--muted {
-  color: #1987a9;
+
+/* Accent particulier sur la ligne auteur */
+.user-card__row:nth-child(3) dt {
+  color: #71808a;
 }
+
+
+.user-card__row:nth-child(3) dd {
+  color: #252525;
+  font-weight: 500;
+}
+
+
+/* Dernière modification */
+.user-card__row--muted {
+  color: #2885a6;
+}
+
+
+.user-card__row--muted dt {
+  color: #2885a6;
+}
+
 
 .user-card__row--muted dd {
-  color: #888;
+  color: #4d8eaa;
+  font-weight: 400;
 }
 
 
 /* =========================================================
-   FORME NOIRE BAS GAUCHE
+   PETITE FORME NOIRE — BAS DROITE
    ========================================================= */
 
 .user-card::after {
   content: '';
 
   position: absolute;
-  z-index: 2;
+  z-index: 3;
 
-  left: -25px;
-  bottom: -42px;
+  right: -23px;
+  bottom: -32px;
 
-  width: 105px;
-  height: 82px;
+  width: 74px;
+  height: 57px;
 
   background: #222;
 
-  border-radius: 0 65px 0 0;
+  /*
+   * Forme beaucoup plus petite que la précédente.
+   * Elle reste partiellement hors de la carte.
+   */
+  border-radius: 70% 0 0 0;
 
-  transform: rotate(-7deg);
+  transform: rotate(-18deg);
+
+  pointer-events: none;
+}
+
+
+/* Petit adoucissement du bord de la forme noire */
+.user-card::before {
+  content: '';
+
+  position: absolute;
+  z-index: 2;
+
+  right: -28px;
+  bottom: -37px;
+
+  width: 78px;
+  height: 61px;
+
+  border-radius: 70% 0 0 0;
+
+  background: rgba(34, 34, 34, 0.08);
+
+  filter: blur(5px);
 
   pointer-events: none;
 }
@@ -332,26 +432,27 @@
     border-radius: 0 0 32px 32px;
   }
 
-  .user-card__football {
-    top: -6px;
-    left: 5px;
+  .user-card__green-shape {
+    top: -27px;
+    left: -30px;
 
-    width: 72px;
-    height: 72px;
+    width: 96px;
+    height: 94px;
   }
 
   .user-card__header {
-    height: 52px;
-    padding-left: 65px;
+    height: 56px;
+
+    padding-left: 70px;
     padding-right: 14px;
   }
 
   .user-card__username {
-    font-size: 16px;
+    font-size: 17px;
   }
 
   .user-card__actions {
-    gap: 12px;
+    gap: 10px;
   }
 
   .user-card__action {
@@ -359,7 +460,7 @@
   }
 
   .user-card__body {
-    padding: 17px 18px 20px;
+    padding: 17px 18px 22px;
   }
 
   .user-card__details {
@@ -367,18 +468,26 @@
   }
 
   .user-card__row {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .user-card__row dd {
     margin-left: 9px;
   }
 
-  .user-card__pink-arc {
-    top: -40px;
-    right: -42px;
+  .user-card::after {
+    right: -19px;
+    bottom: -28px;
 
-    width: 78px;
-    height: 78px;
+    width: 62px;
+    height: 48px;
+  }
+
+  .user-card::before {
+    right: -24px;
+    bottom: -32px;
+
+    width: 66px;
+    height: 52px;
   }
 }

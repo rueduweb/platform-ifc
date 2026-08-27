@@ -1,43 +1,32 @@
 <article class="user-card">
-  <!-- Halo / dégradé -->
+  <!-- Halo / dégradé décoratif -->
   <div class="user-card__gradient" aria-hidden="true"></div>
 
-  <!-- Petit arc fuchsia -->
+  <!-- Accent fuchsia à gauche -->
   <div class="user-card__pink-arc" aria-hidden="true"></div>
 
-  <!-- Ballon -->
-
-
-  <!-- Triangle vert -->
-  <div
-    class="user-card__green-shape"
-    aria-hidden="true"
-  ></div>
+  <!-- Halo or / vert fluo en haut à gauche -->
+  <div class="user-card__green-shape" aria-hidden="true"></div>
 
   <!-- HEADER -->
   <header class="user-card__header">
+    <div
+      class="user-card__green-shape"
+      aria-hidden="true"
+    ></div>
     <h2 class="user-card__username">
-      {{ user().username }}
+      {{ user().username | titlecase }}
     </h2>
 
     <div class="user-card__actions">
       <button
         type="button"
         class="user-card__action user-card__action--edit"
-        title="Modifier"
-        aria-label="Modifier l'utilisateur"
+        title="Modifier le rôle"
+        aria-label="Modifier le rôle"
         (click)="onEdit()"
       >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          aria-hidden="true"
-        >
-          <path d="m4 20 4.2-1 10.4-10.4-3.2-3.2L5 15.8 4 20Z" />
-          <path d="m13.9 6.1 3.2 3.2" />
-        </svg>
+        <i class="text-sm fa-solid fa-pen"></i>
       </button>
 
       <button
@@ -47,19 +36,7 @@
         aria-label="Supprimer l'utilisateur"
         (click)="onRemove()"
       >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          aria-hidden="true"
-        >
-          <path d="M6 7h12" />
-          <path d="M9 7V5h6v2" />
-          <path d="m8 7 .7 12h6.6L16 7" />
-          <path d="M10 10v6" />
-          <path d="M14 10v6" />
-        </svg>
+        <i class="text-sm fa-solid fa-trash"></i>
       </button>
     </div>
   </header>
@@ -79,21 +56,37 @@
       </div>
 
       <div class="user-card__row">
-        <dt>Auteur avec</dt>
-        <dd>{{ articleCount }} articles</dd>
+        @if(articlesCount() === 0) {
+          <dt>Aucun article</dt>
+          <dd></dd>
+        } @else if (articlesCount() === 1) {
+          <dt>Auteur avec</dt>
+          <dd>1 article</dd>
+        } @else {
+          <dt>Auteur avec</dt>
+          <dd>{{ articlesCount() }} articles</dd>
+        }
       </div>
 
       <div class="user-card__row">
         <dt>Crée le:</dt>
         <dd>
-          {{ user().createdAt ?? 'createdAt' }}
+          @if (user().createdAt) {
+            {{ user().createdAt | customDateFormat }}
+          } @else {
+            createdAt
+          }
         </dd>
       </div>
 
       <div class="user-card__row user-card__row--muted">
         <dt>dernière modification:</dt>
         <dd>
-          {{ user().updatedAt ?? 'updatedAt' }}
+          @if (user().updatedAt) {
+            {{ user().updatedAt | customDateFormat }}
+          } @else {
+            updatedAt
+          }
         </dd>
       </div>
 

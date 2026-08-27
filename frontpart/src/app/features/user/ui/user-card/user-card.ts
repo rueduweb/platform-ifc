@@ -1,14 +1,19 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   input,
   output,
 } from '@angular/core';
 
 import { UserModel } from '../../data/models/user.model';
 
+import { TitleCasePipe } from '@angular/common';
+import { CustomDateFormatPipe } from '../../../../shared/pipes/custom-date-format.pipe';
+
 @Component({
   selector: 'app-user-card',
+  imports: [TitleCasePipe, CustomDateFormatPipe],
   templateUrl: './user-card.html',
   styleUrl: './user-card.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,6 +24,7 @@ export class UserCardComponent {
   readonly edit = output<UserModel>();
   readonly remove = output<UserModel>();
   readonly toggleVisibility = output<UserModel>();
+  readonly articlesCount = computed(() => this.user().articles?.length ?? 0);
 
   /**
    * Permet d'utiliser createdDate / updatedDate si le backend

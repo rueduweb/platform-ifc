@@ -138,14 +138,6 @@ export class Dashboard implements OnInit{
     },
     routeLinks: [
       {
-        label: 'Liste des utilisateurs',
-        link: '/user',
-      },
-      {
-        label: 'Ajouter un utilisateur',
-        link: '/add',
-      },
-      {
         label: 'Gestion des droits',
         link: '/user',
       }
@@ -175,11 +167,7 @@ export class Dashboard implements OnInit{
       {
         label: 'Ajouter un partenaire',
         link: '/partner/new',
-      },
-      {
-        label: 'Gestion du partenariat',
-        link: '/partner/manage',
-      },
+      }
     ],
 
     logos: [

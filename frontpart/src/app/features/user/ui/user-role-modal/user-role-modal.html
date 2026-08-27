@@ -1,0 +1,148 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+
+  <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
+
+    <h2 class="mb-6 text-xl font-semibold text-neutral-800">
+      Modifier le rôle
+    </h2>
+    <!-- Alerte si erreur -->
+    @if (saveError(); as errorMessage) {
+      <div
+        class="
+          mb-5
+          rounded-lg
+          border border-red-200
+          bg-red-50
+          px-4 py-3
+          text-sm text-red-700
+        "
+        role="alert"
+      >
+        <div class="flex items-start gap-3">
+
+          <i class="fa-solid fa-circle-exclamation mt-0.5"></i>
+
+          <div>
+            <p class="font-medium">
+              La modification a échoué
+            </p>
+
+            <p class="mt-1">
+              {{ errorMessage }}
+            </p>
+          </div>
+
+        </div>
+      </div>
+    }
+
+    <form (submit)="$event.preventDefault(); onSubmit()"
+    class="space-y-6">
+
+      <div>
+        <label
+          for="role"
+          class="mb-2 block text-sm font-medium text-neutral-700"
+        >
+          Rôle
+        </label>
+
+        <select
+          id="role"
+          [formField]="roleForm.role"
+          class="
+            w-full
+            rounded-lg
+            border border-neutral-300
+            bg-white
+            px-4 py-3
+            text-sm
+            outline-none
+            focus:border-green-500
+            focus:ring-2
+            focus:ring-green-500/20
+          "
+        >
+          <option value="USER">
+            Utilisateur
+          </option>
+
+          <option value="ADMIN">
+            Administrateur
+          </option>
+        </select>
+        @if (roleForm.role().touched() && roleForm.role().invalid()) {
+          <p class="mt-2 text-sm text-red-600">
+            Le rôle est obligatoire.
+          </p>
+        }
+
+      </div>
+
+      <div class="mt-6">
+        <p class="text-sm text-neutral-500">
+          Utilisateur :
+          <strong class="text-neutral-800">
+            {{ user().username }}
+          </strong>
+        </p>
+
+        <p class="mt-1 text-sm text-neutral-500">
+          Valeur du formulaire :
+          <strong class="text-neutral-800">
+            {{ formModel().role }}
+          </strong>
+        </p>
+      </div>
+
+      <!-- ACTIONS -->
+      <div
+        class="
+          flex justify-end gap-3
+          border-t border-neutral-200
+          pt-5
+        "
+      >
+        <button
+          type="button"
+          class="
+            rounded-lg
+            border border-neutral-300
+            px-4 py-2.5
+            text-sm font-medium
+            text-neutral-700
+            transition
+            hover:bg-neutral-100
+          "
+          (click)="onClose()"
+        >
+          Annuler
+        </button>
+
+        <button
+          type="submit"
+          class="
+            rounded-lg
+            bg-green-600
+            px-4 py-2.5
+            text-sm font-medium
+            text-white
+            transition
+            hover:bg-green-700
+          "
+          [disabled]="roleForm().invalid() || roleForm().submitting()"
+        >
+          @if (roleForm().submitting()) {
+            Enregistrement...
+          } @else {
+            Enregistrer
+          }
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+

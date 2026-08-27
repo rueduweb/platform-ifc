@@ -1,58 +1,5 @@
-<section class="min-h-full bg-inherit px-6 py-8 md:px-10 lg:px-12">
-
-  <!-- HEADER -->
-  <header class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-
-    <div>
-      <h1
-        class="text-3xl font-semibold tracking-tight text-neutral-900"
-      >
-        Utilisateurs
-      </h1>
-
-      <p class="mt-1 text-sm text-neutral-500">
-        Gestion des utilisateurs
-      </p>
-    </div>
-
-    <!-- Reload -->
-    <button
-      type="button"
-      class="
-        inline-flex items-center justify-center
-        rounded-lg
-        bg-neutral-900
-        px-4 py-2.5
-        text-sm font-medium
-        text-white
-        transition
-        hover:bg-neutral-700
-        disabled:cursor-not-allowed
-        disabled:opacity-50
-      "
-      [disabled]="loading()"
-      (click)="loadUsers()"
-    >
-      @if (loading()) {
-        <span
-          class="
-            mr-2
-            h-4 w-4
-            animate-spin
-            rounded-full
-            border-2
-            border-white/30
-            border-t-white
-          "
-        ></span>
-
-        Chargement...
-      } @else {
-        Actualiser
-      }
-    </button>
-
-  </header>
+<section class="mx-auto max-w-7xl p-6">
+@if(auth.user()?.role === 'ADMIN'){
 
 
   <!-- ERROR -->
@@ -175,14 +122,20 @@
   <!-- USER LIST -->
   @else {
 
+    <!-- HEADER -->
+    <h1 class="title cust-border max-w-7xl text-4xl font-light text-center">
+      Liste des utilisateurs
+    </h1>
+
     <div
-      class="
-        grid
-        grid-cols-1
-        gap-6
+      class="max-w-2xl mx-auto px-4 py-8 justify-center
+	      lg:max-w-7xl grid grid-cols-1 gap-3
         md:grid-cols-2
         xl:grid-cols-3
         2xl:grid-cols-4
+        max-h-[86vh]
+        overflow-y-auto
+        overflow-x-hidden
       "
     >
 
@@ -198,7 +151,15 @@
 
     </div>
 
-  }
+    @if(selectedUser(); as user) {
+      <app-user-role-modal
+        [user]="user"
+        (close)="onCloseRoleModal()"
+        (save)="onSaveRole($event)"
+      />
+    }
 
+  }
+}
 </section>
 
