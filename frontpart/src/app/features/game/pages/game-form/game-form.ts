@@ -244,13 +244,8 @@ export class GameForm implements OnInit{
   }
 
   // CANCEL
-  protected cancel(): void {
+  protected onCancel(): void {
     void this.router.navigate(['/championship']);
   }
 
-  // RESET
-  protected reset(): void {
-
-    this.gameModel.set(prepareEmptyGame());
-  }
 }

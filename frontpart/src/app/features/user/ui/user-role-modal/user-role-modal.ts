@@ -33,7 +33,7 @@ export class UserRoleModal {
 
   readonly close = output<void>();
 
-  readonly saveError = signal<string | null>(null);
+  protected readonly saveError = signal<string | null>(null);
 
   protected readonly formModel = linkedSignal(() => ({
     role: this.user().role,

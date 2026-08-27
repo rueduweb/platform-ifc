@@ -1,0 +1,536 @@
+/* ============================================================= */
+/* OVERLAY                                                       */
+/* ============================================================= */
+
+.user-role-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 16px;
+
+  background: rgb(0 0 0 / 50%);
+
+  box-sizing: border-box;
+}
+
+
+/* ============================================================= */
+/* MODAL                                                          */
+/* ============================================================= */
+
+.user-role-modal {
+  --modal-width: 316px;
+  --modal-height: 242px;
+  --modal-font: "Nunito", sans-serif;
+
+  position: relative;
+
+  width: var(--modal-width);
+  height: var(--modal-height);
+
+  flex: 0 0 var(--modal-width);
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #d8d8d8;
+
+  /*
+   * La maquette n'a pas quatre coins identiques.
+   *
+   * Haut gauche : presque droit, puisque la décoration
+   * rose vient couper le coin.
+   *
+   * Haut droit : grande courbe.
+   *
+   * Bas droit : grande courbe partiellement coupée
+   * par la forme noire.
+   *
+   * Bas gauche : grande courbe.
+   */
+  border-radius:
+    0
+    42px
+    42px
+    42px;
+
+  box-shadow: none;
+
+  color: #333333;
+
+  isolation: isolate;
+
+  font-family: var(--modal-width);
+}
+
+
+/* ============================================================= */
+/* CONTENU                                                        */
+/* ============================================================= */
+
+/* ============================================================= */
+/* CONTENU                                                        */
+/* ============================================================= */
+
+.user-role-modal__content {
+  position: relative;
+  z-index: 5;
+
+  width: 100%;
+  height: 100%;
+
+  box-sizing: border-box;
+
+  padding: 25px 0 58px;
+}
+
+
+/* ============================================================= */
+/* TITRE                                                          */
+/* ============================================================= */
+
+.user-role-modal__title {
+  margin: 0 0 19px 44px;
+  padding: 0;
+
+  color: #222222;
+
+  font-family: var(--modal-width);
+
+  font-size: 24px;
+  font-weight: 400;
+
+  line-height: 1;
+
+  white-space: nowrap;
+}
+
+
+/* ============================================================= */
+/* ZONE RÔLE                                                      */
+/* ============================================================= */
+
+.user-role-modal__role {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ============================================================= */
+/* SELECT WRAPPER                                                 */
+/* ============================================================= */
+
+.user-role-modal__select-wrapper {
+  position: relative;
+
+  width: 274px;
+  height: 46px;
+
+  margin-left: 18px;
+}
+
+
+/* ============================================================= */
+/* SELECT                                                         */
+/* ============================================================= */
+
+.user-role-modal__select {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  box-sizing: border-box;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  margin: 0;
+
+  padding:
+    0
+    44px
+    0
+    26px;
+
+  border: 1px solid #dedede;
+  border-radius: 999px;
+
+  outline: none;
+
+  background: #ffffff;
+
+  color: #929292;
+
+  font-family: var(--modal-width);
+
+  font-size: 20px;
+  font-weight: 400;
+
+  line-height: 44px;
+
+  cursor: pointer;
+}
+
+
+/*
+ * Pas de halo vert du navigateur/Tailwind :
+ * la maquette possède un contour gris très discret.
+ */
+
+.user-role-modal__select:focus {
+  border-color: #d4d4d4;
+
+  outline: none;
+
+  box-shadow: none;
+}
+
+
+/* ============================================================= */
+/* CHEVRON                                                        */
+/* ============================================================= */
+
+.user-role-modal__chevron {
+  position: absolute;
+
+  top: 50%;
+  right: 14px;
+
+  width: 0;
+  height: 0;
+
+  transform: translateY(-35%);
+
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 13px solid #858585;
+
+  pointer-events: none;
+}
+
+
+/* ============================================================= */
+/* INFORMATIONS UTILISATEUR                                      */
+/* ============================================================= */
+
+.user-role-modal__user-info {
+  margin-top: 18px;
+  margin-left: 18px;
+
+  padding: 0;
+}
+
+
+/* ============================================================= */
+/* USERNAME                                                       */
+/* ============================================================= */
+
+.user-role-modal__username {
+  margin: 0;
+
+  color: #333333;
+
+  font-family: var(--modal-width);
+
+  font-size: 18px;
+  font-weight: 400;
+
+  line-height: 1.15;
+}
+
+
+/* ============================================================= */
+/* VALEUR ACTUELLE                                                */
+/* ============================================================= */
+
+.user-role-modal__current-value {
+  margin: 9px 0 0;
+
+  color: #858585;
+
+  font-family: var(--modal-width);
+
+  font-size: 17px;
+  font-weight: 400;
+
+  line-height: 1.15;
+}
+
+
+/* ============================================================= */
+/* DÉCORATION ROSE                                                */
+/* ============================================================= */
+
+/* ============================================================= */
+/* DÉCORATION FUCHSIA — TRIANGLE HAUT GAUCHE                      */
+/* ============================================================= */
+
+.user-role-modal__pink-corner {
+  position: absolute;
+
+  top: -1px;
+  left: -1px;
+
+  z-index: 6;
+
+  display: block;
+
+  width: 59px;
+  height: 77px;
+
+  background: #ed35c7;
+
+  /*
+   * Triangle rectangle.
+   *
+   * Le sommet (0, 0) est exactement le coin
+   * supérieur gauche du modal et reste entièrement
+   * fuchsia.
+   */
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    0 100%
+  );
+
+  pointer-events: none;
+}
+
+/* ============================================================= */
+/* DÉCORATION NOIRE                                               */
+/* ============================================================= */
+
+/* ============================================================= */
+/* DÉCORATION NOIRE                                               */
+/* ============================================================= */
+
+.user-role-modal__black-corner {
+  position: absolute;
+
+  right: -1px;
+  bottom: -1px;
+
+  z-index: 3;
+
+  display: block;
+
+  width: 53px;
+  height: 49px;
+
+  background: #000000;
+
+  clip-path: polygon(
+    100% 0,
+    100% 100%,
+    0 100%,
+    28% 58%,
+    72% 18%
+  );
+}
+
+/* ============================================================= */
+/* VALIDATION                                                     */
+/* ============================================================= */
+
+.user-role-modal__validation {
+  margin: 7px 18px 0;
+
+  color: #dc2626;
+
+  font-family: var(--modal-width);
+
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+
+/* ============================================================= */
+/* ERREUR                                                         */
+/* ============================================================= */
+
+.user-role-modal__error {
+  margin:
+    0
+    18px
+    14px;
+
+  padding: 10px 12px;
+
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+
+  background: #fef2f2;
+
+  color: #b91c1c;
+
+  font-family: var(--modal-width);
+}
+
+.user-role-modal__error-content {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 10px;
+}
+
+.user-role-modal__error-content i {
+  margin-top: 2px;
+}
+
+.user-role-modal__error-title {
+  margin: 0;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.user-role-modal__error-message {
+  margin: 4px 0 0;
+
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+
+/* ============================================================= */
+/* FORM                                                           */
+/* ============================================================= */
+
+.user-role-modal__form {
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================================= */
+/* FOOTER                                                         */
+/* ============================================================= */
+/* ============================================================= */
+/* FOOTER                                                         */
+/* ============================================================= */
+
+.user-role-modal__footer {
+  position: absolute;
+
+  right: 23px;
+  bottom: 14px;
+  left: 18px;
+
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 8px;
+
+  padding: 0;
+}
+
+
+/* ============================================================= */
+/* BOUTON ANNULER                                                 */
+/* ============================================================= */
+
+.user-role-modal__cancel {
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: 7px 10px;
+
+  border: 0;
+  border-radius: 6px;
+
+  background: transparent;
+
+  color: #555555;
+
+  font-family: var(--modal-width);
+
+  font-size: 13px;
+  font-weight: 400;
+
+  cursor: pointer;
+
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+
+.user-role-modal__cancel:hover {
+  background: #f3f3f3;
+}
+
+
+/* ============================================================= */
+/* BOUTON ENREGISTRER                                             */
+/* ============================================================= */
+
+.user-role-modal__save {
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: 7px 11px;
+
+  border: 0;
+  border-radius: 6px;
+
+  background: #16a34a;
+
+  color: #ffffff;
+
+  font-family:var(--modal-width);
+
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background-color 120ms ease,
+    opacity 120ms ease;
+}
+
+.user-role-modal__save:hover:not(:disabled) {
+  background: #15803d;
+}
+
+.user-role-modal__save:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+
+/* ============================================================= */
+/* RESPONSIVE                                                     */
+/* ============================================================= */
+
+@media (max-width: 360px) {
+
+  .user-role-modal {
+    width: calc(100vw - 24px);
+    max-width: 316px;
+
+    flex-basis: auto;
+  }
+
+  .user-role-modal__select-wrapper {
+    width: calc(100% - 36px);
+  }
+
+  .user-role-modal__title {
+    margin-left: 44px;
+
+    font-size: 22px;
+  }
+}

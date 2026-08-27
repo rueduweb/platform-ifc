@@ -307,7 +307,6 @@ export class PartnerForm implements OnInit {
       return;
     }
 
-
     /*
       CAS DE MODIFICATION
      */
@@ -317,7 +316,6 @@ export class PartnerForm implements OnInit {
     if (id === null) {
       return;
     }
-
 
     const updateDto: UpdatePartnerDto = dto;
 
@@ -333,17 +331,15 @@ export class PartnerForm implements OnInit {
 
   }
 
-
   /*
    * ======================
    * CANCEL
    * ======================
    */
 
-  cancel(): void {
+  onCancel(): void {
     this.goBack();
   }
-
 
   /*
    * ======================

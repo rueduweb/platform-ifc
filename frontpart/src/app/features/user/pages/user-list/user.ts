@@ -36,9 +36,7 @@ export class User implements OnInit {
   }
 
   async onDeleteUser(user: UserModel): Promise<void> {
-    const confirmed = window.confirm(
-      `Voulez-vous vraiment supprimer l'utilisateur "${user.username}" ?`
-    );
+    const confirmed = window.confirm(`Voulez-vous vraiment supprimer l'utilisateur "${user.username}" ?`);
 
     if (!confirmed) {
       return;
@@ -53,13 +51,19 @@ export class User implements OnInit {
 
   async onSaveRole(event: {
     role: UserModel['role'];
-    resolve: (success: boolean) => void;
+    resolve: (result: {
+      success: boolean;
+      error?: string;
+    })=> void;
   }): Promise<void> {
 
     const user = this.selectedUser();
 
     if (!user) {
-      event.resolve(false);
+      event.resolve({
+        success: false,
+        error: 'Aucun utilisateur sélectionné.'
+      });
       return;
     }
 
@@ -71,11 +75,16 @@ export class User implements OnInit {
     );
 
     if (!updatedUser) {
-      event.resolve(false);
+
+      event.resolve({
+        success: false,
+        error: this.usersStore.error() ?? 'Impossible de modifier le rôle.'
+      });
+
       return;
     }
 
-    event.resolve(true);
+    event.resolve({ success: true });
 
     this.selectedUser.set(null);
   }
