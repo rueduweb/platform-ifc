@@ -1,4 +1,6 @@
+import { Forbidden } from './shared/pages/forbidden/forbidden';
 import { Routes } from '@angular/router';
+import { NotFound } from './shared/pages/not-found/not-found';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -57,6 +59,14 @@ export const routes: Routes = [
     import('./features/user/user.route').then(
       (u) => u.USER_ROUTES
     )
+  },
+  {
+    path: 'forbidden',
+    component: Forbidden
+  },
+  {
+    path: '**',
+    component: NotFound
   }
 
 ];
