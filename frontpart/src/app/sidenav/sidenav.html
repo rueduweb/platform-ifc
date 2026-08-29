@@ -1,92 +1,172 @@
-<div [ngClass]="collapsed() ? 'sidenav-collapsed': ''"
-class="sidenav bg-gray-800 transition-500 transition-all ease-in-out fixed z-1 top-0 h-[100vh] shadow-emerald-200">
+@if (screenWidth() < 768 && mobileMenuOpen()) {
+  <div
+    class="sidenav-overlay"
+    (click)="closeSidenav()"
+  ></div>
+}
+
+<div
+  class="sidenav bg-gray-800 transition-all duration-500 ease-in-out fixed z-[1100] top-0"
+  [ngClass]="{
+    'sidenav-collapsed': collapsed(),
+    'mobile-menu-open': mobileMenuOpen()
+  }"
+>
+
+  <!-- HEADER -->
   <div class="logo-container flex items-center p-[0.938rem] w-full h-[70px]">
-    <img class="logo w-[3rem] p-[0.313rem] rounded-md cursor-pointer"
-    src="assets/images/logoifc.png" alt="logo" width="60%" (click)="toggleCollapse()"/>
-    @if(collapsed()){<div class="logo-text ml-[1.5rem] text-xl text-white">Impact Football Club</div>
-    <span class="btn-close ml-auto cursor-pointer w-[2rem] rounded-full bg-transparent text-white items-center"
-    (click)="closeSidenav()">
-      <i class="fa-solid fa-xmark"></i>
-    </span>}
-  </div>
-  <ul class="sidenav-nav list-none p-[0.938rem] flex flex-col items-center cursor-pointer">
-    @for(data of navData(); track data.label){
-    <li class="sidenav-nav-item w-[70%] ml-[0.625rem] mb-[0.625rem] text-white
-    hover:bg-gray-200 hover:text-black rounded-[0.625rem]">
-      <a
-      class="sidenav-nav-link flex items-center h-[3rem] text-white-700 no-underline
-      transition-all delay-150 duration-300 ease-in-out"
-      [routerLink]="data.routeLink" routerLinkActive="active"
-      [routerLinkActiveOptions]="{exact: true}">
-        <span class=" sidenav-link-icon w-[2.5rem] text-2xl mx-[0.5rem] text-center">
-          <i class="{{data.icon}}"></i>
-        </span>
-        @if(collapsed()){
-          <span class="sidenav-link-text ml-[1.5rem]">
-            {{data.label}}
-          </span>
-        }
-      </a>
-    </li>
 
-  }
-  @if(auth.user()) {
+    <img
+      class="logo w-[3rem] p-[0.313rem] rounded-md cursor-pointer"
+      src="assets/images/logoifc.png"
+      alt="Impact Football Club"
+      (click)="toggleCollapse()"
+    />
 
-    @if(auth.user()?.role === 'ADMIN') {
-      <li class="sidenav-nav-item w-[70%] ml-[0.625rem] mb-[0.625rem] text-white
-      hover:bg-gray-200 hover:text-black rounded-[0.625rem]">
-        <a
-        class="sidenav-nav-link flex items-center h-[3rem] text-white-700 no-underline
-        transition-all delay-150 duration-300 ease-in-out"
-        [routerLink]="'/dashboard'" routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}">
-          <span class=" sidenav-link-icon w-[2.5rem] text-2xl mx-[0.5rem] text-center">
-            <i class="fa-solid fa-gauge-simple"></i>
-          </span>
-          @if(collapsed()){
-            <span class="sidenav-link-text ml-[1.5rem]">
-              Tableau de bord
-            </span>
-          }
-        </a>
-      </li>
+    @if (collapsed() || mobileMenuOpen()) {
+      <div class="logo-text ml-[1.5rem] text-xl text-white">
+        Impact Football Club
+      </div>
+
+      <span
+        class="btn-close ml-auto cursor-pointer w-[2rem] rounded-full bg-transparent text-white items-center"
+        (click)="closeSidenav()"
+        aria-label="Fermer le menu"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </span>
     }
+  </div>
 
-    <li class="sidenav-nav-item w-[70%] ml-[0.625rem] mb-[0.625rem] text-white
-    hover:bg-gray-200 hover:text-black rounded-[0.625rem]">
-      <button type="button"
-      (click)="onLogout()"
-      class="sidenav-nav-link flex items-center h-[3rem] text-white-700 no-underline
-      transition-all delay-150 duration-300 ease-in-out cursor-pointer">
-        <span class=" sidenav-link-icon w-[2.5rem] text-2xl mx-[0.5rem] text-center">
-          <i class="fa-solid fa-right-from-bracket"></i>
-        </span>
-        @if(collapsed()){
-          <span class="sidenav-link-text ml-[1.5rem]">
-            Déconnexion
-          </span>
-        }
-      </button>
-    </li>
-  } @else {
-    <li class="sidenav-nav-item w-[70%] ml-[0.625rem] mb-[0.625rem] text-white
-    hover:bg-gray-200 hover:text-black rounded-[0.625rem]">
-      <a class="sidenav-nav-link flex items-center h-[3rem] text-white-700 no-underline
-      transition-all delay-150 duration-300 ease-in-out"
-      [routerLink]="'/auth'" routerLinkActive="active"
-      [routerLinkActiveOptions]="{exact: true}">
-        <span class=" sidenav-link-icon w-[2.5rem] text-2xl mx-[0.5rem] text-center">
-          <i class="fa-solid fa-user-tie"></i>
-        </span>
-        @if(collapsed()){
-          <span class="sidenav-link-text ml-[1.5rem]">
-            Se connecter
-          </span>
-        }
-      </a>
-    </li>
+  <!-- HAMBURGER MOBILE -->
+  @if (screenWidth() < 768 && !mobileMenuOpen()) {
+    <button
+      type="button"
+      class="mobile-menu-button"
+      aria-label="Ouvrir le menu"
+      [attr.aria-expanded]="mobileMenuOpen()"
+      (click)="toggleMobileMenu()"
+    >
+      <i class="fa-solid fa-bars"></i>
+    </button>
   }
 
-  </ul>
+  <!-- MENU -->
+  @if (screenWidth() >= 768 || mobileMenuOpen()) {
+
+    <ul class="sidenav-nav list-none p-[0.938rem] flex flex-col items-center cursor-pointer">
+
+      @for (data of navData(); track data.label) {
+
+        <li
+          class="sidenav-nav-item w-[70%] ml-[0.625rem] mb-[0.625rem] text-white
+                 hover:bg-gray-200 hover:text-black rounded-[0.625rem]"
+        >
+          <a
+            class="sidenav-nav-link flex items-center h-[3rem] text-white-700 no-underline
+                   transition-all delay-150 duration-300 ease-in-out"
+            [routerLink]="data.routeLink"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <span
+              class="sidenav-link-icon w-[2.5rem] text-2xl mx-[0.5rem] text-center"
+            >
+              <i class="{{ data.icon }}"></i>
+            </span>
+
+            @if (collapsed() || mobileMenuOpen()) {
+              <span class="sidenav-link-text ml-[1.5rem]">
+                {{ data.label }}
+              </span>
+            }
+          </a>
+        </li>
+      }
+
+      @if (auth.user()) {
+
+        @if (auth.user()?.role === 'ADMIN') {
+          <li
+            class="sidenav-nav-item w-[70%] ml-[0.625rem] mb-[0.625rem] text-white
+                   hover:bg-gray-200 hover:text-black rounded-[0.625rem]"
+          >
+            <a
+              class="sidenav-nav-link flex items-center h-[3rem] text-white-700 no-underline
+                     transition-all delay-150 duration-300 ease-in-out"
+              [routerLink]="'/dashboard'"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              <span
+                class="sidenav-link-icon w-[2.5rem] text-2xl mx-[0.5rem] text-center"
+              >
+                <i class="fa-solid fa-gauge-simple"></i>
+              </span>
+
+              @if (collapsed() || mobileMenuOpen()) {
+                <span class="sidenav-link-text ml-[1.5rem]">
+                  Tableau de bord
+                </span>
+              }
+            </a>
+          </li>
+        }
+
+        <li
+          class="sidenav-nav-item w-[70%] ml-[0.625rem] mb-[0.625rem] text-white
+                 hover:bg-gray-200 hover:text-black rounded-[0.625rem]"
+        >
+          <button
+            type="button"
+            (click)="onLogout()"
+            class="sidenav-nav-link flex items-center h-[3rem] text-white-700 no-underline
+                   transition-all delay-150 duration-300 ease-in-out cursor-pointer"
+          >
+            <span
+              class="sidenav-link-icon w-[2.5rem] text-2xl mx-[0.5rem] text-center"
+            >
+              <i class="fa-solid fa-right-from-bracket"></i>
+            </span>
+
+            @if (collapsed() || mobileMenuOpen()) {
+              <span class="sidenav-link-text ml-[1.5rem]">
+                Déconnexion
+              </span>
+            }
+          </button>
+        </li>
+
+      } @else {
+
+        <li
+          class="sidenav-nav-item w-[70%] ml-[0.625rem] mb-[0.625rem] text-white
+                 hover:bg-gray-200 hover:text-black rounded-[0.625rem]"
+        >
+          <a
+            class="sidenav-nav-link flex items-center h-[3rem] text-white-700 no-underline
+                   transition-all delay-150 duration-300 ease-in-out"
+            [routerLink]="'/auth'"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <span
+              class="sidenav-link-icon w-[2.5rem] text-2xl mx-[0.5rem] text-center"
+            >
+              <i class="fa-solid fa-user-tie"></i>
+            </span>
+
+            @if (collapsed() || mobileMenuOpen()) {
+              <span class="sidenav-link-text ml-[1.5rem]">
+                Se connecter
+              </span>
+            }
+          </a>
+        </li>
+
+      }
+
+    </ul>
+  }
 
 </div>

@@ -1,3 +1,10 @@
+.sidenav-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  z-index: 1090;
+}
+
 .sidenav-collapsed {
   width: 16.5625rem;
 }
@@ -25,7 +32,14 @@
   color: #222;
 }
 
+
+/* =========================================================
+   DESKTOP
+   NE PAS MODIFIER LE COMPORTEMENT EXISTANT
+   ========================================================= */
+
 @media (min-width: 768px) {
+
   .sidenav {
     width: 3rem;
     height: 100vh;
@@ -33,5 +47,235 @@
 
   .sidenav.sidenav-collapsed {
     width: 16.5625rem;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+  /*
+   * -------------------------------------------------------
+   * MENU MOBILE FERMÉ
+   * -------------------------------------------------------
+   *
+   * largeur  = 48px
+   * hauteur  = 136px
+   *
+   * 88px header/logo
+   * + 48px hamburger
+   * = 136px
+   */
+
+  .sidenav {
+    width: 3rem !important;
+    height: 100px !important;
+
+    /*
+     * Très important :
+     * aucun scroll vertical/horizontal dans la sidenav fermée.
+     */
+    overflow: hidden;
+
+    box-sizing: border-box;
+  }
+
+
+  /*
+   * -------------------------------------------------------
+   * LOGO MOBILE FERMÉ
+   * -------------------------------------------------------
+   */
+
+  .sidenav:not(.mobile-menu-open) .logo-container {
+    width: 3rem;
+    height: 52px;
+
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+  }
+
+  .sidenav:not(.mobile-menu-open) .logo {
+    width: 48px;
+    height: 48px;
+
+    /*
+     * Conserve le ratio de l'image.
+     */
+    object-fit: contain;
+
+    padding: 5px;
+  }
+
+
+  /*
+   * Masquer le texte du logo quand fermé.
+   */
+
+  .sidenav:not(.mobile-menu-open) .logo-text {
+    display: none;
+  }
+
+
+  /*
+   * Pas de bouton X quand fermé.
+   */
+
+  .sidenav:not(.mobile-menu-open) .btn-close {
+    display: none;
+  }
+
+
+  /*
+   * -------------------------------------------------------
+   * HAMBURGER
+   * -------------------------------------------------------
+   */
+
+  .mobile-menu-button {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 3rem;
+    height: 48px;
+
+    padding: 0;
+    margin: 0;
+
+    border: 0;
+
+    background: transparent;
+    color: white;
+
+    font-size: 1.5rem;
+
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+
+  /*
+   * -------------------------------------------------------
+   * TEXTES CACHÉS QUAND FERMÉ
+   * -------------------------------------------------------
+   */
+
+  .sidenav:not(.mobile-menu-open) .sidenav-link-text {
+    display: none;
+  }
+
+
+  /*
+   * -------------------------------------------------------
+   * MENU MOBILE OUVERT
+   * -------------------------------------------------------
+   *
+   * 256px
+   * hauteur écran
+   */
+
+  .sidenav.mobile-menu-open {
+    width: 16rem !important;
+    height: 100vh !important;
+
+    overflow: hidden;
+
+    border-right: none;
+
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.25);
+  }
+
+
+  /*
+   * Header ouvert
+   */
+
+  .sidenav.mobile-menu-open .logo-container {
+    width: 100%;
+    height: 70px;
+
+    flex-shrink: 0;
+  }
+
+
+  /*
+   * Logo ouvert
+   */
+
+  .sidenav.mobile-menu-open .logo {
+    width: 3rem;
+    height: 3rem;
+    object-fit: contain;
+  }
+
+
+  /*
+   * Le bouton hamburger disparaît automatiquement
+   * puisqu'il n'est créé que lorsque mobileMenuOpen() = false.
+   *
+   * Le X existant devient donc le bouton de fermeture.
+   */
+
+  .sidenav.mobile-menu-open .btn-close {
+    display: flex;
+  }
+
+
+  /*
+   * -------------------------------------------------------
+   * NAVIGATION OUVERTE
+   * -------------------------------------------------------
+   */
+
+  .sidenav.mobile-menu-open .sidenav-nav {
+    width: 100%;
+
+    height: calc(100vh - 70px);
+
+    box-sizing: border-box;
+
+    align-items: center;
+
+    padding-left: 0.938rem;
+    padding-right: 0.938rem;
+
+    /*
+     * Pas de scroll-y.
+     */
+    overflow: hidden;
+  }
+
+
+  /*
+   * Items sur toute la largeur.
+   */
+
+  .sidenav.mobile-menu-open .sidenav-nav-item {
+    width: 100%;
+
+    margin-left: 0;
+
+    box-sizing: border-box;
+  }
+
+
+  /*
+   * Liens sur toute la largeur.
+   */
+
+  .sidenav.mobile-menu-open .sidenav-nav-link {
+    width: 100%;
+
+    box-sizing: border-box;
   }
 }

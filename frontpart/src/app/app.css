@@ -20,6 +20,21 @@ app-body-layout {
     width: 100%;
     min-height: 100vh;
   }
+  /*
+   * La sidenav est un overlay en mobile.
+   * Elle ne participe donc pas au layout.
+   */
+  app-sidenav {
+    position: relative;
+    z-index: 1000;
+  }
+
+  /*
+   * Le body occupe toujours toute la largeur.
+   */
+  app-body-layout {
+    width: 100%;
+  }
 }
 
 /* ================================

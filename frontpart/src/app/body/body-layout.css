@@ -7,14 +7,28 @@
 
   background: transparent;
 
+  /*
+   * Crée un contexte de stacking propre pour le background.
+   */
+  isolation: isolate;
+
   transition: all .5s ease;
 }
 
+
 /* On veut centrer la page courante par rapport à la largeur
 de body-layout pas celle de la fenêtre de navigation */
+/* =========================================================
+   CONTENU
+   ========================================================= */
+
 .body-layout-content {
+  position: relative;
+  z-index: 1;
+
   width: 100%;
   min-width: 0;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,8 +46,15 @@ RESPONSIVE DESIGN SM, MD+ screens
 @media (max-width: 767px) {
   .body-layout {
     width: 100%;
+
+    /*
+     * Au minimum toute la hauteur du viewport.
+     *
+     * Si le contenu est plus grand que le viewport,
+     * le body pourra naturellement grandir.
+     */
     height: auto;
-    min-height: auto;
+    min-height: 100vh;
 
     overflow: visible;
   }
@@ -41,7 +62,7 @@ RESPONSIVE DESIGN SM, MD+ screens
   .body-layout-content {
     width: 100%;
     height: auto;
-    min-height: auto;
+    min-height: 100vh;
 
     padding: 0 .75rem .5rem;
   }
@@ -74,13 +95,23 @@ RESPONSIVE DESIGN SM, MD+ screens
 /* Background Image */
 .body-layout::before {
   content: "";
+
   position: absolute;
   inset: 0;
 
-  background: url('../../../public/assets/images/the_lawn_two.jpg') center / cover repeat-y;
+  background-image: url('../../../public/assets/images/the_lawn_two.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 
   opacity: 0.7;
+
   pointer-events: none;
-  z-index: -1;
+
+  /*
+   * Derrière le contenu mais dans le contexte
+   * de stacking de .body-layout.
+   */
+  z-index: 0;
 }
 
