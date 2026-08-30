@@ -1,336 +1,419 @@
-<section class="w-full rounded-lg bg-white">
+<section class="form-page w-full rounded-lg bg-white">
 
   <form
-    [formRoot]="playerForm"
-    (submit)="onSubmit()"
-    class="mx-auto w-full max-w-7xl px-4 py-5 sm:px-6 lg:px-8"
-  >
-
-    <h1 class="title cust-border mb-6 text-center text-3xl font-light
-      sm:text-4xl"
-    >
-      @if (isEdit()) {
-        Modifier un joueur
-      } @else {
-        Ajouter un joueur
-      }
-    </h1>
-
-    <!-- =====================================================================
-         FORMULAIRE
-         Mobile / tablette : 1 colonne
-         Laptop / desktop  : 2 colonnes
-         ===================================================================== -->
-
-    <div class="grid grid-cols-1 gap-6
-          lg:grid-cols-2 lg:gap-x-10 lg:gap-y-6
-          xl:gap-x-16"
+      [formRoot]="playerForm"
+      (submit)="onSubmit()"
+      class="mx-auto w-full max-w-7xl px-4 py-5 sm:px-6 lg:px-8"
     >
 
-      <!-- ===================================================================
-           COLONNE GAUCHE
-           =================================================================== -->
-      <div class="cust-wrap space-y-6">
-        <!-- Prénom -->
-        <div>
-          <label
-            for="firstname"
-            class="cust-label block mb-2 text-gray-600"
-          >
-            Prénom
-          </label>
-
-          <input
-            id="firstname"
-            type="text"
-            autocomplete="off"
-            [formField]="playerForm.firstname"
-
-            class="cust-field w-full rounded-full border border-gray-300 bg-white
-                   px-5 py-3
-                   focus:outline-none
-                   focus:ring-2 focus:ring-gray-300"
-          />
-        </div>
-
-        <!-- Nom -->
-        <div>
-          <label
-            for="lastname"
-            class="cust-label block mb-2 text-gray-600"
-          >
-            Nom
-          </label>
-
-          <input
-            id="lastname"
-            type="text"
-            autocomplete="off"
-            [formField]="playerForm.lastname"
-
-            class="cust-field w-full rounded-full border border-gray-300 bg-white
-                   px-5 py-3
-                   focus:outline-none
-                   focus:ring-2 focus:ring-gray-300"
-          />
-        </div>
-
-        <!-- Email -->
-        <div>
-          <label
-            for="email"
-            class="cust-label block mb-2 text-gray-600"
-          >
-            Email
-          </label>
-
-          <input
-            id="email"
-            type="text"
-            autocomplete="off"
-            [formField]="playerForm.email"
-
-            class="cust-field w-full rounded-full border border-gray-300 bg-white
-                   px-5 py-3
-                   focus:outline-none
-                   focus:ring-2 focus:ring-gray-300"
-          />
-        </div>
-
-        <div>
-
-          <!-- Adresse -->
-          <label
-            for="address"
-            class="cust-label block mb-2 text-gray-600"
-          >
-            Adresse
-          </label>
-
-          <textarea
-            id="address"
-            type="text"
-            autocomplete="off"
-            [formField]="playerForm.address"
-
-            class="cust-field w-full rounded-full border border-gray-300 bg-white
-                   px-5 py-3
-                   focus:outline-none
-                   focus:ring-2 focus:ring-gray-300"
-          ></textarea>
-
-        </div>
-
-      </div>
-
-      <!-- ===================================================================
-            COLONNE DROITE
-            =================================================================== -->
-      <div class="cust-wrap space-y-6">
-        <!-- Poste -->
-        <div>
-
-          <label
-            for="position"
-            class="cust-label block mb-2 text-gray-600"
-          >
-            Poste
-          </label>
-
-          <select
-            id="game-location"
-            [formField]="playerForm.position"
-
-            class="cust-field w-full rounded-full border border-gray-300 bg-white
-                   px-5 py-3
-                   focus:outline-none
-                   focus:ring-2 focus:ring-gray-300"
-          >
-
-            <option value="">
-              Sélectionner un poste
-            </option>
-
-            @for (
-              position of positions();
-              track position
-            ) {
-
-              <option [value]="position">
-                {{ position }}
-              </option>
-
-            }
-
-          </select>
-
-        </div>
-        <!-- Date de naissance -->
-        <div>
-
-          <label
-            for="dob"
-            class="cust-label block mb-2 text-gray-600"
-          >
-            Date de naissance
-          </label>
-
-          <input
-            id="dob"
-            type="date"
-            [formField]="playerForm.dob"
-
-            class="cust-field w-full rounded-full border border-gray-300 bg-white
-                   px-5 py-3
-                   focus:outline-none
-                   focus:ring-2 focus:ring-gray-300"
-          />
-
-        </div>
-
-        <!-- Age -->
-        <div>
-          <label
-            for="age"
-            class="cust-label block mb-2 text-gray-600"
-          >
-            Age
-          </label>
-
-          <input
-            id="age"
-            type="number"
-            step="1"
-            [formField]="playerForm.age"
-
-            class="cust-field w-full rounded-full border border-gray-300 bg-white
-                   px-5 py-3
-                   focus:outline-none
-                   focus:ring-2 focus:ring-gray-300"
-          />
-        </div>
-
-        <!-- Nb de matchs -->
-        <div>
-          <label
-            for="nb-game"
-            class="cust-label block mb-2 text-gray-600"
-          >
-            Nb de matchs
-          </label>
-
-          <input
-            id="nb-game"
-            type="number"
-            step="1"
-            [formField]="playerForm.nbGame"
-
-            class="cust-field w-full rounded-full border border-gray-300 bg-white
-                   px-5 py-3
-                   focus:outline-none
-                   focus:ring-2 focus:ring-gray-300"
-          />
-        </div>
-
-        <!-- Nb de buts -->
-        <div>
-          <label
-            for="nb-goal"
-            class="cust-label block mb-2 text-gray-600"
-          >
-            Nb de buts
-          </label>
-
-          <input
-            id="nb-goal"
-            type="number"
-            step="1"
-            [formField]="playerForm.nbGoal"
-
-            class="cust-field w-full rounded-full border border-gray-300 bg-white
-                   px-5 py-3
-                   focus:outline-none
-                   focus:ring-2 focus:ring-gray-300"
-          />
-        </div>
-
-        <!-- Nb de passes décisives -->
-        <div>
-          <label
-            for="nb-assist"
-            class="cust-label block mb-2 text-gray-600"
-          >
-            Nb de passes décisives
-          </label>
-
-          <input
-            id="nb-assist"
-            type="number"
-            step="1"
-            [formField]="playerForm.nbAssist"
-
-            class="cust-field w-full rounded-full border border-gray-300 bg-white
-                   px-5 py-3
-                   focus:outline-none
-                   focus:ring-2 focus:ring-gray-300"
-          />
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- =====================================================================
-        ACTIONS
-        ===================================================================== -->
-    <footer
-    class="cust-action col-span-full mt-8 flex flex-wrap justify-end gap-3
-            sm:mt-10 sm:gap-5"
-    >
-      <!-- Annuler -->
-
-      <button
-        type="button"
-        (click)="onCancel()"
-
-        class="cust-btn w-full cursor-pointer
-              min-w-32 rounded-2xl
-              bg-slate-300 px-6 py-2.5
-              font-medium text-white
-
-              hover:bg-slate-400
-
-              disabled:cursor-not-allowed
-              disabled:opacity-60
-
-              sm:w-auto"
-      >
-        Annuler
-      </button>
-
-      <!-- Ajouter -->
-      <button
-        type="submit"
-        class="cust-btn w-full cursor-pointer
-              min-w-32 rounded-2xl
-              bg-green-500 px-6 py-2.5
-              font-medium text-white
-
-              hover:bg-green-600
-
-              disabled:cursor-not-allowed
-              disabled:opacity-60
-
-              sm:w-auto"
+      <h1 class="title cust-border mb-6 text-center text-3xl font-light
+        sm:text-4xl"
       >
         @if (isEdit()) {
-        Modifier
-      } @else {
-        Ajouter
-      }
-      </button>
+          Modifier un joueur
+        } @else {
+          Ajouter un joueur
+        }
+      </h1>
 
-    </footer>
+      <!-- =====================================================================
+          FORMULAIRE
+          Mobile  : 1 colonne
+          tablette / Laptop / desktop  : 2 colonnes
+          ===================================================================== -->
+
+      <div
+        class="grid grid-cols-1 gap-6
+              md:grid-cols-2 md:gap-x-5 md:gap-y-3
+              lg:grid-cols-2 lg:gap-x-10 lg:gap-y-6
+              xl:gap-x-16"
+      >
+
+        <!-- ===================================================================
+            COLONNE GAUCHE
+            =================================================================== -->
+        <div class="cust-wrap space-y-6">
+          <!-- Prénom -->
+          <div>
+            <label
+              for="firstname"
+              class="cust-label block mb-2 text-gray-600"
+            >
+              Prénom
+            </label>
+
+            <input
+              id="firstname"
+              type="text"
+              autocomplete="off"
+              [formField]="playerForm.firstname"
+
+              class="cust-field w-full rounded-full border border-gray-300 bg-white
+                    px-5 py-3
+                    focus:outline-none
+                    focus:ring-2 focus:ring-gray-300"
+            />
+            @if(
+              playerForm.firstname().touched() &&
+              playerForm.firstname().invalid()
+            ){
+              <small class="error text-red-400">
+                {{ playerForm.firstname().errors()[0].message }}
+              </small>
+            }
+
+          </div>
+
+          <!-- Nom -->
+          <div>
+            <label
+              for="lastname"
+              class="cust-label block mb-2 text-gray-600"
+            >
+              Nom
+            </label>
+
+            <input
+              id="lastname"
+              type="text"
+              autocomplete="off"
+              [formField]="playerForm.lastname"
+
+              class="cust-field w-full rounded-full border border-gray-300 bg-white
+                    px-5 py-3
+                    focus:outline-none
+                    focus:ring-2 focus:ring-gray-300"
+            />
+            @if(
+              playerForm.lastname().touched() &&
+              playerForm.lastname().invalid()
+            ){
+              <small class="error text-red-400">
+                {{ playerForm.lastname().errors()[0].message }}
+              </small>
+            }
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label
+              for="email"
+              class="cust-label block mb-2 text-gray-600"
+            >
+              Email
+            </label>
+
+            <input
+              id="email"
+              type="text"
+              autocomplete="off"
+              [formField]="playerForm.email"
+
+              class="cust-field w-full rounded-full border border-gray-300 bg-white
+                    px-5 py-3
+                    focus:outline-none
+                    focus:ring-2 focus:ring-gray-300"
+            />
+            @if(
+              playerForm.email().touched() &&
+              playerForm.email().invalid()
+            ){
+              <small class="error text-red-400">
+                {{ playerForm.email().errors()[0].message }}
+              </small>
+            }
+          </div>
+
+          <!-- Adresse -->
+          <div>
+
+            <label
+              for="address"
+              class="cust-label block mb-2 text-gray-600"
+            >
+              Adresse
+            </label>
+
+            <textarea
+              id="address"
+              rows="3"
+              [formField]="playerForm.address"
+
+              class="cust-field w-full rounded-2xl border border-gray-300 bg-white
+                    px-5 py-3
+                    focus:outline-none
+                    focus:ring-2 focus:ring-gray-300"
+            ></textarea>
+
+            @if(
+              playerForm.address().touched() &&
+              playerForm.address().invalid()
+            ){
+              <small class="error text-red-400">
+                {{ playerForm.address().errors()[0].message }}
+              </small>
+            }
+
+          </div>
+
+        </div>
+
+        <!-- ===================================================================
+              COLONNE DROITE
+              =================================================================== -->
+        <div class="cust-wrap space-y-6">
+          <!-- Poste -->
+          <div>
+
+            <label
+              for="position"
+              class="cust-label block mb-2 text-gray-600"
+            >
+              Poste
+            </label>
+
+            <select
+              id="game-location"
+              [formField]="playerForm.position"
+
+              class="cust-field w-full rounded-full border border-gray-300 bg-white
+                    px-5 py-3
+                    focus:outline-none
+                    focus:ring-2 focus:ring-gray-300"
+            >
+
+              <option value="">
+                Sélectionner un poste
+              </option>
+
+              @for (
+                position of positions();
+                track position
+              ) {
+
+                <option [value]="position">
+                  {{ position }}
+                </option>
+
+              }
+
+            </select>
+             @if(
+              playerForm.position().touched() &&
+              playerForm.position().invalid()
+            ){
+              <small class="error text-red-400">
+                {{ playerForm.position().errors()[0].message }}
+              </small>
+            }
+
+          </div>
+          <!-- Date de naissance -->
+          <div>
+
+            <label
+              for="dob"
+              class="cust-label block mb-2 text-gray-600"
+            >
+              Date de naissance
+            </label>
+
+            <input
+              id="dob"
+              type="date"
+              [formField]="playerForm.dob"
+
+              class="cust-field w-full rounded-full border border-gray-300 bg-white
+                    px-5 py-3
+                    focus:outline-none
+                    focus:ring-2 focus:ring-gray-300"
+            />
+
+             @if(
+              playerForm.dob().touched() &&
+              playerForm.dob().invalid()
+            ){
+              <small class="error text-red-400">
+                {{ playerForm.dob().errors()[0].message }}
+              </small>
+            }
+
+          </div>
+
+          <!-- Age -->
+          <div>
+            <label
+              for="age"
+              class="cust-label block mb-2 text-gray-600"
+            >
+              Age
+            </label>
+
+            <input
+              id="age"
+              type="number"
+              step="1"
+              [formField]="playerForm.age"
+
+              class="cust-field w-full rounded-full border border-gray-300 bg-white
+                    px-5 py-3
+                    focus:outline-none
+                    focus:ring-2 focus:ring-gray-300"
+            />
+            @if(
+              playerForm.age().touched() &&
+              playerForm.age().invalid()
+            ){
+              <small class="error text-red-400">
+                {{ playerForm.age().errors()[0].message }}
+              </small>
+            }
+          </div>
+
+          <!-- Nb de matchs -->
+          <div>
+            <label
+              for="nb-game"
+              class="cust-label block mb-2 text-gray-600"
+            >
+              Nb de matchs
+            </label>
+
+            <input
+              id="nb-game"
+              type="number"
+              step="1"
+              [formField]="playerForm.nbGame"
+
+              class="cust-field w-full rounded-full border border-gray-300 bg-white
+                    px-5 py-3
+                    focus:outline-none
+                    focus:ring-2 focus:ring-gray-300"
+            />
+            @if(
+              playerForm.nbGame().touched() &&
+              playerForm.nbGame().invalid()
+            ){
+              <small class="error text-red-400">
+                {{ playerForm.nbGame().errors()[0].message }}
+              </small>
+            }
+          </div>
+
+          <!-- Nb de buts -->
+          <div>
+            <label
+              for="nb-goal"
+              class="cust-label block mb-2 text-gray-600"
+            >
+              Nb de buts
+            </label>
+
+            <input
+              id="nb-goal"
+              type="number"
+              step="1"
+              [formField]="playerForm.nbGoal"
+
+              class="cust-field w-full rounded-full border border-gray-300 bg-white
+                    px-5 py-3
+                    focus:outline-none
+                    focus:ring-2 focus:ring-gray-300"
+            />
+            @if(
+              playerForm.nbGoal().touched() &&
+              playerForm.nbGoal().invalid()
+            ){
+              <small class="error text-red-400">
+                {{ playerForm.nbGoal().errors()[0].message }}
+              </small>
+            }
+          </div>
+
+          <!-- Nb de passes décisives -->
+          <div>
+            <label
+              for="nb-assist"
+              class="cust-label block mb-2 text-gray-600"
+            >
+              Nb de passes décisives
+            </label>
+
+            <input
+              id="nb-assist"
+              type="number"
+              step="1"
+              [formField]="playerForm.nbAssist"
+
+              class="cust-field w-full rounded-full border border-gray-300 bg-white
+                    px-5 py-3
+                    focus:outline-none
+                    focus:ring-2 focus:ring-gray-300"
+            />
+            @if(
+              playerForm.nbAssist().touched() &&
+              playerForm.nbAssist().invalid()
+            ){
+              <small class="error text-red-400">
+                {{ playerForm.nbAssist().errors()[0].message }}
+              </small>
+            }
+          </div>
+
+        </div>
+        <!-- =====================================================================
+          ACTIONS
+          ===================================================================== -->
+        <footer
+        class="cust-action col-span-full mt-8 flex flex-wrap justify-end gap-3
+                sm:mt-10 sm:gap-5"
+        >
+          <!-- Annuler -->
+
+          <button
+            type="button"
+            (click)="onCancel()"
+
+            class="cust-btn w-full cursor-pointer
+                  min-w-32 rounded-2xl
+                  bg-slate-300 px-6 py-2.5
+                  font-medium text-white
+
+                  hover:bg-slate-400
+
+                  disabled:cursor-not-allowed
+                  disabled:opacity-60
+
+                  sm:w-auto"
+          >
+            Annuler
+          </button>
+
+          <!-- Ajouter -->
+          <button
+            type="submit"
+            class="cust-btn w-full cursor-pointer
+                  min-w-32 rounded-2xl
+                  bg-green-500 px-6 py-2.5
+                  font-medium text-white
+
+                  hover:bg-green-600
+
+                  disabled:cursor-not-allowed
+                  disabled:opacity-60
+
+                  sm:w-auto"
+          >
+            @if (isEdit()) {
+            Modifier
+          } @else {
+            Ajouter
+          }
+          </button>
+
+        </footer>
+
+      </div>
 
   </form>
 

@@ -1,25 +1,66 @@
+/* =========================================================
+   BODY LAYOUT
+   ========================================================= */
+
 .body-layout {
   position: relative;
+
   width: 100%;
-  height: 100%;
   min-width: 0;
+
+  /*
+   * Le BodyLayout correspond exactement au viewport.
+   */
+  height: 100dvh;
   min-height: 0;
+
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
 
   background: transparent;
 
-  /*
-   * Crée un contexte de stacking propre pour le background.
-   */
   isolation: isolate;
 
-  transition: all .5s ease;
+  /*
+   * IMPORTANT :
+   * le BodyLayout ne doit PAS devenir le conteneur
+   * de scroll des pages.
+   *
+   * Les composants enfants possèdent leur propre zone
+   * de scroll.
+   */
+  overflow: hidden;
 }
 
 
-/* On veut centrer la page courante par rapport à la largeur
-de body-layout pas celle de la fenêtre de navigation */
 /* =========================================================
-   CONTENU
+   BACKGROUND
+   ========================================================= */
+
+.body-layout::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-image: url('../../../public/assets/images/the_lawn_two.jpg');
+
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  opacity: 0.7;
+
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+
+/* =========================================================
+   CONTENT
    ========================================================= */
 
 .body-layout-content {
@@ -29,89 +70,91 @@ de body-layout pas celle de la fenêtre de navigation */
   width: 100%;
   min-width: 0;
 
+  /*
+   * Même hauteur que le viewport.
+   */
+  height: 100%;
+  min-height: 0;
+
+  margin: 0;
+
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  box-sizing: border-box;
+
+  /*
+   * Très important :
+   * aucun scroll à ce niveau.
+   */
+  overflow: hidden;
 }
 
+
+/*
+ * Le composant rendu par router-outlet doit pouvoir
+ * prendre toute la hauteur disponible.
+ */
 .body-layout-content > * {
   width: 100%;
   min-width: 0;
+  min-height: 0;
+
+  box-sizing: border-box;
 }
 
-/**
-RESPONSIVE DESIGN SM, MD+ screens
-**/
-/* SM - Mobile first */
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
 @media (max-width: 767px) {
+
   .body-layout {
     width: 100%;
+    height: 100dvh;
+    min-height: 0;
 
-    /*
-     * Au minimum toute la hauteur du viewport.
-     *
-     * Si le contenu est plus grand que le viewport,
-     * le body pourra naturellement grandir.
-     */
-    height: auto;
-    min-height: 100vh;
-
-    overflow: visible;
+    overflow: hidden;
   }
 
   .body-layout-content {
     width: 100%;
-    height: auto;
-    min-height: 100vh;
-
-    padding: 0 .75rem .5rem;
-  }
-
-}
-
-
-/* MD+ large screens */
-@media (min-width: 768px) {
-  .body-layout {
     height: 100%;
     min-height: 0;
 
-    overflow-y: auto;
+    padding: 0 0.75rem 0.5rem;
+
+    overflow: hidden;
+  }
+}
+
+
+/* =========================================================
+   DESKTOP / TABLET
+   ========================================================= */
+
+@media (min-width: 768px) {
+
+  .body-layout {
+    width: 100%;
+    min-height: 100dvh;
+
+    /*
+     * Le BodyLayout gère son propre scroll.
+     */
     overflow-x: hidden;
+    overflow-y: auto;
 
     scrollbar-width: thin;
     scrollbar-color: #afadaf transparent;
   }
 
   .body-layout-content {
-    height: 100%;
-    min-height: 0;
+    width: 100%;
+    min-height: 100dvh;
 
-    padding: 1.8rem 1rem .5rem;
+    padding: 1.8rem 1rem 0.5rem;
   }
-
 }
-
-/* Background Image */
-.body-layout::before {
-  content: "";
-
-  position: absolute;
-  inset: 0;
-
-  background-image: url('../../../public/assets/images/the_lawn_two.jpg');
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-
-  opacity: 0.7;
-
-  pointer-events: none;
-
-  /*
-   * Derrière le contenu mais dans le contexte
-   * de stacking de .body-layout.
-   */
-  z-index: 0;
-}
-

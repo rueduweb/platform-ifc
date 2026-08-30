@@ -9,9 +9,27 @@
   width: 16.5625rem;
 }
 
+/* =========================================================
+   BASE
+   ========================================================= */
+
 .sidenav {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  z-index: 1100;
+
   width: 3rem;
+  height: 100vh;
+
+  box-sizing: border-box;
+
+  background-color: #222;
+
+  overflow: hidden;
 }
+
 
 .sidenav-nav {
   height: calc(100% - 3.65rem);
@@ -52,46 +70,45 @@
 
 
 /* =========================================================
-   MOBILE
+   MOBILE UNIQUEMENT
    ========================================================= */
 
 @media (max-width: 767px) {
 
-  /*
-   * -------------------------------------------------------
-   * MENU MOBILE FERMÉ
-   * -------------------------------------------------------
-   *
-   * largeur  = 48px
-   * hauteur  = 136px
-   *
-   * 88px header/logo
-   * + 48px hamburger
-   * = 136px
-   */
+  /* -----------------------------------------
+     FERMÉ
+     ----------------------------------------- */
 
   .sidenav {
-    width: 3rem !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 48px !important;
     height: 100px !important;
 
-    /*
-     * Très important :
-     * aucun scroll vertical/horizontal dans la sidenav fermée.
-     */
+    background-color: #111;
+
     overflow: hidden;
 
     box-sizing: border-box;
   }
 
 
-  /*
-   * -------------------------------------------------------
-   * LOGO MOBILE FERMÉ
-   * -------------------------------------------------------
-   */
+  /* Le statut collapsed ne doit PAS
+     modifier la largeur en mobile */
+  .sidenav.sidenav-collapsed {
+    width: 48px !important;
+    height: 100px !important;
+  }
+
+
+  /* -----------------------------------------
+     LOGO FERMÉ
+     ----------------------------------------- */
 
   .sidenav:not(.mobile-menu-open) .logo-container {
-    width: 3rem;
+    width: 48px;
     height: 52px;
 
     padding: 0;
@@ -100,165 +117,163 @@
     align-items: center;
     justify-content: center;
 
-    flex-shrink: 0;
+    box-sizing: border-box;
   }
 
   .sidenav:not(.mobile-menu-open) .logo {
     width: 48px;
-    height: 48px;
-
-    /*
-     * Conserve le ratio de l'image.
-     */
-    object-fit: contain;
+    height: 52px;
 
     padding: 5px;
+
+    object-fit: contain;
+
+    box-sizing: border-box;
   }
 
 
-  /*
-   * Masquer le texte du logo quand fermé.
-   */
-
-  .sidenav:not(.mobile-menu-open) .logo-text {
-    display: none;
-  }
-
-
-  /*
-   * Pas de bouton X quand fermé.
-   */
-
-  .sidenav:not(.mobile-menu-open) .btn-close {
-    display: none;
-  }
-
-
-  /*
-   * -------------------------------------------------------
-   * HAMBURGER
-   * -------------------------------------------------------
-   */
+  /* -----------------------------------------
+     HAMBURGER
+     ----------------------------------------- */
 
   .mobile-menu-button {
     display: flex;
 
-    align-items: center;
-    justify-content: center;
-
-    width: 3rem;
+    width: 48px;
     height: 48px;
 
-    padding: 0;
     margin: 0;
+    padding: 0;
+
+    align-items: center;
+    justify-content: center;
 
     border: 0;
 
     background: transparent;
-    color: white;
+    color: #fff;
 
     font-size: 1.5rem;
 
-    cursor: pointer;
-    flex-shrink: 0;
+    box-sizing: border-box;
   }
 
 
-  /*
-   * -------------------------------------------------------
-   * TEXTES CACHÉS QUAND FERMÉ
-   * -------------------------------------------------------
-   */
+  /* -----------------------------------------
+     CACHER LE TEXTE QUAND FERMÉ
+     ----------------------------------------- */
 
+  .sidenav:not(.mobile-menu-open) .logo-text,
+  .sidenav:not(.mobile-menu-open) .btn-close,
   .sidenav:not(.mobile-menu-open) .sidenav-link-text {
     display: none;
   }
 
 
-  /*
-   * -------------------------------------------------------
-   * MENU MOBILE OUVERT
-   * -------------------------------------------------------
-   *
-   * 256px
-   * hauteur écran
-   */
+  /* -----------------------------------------
+     OUVERT
+     ----------------------------------------- */
 
   .sidenav.mobile-menu-open {
-    width: 16rem !important;
-    height: 100vh !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 256px !important;
+    height: 100dvh !important;
+
+    background-color: #000;
 
     overflow: hidden;
 
-    border-right: none;
+    box-sizing: border-box;
 
-    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.25);
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.35);
   }
 
 
-  /*
-   * Header ouvert
-   */
+  /* -----------------------------------------
+     HEADER OUVERT
+     ----------------------------------------- */
 
   .sidenav.mobile-menu-open .logo-container {
     width: 100%;
     height: 70px;
 
-    flex-shrink: 0;
+    padding: 0.938rem;
+
+    display: flex;
+    align-items: center;
+
+    box-sizing: border-box;
   }
 
 
-  /*
-   * Logo ouvert
-   */
-
   .sidenav.mobile-menu-open .logo {
-    width: 3rem;
-    height: 3rem;
+    width: 48px;
+    height: 48px;
+
     object-fit: contain;
   }
 
 
-  /*
-   * Le bouton hamburger disparaît automatiquement
-   * puisqu'il n'est créé que lorsque mobileMenuOpen() = false.
-   *
-   * Le X existant devient donc le bouton de fermeture.
-   */
+  /* -----------------------------------------
+     TEXTE DU LOGO
+     ----------------------------------------- */
+
+  .sidenav.mobile-menu-open .logo-text {
+    display: block;
+
+    margin-left: 1rem;
+
+    color: #fff;
+
+    font-size: 1.25rem;
+    line-height: 1.1;
+  }
+
+
+  /* -----------------------------------------
+     BOUTON X
+     ----------------------------------------- */
 
   .sidenav.mobile-menu-open .btn-close {
     display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 2rem;
+    height: 2rem;
+
+    margin-left: auto;
+
+    color: #fff;
   }
 
 
-  /*
-   * -------------------------------------------------------
-   * NAVIGATION OUVERTE
-   * -------------------------------------------------------
-   */
+  /* -----------------------------------------
+     MENU OUVERT
+     ----------------------------------------- */
 
   .sidenav.mobile-menu-open .sidenav-nav {
     width: 100%;
+    height: calc(100dvh - 70px);
 
-    height: calc(100vh - 70px);
+    padding: 0.938rem;
 
     box-sizing: border-box;
 
-    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
 
-    padding-left: 0.938rem;
-    padding-right: 0.938rem;
-
-    /*
-     * Pas de scroll-y.
-     */
-    overflow: hidden;
+    align-items: stretch;
   }
 
 
-  /*
-   * Items sur toute la largeur.
-   */
+  /* -----------------------------------------
+     ITEMS
+     ----------------------------------------- */
 
   .sidenav.mobile-menu-open .sidenav-nav-item {
     width: 100%;
@@ -269,13 +284,59 @@
   }
 
 
-  /*
-   * Liens sur toute la largeur.
-   */
+  /* -----------------------------------------
+     LIENS
+     ----------------------------------------- */
 
   .sidenav.mobile-menu-open .sidenav-nav-link {
     width: 100%;
+    min-height: 3rem;
 
     box-sizing: border-box;
+  }
+
+
+  /* -----------------------------------------
+     ICÔNES
+     ----------------------------------------- */
+
+  .sidenav.mobile-menu-open .sidenav-link-icon {
+    flex-shrink: 0;
+
+    width: 2.5rem;
+
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+
+    text-align: center;
+  }
+
+
+  /* -----------------------------------------
+     TEXTES
+     ----------------------------------------- */
+
+  .sidenav.mobile-menu-open .sidenav-link-text {
+    display: block;
+
+    margin-left: 0.75rem;
+
+    color: #fff;
+
+    white-space: nowrap;
+  }
+
+
+  /* -----------------------------------------
+     OVERLAY
+     ----------------------------------------- */
+
+  .sidenav-overlay {
+    position: fixed;
+    inset: 0;
+
+    z-index: 1090;
+
+    background-color: rgba(0, 0, 0, 0.55);
   }
 }

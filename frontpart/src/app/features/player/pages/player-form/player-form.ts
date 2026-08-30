@@ -30,12 +30,9 @@ import { Players } from '../../data/services/players';
 
 @Component({
   selector: 'app-player-form',
-  standalone: true,
-  imports: [
-    FormField,
-    FormRoot,
-  ],
+  imports: [FormField,FormRoot],
   templateUrl: './player-form.html',
+  styleUrl: './player-form.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlayerForm implements OnInit {

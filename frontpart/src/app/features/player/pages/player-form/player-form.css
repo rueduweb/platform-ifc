@@ -1,0 +1,53 @@
+:host {
+  display: block;
+  min-height: 0;
+  height: 100%;
+}
+
+
+/* ============================================================
+   FORMULAIRE
+   ============================================================ */
+.form-page {
+  min-height: 0;
+
+  /*
+   * Permet au contenu du formulaire de dépasser
+   * la hauteur du viewport.
+   */
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  box-sizing: border-box;
+
+  scrollbar-width: thin;
+  scrollbar-color: #afadaf transparent;
+}
+
+
+/* ============================================================
+   MOBILE
+   < 768px
+   ============================================================ */
+
+@media (max-width: 767px) {
+  :host {
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .form-page {
+    height: 100%;
+    min-height: 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: thin;
+  }
+}
+

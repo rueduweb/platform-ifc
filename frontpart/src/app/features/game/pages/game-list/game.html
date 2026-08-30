@@ -1,21 +1,28 @@
-<section class="mx-auto max-w-7xl p-6">
+<section class="mx-auto flex h-full min-h-0 flex-col overflow-hidden p-6">
 
-  <h1 class="title cust-border max-w-7xl text-4xl font-light text-center">
-  Championnat 2026-27 : résultats et classement
-    @if(auth.user()?.role === 'ADMIN'){
-      <button (click)="onAdd()" class="absolute bottom-2 -right-10 cursor-pointer text-gray-700" title="Ajouter une rencontre">
-      <i class="fa-solid fa-square-plus"></i>
-      </button>
-    }
-  </h1>
 
-  <section class="mx-auto w-full max-w-[1600px]">
+  <section class="mx-auto flex min-h-0 w-full max-w-[1600px] flex-1 flex-col overflow-hidden">
+
+    <h1 class="title cust-border relative shrink-0 text-center text-4xl font-light">
+
+
+    Championnat 2026-27 : résultats et classement
+      @if(auth.user()?.role === 'ADMIN'){
+        <button
+          (click)="onAdd()"
+          class="absolute bottom-2 right-0 cursor-pointer text-gray-700"
+          title="Ajouter une rencontre"
+        >
+          <i class="fa-solid fa-square-plus"></i>
+        </button>
+      }
+    </h1>
 
   <!-- =========================================================================
        TOOLBAR
        ========================================================================= -->
 
-  <div class="header mb-4 flex flex-col gap-3
+  <div class="header shrink-0 mb-4 flex flex-col gap-3
     sm:flex-row
     sm:items-center
     sm:justify-between
@@ -84,7 +91,7 @@
   @if (gamesStore.error()) {
 
     <div role="alert"
-      class="mb-4 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+      class="mb-4 rounded-md border shrink-0 border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
     >
       {{ gamesStore.error() }}
     </div>
@@ -97,7 +104,7 @@
        ========================================================================= -->
 
   <div
-    class="mb-2 text-right text-xs text-slate-400 lg:hidden
+    class="mb-2 text-right shrink-0 text-xs text-slate-400 lg:hidden
     "
   >
     Liste des matchs
@@ -108,9 +115,12 @@
        TABLE
        ========================================================================= -->
 
-  <div class="w-full rounded-sm border border-slate-300 bg-white">
+  <div class="game-list-scroll min-h-0 w-full flex-1
+         overflow-y-auto overflow-x-hidden
+         rounded-sm border border-slate-300 bg-white">
 
     <table class="game-table w-full border-collapse text-xs sm:text-sm">
+
 
       <!-- =====================================================================
            HEADER
@@ -332,7 +342,7 @@
            BODY
            ===================================================================== -->
 
-      <tbody>
+      <tbody class="scroll-auto">
 
         @if (gamesStore.loading()) {
 

@@ -19,7 +19,7 @@
   <h1 class="title cust-border max-w-7xl text-4xl font-light text-center">
     Liste des partenaires
     @if(auth.user()?.role === 'ADMIN'){
-      <button (click)="newPartner()" class="absolute bottom-2 -right-10 cursor-pointer text-gray-700" title="Ajouter un partenaire">
+      <button (click)="newPartner()" class="absolute bottom-2 right-0 cursor-pointer text-gray-700" title="Ajouter un partenaire">
         <i class="fa-solid fa-square-plus"></i>
       </button>
     }

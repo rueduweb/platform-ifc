@@ -1,16 +1,26 @@
 :host {
   display: block;
+
   width: 100%;
   max-width: 1400px;
 
   min-width: 0;
   min-height: 0;
 
+  height: 100%;
+
   margin-inline: auto;
 }
 
+
+
+/* ==========================================================================
+   CONTAINER PRINCIPAL
+   ========================================================================== */
+
 .container {
   width: 100%;
+  height: 100%;
 
   min-width: 0;
   min-height: 0;
@@ -21,37 +31,322 @@
   overflow: hidden;
 }
 
+
+/* ==========================================================================
+   CAROUSEL
+   ========================================================================== */
+
 .container > app-carousel-threed {
   width: 100%;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
+  flex-shrink: 0;
 }
+
+
+/* ==========================================================================
+   ACTIONS
+   ========================================================================== */
 
 .card-action {
   padding: 1em;
 }
 
+
+/* ==========================================================================
+   INTRODUCTION
+   ========================================================================== */
+
 .hide {
   display: block;
 }
 
-@media(min-width: 768px) {
+
+/* ==========================================================================
+   LISTE DES JOUEURS
+   ========================================================================== */
+
+/*
+ * C'est cette zone qui possède le scroll vertical.
+ *
+ * Le titre "Liste des joueurs" reste hors de cette zone.
+ */
+.player-list-scroll {
+  min-width: 0;
+  min-height: 0;
+
+  flex: 1 1 auto;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  scrollbar-width: thin;
+  scrollbar-color: #94a3b8 transparent;
+}
+
+
+/* Scrollbar Chrome / Edge / Safari */
+
+.player-list-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+
+.player-list-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+.player-list-scroll::-webkit-scrollbar-thumb {
+  background-color: #94a3b8;
+  border-radius: 999px;
+}
+
+
+.player-list-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: #64748b;
+}
+
+
+/* ==========================================================================
+   TABLET + DESKTOP
+   ========================================================================== */
+
+@media (min-width: 768px) {
+
   :host {
     height: 100%;
   }
+
+
   .container {
     height: 100%;
   }
+
 }
 
-@media(max-width: 767px) {
-  :host {
-    max-width: none;
-    margin-inline: 0;
+/* ==========================================================================
+   TABLET
+   768px -> 1023px
+
+   On réduit l'introduction afin de conserver les boutons
+   "Liste des joueurs" et "Ajouter un joueur" dans la zone visible.
+   ========================================================================== */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  .cust-wrap {
+    padding: 1.25rem 1.5rem !important;
   }
 
+  .cust-wrap h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .cust-wrap > div {
+    gap: 1rem;
+  }
+
+  .cust-wrap .hide {
+    max-width: 100%;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .cust-wrap-md {
+    padding: 0.5rem 1rem !important;
+  }
+
+  .card-action {
+    padding: 0.4rem;
+  }
+
+  .cust-btn {
+    padding: 0.55rem 1rem !important;
+    font-size: 0.9rem;
+  }
+}
+
+
+/* ==========================================================================
+   MOBILE
+   < 768px
+   ========================================================================== */
+
+@media (max-width: 767px) {
+
+  :host {
+    /*
+     * IMPORTANT :
+     * On conserve la hauteur disponible.
+     *
+     * Ne PAS remettre height: auto ici.
+     */
+    width: 100%;
+    max-width: none;
+
+    height: 100%;
+
+    margin-inline: 0;
+
+    min-height: 0;
+  }
+
+
+  .container {
+    width: 100%;
+    height: 100%;
+
+    min-height: 0;
+
+    overflow: hidden;
+  }
+
+
+  /*
+   * Le contenu principal doit pouvoir transmettre
+   * une hauteur limitée à la zone de liste.
+   */
+  .container > main {
+    min-height: 0;
+    height: 100%;
+  }
+
+
+  /*
+   * Introduction moins encombrante sur mobile.
+   */
   .hide {
     display: none;
   }
+
+
+  /*
+   * La section de liste doit pouvoir rétrécir.
+   */
+  .container section {
+    min-height: 0;
+  }
+
+
+  /*
+   * La liste prend l'espace restant et devient scrollable.
+   */
+  .player-list-scroll {
+    min-height: 0;
+
+    flex: 1 1 auto;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    /*
+     * Évite que la scrollbar colle au bord.
+     */
+    padding-right: 0.5rem;
+
+    /*
+     * Autorise le geste de scroll vertical
+     * sur les écrans tactiles.
+     */
+    touch-action: pan-y;
+
+    -webkit-overflow-scrolling: touch;
+  }
+
 }
+
+
+/* ==========================================================================
+   PETITS ÉCRANS
+   < 640px
+   ========================================================================== */
+
+@media (max-width: 639px) {
+
+  .container > main {
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+  }
+
+
+  .container > main h1 {
+    margin-bottom: 1.5rem;
+
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+
+
+  .container section[aria-labelledby="players-title"] {
+    margin-top: 1.5rem;
+  }
+
+
+  .container section[aria-labelledby="players-title"] h2 {
+    margin-bottom: 1rem;
+
+    font-size: 1.5rem;
+  }
+
+
+  .player-list-scroll {
+    padding-left: 0;
+    padding-right: 0.35rem;
+  }
+
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  .cust-wrap {
+    padding: 1.25rem 1.5rem !important;
+
+    overflow: visible !important;
+
+  }
+
+  .cust-wrap h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .cust-wrap > div {
+    gap: 1rem;
+  }
+
+  .cust-wrap .hide {
+    max-width: 100%;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .cust-wrap-md {
+    padding: 0.5rem 1rem !important;
+
+    /* AJOUT */
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .card-action {
+    padding: 0.4rem;
+  }
+
+  .cust-btn {
+    padding: 0.55rem 1rem !important;
+    font-size: 0.9rem;
+  }
+}
+

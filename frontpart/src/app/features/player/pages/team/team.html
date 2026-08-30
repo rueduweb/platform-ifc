@@ -1,31 +1,41 @@
 <section class="container flex min-h-0 flex-col overflow-hidden">
 
-  @if (!isList()) { <!-- CAROUSEL -->
+  @if (!isList()) {
+    <!-- CAROUSEL -->
     <app-carousel-threed [items]="carouselItems()"/>
   }
 
-  <!-- MAIN -->
+
+  <!-- =============================================================== -->
+  <!-- MAIN                                                           -->
+  <!-- =============================================================== -->
 
   <main class="cust-wrap mx-auto flex min-h-0 w-full flex-1 flex-col
-        overflow-hidden px-8 py-8">
+    overflow-hidden px-8 py-8">
 
-    <h1 class="shrink-0 text-4xl font-light text-center text-black pb-3 mb-10">
+    <!-- ============================================================= -->
+    <!-- TITRE PRINCIPAL                                               -->
+    <!-- ============================================================= -->
+
+    <h1 class="shrink-0 pb-3 mb-10 text-center text-4xl font-light text-black">
       Bienvenue sur la page de l'équipe IFC
     </h1>
 
+
     <!-- ============================================================= -->
-    <!-- INTRODUCTION + ACTIONS                                         -->
+    <!-- INTRODUCTION + ACTIONS                                        -->
     <!-- ============================================================= -->
 
-    <div
-      class="flex w-full
-            flex-col items-center
-            gap-6
-            text-[16px] leading-[1.6]text-gray-800
-            lg:flex-row lg:items-center lg:justify-center"
-    >
+    <div class="flex w-full flex-col items-center gap-6 text-[16px] leading-[1.6] text-gray-800
+      lg:flex-row
+      lg:items-center
+      lg:justify-center
+    ">
 
-      <p class="hide w-full max-w-3xl text-justify">
+      <p class="hide w-full max-w-3xl text-justify
+          md:max-w-2xl
+          lg:max-w-3xl">
+
         Eh oui il faut bien savoir quels sont ceux qui font partie de la team!
         Nous avons sur cette page, la liste de tous nos joueurs pour la saison 2026-27.
         Elle est composée de 2 volets distincts. Le premier est un carousel en 3D pivotant
@@ -37,23 +47,16 @@
       </p>
 
 
-      <div
-        class="cust-wrap-md flex shrink-0
-              flex-col
-              px-4 py-4
-              sm:px-8"
-      >
+      <!-- ACTIONS -->
+
+      <div class="cust-wrap-md flex shrink-0 flex-col px-4 py-4 sm:px-8">
 
         <p class="card-action flex justify-center">
 
-          <button
-            type="button"
+          <button type="button"
             (click)="toggleView()"
-            class="cust-btn cursor-pointer
-                  rounded bg-fuchsia-800
-                  px-6 py-3 text-white
-                  shadow-lg transition duration-300
-                  hover:bg-fuchsia-700"
+            class="cust-btn cursor-pointer rounded bg-fuchsia-800 px-6 py-3 text-white
+            shadow-lg transition duration-300 hover:bg-fuchsia-700"
           >
             @if (isList()) {
               Carousel 3D
@@ -64,41 +67,43 @@
 
         </p>
 
+
         @if(auth.user()?.role === 'ADMIN') {
+
           <p class="card-action flex justify-center">
 
-            <button
-              type="button"
-              (click)="onAdd()"
-              class="cust-btn cursor-pointer
-                    rounded px-6 py-3
-                    text-gray-600
-                    outline outline-1
-                    outline-gray-600
-                    shadow-lg transition duration-300
-                    hover:text-gray-800
-                    hover:outline-gray-900"
-            >
+            <button type="button" (click)="onAdd()"
+              class="cust-btn cursor-pointer rounded px-6 py-3 text-gray-600
+              outline outline-1 outline-gray-600 shadow-lg transition
+              duration-300
+              hover:text-gray-800
+              hover:outline-gray-900
+            ">
               Ajouter un joueur
             </button>
 
           </p>
+
         }
 
       </div>
 
-</div>
+    </div>
 
 
-    <!-- =================================================================== -->
-    <!-- LISTE DES JOUEURS                                                   -->
-    <!-- =================================================================== -->
+    <!-- ============================================================= -->
+    <!-- LISTE DES JOUEURS                                             -->
+    <!-- ============================================================= -->
 
     @if (isList()) {
-      <section class="mt-10 flex min-h-0 w-full
-         flex-1 flex-col overflow-hidden"
+
+      <section class="mt-10 flex min-h-0
+        w-full flex-1 flex-col
+        overflow-hidden"
         aria-labelledby="players-title"
       >
+
+        <!-- TITRE DE LA LISTE -->
 
         <h2 id="players-title"
           class="mb-8 shrink-0 text-center text-3xl font-light text-black"
@@ -106,60 +111,72 @@
           Liste des joueurs
         </h2>
 
-        <!-- =============================================================== -->
-        <!-- ZONE DES CARTES SCROLLABLE                                      -->
-        <!-- =============================================================== -->
 
-        <div class="min-h-0 flex-1 overflow-y-auto px-2 pb-8">
+        <!-- =========================================================== -->
+        <!-- ZONE SCROLLABLE                                            -->
+        <!-- =========================================================== -->
+
+        <div class="player-list-scroll min-h-0 flex-1
+          overflow-y-auto
+          overflow-x-hidden
+          px-2 pb-8
+        ">
 
           @if (playerList().length > 0) {
 
-            <!-- ============================================================= -->
-            <!-- RESPONSIVE GRID                                               -->
-            <!-- ============================================================= -->
+            <!-- ======================================================= -->
+            <!-- GRID                                                   -->
+            <!-- ======================================================= -->
 
             <div class="grid grid-cols-1 items-start gap-2
               md:grid-cols-2
               lg:grid-cols-3
-              xl:grid-cols-4"
-            >
-            @if(auth.user()?.role === 'ADMIN') {
-               @for (player of playerList(); track player.id) {
-                <!-- PlayerCard ADMIN actions -->
-                <app-player-card
-                  [player]="player"
-                  [role]="'ADMIN'"
-                  (edit)="onEdit($event)"
-                  (delete)="onDelete($event)"
-                />
-              }
-            } @else {
+              xl:grid-cols-4
+            ">
 
-              @for (player of playerList(); track player.id) {
-                <!-- PlayerCard visitée -->
-                <app-player-card
-                  [player]="player"
-                  (edit)="onEdit($event)"
-                  (delete)="onDelete($event)"
-                />
+              @if(auth.user()?.role === 'ADMIN') {
+
+                @for (player of playerList(); track player.id) {
+
+                  <app-player-card
+                    [player]="player"
+                    [role]="'ADMIN'"
+                    (edit)="onEdit($event)"
+                    (delete)="onDelete($event)"
+                  />
+
+                }
+
+              } @else {
+
+                @for (player of playerList(); track player.id) {
+
+                  <app-player-card
+                    [player]="player"
+                    (edit)="onEdit($event)"
+                    (delete)="onDelete($event)"
+                  />
+
+                }
+
               }
 
-            }
             </div>
 
           } @else {
+
             <p class="py-10 text-center text-gray-500">
               Aucun joueur disponible.
             </p>
+
           }
 
         </div>
 
       </section>
+
     }
 
   </main>
+
 </section>
-
-
-

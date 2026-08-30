@@ -5,13 +5,21 @@
   ></div>
 }
 
-<div
+<!-- <div
   class="sidenav bg-gray-800 transition-all duration-500 ease-in-out fixed z-[1100] top-0"
   [ngClass]="{
     'sidenav-collapsed': collapsed(),
     'mobile-menu-open': mobileMenuOpen()
   }"
+> -->
+<div
+  class="sidenav transition-all duration-500 ease-in-out"
+  [ngClass]="{
+    'sidenav-collapsed': collapsed(),
+    'mobile-menu-open': mobileMenuOpen()
+  }"
 >
+
 
   <!-- HEADER -->
   <div class="logo-container flex items-center p-[0.938rem] w-full h-[70px]">

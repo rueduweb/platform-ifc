@@ -8,18 +8,28 @@
   box-sizing: border-box;
 }
 
-html {
+/* =========================================================
+   GLOBAL RESET
+   ========================================================= */
+
+html,
+body {
   width: 100%;
+  min-width: 0;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  min-height: 100%;
   scrollbar-width: thin;
   scrollbar-color: #afadaf transparent;
 }
 
 body {
-  position: relative;
-  width: 100%;
-  margin: 0;
+  min-height: 100dvh;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-
   background: linear-gradient(
     35deg,
     #222222 1%,
@@ -29,6 +39,19 @@ body {
     #FF00FF 99%
   );
 }
+
+/* =========================================================
+   ANGULAR ROOT
+   ========================================================= */
+
+app-root {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 100dvh;
+}
+
 
 /* =========================================
    SM
@@ -195,8 +218,24 @@ body {
 /* Tablette */
 
 @media (min-width: 640px) and (max-width: 1023px) {
-  .cust-wrap {
-    padding: 1rem;
+  .cust-wrap-md {
+    width: 100%;
+    padding: 0.5rem 1rem !important;
+
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .card-action {
+    padding: 0.4rem;
+  }
+
+  .cust-btn {
+    padding: 0.55rem 1rem !important;
+    font-size: 0.9rem;
+    white-space: nowrap;
   }
 }
 
