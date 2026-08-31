@@ -121,7 +121,7 @@ export class Dashboard implements OnInit{
 
     routeLink3: {
       label: 'Forfaits',
-      link: '/',
+      link: '/championship/forfeit',
     }
   });
 

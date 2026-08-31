@@ -1,0 +1,310 @@
+<section class="mx-auto flex h-full min-h-0 flex-col overflow-hidden p-6">
+  <!-- ===================================================================== -->
+  <!-- PANEL                                                                 -->
+  <!-- ===================================================================== -->
+  <section class="mx-auto flex min-h-0 w-full max-w-[1600px] flex-1 flex-col overflow-hidden"
+    [class.w-fit]="forfeitCount() === 0"
+    [class.max-w-full]="forfeitCount() === 0"
+    [class.w-full]="forfeitCount() > 0"
+    [class.max-w-6xl]="forfeitCount() > 0"
+  >
+    <h1 class="title cust-border max-w-7xl relative shrink-0 text-center text-4xl font-light">
+      Matchs déclarés forfaits
+    </h1>
+
+    <!-- Compteur -->
+      @if (forfeitCount() > 0) {
+
+        <div
+          class="relative mt-5 flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur-sm"
+        >
+
+          <span
+            class="h-2.5 w-2.5 rounded-full bg-fuchsia-400 shadow-[0_0_10px_rgba(232,121,249,0.9)]"
+          ></span>
+
+          {{ forfeitCount() }}
+
+          {{ forfeitCount() > 1 ? 'matchs forfaits' : 'match forfait' }}
+
+        </div>
+
+      }
+      <!-- =================================================================== -->
+      <!-- CONTENU                                                             -->
+      <!-- =================================================================== -->
+      @if (loading()) {
+
+      <div class="p-4 sm:p-6">
+        <div
+          class="flex flex-col items-center justify-center px-6 py-10 text-center"
+        >
+
+          <div
+            class="mb-4 h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-fuchsia-600"
+          ></div>
+
+          <p class="font-semibold text-gray-700">
+            Chargement des matchs...
+          </p>
+
+          <p class="mt-1 text-sm text-gray-400">
+            Récupération des rencontres.
+          </p>
+
+        </div>
+      </div>
+
+      }
+      <!-- ================================================================ -->
+      <!-- ERREUR                                                            -->
+      <!-- ================================================================ -->
+
+      @else if (error()) {
+
+         <div
+          class="rounded-2xl border border-red-200 bg-red-50 px-5 py-5"
+        >
+
+          <div class="flex items-start gap-3">
+
+            <div
+              class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-red-100"
+            >
+              ⚠️
+            </div>
+
+            <div>
+
+              <h2 class="font-bold text-red-800">
+                Impossible de charger les matchs
+              </h2>
+
+              <p class="mt-1 text-sm text-red-600">
+                {{ error() }}
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      }
+      <!-- ================================================================ -->
+      <!-- MATCHS FORFAITS                                                   -->
+      <!-- ================================================================ -->
+
+      @else if (forfeitedGames().length > 0) {
+
+        <div class="grid gap-4">
+
+          @for (game of forfeitedGames(); track game.id) {
+
+            <article
+              class="forfeit-item group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-fuchsia-200 hover:shadow-lg hover:shadow-fuchsia-900/10 sm:p-5"
+            >
+
+              <!-- Barre latérale -->
+              <div
+                class="absolute inset-y-0 left-0 w-1 bg-linear-to-b from-fuchsia-400 to-fuchsia-600"
+              ></div>
+
+              <div
+                class="cust-wrap flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between"
+              >
+
+                <!-- ====================================================== -->
+                <!-- INFORMATIONS MATCH                                      -->
+                <!-- ====================================================== -->
+
+                <div class="min-w-0 flex-1">
+
+                  <!-- Numéro + statut -->
+                  <div
+                    class="mb-3 flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-wide"
+                  >
+
+                    <span
+                      class="rounded-full bg-gray-100 px-3 py-1 text-gray-600"
+                    >
+                      Match {{ game.gameNum }}
+                    </span>
+
+                  </div>
+
+                  <!-- Équipes -->
+                  <div
+                    class="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4"
+                  >
+
+                    <!-- Équipe domicile -->
+                    <div
+                      class="flex-1 truncate text-lg font-thin text-gray-900"
+                      [title]="game.homeTeam"
+                    >
+                      {{ game.homeTeam }}
+                    </div>
+
+                    <!-- VS -->
+                    <div
+                      class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-100 text-xs font-bold text-gray-500"
+                    >
+                      VS
+                    </div>
+
+                    <!-- Équipe extérieure -->
+                    <div
+                      class="flex-1 truncate text-lg font-thin text-gray-900 sm:text-right"
+                      [title]="game.awayTeam"
+                    >
+                      {{ game.awayTeam }}
+                    </div>
+
+                  </div>
+
+                  <!-- ==================================================== -->
+                  <!-- MÉTADONNÉES                                            -->
+                  <!-- ==================================================== -->
+
+                  <div
+                    class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-gray-500"
+                  >
+
+                    <!-- Date -->
+                    <span class="flex items-center gap-2">
+                      <span>📅</span>
+                      <span>
+                        {{ game.date | date:'dd/MM/yyyy' }}
+                      </span>
+                    </span>
+
+                    <!-- Lieu -->
+                    <span class="flex items-center gap-2">
+                      <span>📍</span>
+                      <span>
+                        {{ game.location }}
+                      </span>
+                    </span>
+
+                  </div>
+
+                </div>
+
+                <!-- ====================================================== -->
+                <!-- SCORE                                                     -->
+                <!-- ====================================================== -->
+
+                <div
+                  class="flex shrink-0 items-center justify-between gap-5 rounded-2xl bg-gray-50 px-5 py-3 lg:min-w-60 lg:justify-center"
+                >
+
+                  <!-- Score -->
+                  <div class="text-center">
+
+                    <div
+                      class="text-xs font-semibold uppercase tracking-wide text-gray-400"
+                    >
+                      Score
+                    </div>
+
+                    <div
+                      class="mt-1 text-2xl font-black tracking-wider text-gray-300"
+                    >
+                      {{ game.nbGoalHome }}
+
+                      <span class="mx-1">
+                        -
+                      </span>
+
+                      {{ game.nbGoalAway }}
+                    </div>
+
+                  </div>
+
+                  <!-- Séparateur -->
+                  <div
+                    class="h-10 w-px bg-gray-200"
+                  ></div>
+
+                  <!-- Statut -->
+                  <div class="text-center">
+
+                    <div
+                      class="text-xs font-semibold uppercase tracking-wide text-gray-400"
+                    >
+                      Statut
+                    </div>
+
+                    <div
+                      class="mt-1 font-black text-gray-600"
+                    >
+                      FORFAIT
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              <!-- ======================================================== -->
+              <!-- NOTE                                                        -->
+              <!-- ======================================================== -->
+
+              @if (game.note) {
+
+                <div
+                  class="mt-4 rounded-xl border border-fuchsia-100 bg-fuchsia-50/70 px-4 py-3 text-sm text-gray-600"
+                >
+
+                  <span
+                    class="mr-1 font-bold text-fuchsia-600"
+                  >
+                    &nbsp; Note :
+                  </span>
+
+                  {{ game.note }}
+
+                </div>
+
+              }
+
+            </article>
+
+          }
+
+        </div>
+
+      }
+      <!-- ================================================================ -->
+      <!-- AUCUN FORFAIT                                                     -->
+      <!-- ================================================================ -->
+
+      @else {
+
+         <div
+          class="cust-wrap flex flex-col items-center justify-center px-6 py-6 text-center"
+        >
+
+          <div
+            class="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 text-2xl"
+          >
+            ⚽
+          </div>
+
+          <h2 class="text-lg font-bold text-gray-800">
+            Aucun forfait 🎉
+          </h2>
+
+          <p class="mt-1 text-sm text-gray-500">
+            Tous les matchs ont été joués normalement.
+          </p>
+
+        </div>
+
+      }
+
+  </section>
+
+</section>

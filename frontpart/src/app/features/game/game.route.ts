@@ -18,5 +18,11 @@ export const GAME_ROUTES: Routes = [
     title: 'Edition match',
     loadComponent: () =>
       import('./pages/game-form/game-form').then((m) => m.GameForm)
+  },
+  {
+    path: 'forfeit',
+    title: 'Forfaits',
+    loadComponent: () =>
+      import('./pages/forfeit/forfeit').then((f) => f.Forfeit)
   }
 ];
