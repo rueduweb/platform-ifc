@@ -61,6 +61,13 @@ export const routes: Routes = [
     )
   },
   {
+    path: 'manage-license',
+    loadChildren: () =>
+    import('./features/regul/regul.route').then(
+      (r) => r.REGUL_ROUTES
+    )
+  },
+  {
     path: 'forbidden',
     component: Forbidden
   },
