@@ -10,7 +10,7 @@ export type PieceRegul = {
 
 export type Regul = {
   id: number;
-  licence: string;
+  license: string;
   items: PieceRegul[];
   total: number;
 };
@@ -18,14 +18,15 @@ export type Regul = {
 export type Regulations = Regul[];
 
 export type CreateRegulRequest = {
-  licence: string;
+  license: string;
   amount: number;
 };
 
 export type UpdateRegulRequest = {
-  licence: string;
+  license: string;
 };
 
 export type AddRegulPieceRequest = {
   amount: number;
 };
+

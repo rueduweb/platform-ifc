@@ -1,1 +1,100 @@
-<p>regul-form works!</p>
+<form
+  [formRoot]="regulForm"
+  class="regul-card mx-auto w-full max-w-2xl"
+>
+  <!-- Header -->
+  <header class="regul-card__header">
+    <h1>
+      Formulaire de régularisation
+    </h1>
+  </header>
+
+  <!-- Body -->
+  <div class="regul-card__body">
+
+    <!-- Licence -->
+    <div class="form-field">
+      <label for="licence">
+        Licence
+      </label>
+
+      <div class="form-field__control">
+        <input
+          id="licence"
+          type="text"
+          autocomplete="off"
+          [formField]="regulForm.license"
+        />
+      </div>
+    </div>
+
+    <!-- Date -->
+    <div class="form-field">
+      <label for="date">
+        Date
+      </label>
+
+      <div class="form-field__control">
+        <input
+          id="date"
+          type="date"
+          [formField]="regulForm.date"
+        />
+      </div>
+    </div>
+
+    <!-- Montant -->
+    <div class="form-field">
+      <label for="amount">
+        Montant
+      </label>
+
+      <div class="form-field__control">
+        <input
+          id="amount"
+          type="number"
+          step="1"
+          inputmode="numeric"
+          [formField]="regulForm.amount"
+        />
+      </div>
+    </div>
+
+    <!-- Total -->
+    <div class="regul-total">
+      <span class="regul-total__label">
+        Total
+      </span>
+
+      <span
+        class="regul-total__value"
+        [class.regul-total__value--max]="total() === REGUL_MAX_TOTAL"
+        [class.regul-total__value--error]="total() > REGUL_MAX_TOTAL"
+      >
+        {{ total() }}
+      </span>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="regul-card__footer">
+
+    <button
+      type="button"
+      class="cust-btn bg-gray-400 text-white cursor-pointer rounded-2xl"
+      (click)="cancel()"
+    >
+      Cancel
+    </button>
+
+    <button
+      type="submit"
+      class="cust-btn bg-emerald-500 text-white cursor-pointer rounded-2xl"
+      [disabled]="regulForm().invalid()"
+    >
+      Enregistrer
+    </button>
+
+  </footer>
+</form>

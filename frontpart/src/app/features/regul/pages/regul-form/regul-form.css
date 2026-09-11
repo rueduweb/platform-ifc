@@ -1,0 +1,439 @@
+:host {
+  display: block;
+
+  /*
+   * Nunito doit être chargé globalement dans l'application.
+   */
+  font-family: 'Roboto', sans-serif;
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.regul-card {
+  position: relative;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border-radius: 18px;
+
+  /*
+   * Pas de bordure noire.
+   * Ombre douce et légèrement floutée.
+   */
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+
+/* =========================================================
+   TRIANGLES DECORATIFS
+   ========================================================= */
+
+.regul-card::before,
+.regul-card::after {
+  content: '';
+
+  position: absolute;
+
+  top: 0;
+
+  width: 0;
+  height: 0;
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+
+/*
+ * Triangle supérieur gauche
+ */
+.regul-card::before {
+  left: 0;
+
+  border-top: 62px solid #d32ba1;
+  border-right: 62px solid transparent;
+}
+
+
+/*
+ * Triangle supérieur droit
+ */
+.regul-card::after {
+  right: 0;
+
+  border-top: 62px solid #111111;
+  border-left: 62px solid transparent;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.regul-card__header {
+  position: relative;
+
+  z-index: 2;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 76px;
+
+  padding: 1.25rem 1.5rem;
+
+  /*
+   * Une seule bordure :
+   * celle située sous le header.
+   */
+  border-bottom: 1px solid #e5e7eb;
+}
+
+
+.regul-card__header h1 {
+  margin: 0;
+
+  color: #111111;
+
+  font-size: 1.35rem;
+  font-weight: 800;
+
+  line-height: 1.3;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   BODY
+   ========================================================= */
+
+.regul-card__body {
+  position: relative;
+
+  z-index: 2;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 1.25rem;
+
+  padding: 2rem 1.5rem;
+}
+
+
+/* =========================================================
+   FORM FIELDS
+   ========================================================= */
+
+.form-field {
+  display: grid;
+
+  grid-template-columns: 100px minmax(0, 1fr);
+
+  align-items: center;
+
+  column-gap: 1.25rem;
+}
+
+
+.form-field > label {
+  color: #111111;
+
+  font-size: 0.95rem;
+  font-weight: 700;
+
+  line-height: 1.4;
+}
+
+
+.form-field__control {
+  min-width: 0;
+}
+
+
+.form-field input {
+  display: block;
+
+  width: 100%;
+
+  min-height: 44px;
+
+  padding: 0.65rem 0.9rem;
+
+  color: #111111;
+
+  font-family: inherit;
+  font-size: 0.95rem;
+
+  background: #ffffff;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 8px;
+
+  outline: none;
+
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+
+.form-field input:hover {
+  border-color: #9ca3af;
+}
+
+
+.form-field input:focus {
+  border-color: #c13caf;
+
+  box-shadow:
+    0 0 0 3px rgba(193, 60, 175, 0.12);
+}
+
+
+/* =========================================================
+   TOTAL
+   ========================================================= */
+
+.regul-total {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 0.75rem;
+
+  padding-top: 0.75rem;
+}
+
+
+.regul-total__label {
+  color: #111111;
+
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+
+.regul-total__value {
+  color: #c13caf;
+
+  font-size: 1.5rem;
+  font-weight: 800;
+
+  line-height: 1;
+}
+
+
+.regul-total__value--max {
+  color: #16a34a;
+}
+
+
+.regul-total__value--error {
+  color: #dc2626;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.regul-card__footer {
+  position: relative;
+
+  z-index: 2;
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  align-items: center;
+
+  gap: 0.75rem;
+
+  padding: 0 1.5rem 1.5rem;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn {
+  min-height: 42px;
+
+  padding: 0.6rem 1.5rem;
+
+  font-family: inherit;
+
+  font-size: 0.9rem;
+  font-weight: 700;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease,
+    box-shadow 150ms ease,
+    transform 100ms ease;
+}
+
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+
+/* Cancel */
+
+.btn--cancel {
+  color: #111111;
+
+  background: #ffffff;
+
+  border: 1px solid #d1d5db;
+}
+
+
+.btn--cancel:hover {
+  background: #f9fafb;
+
+  border-color: #9ca3af;
+}
+
+
+.btn--cancel:focus-visible {
+  outline: none;
+
+  box-shadow:
+    0 0 0 3px rgba(17, 24, 39, 0.12);
+}
+
+
+/* Enregistrer */
+
+.btn--submit {
+  color: #ffffff;
+
+  background: #c13caf;
+
+  border: 1px solid #c13caf;
+}
+
+
+.btn--submit:hover:not(:disabled) {
+  background: #a8329d;
+
+  border-color: #a8329d;
+}
+
+
+.btn--submit:focus-visible {
+  outline: none;
+
+  box-shadow:
+    0 0 0 3px rgba(193, 60, 175, 0.2);
+}
+
+
+.btn--submit:disabled {
+  color: #ffffff;
+
+  background: #d1d5db;
+
+  border-color: #d1d5db;
+
+  cursor: not-allowed;
+
+  opacity: 0.8;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 640px) {
+
+  .regul-card {
+    border-radius: 14px;
+  }
+
+
+  .regul-card::before,
+  .regul-card::after {
+    border-top-width: 48px;
+  }
+
+
+  .regul-card::before {
+    border-right-width: 48px;
+  }
+
+
+  .regul-card::after {
+    border-left-width: 48px;
+  }
+
+
+  .regul-card__header {
+    min-height: 68px;
+
+    padding: 1rem 1.25rem;
+  }
+
+
+  .regul-card__header h1 {
+    font-size: 1.15rem;
+  }
+
+
+  .regul-card__body {
+    gap: 1rem;
+
+    padding: 1.5rem 1.25rem;
+  }
+
+
+  .form-field {
+    grid-template-columns: 1fr;
+
+    row-gap: 0.4rem;
+  }
+
+
+  .form-field > label {
+    font-size: 0.9rem;
+  }
+
+
+  .regul-card__footer {
+    flex-direction: column-reverse;
+
+    align-items: stretch;
+
+    padding: 0 1.25rem 1.25rem;
+  }
+
+
+  .btn {
+    width: 100%;
+  }
+}

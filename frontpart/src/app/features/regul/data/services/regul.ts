@@ -30,13 +30,13 @@ export class RegulService {
   }
 
   async create(
-    licence: string,
+    license: string,
     amount: number,
   ): Promise<Regul> {
     this.validatePieceAmount(amount);
 
     const payload: CreateRegulRequest = {
-      licence,
+      license,
       amount,
     };
 
@@ -45,10 +45,10 @@ export class RegulService {
 
   async update(
     id: number,
-    licence: string,
+    license: string,
   ): Promise<Regul> {
     const payload: UpdateRegulRequest = {
-      licence,
+      license,
     };
 
     return firstValueFrom(this.api.update(id, payload));
