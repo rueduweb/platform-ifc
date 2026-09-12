@@ -13,7 +13,7 @@ import {
 export class RegulApi {
   private readonly http = inject(HttpClient);
 
-  private readonly endpoint = '/api/regulations';
+  private readonly endpoint = 'http://localhost:3000/api/reguls';
 
   getAll(): Observable<Regul[]> {
     return this.http.get<Regul[]>(this.endpoint);
@@ -23,9 +23,9 @@ export class RegulApi {
     return this.http.get<Regul>(`${this.endpoint}/${id}`);
   }
 
-  getByLicence(licence: string): Observable<Regul | null> {
+  getByLicense(license: string): Observable<Regul | null> {
     return this.http.get<Regul | null>(
-      `${this.endpoint}/by-licence/${encodeURIComponent(licence)}`,
+      `${this.endpoint}/by-licence/${encodeURIComponent(license)}`,
     );
   }
 
@@ -33,13 +33,10 @@ export class RegulApi {
     return this.http.post<Regul>(this.endpoint, payload);
   }
 
-  update(
-    id: number,
-    payload: UpdateRegulRequest,
-  ): Observable<Regul> {
+  update(id: number, payload: UpdateRegulRequest): Observable<Regul> {
     return this.http.patch<Regul>(
       `${this.endpoint}/${id}`,
-      payload,
+      payload
     );
   }
 
@@ -47,13 +44,10 @@ export class RegulApi {
     return this.http.delete<void>(`${this.endpoint}/${id}`);
   }
 
-  addPiece(
-    id: number,
-    payload: AddRegulPieceRequest,
-  ): Observable<Regul> {
+  addPiece(id: number, payload: AddRegulPieceRequest): Observable<Regul> {
     return this.http.post<Regul>(
       `${this.endpoint}/${id}/pieces`,
-      payload,
+      payload
     );
   }
 }

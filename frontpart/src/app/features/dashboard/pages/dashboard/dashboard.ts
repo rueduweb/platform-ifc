@@ -79,7 +79,7 @@ export class Dashboard implements OnInit{
 
     routeLink3: {
       label: 'Gestion de licences',
-      link: '/licence', // TODO route pas disponible
+      link: '/manage-license',
     }
   });
 

@@ -1,8 +1,8 @@
 <form
-  [formRoot]="regulForm"
-  class="regul-card mx-auto w-full max-w-2xl"
->
-  <!-- Header -->
+    [formRoot]="regulForm"
+    class="regul-card mx-auto w-full max-w-2xl"
+  >
+    <!-- Header -->
   <header class="regul-card__header">
     <h1>
       Formulaire de régularisation
@@ -24,21 +24,6 @@
           type="text"
           autocomplete="off"
           [formField]="regulForm.license"
-        />
-      </div>
-    </div>
-
-    <!-- Date -->
-    <div class="form-field">
-      <label for="date">
-        Date
-      </label>
-
-      <div class="form-field__control">
-        <input
-          id="date"
-          type="date"
-          [formField]="regulForm.date"
         />
       </div>
     </div>
@@ -98,3 +83,5 @@
 
   </footer>
 </form>
+
+

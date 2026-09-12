@@ -191,6 +191,11 @@ app-root {
   font-size: 13px;
 }
 
+.cust-tiny-col {
+  max-width: 32px;
+  width: calc(100% - 6rem);
+}
+
 .cust-checkbox {
   padding: 1rem 0;
 }

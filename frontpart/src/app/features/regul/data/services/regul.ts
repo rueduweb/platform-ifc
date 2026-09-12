@@ -13,34 +13,66 @@ import {
 
 import { RegulApi } from './regul-api';
 
+import { HttpErrorResponse } from '@angular/common/http';
+
 @Service()
 export class RegulService {
   private readonly api = inject(RegulApi);
 
   async getAll(): Promise<Regul[]> {
-    return firstValueFrom(this.api.getAll());
+    return firstValueFrom(
+      this.api.getAll(),
+    );
   }
 
   async getById(id: number): Promise<Regul> {
-    return firstValueFrom(this.api.getById(id));
+    return firstValueFrom(
+      this.api.getById(id),
+    );
   }
 
-  async getByLicence(licence: string): Promise<Regul | null> {
-    return firstValueFrom(this.api.getByLicence(licence));
+  async getByLicence(
+    license: string,
+  ): Promise<Regul | null> {
+
+    try {
+
+      return await firstValueFrom(
+        this.api.getByLicense(license),
+      );
+
+    } catch (error) {
+
+      if (
+        error instanceof HttpErrorResponse &&
+        error.status === 404
+      ) {
+        return null;
+      }
+
+      throw error;
+    }
   }
 
   async create(
     license: string,
-    amount: number,
+    amount: number | null,
   ): Promise<Regul> {
-    this.validatePieceAmount(amount);
+
+    if (amount !== null) {
+      this.validatePieceAmount(amount);
+    }
 
     const payload: CreateRegulRequest = {
       license,
-      amount,
+      ...(amount !== null
+        ? { amount }
+        : {}),
     };
 
-    return firstValueFrom(this.api.create(payload));
+    return firstValueFrom(
+      this.api.create(payload),
+    );
   }
 
   async update(

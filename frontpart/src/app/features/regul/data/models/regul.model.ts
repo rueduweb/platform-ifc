@@ -19,7 +19,7 @@ export type Regulations = Regul[];
 
 export type CreateRegulRequest = {
   license: string;
-  amount: number;
+  amount?: number;
 };
 
 export type UpdateRegulRequest = {

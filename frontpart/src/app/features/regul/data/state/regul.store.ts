@@ -183,22 +183,31 @@ export const RegulStore = signalStore(
       }
     },
 
-    async addPayment(
+    async addRegul(
       licence: string,
       amount: number,
     ): Promise<Regul | null> {
+
       patchState(store, {
         loading: true,
         error: null,
       });
 
       try {
+
+        console.log('🔵 Recherche régul pour licence :', licence);
+
         const existing =
           await regulService.getByLicence(licence);
+
+        console.log('🟢 Régul trouvée :', existing);
 
         let regul: Regul;
 
         if (!existing) {
+
+          console.log('🟠 AUCUNE RÉGUL → CREATE');
+
           regul = await regulService.create(
             licence,
             amount,
@@ -215,6 +224,15 @@ export const RegulStore = signalStore(
 
           return regul;
         }
+
+        console.log(
+          '🟣 RÉGUL EXISTANTE → ADD PIECE',
+          {
+            id: existing.id,
+            total: existing.total,
+            items: existing.items,
+          },
+        );
 
         regul = await regulService.addPiece(
           existing,
@@ -234,7 +252,9 @@ export const RegulStore = signalStore(
         );
 
         return regul;
+
       } catch (error) {
+
         patchState(store, {
           loading: false,
           error: getErrorMessage(error),
@@ -244,9 +264,10 @@ export const RegulStore = signalStore(
       }
     },
 
-    async updateLicence(
+
+    async updateLicense(
       id: number,
-      licence: string,
+      license: string,
     ): Promise<void> {
       patchState(store, {
         loading: true,
@@ -255,7 +276,7 @@ export const RegulStore = signalStore(
 
       try {
         const regul =
-          await regulService.update(id, licence);
+          await regulService.update(id, license);
 
         patchState(
           store,
@@ -275,7 +296,7 @@ export const RegulStore = signalStore(
       }
     },
 
-    async delete(id: number): Promise<void> {
+    async delete(id: number): Promise<boolean> {
       patchState(store, {
         loading: true,
         error: null,
@@ -295,11 +316,13 @@ export const RegulStore = signalStore(
                 : store.selectedRegulId(),
           },
         );
+        return true;
       } catch (error) {
         patchState(store, {
           loading: false,
           error: getErrorMessage(error),
         });
+        return false;
       }
     },
 
@@ -314,6 +337,13 @@ export const RegulStore = signalStore(
         selectedRegulId: id,
       });
     },
+
+    clearSelection(): void {
+      patchState(store, {
+        selectedRegulId: null,
+      });
+    }
+
   })),
 );
 

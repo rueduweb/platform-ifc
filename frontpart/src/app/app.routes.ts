@@ -1,6 +1,7 @@
 import { Forbidden } from './shared/pages/forbidden/forbidden';
 import { Routes } from '@angular/router';
 import { NotFound } from './shared/pages/not-found/not-found';
+import { RegulStore } from './features/regul/data/state/regul.store';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -62,6 +63,7 @@ export const routes: Routes = [
   },
   {
     path: 'manage-license',
+    providers: [RegulStore],
     loadChildren: () =>
     import('./features/regul/regul.route').then(
       (r) => r.REGUL_ROUTES
