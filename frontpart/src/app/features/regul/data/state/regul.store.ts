@@ -265,34 +265,44 @@ export const RegulStore = signalStore(
     },
 
 
-    async updateLicense(
+    async updatePiece( // cette méthode est utile pour modifier un pièce
       id: number,
-      license: string,
-    ): Promise<void> {
+      pieceId: number,
+      amount: number,
+    ): Promise<Regul | null> {
       patchState(store, {
         loading: true,
         error: null,
       });
 
       try {
-        const regul =
-          await regulService.update(id, license);
+        const regul = store.entities().find((item) => item.id === id );
+
+        if(!regul) {
+          throw new Error(`Règlement ${id} introuvable.`);
+        }
+
+        const updated = await regulService.updatePiece(regul, pieceId, amount);
 
         patchState(
           store,
           updateEntity({
-            id: regul.id,
-            changes: regul,
+            id: updated.id,
+            changes: updated
           }),
           {
             loading: false,
+            selectedRegulId: updated.id
           },
         );
+        return updated;
+
       } catch (error) {
         patchState(store, {
           loading: false,
           error: getErrorMessage(error),
         });
+        return null;
       }
     },
 

@@ -30,3 +30,7 @@ export type AddRegulPieceRequest = {
   amount: number;
 };
 
+export type UpdateRegulPieceRequest = {
+  amount: number;
+};
+

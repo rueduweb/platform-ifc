@@ -6,6 +6,7 @@ import {
   AddRegulPieceRequest,
   CreateRegulRequest,
   Regul,
+  UpdateRegulPieceRequest,
   UpdateRegulRequest,
 } from '../models/regul.model';
 
@@ -40,15 +41,29 @@ export class RegulApi {
     );
   }
 
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.endpoint}/${id}`);
+  addPiece(
+    regulId: number,
+    payload: AddRegulPieceRequest,
+  ): Observable<Regul> {
+    return this.http.post<Regul>(
+      `${this.endpoint}/${regulId}/pieces`,
+      payload,
+    );
   }
 
-  addPiece(id: number, payload: AddRegulPieceRequest): Observable<Regul> {
-    return this.http.post<Regul>(
-      `${this.endpoint}/${id}/pieces`,
-      payload
+  updatePiece(
+    regulId: number,
+    pieceId: number,
+    payload: UpdateRegulPieceRequest,
+  ): Observable<Regul> {
+    return this.http.patch<Regul>(
+      `${this.endpoint}/${regulId}/pieces/${pieceId}`,
+      payload,
     );
+  }
+
+  delete(regulId: number): Observable<Regul> {
+    return this.http.delete<Regul>(`${this.endpoint}/${regulId}`);
   }
 }
 

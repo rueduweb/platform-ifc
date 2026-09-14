@@ -28,12 +28,10 @@ import { Router } from '@angular/router';
 import { RegulFormModel } from '../../data/models/regul-form.model';
 import { RegulStore } from '../../data/state/regul.store';
 
-
 const INITIAL_REGUL_FORM_MODEL: RegulFormModel = {
   license: '',
   amount: null,
 };
-
 
 @Component({
   selector: 'app-regul-form',
@@ -48,11 +46,11 @@ export class RegulForm {
   private readonly regulStore = inject(RegulStore);
 
   readonly regul = this.regulStore.selectedRegul;
+  readonly selectedPieceId = signal<number | null>(null);
 
   readonly REGUL_MAX_TOTAL = REGUL_MAX_TOTAL;
   readonly REGUL_MAX_PIECES = REGUL_MAX_PIECES;
   readonly REGUL_MIN_PIECE_AMOUNT = REGUL_MIN_PIECE_AMOUNT;
-
 
   /* ========================================================
      MODEL
@@ -61,7 +59,6 @@ export class RegulForm {
   readonly model = signal<RegulFormModel>({
     ...INITIAL_REGUL_FORM_MODEL,
   });
-
 
   /* ========================================================
      SYNCHRONISATION AVEC selectedRegul
@@ -82,17 +79,16 @@ export class RegulForm {
       if (regul === null) {
 
         this.resetModel();
-
+        this.selectedPieceId.set(null);
         return;
       }
 
-
       /*
        * Une régularisation est sélectionnée :
-       * on est en mode ajout / édition.
+       * on est en mode édition.
        *
        * On conserve la licence mais on commence
-       * avec un montant vide.
+       * avec un montant vide. A l'utilisateur de choisir une pieceRegul
        */
 
       this.model.set({
@@ -100,10 +96,28 @@ export class RegulForm {
         amount: null,
       });
 
+      this.selectedPieceId.set(null);
+
     });
   }
 
+  selectPiece(pieceId: number): void{
+    const regul = this.regul();
+    if(!regul) {
+      return;
+    }
 
+    const piece = regul.items.find((item) => item.id === pieceId);
+    if(!piece) {
+      return;
+    }
+    this.selectedPieceId.set(piece.id);
+
+    this.model.update((model) => ({
+      ...model,
+      amount: piece.amount,
+    }));
+  }
   /* ========================================================
      HELPERS FORMULAIRE
      ======================================================== */
@@ -115,7 +129,6 @@ export class RegulForm {
     });
 
   }
-
 
   /* ========================================================
      DONNÉES EXISTANTES
@@ -147,7 +160,6 @@ export class RegulForm {
 
   });
 
-
   /* ========================================================
      ANNULATION / SORTIE
      ======================================================== */
@@ -174,7 +186,6 @@ export class RegulForm {
     ]);
 
   }
-
 
   /* ========================================================
      FORMULAIRE
@@ -238,7 +249,6 @@ export class RegulForm {
         },
       );
 
-
       /* ----------------------------------------------------
          MONTANT MAXIMUM
          ---------------------------------------------------- */
@@ -251,7 +261,6 @@ export class RegulForm {
             `Le montant ne peut pas dépasser ${REGUL_MAX_TOTAL}.`,
         },
       );
-
 
       /* ----------------------------------------------------
          TOTAL MAXIMUM
@@ -316,35 +325,23 @@ export class RegulForm {
 
         action: async (form) => {
 
-          console.log('🔥 1 - SUBMISSION REGUL');
-
           const value = form().value();
 
-          console.log('🔥 2 - VALUE:', value);
-
           if (!value.license || value.amount === null) {
-            console.log('🔥 3 - VALUE INVALIDE');
             return;
           }
-
-          console.log('🔥 4 - AVANT addRegul');
 
           const regul = await this.regulStore.addRegul(
             value.license,
             value.amount,
           );
 
-          console.log('🔥 5 - APRÈS addRegul', regul);
-
           if (regul === null) {
-            console.log('🔥 6 - addRegul a retourné null');
             return;
           }
 
-          console.log('🔥 7 - RÉGUL ENREGISTRÉE', regul);
-        },
-
-      },
-    },
+        }
+      }
+    }
   );
 }
