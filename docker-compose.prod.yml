@@ -32,8 +32,6 @@ services:
     container_name: nest-backpart-prod
     restart: unless-stopped
 
-    env_file:
-      - ./backpart/.env
 
     environment:
       NODE_ENV: production
