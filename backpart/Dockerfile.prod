@@ -1,19 +1,30 @@
-FROM node:24.18.0-alpine as build
-# working directory inside the container
+
+# Étape 1 : build
+FROM node:24.18.0-alpine AS build
+
 WORKDIR /app
-# copy package.json and package-lock.json
+
 COPY package*.json ./
-# install dependencies
-RUN npm install
-# copy the app code
+
+RUN npm ci
+
 COPY . .
-# build the app
+
 RUN npm run build
-# production stage
-FROM node:24.18.0-alpine as production
-# working directory inside the container
+
+# Étape 2 : production
+FROM node:24.18.0-alpine AS production
+
 WORKDIR /app
-# copy from build
+
+ENV NODE_ENV=production
+
+COPY package*.json ./
+
+RUN npm ci --omit=dev
+
 COPY --from=build /app/dist ./dist
-# start the app
+
+EXPOSE 3000
+
 CMD ["npm", "run", "start:prod"]
