@@ -11,6 +11,9 @@ import { ArticlesModule } from './feature-articles/articles.module';
 import { GamesModule } from './feature-games/games.module';
 import { PlayersModule } from './feature-players/players.module';
 import { PartnersModule } from './feature-partners/partners.module';
+import { RegulsModule } from './feature-reguls/reguls.module';
+import { PrismaModule } from './prisma/prisma.module';
+import { PrismaService } from './prisma/prisma.service';
 
 @Module({
   imports: [
@@ -38,8 +41,10 @@ import { PartnersModule } from './feature-partners/partners.module';
     GamesModule,
     PlayersModule,
     PartnersModule,
+    RegulsModule,
+    PrismaModule,
   ],
   controllers: [AppController, FeatureUserController],
-  providers: [AppService, FeatureUserService],
+  providers: [AppService, FeatureUserService, PrismaService],
 })
 export class AppModule {}

@@ -4,10 +4,10 @@ import {
   IsNotEmpty,
   MinLength,
   MaxLength,
-  IsPositive,
   IsDate,
   IsBoolean,
   IsOptional,
+  Min,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -41,12 +41,12 @@ export class CreateGameDto {
 
   @IsInt({ message: 'Ce doit être un nombre.' })
   @IsNotEmpty({ message: 'Ce champ est requis.' })
-  @IsPositive()
+  @Min(0)
   nbGoalHome: number;
 
   @IsInt({ message: 'Ce doit être un nombre.' })
   @IsNotEmpty({ message: 'Ce champ est requis.' })
-  @IsPositive()
+  @Min(0)
   nbGoalAway: number;
 
   @IsOptional()

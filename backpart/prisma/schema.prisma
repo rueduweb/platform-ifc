@@ -96,6 +96,19 @@ model Partner {
   @@map("partners")
 }
 
+model Regul {
+  id        Int      @id @default(autoincrement())
+  license   String
+  items     Json
+  total     Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("reguls")
+}
+
+
 enum Role {
   ADMIN
   USER

@@ -42,13 +42,16 @@ export class FeatureUserService {
   }
 
   async findAll(role?: string): Promise<UserWithoutPassword[]> {
-    const users = role
-      ? await this.databaseService.user.findMany({
-          where: {
+    const users = await this.databaseService.user.findMany({
+      where: role
+        ? {
             role: role as Role,
-          },
-        })
-      : await this.databaseService.user.findMany();
+          }
+        : undefined,
+      include: {
+        articles: true,
+      },
+    });
 
     return users.map(({ password, ...user }) => user);
   }
