@@ -28,6 +28,8 @@ import { Router } from '@angular/router';
 import { RegulFormModel } from '../../data/models/regul-form.model';
 import { RegulStore } from '../../data/state/regul.store';
 
+import { DatePipe } from '@angular/common';
+
 const INITIAL_REGUL_FORM_MODEL: RegulFormModel = {
   license: '',
   amount: null,
@@ -35,7 +37,7 @@ const INITIAL_REGUL_FORM_MODEL: RegulFormModel = {
 
 @Component({
   selector: 'app-regul-form',
-  imports: [FormField, FormRoot],
+  imports: [FormField, FormRoot, DatePipe],
   templateUrl: './regul-form.html',
   styleUrl: './regul-form.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -153,12 +155,44 @@ export class RegulForm {
 
   readonly total = computed(() => {
 
-    return (
-      this.previousTotal()
-      + (this.model().amount ?? 0)
+    const regul = this.regul();
+    const amount = this.model().amount;
+
+    if (amount === null) {
+      return this.previousTotal();
+    }
+
+    /*
+    * Création d'une nouvelle pièce
+    */
+    if (regul === null) {
+      return this.previousTotal() + amount;
+    }
+
+    /*
+    * Modification d'une pièce existante
+    */
+    const pieceId = this.selectedPieceId();
+
+    if (pieceId === null) {
+      return this.previousTotal();
+    }
+
+    const selectedPiece = regul.items.find(
+      (item) => item.id === pieceId,
     );
 
+    if (!selectedPiece) {
+      return this.previousTotal();
+    }
+
+    return (
+      this.previousTotal()
+      - selectedPiece.amount
+      + amount
+    );
   });
+
 
   /* ========================================================
      ANNULATION / SORTIE
@@ -331,16 +365,43 @@ export class RegulForm {
             return;
           }
 
-          const regul = await this.regulStore.addRegul(
-            value.license,
-            value.amount,
-          );
+          /*
+          * ================================================
+          * MODE MODIFICATION
+          * ================================================
+          */
 
-          if (regul === null) {
+          const regul = this.regul();
+          const pieceId = this.selectedPieceId();
+
+          if (regul !== null) {
+
+            if (pieceId === null) {
+              return;
+            }
+
+            await this.regulStore.updatePiece(
+              regul.id,
+              pieceId,
+              value.amount,
+            );
+
             return;
           }
 
+
+          /*
+          * ================================================
+          * MODE CREATION
+          * ================================================
+          */
+
+          await this.regulStore.addRegul(
+            value.license,
+            value.amount,
+          );
         }
+
       }
     }
   );

@@ -266,7 +266,7 @@ export const RegulStore = signalStore(
 
 
     async updatePiece( // cette méthode est utile pour modifier un pièce
-      id: number,
+      regulId: number,
       pieceId: number,
       amount: number,
     ): Promise<Regul | null> {
@@ -276,10 +276,10 @@ export const RegulStore = signalStore(
       });
 
       try {
-        const regul = store.entities().find((item) => item.id === id );
+        const regul = store.entities().find((item) => item.id === regulId );
 
         if(!regul) {
-          throw new Error(`Règlement ${id} introuvable.`);
+          throw new Error(`Règlement ${regulId} introuvable.`);
         }
 
         const updated = await regulService.updatePiece(regul, pieceId, amount);
