@@ -1,439 +1,684 @@
-:host {
-  display: block;
+/* ============================================================
+   CONTENEUR
+   ============================================================ */
 
-  /*
-   * Nunito doit être chargé globalement dans l'application.
-   */
-  font-family: 'Roboto', sans-serif;
+.regul-page {
+  width: 100%;
+  min-height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  padding-top: 67px;
 }
 
 
-/* =========================================================
-   CARD
-   ========================================================= */
+/* ============================================================
+   CARTE
+   ============================================================ */
 
 .regul-card {
   position: relative;
 
-  overflow: hidden;
+  width: 410px;
+  height: 554px;
+
+  box-sizing: border-box;
 
   background: #ffffff;
 
-  border-radius: 18px;
+  border: 1px solid #dcdcdc;
+  border-radius: 30px;
 
-  /*
-   * Pas de bordure noire.
-   * Ombre douce et légèrement floutée.
-   */
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.08),
-    0 2px 8px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 
-/* =========================================================
-   TRIANGLES DECORATIFS
-   ========================================================= */
+/* ============================================================
+   HEADER
+   ============================================================ */
 
-.regul-card::before,
-.regul-card::after {
-  content: '';
+.regul-header {
+  height: 66px;
 
+  box-sizing: border-box;
+
+  padding-top: 13px;
+
+  text-align: center;
+
+  border-bottom: 1px solid #d9d9d9;
+}
+
+
+/*
+ * Même police que "Licence" et "Pièces"
+ */
+.regul-title,
+.regul-subtitle,
+.regul-field-label,
+.regul-pieces-title {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* Titre */
+
+.regul-title {
+  margin: 0;
+
+  color: #555555;
+
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 29px;
+}
+
+
+/* Mode : Modification / Création */
+
+.regul-subtitle {
+  margin: 0;
+
+  color: #8a8a8a;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+
+/* ============================================================
+   CONTENU
+   ============================================================ */
+
+.regul-content {
+  position: relative;
+
+  padding: 21px 47px 0 46px;
+}
+
+
+/* ============================================================
+   CHAMP LICENCE
+   ============================================================ */
+
+.regul-field-row {
+  display: flex;
+  align-items: stretch;
+
+  width: 316px;
+  height: 49px;
+}
+
+
+/* Icône */
+
+.regul-field-icon {
+  width: 40px;
+  height: 49px;
+
+  flex: 0 0 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f0f3f7;
+
+  color: #365778;
+
+  font-size: 17px;
+}
+
+
+/* Libellé Licence */
+
+.regul-field-label {
+  width: 157px;
+  height: 49px;
+
+  display: flex;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  padding-left: 11px;
+
+  background: #f7f8fa;
+
+  color: #365778;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+/* ============================================================
+   INPUTS
+   ============================================================ */
+
+.regul-input {
+  box-sizing: border-box;
+
+  border: 1px solid #d9d9d9;
+
+  outline: none;
+
+  background: #ffffff;
+
+  color: #a0009b;
+
+  font-family: "Courier New", monospace;
+
+  transition:
+    border-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.regul-input:focus {
+  border-color: #a0009b;
+
+  box-shadow: 0 0 0 2px rgba(160, 0, 155, 0.08);
+}
+
+
+/* ============================================================
+   INPUT LICENCE
+   Largeur : 113 px
+   ============================================================ */
+
+.regul-license-input {
+  width: 113px;
+  height: 49px;
+
+  padding: 0 10px;
+
+  border-radius: 0 12px 12px 0;
+
+  font-size: 18px;
+  font-weight: 600;
+}
+
+
+/* ============================================================
+   ERREURS
+   ============================================================ */
+
+.regul-error {
+  margin: 5px 0 0;
+
+  color: #dc2626;
+
+  font-size: 12px;
+}
+
+.regul-license-error {
+  margin-left: 40px;
+}
+
+
+/* ============================================================
+   PIÈCES
+   ============================================================ */
+
+.regul-pieces {
+  margin-top: 17px;
+}
+
+
+/* Titre "Pièces" */
+
+.regul-pieces-title {
+  margin-bottom: 8px;
+
+  color: #365778;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* ============================================================
+   LIGNE D'UNE PIÈCE
+   ============================================================ */
+
+.regul-piece {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  width: 316px;
+  height: 49px;
+
+  margin-bottom: 7px;
+}
+
+
+/* ============================================================
+   NUMÉRO + "fois"
+   ============================================================ */
+
+.regul-piece-number {
+  width: 195px;
+  height: 49px;
+
+  display: flex;
+  align-items: center;
+
+  background: #f7f8fa;
+}
+
+
+/* Badge circulaire */
+
+.regul-piece-badge {
+  width: 28px;
+  height: 28px;
+
+  margin-left: 6px;
+  margin-right: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #e8edf4;
+
+  color: #365778;
+
+  font-size: 13px;
+}
+
+
+/* Texte "fois" */
+
+.regul-piece-unit {
+  color: #365778;
+
+  font-size: 13px;
+}
+
+
+/* ============================================================
+   INPUT MONTANT
+   Largeur : 113 px
+   ============================================================ */
+
+.regul-amount-input {
+  width: 113px;
+  height: 49px;
+
+  padding: 0 10px;
+
+  border-radius: 0 12px 12px 0;
+
+  color: #a0009b;
+
+  font-size: 18px;
+  font-weight: 600;
+}
+
+
+/* ============================================================
+   CORBEILLE
+   ============================================================ */
+
+.regul-delete-button {
   position: absolute;
 
-  top: 0;
+  right: -35px;
+  top: 50%;
+
+  width: 25px;
+  height: 30px;
+
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: #555555;
+
+  cursor: pointer;
+}
+
+.regul-delete-button:hover {
+  color: #222222;
+}
+
+
+/* ============================================================
+   ERREUR D'UNE PIÈCE
+   ============================================================ */
+
+.regul-piece-error {
+  position: absolute;
+
+  left: 0;
+  top: 50px;
+
+  margin: 0;
+
+  color: #dc2626;
+
+  font-size: 12px;
+}
+
+
+/* ============================================================
+   BOUTON "+"
+   ============================================================ */
+
+.regul-add-button {
+  width: 28px;
+  height: 28px;
+
+  margin-top: 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: #e8edf4;
+
+  color: #365778;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 21px;
+  font-weight: 400;
+
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.regul-add-button:hover {
+  background: #dce4ee;
+}
+
+
+/* ============================================================
+   TOTAL
+   ============================================================ */
+
+.regul-total {
+  position: absolute;
+
+  left: 46px;
+  right: 47px;
+
+  top: 334px;
+
+  height: 54px;
+
+  display: flex;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  border: 1px solid #d8d8d8;
+}
+
+
+/* Libellé Total */
+
+.regul-total-label {
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  padding-left: 8px;
+
+  background: #f7f8fa;
+
+  color: #365778;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* Valeur du total */
+
+.regul-total-value {
+  flex: 1;
+
+  padding-right: 20px;
+
+  text-align: right;
+
+  color: #526173;
+
+  font-family: "Courier New", monospace;
+
+  font-size: 27px;
+  font-weight: 700;
+}
+
+
+/* ============================================================
+   ERREUR TOTAL
+   ============================================================ */
+
+.regul-total-error {
+  position: absolute;
+
+  left: 46px;
+
+  top: 393px;
+}
+
+
+/* ============================================================
+   ACTIONS
+   ============================================================ */
+
+.regul-actions {
+  position: absolute;
+
+  right: 47px;
+  bottom: 25px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+}
+
+
+/* Boutons */
+
+.regul-button {
+  height: 46px;
+
+  padding: 0 27px;
+
+  border: 0;
+  border-radius: 9px;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+
+/* ============================================================
+   BOUTON ANNULER
+   ============================================================ */
+
+.regul-button-cancel {
+  min-width: 121px;
+
+  background: #c6c6c6;
+
+  color: #ffffff;
+}
+
+.regul-button-cancel:hover {
+  background: #b9b9b9;
+}
+
+
+/* ============================================================
+   BOUTON ENREGISTRER
+   ============================================================ */
+
+.regul-button-submit {
+  min-width: 121px;
+
+  background: #20b34b;
+
+  color: #ffffff;
+}
+
+.regul-button-submit:hover:not(:disabled) {
+  background: #1ca644;
+}
+
+.regul-button-submit:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+}
+
+
+/* ============================================================
+   COINS DÉCORATIFS
+   ============================================================ */
+
+.regul-corner {
+  position: absolute;
 
   width: 0;
   height: 0;
 
+  z-index: 5;
+
   pointer-events: none;
-
-  z-index: 1;
 }
 
 
-/*
- * Triangle supérieur gauche
- */
-.regul-card::before {
-  left: 0;
+/* ============================================================
+   COIN HAUT DROIT
+   Dégradé / fuchsia brillant
+   ============================================================ */
 
-  border-top: 62px solid #d32ba1;
-  border-right: 62px solid transparent;
+.regul-corner-top-right {
+  top: -1px;
+  right: -1px;
+
+  border-top: 34px solid #ff0f9a;
+  border-left: 34px solid transparent;
 }
 
 
-/*
- * Triangle supérieur droit
- */
-.regul-card::after {
-  right: 0;
+/* ============================================================
+   COIN BAS GAUCHE
+   Gris / noir brillant
+   ============================================================ */
 
-  border-top: 62px solid #111111;
-  border-left: 62px solid transparent;
+.regul-corner-bottom-left {
+  bottom: -1px;
+  left: -1px;
+
+  border-bottom: 34px solid #202020;
+  border-right: 34px solid transparent;
 }
 
 
-/* =========================================================
-   HEADER
-   ========================================================= */
-
-.regul-card__header {
-  position: relative;
-
-  z-index: 2;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  min-height: 76px;
-
-  padding: 1.25rem 1.5rem;
-
-  /*
-   * Une seule bordure :
-   * celle située sous le header.
-   */
-  border-bottom: 1px solid #e5e7eb;
-}
-
-
-.regul-card__header h1 {
-  margin: 0;
-
-  color: #111111;
-
-  font-size: 1.35rem;
-  font-weight: 800;
-
-  line-height: 1.3;
-
-  text-align: center;
-}
-
-
-/* =========================================================
-   BODY
-   ========================================================= */
-
-.regul-card__body {
-  position: relative;
-
-  z-index: 2;
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 1.25rem;
-
-  padding: 2rem 1.5rem;
-}
-
-
-/* =========================================================
-   FORM FIELDS
-   ========================================================= */
-
-.form-field {
-  display: grid;
-
-  grid-template-columns: 100px minmax(0, 1fr);
-
-  align-items: center;
-
-  column-gap: 1.25rem;
-}
-
-
-.form-field > label {
-  color: #111111;
-
-  font-size: 0.95rem;
-  font-weight: 700;
-
-  line-height: 1.4;
-}
-
-
-.form-field__control {
-  min-width: 0;
-}
-
-
-.form-field input {
-  display: block;
-
-  width: 100%;
-
-  min-height: 44px;
-
-  padding: 0.65rem 0.9rem;
-
-  color: #111111;
-
-  font-family: inherit;
-  font-size: 0.95rem;
-
-  background: #ffffff;
-
-  border: 1px solid #d1d5db;
-
-  border-radius: 8px;
-
-  outline: none;
-
-  transition:
-    border-color 150ms ease,
-    box-shadow 150ms ease;
-}
-
-
-.form-field input:hover {
-  border-color: #9ca3af;
-}
-
-
-.form-field input:focus {
-  border-color: #c13caf;
-
-  box-shadow:
-    0 0 0 3px rgba(193, 60, 175, 0.12);
-}
-
-
-/* =========================================================
-   TOTAL
-   ========================================================= */
-
-.regul-total {
-  display: flex;
-
-  align-items: center;
-  justify-content: space-between;
-
-  margin-top: 0.75rem;
-
-  padding-top: 0.75rem;
-}
-
-
-.regul-total__label {
-  color: #111111;
-
-  font-size: 1.05rem;
-  font-weight: 800;
-}
-
-
-.regul-total__value {
-  color: #c13caf;
-
-  font-size: 1.5rem;
-  font-weight: 800;
-
-  line-height: 1;
-}
-
-
-.regul-total__value--max {
-  color: #16a34a;
-}
-
-
-.regul-total__value--error {
-  color: #dc2626;
-}
-
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-.regul-card__footer {
-  position: relative;
-
-  z-index: 2;
-
-  display: flex;
-
-  justify-content: flex-end;
-
-  align-items: center;
-
-  gap: 0.75rem;
-
-  padding: 0 1.5rem 1.5rem;
-}
-
-
-/* =========================================================
-   BUTTONS
-   ========================================================= */
-
-.btn {
-  min-height: 42px;
-
-  padding: 0.6rem 1.5rem;
-
-  font-family: inherit;
-
-  font-size: 0.9rem;
-  font-weight: 700;
-
-  border-radius: 8px;
-
-  cursor: pointer;
-
-  transition:
-    background-color 150ms ease,
-    border-color 150ms ease,
-    color 150ms ease,
-    box-shadow 150ms ease,
-    transform 100ms ease;
-}
-
-
-.btn:active:not(:disabled) {
-  transform: translateY(1px);
-}
-
-
-/* Cancel */
-
-.btn--cancel {
-  color: #111111;
-
-  background: #ffffff;
-
-  border: 1px solid #d1d5db;
-}
-
-
-.btn--cancel:hover {
-  background: #f9fafb;
-
-  border-color: #9ca3af;
-}
-
-
-.btn--cancel:focus-visible {
-  outline: none;
-
-  box-shadow:
-    0 0 0 3px rgba(17, 24, 39, 0.12);
-}
-
-
-/* Enregistrer */
-
-.btn--submit {
-  color: #ffffff;
-
-  background: #c13caf;
-
-  border: 1px solid #c13caf;
-}
-
-
-.btn--submit:hover:not(:disabled) {
-  background: #a8329d;
-
-  border-color: #a8329d;
-}
-
-
-.btn--submit:focus-visible {
-  outline: none;
-
-  box-shadow:
-    0 0 0 3px rgba(193, 60, 175, 0.2);
-}
-
-
-.btn--submit:disabled {
-  color: #ffffff;
-
-  background: #d1d5db;
-
-  border-color: #d1d5db;
-
-  cursor: not-allowed;
-
-  opacity: 0.8;
-}
-
-
-/* =========================================================
+/* ============================================================
    RESPONSIVE
-   ========================================================= */
+   ============================================================ */
 
-@media (max-width: 640px) {
+@media (max-width: 480px) {
+
+  .regul-page {
+    padding: 20px 10px;
+  }
+
 
   .regul-card {
-    border-radius: 14px;
+    width: 100%;
+    max-width: 410px;
   }
 
 
-  .regul-card::before,
-  .regul-card::after {
-    border-top-width: 48px;
+  .regul-content {
+    padding-left: 25px;
+    padding-right: 25px;
   }
 
 
-  .regul-card::before {
-    border-right-width: 48px;
-  }
-
-
-  .regul-card::after {
-    border-left-width: 48px;
-  }
-
-
-  .regul-card__header {
-    min-height: 68px;
-
-    padding: 1rem 1.25rem;
-  }
-
-
-  .regul-card__header h1 {
-    font-size: 1.15rem;
-  }
-
-
-  .regul-card__body {
-    gap: 1rem;
-
-    padding: 1.5rem 1.25rem;
-  }
-
-
-  .form-field {
-    grid-template-columns: 1fr;
-
-    row-gap: 0.4rem;
-  }
-
-
-  .form-field > label {
-    font-size: 0.9rem;
-  }
-
-
-  .regul-card__footer {
-    flex-direction: column-reverse;
-
-    align-items: stretch;
-
-    padding: 0 1.25rem 1.25rem;
-  }
-
-
-  .btn {
+  .regul-field-row,
+  .regul-piece {
     width: 100%;
   }
+
+
+  .regul-field-label,
+  .regul-piece-number {
+    flex: 1;
+  }
+
+
+  /*
+   * Inputs conservant la nouvelle largeur de 113 px
+   */
+  .regul-license-input,
+  .regul-amount-input {
+    width: 113px;
+    flex: 0 0 113px;
+  }
+
+
+  .regul-total {
+    left: 25px;
+    right: 25px;
+  }
+
+
+  .regul-actions {
+    right: 25px;
+  }
+
+  /* ========================================================
+     CORBEILLE SUR PETIT ÉCRAN
+     ======================================================== */
+
+  .regul-delete-button {
+    right: -20px;
+
+    width: 20px;
+    height: 24px;
+
+    font-size: 13px;
+  }
+
 }

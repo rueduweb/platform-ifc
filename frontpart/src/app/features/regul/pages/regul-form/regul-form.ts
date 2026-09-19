@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-
 import {
   REGUL_MAX_PIECES,
   REGUL_MIN_PIECE_AMOUNT,
@@ -22,14 +21,16 @@ import {
 import { inject } from '@angular/core';
 import { RegulsStore } from '../../data/state/reguls.store';
 
-const INITIAL_REGUL_FORM_MODEL: RegulFormModel = {
-  license: '',
-  items: [
-    {
-      amount: null
-    }
-  ],
-};
+function createInitialRegulFormModel(): RegulFormModel {
+  return {
+    license: '',
+    items: [
+      {
+        amount: null,
+      },
+    ],
+  };
+}
 
 @Component({
   selector: 'app-regul-form',
@@ -49,6 +50,11 @@ export class RegulForm {
 
   readonly regulId = signal<number | null>(null);
 
+  readonly model = signal<RegulFormModel>(
+    createInitialRegulFormModel()
+  );
+
+
   readonly originalItems = signal<
     {
       id: number;
@@ -60,6 +66,12 @@ export class RegulForm {
   readonly isEditMode = computed(
     () => this.regulId() !== null,
   );
+
+  private resetForm(): void {
+    this.model.set(createInitialRegulFormModel());
+    this.originalItems.set([]);
+  }
+
 
   private readonly createSuccessEffect = effect(() => {
     if (this.store.createSuccess()) {
@@ -85,7 +97,7 @@ export class RegulForm {
   private readonly regulEffect = effect(() => {
     const regul = this.store.regul();
 
-    if (!regul) {
+    if (!this.isEditMode() || !regul) {
       return;
     }
 
@@ -118,8 +130,6 @@ export class RegulForm {
       (id) => !currentIds.includes(id),
     );
   });
-
-  readonly model = signal<RegulFormModel>(INITIAL_REGUL_FORM_MODEL);
 
   readonly regulForm = form(this.model, (schema) => {
     required(schema.license, {
@@ -201,14 +211,17 @@ export class RegulForm {
     this.store.updateRegulWithPieces({
       regulId,
       items: this.model().items,
+      deletedPieceIds: this.deletedItemIds()
     });
   }
 
 
   /* LE CANCEL */
   cancel(): void {
+    this.store.clearRegul();
     void this.router.navigate(['/manage-license']);
   }
+
 
   /* LES FONCTIONS UTILES */
   addItem(): void {

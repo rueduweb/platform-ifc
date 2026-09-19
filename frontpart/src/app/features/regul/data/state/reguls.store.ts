@@ -81,6 +81,12 @@ export const RegulsStore = signalStore(
       ),
     ),
 
+    clearRegul(): void {
+      patchState(store, {
+        regul: null,
+        error: null
+      });
+    },
 
     loadRegul: rxMethod<number>(
       pipe(
@@ -233,6 +239,7 @@ export const RegulsStore = signalStore(
         id?: number;
         amount: number | null;
       }[];
+      deletedPieceIds: number[];
     }>(
       pipe(
         tap(() => {
@@ -242,9 +249,16 @@ export const RegulsStore = signalStore(
           });
         }),
 
-        switchMap(({ regulId, items }) =>
-          from(items).pipe(
-            // Une opération après l'autre
+        switchMap(({ regulId, items, deletedPieceIds }) => {
+          /*
+          * 1. PATCH / POST
+          *
+          * On traite d'abord les pièces présentes dans le formulaire.
+          * - id présent     => PATCH
+          * - id absent      => POST
+          * - amount === null => aucune opération
+          */
+          const updateAndCreate$ = from(items).pipe(
             concatMap((item) => {
               // Montant vide : aucune opération API
               if (item.amount === null) {
@@ -271,14 +285,55 @@ export const RegulsStore = signalStore(
               );
             }),
 
-            // On conserve la dernière Regul retournée par l'API
+            /*
+            * On conserve la dernière Regul retournée.
+            * Si aucune pièce n'a généré d'opération, on obtient null.
+            */
             reduce(
               (_currentRegul, updatedRegul) => updatedRegul,
               null as Regul | null,
             ),
+          );
+
+          /*
+          * 2. DELETE
+          *
+          * On enchaîne les suppressions après tous les PATCH / POST.
+          */
+          return updateAndCreate$.pipe(
+            switchMap((currentRegul) => {
+              /*
+              * Aucun PATCH / POST n'a été effectué.
+              * On démarre quand même la phase DELETE.
+              */
+              return from(deletedPieceIds).pipe(
+                concatMap((pieceId) =>
+                  regulsApi.deletePieceRegul(
+                    regulId,
+                    pieceId,
+                  ),
+                ),
+
+                /*
+                * Si des DELETE ont été effectués,
+                * la dernière Regul retournée est l'état final.
+                *
+                * Sinon, on conserve celle éventuellement
+                * retournée par PATCH / POST.
+                */
+                reduce(
+                  (regul, updatedRegul) => updatedRegul,
+                  currentRegul,
+                ),
+              );
+            }),
 
             tap((regul) => {
               if (regul === null) {
+                /*
+                * Aucun PATCH, POST ou DELETE.
+                * Rien n'a changé côté API.
+                */
                 patchState(store, {
                   loading: false,
                 });
@@ -306,8 +361,8 @@ export const RegulsStore = signalStore(
 
               return EMPTY;
             }),
-          ),
-        ),
+          );
+        }),
       ),
     ),
 
