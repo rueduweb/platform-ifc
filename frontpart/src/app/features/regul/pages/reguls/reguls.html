@@ -1,0 +1,487 @@
+<section class="mx-auto flex h-full min-h-0 flex-col overflow-hidden p-6">
+
+  <section
+    class="mx-auto flex min-h-0 w-full max-w-[1600px] flex-1 flex-col overflow-hidden"
+  >
+
+    <!-- ========================================================= -->
+    <!-- TITRE                                                      -->
+    <!-- ========================================================= -->
+
+    <h1 class="title cust-border relative shrink-0 text-center text-4xl font-light">
+
+      Régularisations
+
+      @if (auth.user()?.role === 'ADMIN') {
+        <button
+          type="button"
+          (click)="newRegul()"
+          class="absolute bottom-2 right-0 cursor-pointer text-gray-700"
+          title="Ajouter une régularisation"
+        >
+          <i class="fa-solid fa-square-plus"></i>
+        </button>
+      }
+
+    </h1>
+
+
+    <!-- ========================================================= -->
+    <!-- LOADING                                                    -->
+    <!-- ========================================================= -->
+
+    @if (store.loading()) {
+
+      <div class="flex items-center justify-center py-12">
+        <p class="text-sm text-gray-500">
+          Chargement des régularisations...
+        </p>
+      </div>
+
+    }
+
+
+    <!-- ========================================================= -->
+    <!-- ERROR                                                      -->
+    <!-- ========================================================= -->
+
+    @if (store.error(); as error) {
+
+      <div
+        class="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700"
+        role="alert"
+      >
+        {{ error }}
+      </div>
+
+    }
+
+
+    <!-- ========================================================= -->
+    <!-- CONTENT                                                    -->
+    <!-- ========================================================= -->
+
+    @if (!store.loading() && !store.error()) {
+
+      @if (store.reguls().length > 0) {
+
+        <div class="table-card">
+
+          <!-- =================================================== -->
+          <!-- VERSION TABLE DESKTOP / TABLET                      -->
+          <!-- Visible à partir de 520px                           -->
+          <!-- =================================================== -->
+
+          <div class="desktop-table table-scroll">
+
+            <table class="reguls-table">
+
+              <thead>
+
+                <tr>
+
+                  <th class="license-column">
+                    Licence
+                  </th>
+
+                  <th>
+                    <span class="header-number">1</span>
+                    fois
+                  </th>
+
+                  <th>
+                    <span class="header-number">2</span>
+                    fois
+                  </th>
+
+                  <th>
+                    <span class="header-number">3</span>
+                    fois
+                  </th>
+
+                  <th>
+                    <span class="header-number">4</span>
+                    fois
+                  </th>
+
+                  <th class="total-column">
+                    Total
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                @for (regul of paginatedReguls(); track regul.id) {
+
+                  <tr>
+
+                    <!-- LICENCE -->
+
+                    <td class="license-cell">
+
+                      <div class="license-wrapper">
+
+                        <div class="license-icon">
+                          <i class="fa-regular fa-id-card"></i>
+                        </div>
+
+                        <div>
+
+                          <div class="license-label">
+                            Licence
+                          </div>
+
+                          <div class="license-number">
+                            <a class="license-choice" (click)="goToForm(regul.id)">{{ regul.license }}</a>
+                          </div>
+
+                        </div>
+
+                      </div>
+
+                    </td>
+
+
+                    <!-- PIÈCES -->
+
+                    @for (index of [0, 1, 2, 3]; track index) {
+
+                      @if (getItem(regul, index); as item) {
+
+                        <td class="item-cell">
+
+                          <div class="item-card">
+
+                            <div class="item-amount">
+                              {{ item.amount }}
+                            </div>
+
+                            <div class="item-date">
+                              {{ item.date | date:'dd/MM/yyyy' }}
+                            </div>
+
+                          </div>
+
+                        </td>
+
+                      } @else {
+
+                        <td class="item-cell">
+
+                          <div class="item-empty">
+                            <span>—</span>
+                          </div>
+
+                        </td>
+
+                      }
+
+                    }
+
+
+                    <!-- TOTAL -->
+
+                    <td class="total-cell">
+
+                      <div
+                        class="total-value"
+                        [class]="getTotalClass(regul.total)"
+                      >
+                        {{ regul.total }}
+                      </div>
+
+                      <div
+                        class="total-badge"
+                        [class]="getTotalBadgeClass(regul.total)"
+                      >
+
+                        @if (regul.total === 45) {
+
+                          <i class="fa-solid fa-circle-check"></i>
+                          Complet
+
+                        } @else if (regul.total >= 28) {
+
+                          <i class="fa-solid fa-circle-exclamation"></i>
+                          Licence OK
+
+                        } @else {
+
+                          <i class="fa-solid fa-circle-minus"></i>
+                          En cours
+
+                        }
+
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+                }
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+          <!-- =================================================== -->
+          <!-- VERSION MOBILE                                       -->
+          <!-- < 520px                                               -->
+          <!-- =================================================== -->
+
+          <div class="mobile-reguls">
+
+            @for (regul of paginatedReguls(); track regul.id) {
+
+              <article class="mobile-regul-card">
+
+                <!-- ============================================= -->
+                <!-- HEADER LICENCE / TOTAL                        -->
+                <!-- ============================================= -->
+
+                <div class="mobile-regul-header">
+
+                  <div class="mobile-license">
+
+                    <div class="mobile-license-icon">
+                      <i class="fa-regular fa-id-card"></i>
+                    </div>
+
+                    <div>
+
+                      <div class="mobile-license-label">
+                        Licence
+                      </div>
+
+                      <div class="mobile-license-number">
+                        <a class="license-choice" (click)="goToForm(regul.id)">{{ regul.license }}</a>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+
+                  <div class="mobile-total">
+
+                    <div
+                      class="mobile-total-value"
+                      [class]="getTotalClass(regul.total)"
+                    >
+                      {{ regul.total }}
+                    </div>
+
+                    <div
+                      class="mobile-total-badge"
+                      [class]="getTotalBadgeClass(regul.total)"
+                    >
+
+                      @if (regul.total === 45) {
+
+                        <i class="fa-solid fa-circle-check"></i>
+                        Complet
+
+                      } @else if (regul.total >= 28) {
+
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        Licence OK
+
+                      } @else {
+
+                        <i class="fa-solid fa-circle-minus"></i>
+                        En cours
+
+                      }
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                <!-- ============================================= -->
+                <!-- PIÈCES                                         -->
+                <!-- ============================================= -->
+
+                <div class="mobile-items">
+
+                  @for (index of [0, 1, 2, 3]; track index) {
+
+                    @if (getItem(regul, index); as item) {
+
+                      <div class="mobile-item">
+
+                        <div class="mobile-item-number">
+                          {{ index + 1 }}
+                        </div>
+
+                        <div class="mobile-item-content">
+
+                          <span class="mobile-item-label">
+                            fois
+                          </span>
+
+                          <span class="mobile-item-amount">
+                            {{ item.amount }}
+                          </span>
+
+                          <span class="mobile-item-date">
+                            {{ item.date | date:'dd/MM/yyyy' }}
+                          </span>
+
+                        </div>
+
+                      </div>
+
+                    } @else {
+
+                      <div class="mobile-item mobile-item-empty">
+
+                        <div class="mobile-item-number">
+                          {{ index + 1 }}
+                        </div>
+
+                        <div class="mobile-item-content">
+
+                          <span class="mobile-item-label">
+                            fois
+                          </span>
+
+                          <span class="mobile-item-empty-value">
+                            —
+                          </span>
+
+                        </div>
+
+                      </div>
+
+                    }
+
+                  }
+
+                </div>
+
+              </article>
+
+            }
+
+          </div>
+
+
+          <!-- =================================================== -->
+          <!-- FOOTER / PAGINATION                                  -->
+          <!-- =================================================== -->
+
+          <footer class="table-footer">
+
+            <div class="results-count">
+
+              <span class="results-dot"></span>
+
+              <span>
+                {{ paginatedReguls().length }}
+                licence{{ paginatedReguls().length > 1 ? 's' : '' }}
+                affichée{{ paginatedReguls().length > 1 ? 's' : '' }}
+              </span>
+
+              <span class="results-separator">
+                ·
+              </span>
+
+              <span>
+                {{ store.reguls().length }} au total
+              </span>
+
+            </div>
+
+
+            @if (totalPages() > 1) {
+
+              <nav
+                class="pagination"
+                aria-label="Pagination"
+              >
+
+                <!-- Previous -->
+
+                <button
+                  type="button"
+                  class="pagination-button pagination-arrow"
+                  [disabled]="currentPage() === 1"
+                  (click)="previousPage()"
+                  aria-label="Page précédente"
+                >
+                  <i class="fa-solid fa-chevron-left"></i>
+                </button>
+
+
+                <!-- Pages -->
+
+                @for (page of pageNumbers(); track $index) {
+
+                  @if (page === -1) {
+
+                    <span class="pagination-ellipsis">
+                      …
+                    </span>
+
+                  } @else {
+
+                    <button
+                      type="button"
+                      class="pagination-button"
+                      [class.pagination-active]="currentPage() === page"
+                      [attr.aria-current]="currentPage() === page ? 'page' : null"
+                      (click)="goToPage(page)"
+                    >
+                      {{ page }}
+                    </button>
+
+                  }
+
+                }
+
+
+                <!-- Next -->
+
+                <button
+                  type="button"
+                  class="pagination-button pagination-arrow"
+                  [disabled]="currentPage() === totalPages()"
+                  (click)="nextPage()"
+                  aria-label="Page suivante"
+                >
+                  <i class="fa-solid fa-chevron-right"></i>
+                </button>
+
+              </nav>
+
+            }
+
+          </footer>
+
+        </div>
+
+      } @else {
+
+        <div class="rounded-lg border border-dashed border-gray-300 p-12 text-center">
+          <p class="text-sm text-gray-500">
+            Aucune régularisation.
+          </p>
+        </div>
+
+      }
+
+    }
+
+  </section>
+
+</section>

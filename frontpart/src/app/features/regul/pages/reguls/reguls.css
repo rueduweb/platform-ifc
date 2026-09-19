@@ -1,0 +1,673 @@
+:host {
+  display: block;
+  height: 100%;
+  min-height: 0;
+}
+
+/* ============================================================= */
+/* TABLE CARD                                                    */
+/* ============================================================= */
+
+.table-card {
+  display: flex;
+  min-height: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  overflow: hidden;
+  margin-top: 1.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  background: #ffffff;
+}
+
+
+/* ============================================================= */
+/* TABLE SCROLL                                                  */
+/* ============================================================= */
+
+.table-scroll {
+  min-height: 0;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+
+/* ============================================================= */
+/* TABLE                                                         */
+/* ============================================================= */
+
+.reguls-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+}
+
+
+/* ============================================================= */
+/* HEADER                                                        */
+/* ============================================================= */
+
+.reguls-table thead {
+  background: #f8fafc;
+}
+
+.reguls-table th {
+  padding: 1rem 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+  color: #64748b;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.reguls-table th:first-child {
+  text-align: left;
+}
+
+.header-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.25rem;
+  border-radius: 9999px;
+  background: #e2e8f0;
+  color: #334155;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+
+/* ============================================================= */
+/* COLONNES                                                      */
+/* ============================================================= */
+
+.license-column {
+  width: 22%;
+}
+
+.total-column {
+  width: 14%;
+}
+
+
+/* ============================================================= */
+/* LIGNES                                                        */
+/* ============================================================= */
+
+.reguls-table tbody tr {
+  border-bottom: 1px solid #f1f5f9;
+  transition: background-color 0.15s ease;
+}
+
+.reguls-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.reguls-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+
+/* ============================================================= */
+/* LICENCE                                                       */
+/* ============================================================= */
+
+.license-cell {
+  padding: 1rem 0.75rem;
+}
+
+.license-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.license-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.5rem;
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.license-label {
+  margin-bottom: 0.125rem;
+  color: #94a3b8;
+  font-size: 0.7rem;
+}
+
+.license-number {
+  color: #1e293b;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.license-choice {
+  text-decoration: none;
+  color: rgb(121, 7, 121);
+  cursor: pointer;
+}
+
+
+/* ============================================================= */
+/* PIÈCES                                                        */
+/* ============================================================= */
+
+.item-cell {
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.item-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.item-amount {
+  color: #1e293b;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.item-date {
+  color: #94a3b8;
+  font-size: 0.7rem;
+}
+
+.item-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #cbd5e1;
+  font-size: 1rem;
+}
+
+
+/* ============================================================= */
+/* TOTAL                                                         */
+/* ============================================================= */
+
+.total-cell {
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.total-value {
+  margin-bottom: 0.35rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.total--green {
+  color: #16a34a;
+}
+
+.total--orange {
+  color: #ea580c;
+}
+
+.total--default {
+  color: #475569;
+}
+
+.total-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.total-badge--green {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.total-badge--orange {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+.total-badge--default {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+
+/* ============================================================= */
+/* VERSION MOBILE                                                */
+/* ============================================================= */
+
+.mobile-reguls {
+  display: none;
+}
+
+
+/* ============================================================= */
+/* FOOTER                                                        */
+/* ============================================================= */
+
+.table-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-shrink: 0;
+  padding: 0.9rem 1rem;
+  border-top: 1px solid #e5e7eb;
+  background: #ffffff;
+}
+
+.results-count {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #64748b;
+  font-size: 0.75rem;
+}
+
+.results-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 9999px;
+  background: #22c55e;
+}
+
+.results-separator {
+  color: #cbd5e1;
+}
+
+
+/* ============================================================= */
+/* PAGINATION                                                    */
+/* ============================================================= */
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.pagination-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 0.375rem;
+  background: transparent;
+  color: #475569;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.pagination-button:hover:not(:disabled) {
+  border-color: #e2e8f0;
+  background: #f8fafc;
+}
+
+.pagination-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pagination-active {
+  border-color: #334155;
+  background: #334155;
+  color: #ffffff;
+}
+
+.pagination-arrow {
+  font-size: 0.65rem;
+}
+
+.pagination-ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  color: #94a3b8;
+}
+
+
+/* ============================================================= */
+/* TABLET / PETITS ÉCRANS                                        */
+/* 520px → 767px                                                 */
+/* ============================================================= */
+
+@media (max-width: 812px) and (min-width: 645px) {
+
+  .reguls-table {
+    min-width: 640px;
+  }
+
+  .reguls-table th {
+    padding: 0.65rem 0.4rem;
+    font-size: 0.65rem;
+  }
+
+  .header-number {
+    width: 1.25rem;
+    height: 1.25rem;
+    font-size: 0.6rem;
+  }
+
+  .license-cell {
+    padding: 0.65rem 0.4rem;
+  }
+
+  .license-wrapper {
+    gap: 0.45rem;
+  }
+
+  .license-icon {
+    width: 1.8rem;
+    height: 1.8rem;
+    font-size: 0.8rem;
+  }
+
+  .license-label {
+    font-size: 0.6rem;
+  }
+
+  .license-number {
+    font-size: 0.75rem;
+  }
+
+  .item-cell {
+    padding: 0.5rem 0.3rem;
+  }
+
+  .item-amount {
+    font-size: 0.75rem;
+  }
+
+  .item-date {
+    font-size: 0.6rem;
+  }
+
+  .item-empty {
+    font-size: 0.8rem;
+  }
+
+  .total-cell {
+    padding: 0.5rem 0.3rem;
+  }
+
+  .total-value {
+    font-size: 1rem;
+  }
+
+  .total-badge {
+    padding: 0.2rem 0.35rem;
+    font-size: 0.55rem;
+  }
+
+  .table-footer {
+    padding: 0.7rem;
+  }
+
+  .results-count {
+    font-size: 0.65rem;
+  }
+
+  .pagination-button {
+    min-width: 1.75rem;
+    height: 1.75rem;
+    font-size: 0.65rem;
+  }
+
+}
+
+
+/* ============================================================= */
+/* MOBILE                                                        */
+/* < 520px                                                       */
+/* ============================================================= */
+
+@media (max-width: 644.99px) {
+
+  /*
+   * On masque complètement la vraie table.
+   * Les régularisations sont affichées sous forme de cartes.
+   */
+
+  .desktop-table {
+    display: none;
+  }
+
+  .table-card {
+    min-height: 0;
+    margin-top: 1rem;
+    border-radius: 0.6rem;
+  }
+
+  /*
+   * Zone scrollable contenant les 5 régularisations.
+   */
+  .mobile-reguls {
+    display: flex;
+    min-height: 0;
+    /* prend tout l'espace disponible entre le titre et le footer */
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 0.75rem;
+    /* C'est cette zone qui défile */
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0.75rem;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+
+  /* =========================================================== */
+  /* CARTE RÉGULARISATION                                        */
+  /* =========================================================== */
+
+  .mobile-regul-card {
+    flex: 0 0 auto;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.65rem;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgb(15 23 42 / 0.04);
+  }
+
+
+  /* =========================================================== */
+  /* HEADER CARTE                                                 */
+  /* =========================================================== */
+
+  .mobile-regul-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.7rem;
+    border-bottom: 1px solid #f1f5f9;
+    background: #f8fafc;
+  }
+
+  .mobile-license {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .mobile-license-icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.45rem;
+    background: #e2e8f0;
+    color: #475569;
+    font-size: 0.8rem;
+  }
+
+  .mobile-license-label {
+    margin-bottom: 0.05rem;
+    color: #94a3b8;
+    font-size: 0.6rem;
+  }
+
+  .mobile-license-number {
+    overflow: hidden;
+    color: #1e293b;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+
+  /* =========================================================== */
+  /* TOTAL MOBILE                                                 */
+  /* =========================================================== */
+
+  .mobile-total {
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .mobile-total-value {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .mobile-total-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    margin-top: 0.2rem;
+    padding: 0.15rem 0.35rem;
+    border-radius: 9999px;
+    font-size: 0.52rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+
+  /* =========================================================== */
+  /* ITEMS                                                        */
+  /* =========================================================== */
+
+  .mobile-items {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile-item {
+    display: flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0.45rem 0.7rem;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .mobile-item:last-child {
+    border-bottom: none;
+  }
+
+  .mobile-item-number {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-right: 0.6rem;
+    border-radius: 9999px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 0.6rem;
+    font-weight: 700;
+  }
+
+  .mobile-item-content {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .mobile-item-label {
+    color: #94a3b8;
+    font-size: 0.6rem;
+  }
+
+  .mobile-item-amount {
+    color: #1e293b;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .mobile-item-date {
+    margin-left: auto;
+    color: #94a3b8;
+    font-size: 0.6rem;
+  }
+
+  .mobile-item-empty-value {
+    color: #cbd5e1;
+    font-size: 0.8rem;
+  }
+
+
+  /* =========================================================== */
+  /* FOOTER MOBILE                                                */
+  /* =========================================================== */
+
+  .table-footer {
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+    padding: 0.65rem;
+  }
+
+  .results-count {
+    justify-content: center;
+    font-size: 0.6rem;
+  }
+
+  .pagination {
+    justify-content: center;
+  }
+
+  .pagination-button {
+    min-width: 1.8rem;
+    height: 1.8rem;
+    padding: 0 0.35rem;
+    font-size: 0.65rem;
+  }
+
+  .pagination-ellipsis {
+    width: 1rem;
+  }
+
+}

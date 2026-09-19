@@ -1,12 +1,9 @@
 <div class="mx-auto w-full max-w-3xl px-4 py-6">
 
-  <!-- ======================================================
-       FORMULAIRE
-       ====================================================== -->
-
   <form
-    [formRoot]="regulForm"
     class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm"
+    (submit)="submit($event)"
+
   >
 
     <!-- ====================================================
@@ -19,21 +16,15 @@
       <h1
         class="text-center font-mono text-xl font-normal text-gray-800 sm:text-2xl"
       >
-        Formulaire de régularisation
+        Créer une régularisation
       </h1>
     </div>
-
-
-    <!-- ====================================================
-         CONTENU
-         ==================================================== -->
 
     <div class="space-y-6 px-6 py-6 sm:px-8">
 
       <!-- ==================================================
            LICENCE
            ================================================== -->
-
       <div
         class="grid grid-cols-1 items-center gap-2 sm:grid-cols-[120px_1fr]"
       >
@@ -48,382 +39,116 @@
         <input
           id="license"
           type="text"
-          [formField]="regulForm.license"
           autocomplete="off"
+          [formField]="regulForm.license"
           class="h-11 w-full rounded-lg border border-gray-300 bg-white px-4 font-mono text-base text-gray-800 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:bg-gray-100"
         />
+        @if (regulForm.license().invalid() && regulForm.license().touched()) {
+          <p class="font-mono text-sm text-red-600">
+            {{ regulForm.license().errors()[0]?.message }}
+          </p>
+        }
+
 
       </div>
+     <!-- ==================================================
+     PIÈCES
+     ================================================== -->
 
+      @for (item of model().items; track $index) {
+        <div
+          class="grid grid-cols-1 items-center gap-2 sm:grid-cols-[120px_1fr_auto]"
+        >
 
-      <!-- ==================================================
-           ERREURS LICENCE
-           ================================================== -->
-
-      @if (
-        regulForm.license().touched() &&
-        regulForm.license().invalid()
-      ) {
-
-        <div class="-mt-4 pl-0 text-sm text-red-600 sm:pl-[120px]">
-
-          @for (
-            error of regulForm.license().errors();
-            track $index
-          ) {
-
-            <div>
-              {{ error.message }}
-            </div>
-
-          }
-
-        </div>
-
-      }
-
-
-      <!-- ==================================================
-           PIECES EXISTANTES
-           ================================================== -->
-
-      @if (regul(); as currentRegul) {
-
-        <div class="space-y-3">
-
-          <div
+          <label
+            [for]="'amount-' + $index"
             class="font-mono text-base text-gray-500"
           >
-            Pièces existantes
-          </div>
-
-
-          @if (currentRegul.items.length === 0) {
-
-            <div
-              class="rounded-lg border border-dashed border-gray-300 bg-gray-50 px-4 py-4 text-center text-sm text-gray-500"
-            >
-              Aucune pièce.
-            </div>
-
-          } @else {
-
-            <div class="space-y-3">
-
-              @for (
-                piece of currentRegul.items;
-                track piece.id
-              ) {
-
-                <button
-                  type="button"
-                  class="w-full rounded-xl border p-4 text-left transition"
-                  [class.border-blue-500]="
-                    selectedPieceId() === piece.id
-                  "
-                  [class.bg-blue-50]="
-                    selectedPieceId() === piece.id
-                  "
-                  [class.border-gray-200]="
-                    selectedPieceId() !== piece.id
-                  "
-                  [class.bg-white]="
-                    selectedPieceId() !== piece.id
-                  "
-                  (click)="selectPiece(piece.id)"
-                >
-
-                  <div
-                    class="grid grid-cols-1 gap-3 sm:grid-cols-3"
-                  >
-
-                    <!-- ID -->
-
-                    <div>
-                      <div
-                        class="text-xs font-medium uppercase tracking-wide text-gray-400"
-                      >
-                        ID
-                      </div>
-
-                      <div
-                        class="mt-1 font-mono text-sm text-gray-700"
-                      >
-                        {{ piece.id }}
-                      </div>
-                    </div>
-
-
-                    <!-- DATE -->
-
-                    <div>
-                      <div
-                        class="text-xs font-medium uppercase tracking-wide text-gray-400"
-                      >
-                        Date
-                      </div>
-
-                      <div
-                        class="mt-1 font-mono text-sm text-gray-700"
-                      >
-                        {{ piece.date | date:'dd/MM/yyyy' }}
-                      </div>
-                    </div>
-
-
-                    <!-- MONTANT -->
-
-                    <div>
-                      <div
-                        class="text-xs font-medium uppercase tracking-wide text-gray-400"
-                      >
-                        Montant
-                      </div>
-
-                      <div
-                        class="mt-1 font-mono text-lg font-bold text-gray-800"
-                      >
-                        {{ piece.amount }}
-                      </div>
-                    </div>
-
-                  </div>
-
-
-                  <!-- PIECE SELECTIONNEE -->
-
-                  @if (selectedPieceId() === piece.id) {
-
-                    <div
-                      class="mt-3 border-t border-blue-200 pt-3 text-xs font-medium text-blue-600"
-                    >
-                      Pièce sélectionnée
-                    </div>
-
-                  }
-
-                </button>
-
-              }
-
-            </div>
-
-          }
-
-        </div>
-
-      }
-
-
-      <!-- ==================================================
-           MONTANT
-           ================================================== -->
-
-      <div
-        class="grid grid-cols-1 items-start gap-2 sm:grid-cols-[120px_1fr]"
-      >
-
-        <label
-          for="amount"
-          class="pt-2 font-mono text-base text-gray-500"
-        >
-          Montant
-        </label>
-
-
-        <div>
+            {{ $index + 1 }} fois
+          </label>
 
           <input
-            id="amount"
+            [id]="'amount-' + $index"
             type="number"
-            inputmode="decimal"
-            step="0.01"
-            attr.min="1"
-            [formField]="regulForm.amount"
-            class="h-12 w-full rounded-lg border border-gray-300 bg-white px-4 text-center font-mono text-xl font-bold text-gray-800 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-            [class.border-red-500]="
-              regulForm.amount().touched() &&
-              regulForm.amount().invalid()
-            "
-            [class.focus:border-red-500]="
-              regulForm.amount().touched() &&
-              regulForm.amount().invalid()
-            "
+            autocomplete="off"
+            [formField]="regulForm.items[$index].amount"
+            class="h-11 w-full rounded-lg border border-gray-300 bg-white px-4 font-mono text-base text-gray-800 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:bg-gray-100"
           />
 
+          <div class="flex gap-2">
 
-          <!-- ----------------------------------------------
-               INDICATION PIECE SELECTIONNEE
-               ---------------------------------------------- -->
+            @if (model().items.length > 1) {
+              <button
+                type="button"
+                (click)="removeItem($index)"
+                class="flex h-11 w-11 items-center justify-center rounded-lg border border-gray-300 bg-white font-mono text-xl text-gray-600 transition hover:bg-gray-50"
+              >
+                -
+              </button>
+            }
 
-          @if (
-            regul() !== null &&
-            selectedPieceId() !== null
-          ) {
+            @if ($index === model().items.length - 1 && model().items.length < 4) {
+              <button
+                type="button"
+                (click)="addItem()"
+                class="flex h-11 w-11 items-center justify-center rounded-lg border border-gray-300 bg-white font-mono text-xl text-gray-600 transition hover:bg-gray-50"
+              >
+                +
+              </button>
+            }
 
-            <div
-              class="mt-2 text-sm text-blue-600"
-            >
-              Modification de la pièce
-              <span class="font-mono font-bold">
-                #{{ selectedPieceId() }}
-              </span>
-            </div>
+          </div>
 
-          }
-
-
-          <!-- ----------------------------------------------
-               MESSAGE : SELECTIONNER UNE PIECE
-               ---------------------------------------------- -->
-
-          @if (
-            regul() !== null &&
-            selectedPieceId() === null
-          ) {
-
-            <div
-              class="mt-2 text-sm text-gray-500"
-            >
-              Sélectionnez une pièce pour modifier son montant.
-            </div>
-
-          }
-
-
-          <!-- ----------------------------------------------
-               ERREURS
-               ---------------------------------------------- -->
-
-          @if (
-            regulForm.amount().touched() &&
-            regulForm.amount().invalid()
-          ) {
-
-            <div class="mt-2 space-y-1 text-sm text-red-600">
-
-              @for (
-                error of regulForm.amount().errors();
-                track $index
-              ) {
-
-                <div>
-                  {{ error.message }}
-                </div>
-
-              }
-
-            </div>
-
+          @if (regulForm.items[$index].amount().invalid()) {
+            <p class="font-mono text-sm text-red-600">
+              {{ regulForm.items[$index].amount().errors()[0]?.message }}
+            </p>
           }
 
         </div>
-
-      </div>
-
-
+      }
       <!-- ==================================================
-           TOTAL PREVISIONNEL
-           ================================================== -->
+     TOTAL
+     ================================================== -->
 
       <div
-        class="flex items-center justify-between border-t border-gray-200 pt-5"
+        class="flex items-center justify-between border-t border-gray-200 pt-6"
       >
-
-        <span
-          class="font-mono text-base text-gray-500"
-        >
+        <span class="font-mono text-base text-gray-500">
           Total
         </span>
 
-
-        <span
-          class="font-mono text-2xl font-bold"
-          [class.text-green-600]="
-            total() === REGUL_MAX_TOTAL
-          "
-          [class.text-gray-800]="
-            total() !== REGUL_MAX_TOTAL
-          "
-        >
+        <span class="font-mono text-lg text-gray-800">
           {{ total() }}
         </span>
-
       </div>
+      @if (regulForm().invalid()) {
+        <p class="font-mono text-sm text-red-600">
+          Le total ne peut pas dépasser {{REGUL_MAX_TOTAL}}.
+        </p>
+      }
 
-
-      <!-- ==================================================
-           INFORMATIONS
-           ================================================== -->
-
+    <!-- ==================================================
+     ACTIONS
+     ================================================== -->
       <div
-        class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-500"
+        class="flex justify-end gap-3 border-t border-gray-200 pt-6"
       >
-
-        <span>
-          {{ previousPiecesCount() }}
-          / {{ REGUL_MAX_PIECES }}
-          pièce(s)
-        </span>
-
-        <span>
-          {{ previousTotal() }}
-          / {{ REGUL_MAX_TOTAL }}
-        </span>
-
-      </div>
-
-
-      <!-- ==================================================
-           BOUTONS
-           ================================================== -->
-
-      <div
-        class="flex flex-col-reverse gap-3 border-t border-gray-200 pt-5 sm:flex-row sm:justify-end"
-      >
-
-        <!-- ANNULER -->
-
         <button
           type="button"
           (click)="cancel()"
-          class="h-11 rounded-lg border border-gray-300 px-6 font-medium text-gray-700 transition hover:bg-gray-50"
+          class="h-11 rounded-lg border border-gray-300 bg-white px-6 font-mono text-sm text-gray-700 transition hover:bg-gray-50"
         >
-          Annuler
+          Cancel
         </button>
-
-
-        <!-- ENREGISTRER -->
 
         <button
           type="submit"
-          [disabled]="
-            regulForm().submitting() ||
-            regulForm().invalid() ||
-            (
-              regul() !== null &&
-              selectedPieceId() === null
-            )
-          "
-          class="h-11 rounded-lg bg-green-600 px-6 font-medium text-white transition hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-gray-300"
+          [disabled]="regulForm().invalid() || store.loading()"
+          class="h-11 rounded-lg bg-green-600 px-6 font-mono text-sm text-white transition hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-gray-300"
         >
-
-          @if (regulForm().submitting()) {
-
-            Enregistrement...
-
-          } @else if (regul() === null) {
-
-            Enregistrer
-
-          } @else {
-
-            Modifier la pièce
-
-          }
-
+          Créer
         </button>
-
       </div>
 
     </div>

@@ -3,406 +3,239 @@ import {
   Component,
   computed,
   effect,
-  inject,
-  signal,
+  signal
 } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import {
-  form,
-  FormField,
-  FormRoot,
-  max,
-  min,
-  required,
-  validate,
-} from '@angular/forms/signals';
 
 import {
   REGUL_MAX_PIECES,
-  REGUL_MAX_TOTAL,
   REGUL_MIN_PIECE_AMOUNT,
+  REGUL_MAX_TOTAL
 } from '../../data/models/regul.model';
-
-import { Router } from '@angular/router';
-
 import { RegulFormModel } from '../../data/models/regul-form.model';
-import { RegulStore } from '../../data/state/regul.store';
-
-import { DatePipe } from '@angular/common';
+import {
+  applyEach,
+  form, FormField,
+  min, max,
+  required, validate } from '@angular/forms/signals';
+import { inject } from '@angular/core';
+import { RegulsStore } from '../../data/state/reguls.store';
 
 const INITIAL_REGUL_FORM_MODEL: RegulFormModel = {
   license: '',
-  amount: null,
+  items: [
+    {
+      amount: null
+    }
+  ],
 };
 
 @Component({
   selector: 'app-regul-form',
-  imports: [FormField, FormRoot, DatePipe],
+  imports: [FormField],
   templateUrl: './regul-form.html',
   styleUrl: './regul-form.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegulForm {
-
-  private readonly router = inject(Router);
-  private readonly regulStore = inject(RegulStore);
-
-  readonly regul = this.regulStore.selectedRegul;
-  readonly selectedPieceId = signal<number | null>(null);
-
   readonly REGUL_MAX_TOTAL = REGUL_MAX_TOTAL;
-  readonly REGUL_MAX_PIECES = REGUL_MAX_PIECES;
-  readonly REGUL_MIN_PIECE_AMOUNT = REGUL_MIN_PIECE_AMOUNT;
 
-  /* ========================================================
-     MODEL
-     ======================================================== */
+  readonly store = inject(RegulsStore);
 
-  readonly model = signal<RegulFormModel>({
-    ...INITIAL_REGUL_FORM_MODEL,
+  readonly route = inject(ActivatedRoute);
+
+  readonly router = inject(Router);
+
+  readonly regulId = signal<number | null>(null);
+
+  readonly originalItems = signal<
+    {
+      id: number;
+      amount: number;
+    }[]
+  >([]);
+
+
+  readonly isEditMode = computed(
+    () => this.regulId() !== null,
+  );
+
+  private readonly createSuccessEffect = effect(() => {
+    if (this.store.createSuccess()) {
+      void this.router.navigate(['/manage-license']);
+    }
   });
-
-  /* ========================================================
-     SYNCHRONISATION AVEC selectedRegul
-     ======================================================== */
 
   constructor() {
+    const id = this.route.snapshot.paramMap.get('id');
 
-    effect(() => {
+    if (id !== null) {
+      const regulId = Number(id);
 
-      const regul = this.regul();
+      this.regulId.set(regulId);
 
-      /*
-       * Pas de régularisation sélectionnée :
-       * on est en mode création.
-       *
-       * Le formulaire doit donc être vide.
-       */
-      if (regul === null) {
+      console.log('regulId:', this.regulId());
+      console.log('isEditMode:', this.isEditMode());
 
-        this.resetModel();
-        this.selectedPieceId.set(null);
-        return;
-      }
-
-      /*
-       * Une régularisation est sélectionnée :
-       * on est en mode édition.
-       *
-       * On conserve la licence mais on commence
-       * avec un montant vide. A l'utilisateur de choisir une pieceRegul
-       */
-
-      this.model.set({
-        license: regul.license,
-        amount: null,
-      });
-
-      this.selectedPieceId.set(null);
-
-    });
+      this.store.loadRegul(regulId);
+    }
   }
 
-  selectPiece(pieceId: number): void{
-    const regul = this.regul();
-    if(!regul) {
+  private readonly regulEffect = effect(() => {
+    const regul = this.store.regul();
+
+    if (!regul) {
       return;
     }
 
-    const piece = regul.items.find((item) => item.id === pieceId);
-    if(!piece) {
-      return;
-    }
-    this.selectedPieceId.set(piece.id);
+    this.originalItems.set(
+      regul.items.map((item) => ({
+        id: item.id,
+        amount: item.amount,
+      })),
+    );
 
-    this.model.update((model) => ({
-      ...model,
-      amount: piece.amount,
-    }));
-  }
-  /* ========================================================
-     HELPERS FORMULAIRE
-     ======================================================== */
-
-  private resetModel(): void {
+    console.log('Original items:', this.originalItems());
 
     this.model.set({
-      ...INITIAL_REGUL_FORM_MODEL,
+      license: regul.license,
+      items: regul.items.map((item) => ({
+        id: item.id,
+        amount: item.amount,
+      })),
+    });
+  });
+
+  readonly deletedItemIds = computed(() => {
+    const originalIds = this.originalItems().map((item) => item.id);
+
+    const currentIds = this.model().items
+      .filter((item) => item.id !== undefined)
+      .map((item) => item.id);
+
+    return originalIds.filter(
+      (id) => !currentIds.includes(id),
+    );
+  });
+
+  readonly model = signal<RegulFormModel>(INITIAL_REGUL_FORM_MODEL);
+
+  readonly regulForm = form(this.model, (schema) => {
+    required(schema.license, {
+      message: 'La licence est obligatoire.'
     });
 
-  }
-
-  /* ========================================================
-     DONNÉES EXISTANTES
-     ======================================================== */
-
-  readonly previousTotal = computed(() => {
-
-    return this.regul()?.items.reduce(
-      (total, item) => total + item.amount,
-      0,
-    ) ?? 0;
-
-  });
-
-
-  readonly previousPiecesCount = computed(() => {
-
-    return this.regul()?.items.length ?? 0;
-
-  });
-
-
-  readonly total = computed(() => {
-
-    const regul = this.regul();
-    const amount = this.model().amount;
-
-    if (amount === null) {
-      return this.previousTotal();
-    }
-
-    /*
-    * Création d'une nouvelle pièce
-    */
-    if (regul === null) {
-      return this.previousTotal() + amount;
-    }
-
-    /*
-    * Modification d'une pièce existante
-    */
-    const pieceId = this.selectedPieceId();
-
-    if (pieceId === null) {
-      return this.previousTotal();
-    }
-
-    const selectedPiece = regul.items.find(
-      (item) => item.id === pieceId,
-    );
-
-    if (!selectedPiece) {
-      return this.previousTotal();
-    }
-
-    return (
-      this.previousTotal()
-      - selectedPiece.amount
-      + amount
-    );
-  });
-
-
-  /* ========================================================
-     ANNULATION / SORTIE
-     ======================================================== */
-
-  cancel(): void {
-
-    /*
-     * 1. On nettoie le formulaire
-     */
-    this.resetModel();
-
-
-    /*
-     * 2. On supprime la régularisation sélectionnée
-     */
-    this.regulStore.clearSelection();
-
-
-    /*
-     * 3. On quitte le formulaire
-     */
-    void this.router.navigate([
-      '/manage-license',
-    ]);
-
-  }
-
-  /* ========================================================
-     FORMULAIRE
-     ======================================================== */
-
-  readonly regulForm = form(
-    this.model,
-
-    (schema) => {
-
-      /* ----------------------------------------------------
-         LICENCE
-         ---------------------------------------------------- */
-
-      required(schema.license, {
-        message: 'La licence est obligatoire.',
-      });
-
-
-      /* ----------------------------------------------------
-         MONTANT OBLIGATOIRE
-         ---------------------------------------------------- */
-
-      validate(schema.amount, ({ value }) => {
-
-        /*
-         * En création, le montant peut rester vide
-         * tant que la licence n'a pas encore permis
-         * de créer la régularisation.
-         */
-
-        if (this.regul() === null) {
-          return null;
-        }
-
-
-        if (value() === null) {
-
-          return {
-            kind: 'requiredPieceAmount',
-            message:
-              'Le montant de la pièce est obligatoire.',
-          };
-
-        }
-
-        return null;
-      });
-
-
-      /* ----------------------------------------------------
-         MONTANT MINIMUM
-         ---------------------------------------------------- */
-
-      min(
-        schema.amount,
-        REGUL_MIN_PIECE_AMOUNT,
-        {
-          message:
-            `Le montant doit être au minimum de ${REGUL_MIN_PIECE_AMOUNT}.`,
-        },
-      );
-
-      /* ----------------------------------------------------
-         MONTANT MAXIMUM
-         ---------------------------------------------------- */
-
-      max(
-        schema.amount,
-        REGUL_MAX_TOTAL,
-        {
-          message:
-            `Le montant ne peut pas dépasser ${REGUL_MAX_TOTAL}.`,
-        },
-      );
-
-      /* ----------------------------------------------------
-         TOTAL MAXIMUM
-         ---------------------------------------------------- */
-
-      validate(schema.amount, ({ value }) => {
-
+    applyEach(schema.items, (item) => {
+      validate(item.amount, ({ value }) => {
         const amount = value();
 
         if (amount === null) {
           return null;
         }
 
-
-        if (
-          this.previousTotal() + amount
-          > REGUL_MAX_TOTAL
-        ) {
-
+        if (amount < REGUL_MIN_PIECE_AMOUNT) {
           return {
-            kind: 'maxRegulTotal',
-            message:
-              `Le total ne peut pas dépasser ${REGUL_MAX_TOTAL}.`,
+            kind: 'minimum-amount',
+            message: `Le montant doit être supérieur ou égal à ${REGUL_MIN_PIECE_AMOUNT}.`,
           };
-
         }
 
         return null;
       });
+    });
 
+    validate(schema, ({ value }) => {
+      const total = value().items.reduce(
+        (sum, item) => sum + (item.amount ?? 0),
+        0
+      );
 
-      /* ----------------------------------------------------
-         NOMBRE MAXIMUM DE PIÈCES
-         ---------------------------------------------------- */
-
-      validate(schema.amount, () => {
-
-        if (
-          this.previousPiecesCount()
-          >= REGUL_MAX_PIECES
-        ) {
-
-          return {
-            kind: 'maxRegulPieces',
-            message:
-              `Une régularisation ne peut pas contenir plus de ${REGUL_MAX_PIECES} pièces.`,
-          };
-
-        }
-
-        return null;
-      });
-
-    },
-
-    /* ======================================================
-       SUBMISSION
-       ====================================================== */
-
-    {
-      submission: {
-
-        action: async (form) => {
-
-          const value = form().value();
-
-          if (!value.license || value.amount === null) {
-            return;
-          }
-
-          /*
-          * ================================================
-          * MODE MODIFICATION
-          * ================================================
-          */
-
-          const regul = this.regul();
-          const pieceId = this.selectedPieceId();
-
-          if (regul !== null) {
-
-            if (pieceId === null) {
-              return;
-            }
-
-            await this.regulStore.updatePiece(
-              regul.id,
-              pieceId,
-              value.amount,
-            );
-
-            return;
-          }
-
-
-          /*
-          * ================================================
-          * MODE CREATION
-          * ================================================
-          */
-
-          await this.regulStore.addRegul(
-            value.license,
-            value.amount,
-          );
-        }
-
+      if (total > REGUL_MAX_TOTAL) {
+        return {
+          kind: 'maximum-total',
+          message: `Le total ne peut pas dépasser ${REGUL_MAX_TOTAL}.`,
+        };
       }
-    }
+
+      return null;
+    });
+  });
+
+  /* LES COMPUTEDs (dérivées du signalForm)  */
+  // le total est toujours une projection du modèle courant.
+  readonly total = computed(() =>
+    this.model().items.reduce(
+      (total, item) => total + (item.amount ?? 0),
+      0
+    )
   );
+
+  /* LE SUBMIT */
+  submit(event: Event): void {
+    event.preventDefault();
+    console.log('SUBMIT REGUL FORM');
+    if (this.regulForm().invalid()) {
+      return;
+    }
+
+    console.log('Original items:', this.originalItems());
+    console.log('Current items:', this.model().items);
+    console.log('Deleted item IDs:', this.deletedItemIds());
+
+    if (this.isEditMode()) {
+      this.updateRegul();
+      return;
+    }
+
+    this.store.createRegulWithPieces(this.model());
+  }
+
+  private updateRegul(): void {
+    const regulId = this.regulId();
+
+    if (regulId === null) {
+      return;
+    }
+
+    this.store.updateRegulWithPieces({
+      regulId,
+      items: this.model().items,
+    });
+  }
+
+
+  /* LE CANCEL */
+  cancel(): void {
+    void this.router.navigate(['/manage-license']);
+  }
+
+  /* LES FONCTIONS UTILES */
+  addItem(): void {
+    if (this.model().items.length >= REGUL_MAX_PIECES) {
+      return;
+    }
+
+    this.model.update((model) => ({
+      ...model,
+      items: [
+        ...model.items,
+        {
+          amount: null
+        }
+      ]
+    }));
+  }
+
+  removeItem(index: number): void {
+    if (this.model().items.length <= 1) {
+      return;
+    }
+
+    this.model.update((model) => ({
+      ...model,
+      items: model.items.filter((_, i) => i !== index),
+    }));
+  }
+
 }

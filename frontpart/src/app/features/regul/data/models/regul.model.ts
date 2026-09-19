@@ -13,24 +13,19 @@ export type Regul = {
   license: string;
   items: PieceRegul[];
   total: number;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
-export type Regulations = Regul[];
-
-export type CreateRegulRequest = {
+export type CreateRegulDto = {
   license: string;
   amount?: number;
 };
 
-export type UpdateRegulRequest = {
-  license: string;
-};
-
-export type AddRegulPieceRequest = {
+export type AddPieceRegulDto = {
   amount: number;
 };
 
-export type UpdateRegulPieceRequest = {
+export type UpdatePieceRegulDto = {
   amount: number;
 };
-

@@ -1,69 +1,122 @@
 import { inject, Service } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import {
-  AddRegulPieceRequest,
-  CreateRegulRequest,
+  AddPieceRegulDto,
+  CreateRegulDto,
   Regul,
-  UpdateRegulPieceRequest,
-  UpdateRegulRequest,
+  UpdatePieceRegulDto,
+  PieceRegul
 } from '../models/regul.model';
 
+type PieceRegulApiResponse = Omit<PieceRegul, 'date'> & {
+  date: string;
+};
+
+type RegulApiResponse = Omit<
+  Regul,
+  'items' | 'createdAt' | 'updatedAt'
+> & {
+  items: PieceRegulApiResponse[];
+  createdAt: string;
+  updatedAt: string;
+};
+
 @Service()
-export class RegulApi {
+export class RegulsApi {
   private readonly http = inject(HttpClient);
 
   private readonly endpoint = 'http://localhost:3000/api/reguls';
 
-  getAll(): Observable<Regul[]> {
-    return this.http.get<Regul[]>(this.endpoint);
+  /**
+   * NEW SERVICE APi according new backend API - 17/09/2026
+   */
+  /**
+   * Création d'une régul.
+   */
+  createRegul(dto: CreateRegulDto): Observable<Regul> {
+    return this.http
+      .post<RegulApiResponse>(this.endpoint, dto)
+      .pipe(map((regul) => this.mapRegul(regul)));
   }
 
-  getById(id: number): Observable<Regul> {
-    return this.http.get<Regul>(`${this.endpoint}/${id}`);
+  /**
+   * Récupération de toutes les réguls.
+   */
+  getReguls(): Observable<Regul[]> {
+    return this.http
+      .get<RegulApiResponse[]>(this.endpoint)
+      .pipe(
+        map((reguls) => reguls.map((regul) => this.mapRegul(regul))),
+      );
   }
 
-  getByLicense(license: string): Observable<Regul | null> {
-    return this.http.get<Regul | null>(
-      `${this.endpoint}/by-licence/${encodeURIComponent(license)}`,
-    );
+
+  /**
+   * Récupération d'une régul par son identifiant.
+   */
+  getRegul(id: number): Observable<Regul> {
+    return this.http
+      .get<RegulApiResponse>(`${this.endpoint}/${id}`)
+      .pipe(map((regul) => this.mapRegul(regul)));
   }
 
-  create(payload: CreateRegulRequest): Observable<Regul> {
-    return this.http.post<Regul>(this.endpoint, payload);
+  /**
+   * Ajout d'une pièce à une régul.
+   */
+  addPieceRegul(regulId: number, dto: AddPieceRegulDto): Observable<Regul> {
+    return this.http
+      .post<RegulApiResponse>(
+        `${this.endpoint}/${regulId}/pieces`,
+        dto,
+      )
+      .pipe(
+        map((regul) => this.mapRegul(regul)),
+      );
   }
 
-  update(id: number, payload: UpdateRegulRequest): Observable<Regul> {
-    return this.http.patch<Regul>(
-      `${this.endpoint}/${id}`,
-      payload
-    );
+
+  /**
+   * Modification d'une pièce d'une régul.
+   */
+  updatePieceRegul(regulId: number,pieceId: number, dto: UpdatePieceRegulDto):  Observable<Regul> {
+    return this.http
+      .patch<RegulApiResponse>(
+        `${this.endpoint}/${regulId}/pieces/${pieceId}`,
+        dto,
+      )
+      .pipe(
+        map((regul) => this.mapRegul(regul)),
+      );
   }
 
-  addPiece(
-    regulId: number,
-    payload: AddRegulPieceRequest,
-  ): Observable<Regul> {
-    return this.http.post<Regul>(
-      `${this.endpoint}/${regulId}/pieces`,
-      payload,
-    );
-  }
 
-  updatePiece(
-    regulId: number,
-    pieceId: number,
-    payload: UpdateRegulPieceRequest,
-  ): Observable<Regul> {
-    return this.http.patch<Regul>(
+  /**
+   * Suppression d'une pièce d'une régul.
+   */
+  deletePieceRegul(regulId: number, pieceId: number): Observable<Regul> {
+    return this.http.delete<RegulApiResponse>(
       `${this.endpoint}/${regulId}/pieces/${pieceId}`,
-      payload,
-    );
+    ).pipe(map((regul) => this.mapRegul(regul)));
   }
 
-  delete(regulId: number): Observable<Regul> {
-    return this.http.delete<Regul>(`${this.endpoint}/${regulId}`);
+  /**
+   * fonctions de mapping
+   */
+  private mapRegul(regul: RegulApiResponse): Regul {
+    return {
+      ...regul,
+      items: regul.items.map((piece) => this.mapPieceRegul(piece)),
+      createdAt: new Date(regul.createdAt),
+      updatedAt: new Date(regul.updatedAt)
+    };
+  }
+
+  private mapPieceRegul(piece: PieceRegulApiResponse): PieceRegul {
+    return {
+      ...piece,
+      date: new Date(piece.date)
+    };
   }
 }
-
