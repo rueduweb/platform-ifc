@@ -19,6 +19,8 @@ export type Player = {
   nbGoal: number;
   nbAssist: number;
   nbGame: number;
+  nbYellow: number;
+  nbRed: number;
 };
 
 export type PlayersState = {
@@ -53,6 +55,8 @@ export const prepareEmptyPlayer = (): PlayerFormModel => ({
   nbGoal: 0,
   nbAssist: 0,
   nbGame: 0,
+  nbYellow: 0,
+  nbRed: 0
 });
 
 export const playerSchema = schema<PlayerFormModel>((path) => {
@@ -115,6 +119,14 @@ export const playerSchema = schema<PlayerFormModel>((path) => {
 
   min(path.nbGame, 0, {
     message: 'Le nombre de matchs ne peut pas être négatif.',
+  });
+
+  min(path.nbYellow, 0, {
+    message: 'Le nombre de cartons jaune ne peut pas être négatif.',
+  });
+
+  min(path.nbRed, 0, {
+    message: 'Le nombre de cartons rouge ne peut pas être négatif.',
   });
 
   // ---------------------------------------------------------------------------

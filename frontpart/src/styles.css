@@ -206,6 +206,10 @@ app-root {
   justify-content: end;
 }
 
+.cust-up {
+  margin-bottom: 0.5em !important;
+}
+
 /* RESPONSIVE */
 
 /* Mobile */

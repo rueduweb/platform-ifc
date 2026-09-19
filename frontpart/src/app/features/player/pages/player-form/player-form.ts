@@ -318,6 +318,10 @@ export class PlayerForm implements OnInit {
       nbAssist: value.nbAssist,
 
       nbGame: value.nbGame,
+
+      nbYellow: value.nbYellow,
+
+      nbRed: value.nbRed
     };
   }
 
@@ -352,6 +356,10 @@ export class PlayerForm implements OnInit {
       nbAssist: player.nbAssist,
 
       nbGame: player.nbGame,
+
+      nbYellow: player.nbYellow,
+
+      nbRed: player.nbRed
     };
   }
 

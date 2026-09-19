@@ -156,6 +156,75 @@
 
           </div>
 
+          <!-- Cartons -->
+        <div>
+          <label class="cust-label block mb-2 text-gray-600">
+            Cartons
+          </label>
+
+          <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+
+            <!-- Carton jaune -->
+            <div class="flex min-w-0 items-center gap-3">
+              <span
+                aria-hidden="true"
+                class="cust-up h-7 w-7 shrink-0 bg-yellow-400"
+              ></span>
+
+              <input
+                id="nb-yellow"
+                type="number"
+                step="1"
+                [formField]="playerForm.nbYellow"
+                class="cust-field w-20 max-w-full rounded-lg border border-gray-300
+                      bg-white px-4 py-2
+                      focus:outline-none
+                      focus:ring-2 focus:ring-gray-300"
+              />
+            </div>
+
+            <!-- Carton rouge -->
+            <div class="flex min-w-0 items-center gap-3">
+              <span
+                aria-hidden="true"
+                class="cust-up h-7 w-7 shrink-0 bg-red-500"
+              ></span>
+
+              <input
+                id="nb-red"
+                type="number"
+                step="1"
+                [formField]="playerForm.nbRed"
+                class="cust-field w-20 max-w-full rounded-lg border border-gray-300
+                      bg-white px-4 py-2
+                      focus:outline-none
+                      focus:ring-2 focus:ring-gray-300"
+              />
+            </div>
+
+          </div>
+
+          @if (
+            playerForm.nbYellow().touched() &&
+            playerForm.nbYellow().invalid()
+          ) {
+            <small class="error text-red-400">
+              {{ playerForm.nbYellow().errors()[0].message }}
+            </small>
+          }
+
+          @if (
+            playerForm.nbRed().touched() &&
+            playerForm.nbRed().invalid()
+          ) {
+            <small class="error text-red-400">
+              {{ playerForm.nbRed().errors()[0].message }}
+            </small>
+          }
+        </div>
+
+
+
         </div>
 
         <!-- ===================================================================
