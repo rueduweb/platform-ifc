@@ -70,6 +70,8 @@ model Player {
   nbGoal		  Int
   nbAssist	  Int
   nbGame		  Int
+  nbYellow    Int @default(0)
+  nbRed       Int @default(0)
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

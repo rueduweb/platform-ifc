@@ -80,8 +80,11 @@ export class RegulsService {
       throw new BadRequestException('Regul total cannot exceed 45');
     }
 
+    const nextPieceId =
+      items.length > 0 ? Math.max(...items.map((item) => item.id)) + 1 : 1;
+
     const piece: PieceRegul = {
-      id: items.length + 1,
+      id: nextPieceId,
       date: new Date(),
       amount: dto.amount,
     };
@@ -107,12 +110,6 @@ export class RegulsService {
     const regul = await this.findOne(regulId);
 
     const items = this.parsePieces(regul.items);
-
-    if (items.length >= 4) {
-      throw new BadRequestException(
-        'A regul cannot contain more than 4 pieces',
-      );
-    }
 
     const piece = items.find((item) => item.id === pieceId);
 
