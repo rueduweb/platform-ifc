@@ -549,7 +549,11 @@
 
 }
 
-
+@media (max-width: 912px) {
+    h1.title {
+      font-size: 1.5rem;
+    }
+}
 /* ==========================================================================
    TABLET
    640px -> 1023px
@@ -613,9 +617,13 @@
   .game-list-scroll {
     max-height: calc(100vh - 280px);
   }
-
 }
 
+@media (max-width: 644.99px) {
+  h1.title {
+    font-size: 1.3rem;
+  }
+}
 
 /* ==========================================================================
    ÉCRANS TRÈS BAS + MOBILE

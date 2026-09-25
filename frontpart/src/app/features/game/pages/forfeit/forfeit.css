@@ -2,3 +2,8 @@
   font-family: Nunito, sans-serif;
   font-weight: 400;
 }
+@media (max-width: 644.99px) {
+  h1.title {
+    font-size: 18px;
+  }
+}
