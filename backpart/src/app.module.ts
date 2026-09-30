@@ -14,6 +14,7 @@ import { PartnersModule } from './feature-partners/partners.module';
 import { RegulsModule } from './feature-reguls/reguls.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { PrismaService } from './prisma/prisma.service';
+import { FeatureTeamModule } from './feature-team/feature-team.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { PrismaService } from './prisma/prisma.service';
     PartnersModule,
     RegulsModule,
     PrismaModule,
+    FeatureTeamModule,
   ],
   controllers: [AppController, FeatureUserController],
   providers: [AppService, FeatureUserService, PrismaService],

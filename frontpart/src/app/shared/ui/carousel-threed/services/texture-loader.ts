@@ -22,10 +22,19 @@ export class TextureLoader {
         undefined,
 
         error => {
+          console.error(
+            '[TextureLoader] Échec du chargement:',
+            url,
+            error
+          );
+
           reject(error);
         }
+
       );
     });
 
   }
+
+
 }

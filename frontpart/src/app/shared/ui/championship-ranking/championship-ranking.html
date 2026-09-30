@@ -1,0 +1,207 @@
+<section class="ranking-card">
+
+  @if (ranking().length > 0) {
+
+    <!-- Header -->
+    <header class="ranking-header">
+
+      <div class="ranking-title">
+        <span class="ranking-title__accent"></span>
+        <h2>CLASSEMENT FLA</h2>
+        <span class="ranking-title__triangle"></span>
+      </div>
+
+      <div class="ranking-website">
+        données issues de www.football-loisirs-amateur.fr
+      </div>
+
+
+    </header>
+
+
+    <!-- Tableau -->
+    <div class="ranking-table-wrapper">
+
+      <table class="ranking-table">
+
+        <thead>
+          <tr>
+            <th class="col-rank">
+              RANK
+            </th>
+
+            <th class="col-team">
+              TEAM
+            </th>
+
+            <th>
+              V
+            </th>
+
+            <th>
+              N
+            </th>
+
+            <th>
+              D
+            </th>
+
+            <th class="col-goals">
+              BP
+            </th>
+
+            <th class="col-goals">
+              BC
+            </th>
+
+            <th>
+              +/-
+            </th>
+
+            <th class="col-total">
+              TOTAL
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          @for (team of ranking(); track team.id) {
+
+            <tr
+              class="ranking-row"
+              [class.ranking-row--first]="team.rank === 1"
+              [class.ranking-row--last]="team.rank === ranking().length"
+            >
+
+              <!-- Rang -->
+              <td class="rank-cell">
+
+                @if (team.rank === 1) {
+
+                  <span class="rank-badge rank-badge--winner">
+                    <span class="rank-star">★</span>
+                  </span>
+
+                } @else if (team.rank === ranking().length) {
+
+                  <span class="rank-badge rank-badge--danger">
+                    <span class="rank-warning">!</span>
+                  </span>
+
+                } @else {
+
+                  <span class="rank-number">
+                    {{ team.rank }}
+                  </span>
+
+                }
+
+              </td>
+
+
+              <!-- Équipe -->
+              <td class="team-cell">
+                <span class="team-name">
+                  {{ team.name }}
+                </span>
+              </td>
+
+
+              <!-- Victoires -->
+              <td class="stat-cell">
+                {{ team.nbW }}
+              </td>
+
+
+              <!-- Nuls -->
+              <td class="stat-cell">
+                {{ team.nbD }}
+              </td>
+
+
+              <!-- Défaites -->
+              <td class="stat-cell">
+                {{ team.nbL }}
+              </td>
+
+
+              <!-- Buts pour -->
+              <td class="stat-cell col-goals">
+                {{ team.nbGoal }}
+              </td>
+
+
+              <!-- Buts contre -->
+              <td class="stat-cell col-goals">
+                {{ team.nbConce }}
+              </td>
+
+
+              <!-- Différence -->
+              <td
+                class="stat-cell goal-average"
+                [class.goal-average--positive]="team.avg > 0"
+                [class.goal-average--negative]="team.avg < 0"
+              >
+                @if (team.avg > 0) {
+                  +{{ team.avg }}
+                } @else {
+                  {{ team.avg }}
+                }
+              </td>
+
+
+              <!-- Total -->
+              <td class="total-cell">
+                <span class="total-badge">
+                  {{ team.pts }}
+                </span>
+              </td>
+
+            </tr>
+
+          }
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="ranking-footer">
+      <span>
+        CHAMPIONNAT FLA 2026-27
+      </span>
+
+      <span>
+        DIV 1 SAMEDI
+      </span>
+    </footer>
+
+  } @else {
+
+    <div class="ranking-empty">
+
+      <div class="ranking-empty__icon">
+        ⚽
+      </div>
+
+      <h2>
+        Aucun classement disponible
+      </h2>
+
+      <p>
+        Aucune équipe n'est actuellement enregistrée dans le championnat.
+      </p>
+
+    </div>
+
+  }
+
+</section>
+
+
+

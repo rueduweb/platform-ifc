@@ -109,6 +109,27 @@ export class ThreeEngine {
           plugin.update(deltaTime);
         });
 
+        this.scene.traverse(object => {
+
+        if (object.userData['carouselItemId']) {
+
+            console.log(
+              '[Carousel render]',
+              object.userData['carouselItemId'],
+              {
+                visible: object.visible,
+                position: object.position.toArray(),
+                rotation: object.rotation.toArray(),
+                scale: object.scale.toArray(),
+                parent: object.parent?.type,
+                children: object.children.length
+              }
+            );
+
+          }
+
+        });
+
         this.renderer.render(
           this.scene,
           this.camera

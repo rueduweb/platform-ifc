@@ -368,6 +368,9 @@ export class CarouselThreed implements AfterViewInit, OnDestroy {
   private async replaceCard(oldCard: THREE.Mesh, item: CarouselItem): Promise<void> {
 
     try {
+
+      console.log('[Carousel] items reçus:', item.id + ' ' + item.image);
+
       const newCard = await this.cardService.createCard(item);
 
       if (this.destroyed) {

@@ -12,13 +12,13 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  username String @unique
-  password String
-  email String @unique
-  role Role @default(USER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        Int       @id @default(autoincrement())
+  username  String    @unique
+  password  String
+  email     String    @unique
+  role      Role      @default(USER)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   // Relations
   articles  Article[]
 
@@ -26,83 +26,83 @@ model User {
 }
 
 model Article {
-  id          Int      @id @default(autoincrement())
-  title       String   @db.VarChar(255)
+  id          Int    @id @default(autoincrement())
+  title       String @db.VarChar(255)
   description String
   content     String
 
-  authorId    Int
-  author      User     @relation(fields: [authorId], references: [id], onDelete: Restrict)
+  authorId Int
+  author   User @relation(fields: [authorId], references: [id], onDelete: Restrict)
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("articles")
 }
 
 model Game {
-  id          Int @id @default(autoincrement())
-  location    String
-  date        DateTime
-  gameNum     String
-  homeTeam    String
-  awayTeam    String
-  nbGoalHome  Int
-  nbGoalAway  Int
-  note        String
-  forfeit     Boolean
+  id         Int      @id @default(autoincrement())
+  location   String
+  date       DateTime
+  gameNum    String
+  homeTeam   String
+  awayTeam   String
+  nbGoalHome Int
+  nbGoalAway Int
+  note       String
+  forfeit    Boolean
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("games")
 }
 
 model Player {
-  id 			    Int @id @default(autoincrement())
-  firstname 	String
-  lastname 	  String
-  email 		  String @unique
-  address 	  String
-  age 		    Int
-  dob			    DateTime
-  position	  String
-  nbGoal		  Int
-  nbAssist	  Int
-  nbGame		  Int
-  nbYellow    Int @default(0)
-  nbRed       Int @default(0)
+  id        Int      @id @default(autoincrement())
+  firstname String
+  lastname  String
+  email     String   @unique
+  address   String
+  age       Int
+  dob       DateTime
+  position  String
+  nbGoal    Int
+  nbAssist  Int
+  nbGame    Int
+  nbYellow  Int      @default(0)
+  nbRed     Int      @default(0)
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("players")
 }
 
 model Partner {
-  id			    Int @id @default(autoincrement())
-  name		    String
+  id          Int     @id @default(autoincrement())
+  name        String
   description String
-  email		    String @unique
-  phone		    String?
-  logo		    String?
-  video		    String?
-  activity	  String
-  address		  String
-  contact		  String?
+  email       String  @unique
+  phone       String?
+  logo        String?
+  video       String?
+  activity    String
+  address     String
+  contact     String?
   socialMedia String?
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("partners")
 }
 
 model Regul {
-  id        Int      @id @default(autoincrement())
-  license   String
-  items     Json
-  total     Int
+  id      Int    @id @default(autoincrement())
+  license String
+  items   Json
+  total   Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -110,6 +110,23 @@ model Regul {
   @@map("reguls")
 }
 
+model Team {
+  id      Int    @id @default(autoincrement())
+  name    String
+  rank    Int
+  pts     Int
+  nbW     Int
+  nbD     Int
+  nbL     Int
+  nbGoal  Int
+  nbConce Int
+  avg     Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("teams")
+}
 
 enum Role {
   ADMIN

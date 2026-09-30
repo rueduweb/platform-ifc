@@ -1,0 +1,804 @@
+:host {
+  display: block;
+  width: 100%;
+
+  font-family:
+    "Roboto",
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+
+  font-weight: 300;
+}
+
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.ranking-card {
+  width: 60%;
+  margin-inline: auto;
+
+  overflow: hidden;
+
+  background: #2b8064;
+  color: #ffffff;
+
+  border-radius: 10px;
+
+  font-family:
+    "Roboto",
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+
+  font-weight: 300;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.ranking-header {
+  padding: 19px 22px 12px;
+}
+
+
+/*
+ * Bandeau "CLASSEMENT FLA"
+ */
+.ranking-title {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  width: min(302px, 72%);
+  height: 27px;
+
+  overflow: hidden;
+
+  background: #f5f5f2;
+}
+
+
+/*
+ * Triangle magenta à gauche
+ */
+.ranking-title__accent {
+  position: absolute;
+  inset: 0 auto 0 0;
+
+  width: 0;
+  height: 0;
+
+  border-top: 27px solid #ec008c;
+  border-right: 34px solid transparent;
+}
+
+
+/*
+ * Triangle noir à droite
+ */
+.ranking-title__triangle {
+  position: absolute;
+  inset: 0 0 0 auto;
+
+  width: 0;
+  height: 0;
+
+  border-bottom: 27px solid #101719;
+  border-left: 34px solid transparent;
+}
+
+
+/*
+ * Titre
+ */
+.ranking-title h2 {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  margin: 0;
+
+  padding-left: 80px;
+
+  color: #777777;
+
+  font-size: 20px;
+  line-height: 27px;
+  font-weight: 700;
+
+  letter-spacing: 0.02em;
+
+  white-space: nowrap;
+}
+
+
+/*
+ * Source des données
+ */
+.ranking-website {
+  display: flex;
+  align-items: center;
+
+  width: auto;
+  max-width: 100%;
+  height: 20px;
+
+  margin-top: 7px;
+  margin-left: 2px;
+
+  padding: 0 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.72);
+
+  color: rgba(255, 255, 255, 0.9);
+
+  font-size: 11px;
+  font-weight: 300;
+
+  letter-spacing: 0.02em;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.ranking-table-wrapper {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+
+.ranking-table {
+  width: 100%;
+  min-width: 520px;
+
+  border-collapse: collapse;
+
+  table-layout: fixed;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+   ========================================================= */
+
+.ranking-table thead tr {
+  height: 27px;
+
+  background: rgba(255, 255, 255, 0.27);
+}
+
+
+.ranking-table th {
+  padding: 0 7px;
+
+  color: rgba(255, 255, 255, 0.92);
+
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 500;
+
+  text-align: center;
+
+  border-right: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.ranking-table td {
+  padding: 0 4px;
+
+  color: rgba(255, 255, 255, 0.95);
+
+  vertical-align: middle;
+}
+
+.ranking-table th:last-child {
+  border-right: 0;
+}
+
+
+/*
+ * Largeur colonne classement
+ */
+.col-rank {
+  width: 52px;
+}
+
+
+/*
+ * Colonne équipe
+ */
+.col-team {
+  width: auto;
+
+  text-align: left !important;
+}
+
+/*
+ * Colonnes statistiques
+ */
+.ranking-table th:nth-child(3),
+.ranking-table th:nth-child(4),
+.ranking-table th:nth-child(5) {
+  width: 38px;
+}
+
+
+/*
+ * BP / BC
+ */
+.ranking-table th:nth-child(6),
+.ranking-table th:nth-child(7) {
+  width: 42px;
+}
+
+
+/*
+ * Goal average
+ */
+.ranking-table th:nth-child(8) {
+  width: 44px;
+}
+
+/*
+ * Colonne total
+ */
+.col-total {
+  width: 66px;
+}
+
+
+/* =========================================================
+   ROWS
+   ========================================================= */
+
+.ranking-row {
+  height: 46px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.17);
+
+  transition:
+    background-color 150ms ease,
+    transform 150ms ease;
+}
+
+
+.ranking-row:hover {
+  background: rgba(255, 255, 255, 0.055);
+}
+
+
+/*
+ * Première équipe légèrement mise en avant
+ */
+.ranking-row--first {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+
+/* =========================================================
+   CELLS
+   ========================================================= */
+
+.ranking-table td {
+  padding: 0 6px;
+
+  color: rgba(255, 255, 255, 0.95);
+
+  vertical-align: middle;
+}
+
+
+/* =========================================================
+   RANK
+   ========================================================= */
+
+.rank-cell {
+  width: 52px;
+
+  text-align: center;
+}
+
+
+.rank-number {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
+
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 300;
+}
+
+
+/* =========================================================
+   TEAM
+   ========================================================= */
+
+.team-cell {
+  padding-right: 12px !important;
+  padding-left: 12px !important;
+
+  text-align: left;
+}
+
+
+.team-name {
+  display: block;
+
+  overflow: hidden;
+
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   STATISTIQUES
+   ========================================================= */
+
+.stat-cell {
+  text-align: center;
+
+  color: rgba(255, 255, 255, 0.82) !important;
+
+  font-size: 13px;
+  font-weight: 300;
+}
+
+
+/* =========================================================
+   GOAL AVERAGE
+   ========================================================= */
+
+.goal-average {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
+.goal-average--positive {
+  color: #b9ed82 !important;
+}
+
+
+.goal-average--negative {
+  color: #ffb0b0 !important;
+}
+
+
+/* =========================================================
+   TOTAL / POINTS
+   ========================================================= */
+
+.total-cell {
+  padding: 0 7px !important;
+
+  text-align: center;
+}
+
+
+.total-badge {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 51px;
+  height: 39px;
+
+  background: #ffffff;
+
+  border-radius: 5px;
+
+  color: #1e2b2d;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================================
+   RANK BADGES
+   ========================================================= */
+
+
+/*
+ * Badge général
+ */
+.rank-badge {
+  position: relative;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+
+  border-radius: 50%;
+}
+
+
+/*
+ * ========================================================
+ * PREMIER
+ * ========================================================
+ */
+
+.rank-badge--winner {
+  background: #f4a900;
+
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.14);
+}
+
+
+.rank-star {
+  color: #ffffff;
+
+  font-size: 24px;
+  line-height: 1;
+
+  text-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.12);
+}
+
+
+/*
+ * ========================================================
+ * DERNIER
+ * ========================================================
+ */
+
+.rank-badge--danger {
+  background: #ff1d2e;
+}
+
+
+.rank-warning {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 0;
+  height: 0;
+
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 900;
+}
+
+
+/*
+ * Triangle blanc
+ */
+.rank-badge--danger::before {
+  content: "";
+
+  position: absolute;
+
+  width: 0;
+  height: 0;
+
+  border-right: 9px solid transparent;
+  border-bottom: 17px solid #ffffff;
+  border-left: 9px solid transparent;
+}
+
+
+/*
+ * Point d'exclamation
+ */
+.rank-badge--danger::after {
+  content: "!";
+
+  position: absolute;
+
+  color: #ff1d2e;
+
+  font-size: 11px;
+  font-weight: 900;
+
+  transform: translateY(3px);
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.ranking-footer {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  min-height: 38px;
+
+  padding: 0 25px;
+
+  background: #062c32;
+
+  color: rgba(255, 255, 255, 0.72);
+
+  font-size: 8px;
+  font-weight: 300;
+
+  letter-spacing: 0.08em;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.ranking-empty {
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 280px;
+
+  padding: 40px;
+
+  background: #2b8064;
+
+  color: #ffffff;
+
+  text-align: center;
+}
+
+
+.ranking-empty__icon {
+  margin-bottom: 12px;
+
+  font-size: 32px;
+}
+
+
+.ranking-empty h2 {
+  margin: 0;
+
+  font-size: 17px;
+  font-weight: 500;
+}
+
+
+.ranking-empty p {
+  margin: 6px 0 0;
+
+  color: rgba(255, 255, 255, 0.7);
+
+  font-size: 12px;
+  font-weight: 300;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1024px) {
+
+  .ranking-card {
+    width: 75%;
+  }
+
+}
+
+
+@media (max-width: 768px) {
+
+  .ranking-card {
+    width: 100%;
+  }
+
+  .ranking-header {
+    padding: 15px 14px 10px;
+  }
+
+  .ranking-title {
+    width: 280px;
+    max-width: 90%;
+  }
+
+  .ranking-title h2 {
+    padding-left: 62px;
+
+    font-size: 17px;
+  }
+
+  .ranking-website {
+    max-width: calc(100vw - 28px);
+
+    overflow: hidden;
+
+    font-size: 8px;
+
+    text-overflow: ellipsis;
+  }
+
+  .ranking-table {
+    min-width: 560px;
+  }
+
+  .ranking-table th {
+    font-size: 9px;
+  }
+
+  .team-name {
+    font-size: 13px;
+  }
+
+  .stat-cell,
+  .goal-average,
+  .rank-number {
+    font-size: 13px;
+  }
+
+  .ranking-row {
+    height: 46px;
+  }
+
+  .ranking-footer {
+    padding: 0 14px;
+  }
+
+}
+
+/* =========================================================
+   PETITE LARGEUR
+   BP / BC masqués sous 560px
+   ========================================================= */
+
+@media (max-width: 559px) {
+
+  .ranking-table {
+    min-width: 0;
+  }
+
+  .ranking-table .col-goals {
+    display: none;
+  }
+
+  /*
+   * On redistribue l'espace disponible entre
+   * TEAM et les statistiques restantes.
+   */
+  .ranking-table .col-rank {
+    width: 48px;
+  }
+
+  .ranking-table .col-team {
+    width: auto;
+  }
+
+  .ranking-table th:nth-child(3),
+  .ranking-table th:nth-child(4),
+  .ranking-table th:nth-child(5) {
+    width: 36px;
+  }
+
+  /*
+   * Après suppression de BP / BC,
+   * +/- reste légèrement compact.
+   */
+  .ranking-table th:nth-child(8) {
+    width: 42px;
+  }
+
+  .ranking-table .col-total {
+    width: 58px;
+  }
+
+  .ranking-table th {
+    padding: 0 3px;
+
+    font-size: 9px;
+  }
+
+  .ranking-table td {
+    padding: 0 3px;
+  }
+
+  .team-cell {
+    padding-right: 8px !important;
+    padding-left: 8px !important;
+  }
+
+  .team-name {
+    font-size: 12px;
+  }
+
+  .stat-cell,
+  .goal-average,
+  .rank-number {
+    font-size: 12px;
+  }
+
+  .total-badge {
+    width: 48px;
+    height: 36px;
+
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .ranking-header {
+    padding: 12px 10px 8px;
+  }
+
+  .ranking-title {
+    width: 250px;
+    height: 25px;
+  }
+
+  .ranking-title h2 {
+    padding-left: 55px;
+
+    font-size: 15px;
+    line-height: 25px;
+  }
+
+  .ranking-title__accent {
+    border-top-width: 25px;
+  }
+
+  .ranking-title__triangle {
+    border-bottom-width: 25px;
+  }
+
+  .ranking-website {
+    max-width: calc(100vw - 20px);
+
+    height: 17px;
+
+    margin-top: 5px;
+
+    padding-inline: 7px;
+
+    font-size: 5.5px;
+  }
+
+  .ranking-footer {
+    min-height: 32px;
+
+    padding: 0 10px;
+
+    font-size: 7px;
+  }
+
+}

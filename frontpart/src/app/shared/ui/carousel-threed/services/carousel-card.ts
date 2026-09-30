@@ -15,12 +15,18 @@ export class CarouselCard {
   // == CREATE CARD == //
   async createCard(item: CarouselItem): Promise<THREE.Mesh> {
 
+    console.log(
+      '[CarouselCard] image demandée:',
+      item.id,
+      item.image
+    );
+
     const anisotropy = this.threeEngine.getMaxAnisotropy();
 
     const texture = await this.textureLoader.load(item.image, anisotropy);
 
     const geometry = new THREE.PlaneGeometry(
-      3.13,
+      2.6,
       3.5
     );
 

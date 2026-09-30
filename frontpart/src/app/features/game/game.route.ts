@@ -24,5 +24,11 @@ export const GAME_ROUTES: Routes = [
     title: 'Forfaits',
     loadComponent: () =>
       import('./pages/forfeit/forfeit').then((f) => f.Forfeit)
+  },
+  {
+    path: 'ranking',
+    title: 'Classement',
+    loadComponent: () =>
+      import('./pages/ranking/ranking').then((f) => f.Ranking)
   }
 ];
