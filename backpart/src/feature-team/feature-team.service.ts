@@ -21,7 +21,9 @@ export class FeatureTeamService {
   }
 
   async findOne(id: number) {
-    const team = await this.prisma.team.findUnique({where: {id}});
+    const team = await this.prisma.team.findUnique({
+      where: { id },
+    });
 
     if (!team) {
       throw new NotFoundException(
@@ -67,5 +69,4 @@ export class FeatureTeamService {
       },
     });
   }
-
 }
