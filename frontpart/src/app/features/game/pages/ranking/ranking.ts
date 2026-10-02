@@ -18,4 +18,5 @@ import { RankingStore } from '../../data/state/ranking.store';
 export class Ranking {
 
   readonly rankingStore = inject(RankingStore);
+
 }
