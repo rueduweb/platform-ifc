@@ -1,14 +1,25 @@
 import {
+  computed,
+  inject
+} from '@angular/core';
+
+import {
   patchState,
   signalStore,
   withComputed,
   withHooks,
   withMethods,
-  withState,
+  withState
 } from '@ngrx/signals';
 
-import { computed, inject } from '@angular/core';
-import { EMPTY, pipe, switchMap, tap } from 'rxjs';
+import {
+  catchError,
+  EMPTY,
+  exhaustMap,
+  pipe,
+  tap
+} from 'rxjs';
+
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 
 import { ChampionshipRanking } from '../../../../shared/ui/championship-ranking/services/championship-ranking';
@@ -17,16 +28,21 @@ import { TeamsApi } from '../services/teams-api';
 
 type RankingState = {
   teams: Team[];
+  loading: boolean;
+  error: string | null;
 };
 
 const initialState: RankingState = {
   teams: [],
+  loading: false,
+  error: null
 };
 
 export const RankingStore = signalStore(
+
   withState(initialState),
 
-  withComputed(({ teams }) => {
+  withComputed(({ teams, loading, error }) => {
 
     const rankingService = inject(ChampionshipRanking);
 
@@ -46,6 +62,14 @@ export const RankingStore = signalStore(
         teams().length,
       ),
 
+      hasError: computed(() =>
+        error() !== null,
+      ),
+
+      isEmpty: computed(() =>
+        !loading() && teams().length === 0,
+      ),
+
     };
 
   }),
@@ -56,15 +80,38 @@ export const RankingStore = signalStore(
 
     const loadTeams = rxMethod<void>(
       pipe(
-        switchMap(() =>
-          teamsApi.getTeams().pipe(
-            tap(teams => {
+
+        exhaustMap(() => {
+
+          patchState(store, { loading: true, error: null });
+
+          return teamsApi.getTeams().pipe(
+
+            tap((teams) => {
+
               patchState(store, {
                 teams,
+                loading: false,
+                error: null
               });
+
             }),
-          ),
-        ),
+
+            catchError(() => {
+
+              patchState(store, {
+                loading: false,
+                error: 'Impossible de charger le classement.',
+              });
+
+              return EMPTY;
+
+            }),
+
+          );
+
+        }),
+
       ),
     );
 
@@ -75,6 +122,7 @@ export const RankingStore = signalStore(
       setTeams(teams: Team[]): void {
         patchState(store, {
           teams,
+          error: null
         });
       },
 
@@ -82,7 +130,7 @@ export const RankingStore = signalStore(
         patchState(store, {
           teams: [
             ...store.teams(),
-            team,
+            team
           ],
         });
       },
@@ -111,8 +159,11 @@ export const RankingStore = signalStore(
   }),
 
   withHooks({
+
     onInit(store) {
       store.loadTeams();
     },
+
   }),
+
 );

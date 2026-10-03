@@ -29,11 +29,11 @@ export class TeamsApi {
 
   private readonly http = inject(HttpClient);
 
-  private readonly API_URL = 'http://localhost:3000/api/teams';
+  private static readonly API_URL = 'http://localhost:3000/api/teams';
 
   getTeams(): Observable<Team[]> {
     return this.http
-      .get<TeamApiResponse[]>(this.API_URL)
+      .get<TeamApiResponse[]>(TeamsApi.API_URL)
       .pipe(
         map(teams =>
           teams.map(team => ({
