@@ -57,7 +57,7 @@ export class Team implements OnInit {
 
       id: player.id.toString(),
 
-      image: (player.id === 10 || player.id === 11 || player.id === 13) ? `assets/images/j${player.id}.jpeg` : `assets/images/j${player.id}.jpg`,
+      image: `assets/images/j${player.id}.jpg`,
 
       firstname: player.firstname,
 
