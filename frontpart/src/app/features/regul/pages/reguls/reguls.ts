@@ -72,8 +72,8 @@ export class Reguls {
     this.store.loadReguls();
   }
 
-  newRegul(): void {
-    void this.router.navigate(['/manage-license', 'regul']);
+  newRegul() {
+    this.router.navigate(['/manage-license', 'regul']);
   }
 
   goToPage(page: number): void {
@@ -132,7 +132,7 @@ export class Reguls {
   }
 
   // redirection vers le formulaire de Régul
-  protected goToForm(regulId: number): void {
-    void this.router.navigate(['/manage-license/regul', regulId, 'edit']);
+  protected goToForm(regulId: number) {
+    this.router.navigate(['/manage-license/regul', regulId, 'edit']);
   }
 }

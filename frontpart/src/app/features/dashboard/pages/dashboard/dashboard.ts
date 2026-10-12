@@ -50,21 +50,21 @@ export class Dashboard implements OnInit{
 
     color: '#079fdb',
 
-    num: 12,
+    num: 0,
     all: 20,
 
     stat1: {
       stat: 'Buts',
-      val: 13,
+      val: 0,
     },
 
     stat2: {
       stat: 'Passes',
-      val: 8,
+      val: 0,
     },
     stat3: {
       stat: 'Concédés',
-      val: 5,
+      val: 0,
     },
 
     routeLink1: {
@@ -92,21 +92,21 @@ export class Dashboard implements OnInit{
 
     color: '#64b484',
 
-    num: 10,
+    num: 0,
     all: 26,
 
     stat1: {
       stat: 'V',
-      val: 6,
+      val: 0,
     },
 
     stat2: {
       stat: 'N',
-      val: 3,
+      val: 0,
     },
     stat3: {
       stat: 'D',
-      val: 2,
+      val: 0,
     },
 
     routeLink1: {
@@ -128,13 +128,13 @@ export class Dashboard implements OnInit{
   readonly dataUsers = signal<DashUsers>({
     title: 'Utilisateurs',
     color: 'orange',
-    all: 26,
+    all: 1,
     subtitle: 'Admins',
-    num: 10,
+    num: 1,
     connected: {
-      user: 9,
-      author: 7,
-      admin: 10,
+      user: 0,
+      author: 1,
+      admin: 1,
     },
     routeLinks: [
       {
@@ -145,11 +145,11 @@ export class Dashboard implements OnInit{
     stats: [
       {
         stat: 'Utilisateurs',
-        val: 9
+        val: 0
       },
       {
         stat: 'auteurs',
-        val: 7
+        val: 1
       },
     ]
   });

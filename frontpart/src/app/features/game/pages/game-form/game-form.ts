@@ -43,7 +43,8 @@ export class GameForm implements OnInit{
   // SELECT OPTIONS
   protected readonly locations = [
     'Stade Léon Biancotto',
-    'Complexe Lenglen'
+    'Complexe Lenglen',
+    'Stade Ile de Puteaux'
   ];
 
   protected readonly gameDays = [
