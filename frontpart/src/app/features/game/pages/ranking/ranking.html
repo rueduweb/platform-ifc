@@ -1,5 +1,29 @@
 <section class="w-full">
 
-  <app-championship-ranking [ranking]="rankingStore.ranking()"/>
+  <app-championship-ranking
+    [ranking]="rankingStore.ranking()"
+    (editTeam)="onEditTeam($event)"
+  />
+
+  @if (editingTeam(); as team) {
+    <div
+      class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/60 p-4"
+      (click)="onCancelEdit()"
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="edit-team-title"
+        class="my-auto w-full max-w-2xl rounded-2xl bg-white shadow-2xl"
+        (click)="$event.stopPropagation()"
+      >
+        <app-team-edit-form
+          [team]="team"
+          (saved)="onTeamSaved($event)"
+          (cancelled)="onCancelEdit()"
+        />
+      </div>
+    </div>
+  }
 
 </section>

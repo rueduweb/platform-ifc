@@ -1,15 +1,14 @@
 import {
   Controller,
   Get,
-  Post,
   Body,
   Patch,
   Param,
-  Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { FeatureTeamsService } from './feature-teams.service';
+import { UpdateFeatureTeamDto } from './dto/update-feature-team.dto';
 // import { CreateFeatureTeamDto } from './dto/create-feature-team.dto';
-// import { UpdateFeatureTeamDto } from './dto/update-feature-team.dto';
 
 @Controller('teams')
 export class FeatureTeamsController {
@@ -20,6 +19,14 @@ export class FeatureTeamsController {
     return this.featureTeamsService.findAll();
   }
 
+  @Patch(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateFeatureTeamDto,
+  ) {
+    return this.featureTeamsService.update(id, dto);
+  }
+
   /* @Get(':id')
   findOne(@Param('id') id: string) {
     return this.featureTeamsService.findOne(+id);
@@ -28,14 +35,6 @@ export class FeatureTeamsController {
   @Post()
   create(@Body() createFeatureTeamDto: CreateFeatureTeamDto) {
     return this.featureTeamsService.create(createFeatureTeamDto);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateFeatureTeamDto: UpdateFeatureTeamDto,
-  ) {
-    return this.featureTeamsService.update(+id, updateFeatureTeamDto);
   }
 
   @Delete(':id')

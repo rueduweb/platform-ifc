@@ -124,6 +124,10 @@ export class Game implements OnInit{
     return true;
   }
 
+  protected onRanking(): void {
+    // naviguer vers /championship/ranking
+    void this.router.navigate(['/championship/ranking']);
+  }
 
   protected editGame(id: number): void {
     // naviguer vers /championship/game/:id/edit

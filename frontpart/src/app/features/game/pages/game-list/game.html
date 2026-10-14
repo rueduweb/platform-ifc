@@ -75,7 +75,6 @@
 
     </div>
 
-
     <!-- Nombre de résultats -->
     <div class="info-bubble">
       <span>{{ gamesStore.totalGames() }}</span>
@@ -701,3 +700,25 @@
 
 
 </section>
+
+<!-- Bouton Classement -->
+<div class="info-ranking">
+  <button
+    type="button"
+    (click)="onRanking()"
+
+    class="cust-btn w-full cursor-pointer
+            min-w-32 rounded-2xl
+            bg-slate-400 px-6 py-2.5
+            font-medium text-white
+
+            hover:bg-slate-500
+
+            disabled:cursor-not-allowed
+            disabled:opacity-60
+
+            sm:w-auto"
+  >
+    Classement
+  </button>
+</div>

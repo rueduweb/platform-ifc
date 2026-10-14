@@ -16,8 +16,10 @@ import {
   catchError,
   EMPTY,
   exhaustMap,
+  finalize,
   pipe,
-  tap
+  tap,
+  Observable
 } from 'rxjs';
 
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
@@ -135,15 +137,36 @@ export const RankingStore = signalStore(
         });
       },
 
-      updateTeam(team: Team): void {
+      updateTeam(team: Team): Observable<Team> {
         patchState(store, {
-          teams: store.teams().map(
-            currentTeam =>
-              currentTeam.id === team.id
-                ? team
-                : currentTeam,
-          ),
+          loading: true,
+          error: null,
         });
+
+        return teamsApi.updateTeam(team).pipe(
+          tap(updatedTeam => {
+            patchState(store, {
+              teams: store.teams().map(currentTeam =>
+                currentTeam.id === updatedTeam.id
+                  ? updatedTeam
+                  : currentTeam,
+              ),
+              error: null,
+            });
+          }),
+
+          catchError(() => {
+            patchState(store, {
+              error: 'Impossible de modifier cette équipe.',
+            });
+
+            return EMPTY;
+          }),
+
+          finalize(() => {
+            patchState(store, { loading: false });
+          }),
+        );
       },
 
       removeTeam(teamId: number): void {

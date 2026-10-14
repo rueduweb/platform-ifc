@@ -1,6 +1,12 @@
-import { Injectable } from '@nestjs/common';
-// import { CreateFeatureTeamDto } from './dto/create-feature-team.dto';
-// import { UpdateFeatureTeamDto } from './dto/update-feature-team.dto';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+
+import { Prisma } from '@prisma/client';
+
+import { UpdateFeatureTeamDto } from './dto/update-feature-team.dto';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -15,16 +21,38 @@ export class FeatureTeamsService {
     });
   }
 
+  async update(id: number, dto: UpdateFeatureTeamDto) {
+    const hasChanges = Object.values(dto).some((value) => value !== undefined);
+
+    if (!hasChanges) {
+      throw new BadRequestException('Au moins un champ doit être fourni.');
+    }
+
+    try {
+      return await this.prisma.team.update({
+        where: { id },
+        data: dto,
+      });
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new NotFoundException(
+          `Aucune équipe trouvée avec l'identifiant ${id}.`,
+        );
+      }
+
+      throw error;
+    }
+  }
+
   /* findOne(id: number) {
     return `This action returns a #${id} featureTeam`;
   }
 
   create(createFeatureTeamDto: CreateFeatureTeamDto) {
     return 'This action adds a new featureTeam';
-  }
-
-  update(id: number, updateFeatureTeamDto: UpdateFeatureTeamDto) {
-    return `This action updates a #${id} featureTeam`;
   }
 
   remove(id: number) {

@@ -1,10 +1,13 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  input
+  inject,
+  input,
+  output
 } from '@angular/core';
 
 import { RankedTeam } from './models/ranked-team.model';
+import { Auth } from '../../../features/auth/data/services/auth';
 
 @Component({
   selector: 'app-championship-ranking',
@@ -15,6 +18,14 @@ import { RankedTeam } from './models/ranked-team.model';
 })
 export class ChampionshipRankingComp {
 
+  protected readonly auth = inject(Auth);
+
   readonly ranking = input.required<RankedTeam[]>();
+
+  readonly editTeam = output<RankedTeam>();
+
+  onEditTeam(team: RankedTeam): void {
+    this.editTeam.emit(team);
+  }
 
 }
