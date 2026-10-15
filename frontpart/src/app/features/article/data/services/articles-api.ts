@@ -17,6 +17,10 @@ export class ArticlesApi {
     return this.http.get<Article>(`${this.apiUrl}/${id}`);
   }
 
+  /* create(article: Omit<Article, 'id' | 'authorId'>): Observable<Article> {
+    return this.http.post<Article>(this.apiUrl, article);
+  } */
+
   create(article: Omit<Article, 'id'>): Observable<Article> {
     return this.http.post<Article>(this.apiUrl, article);
   }

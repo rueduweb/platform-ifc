@@ -9,6 +9,23 @@ import type { RequestWithUser } from 'src/auth/interfaces/request-with-user.inte
 export class ArticlesService {
   constructor(private readonly databaseService: DatabaseService) {}
 
+  /* async create(
+    createArticleDto: CreateArticleDto,
+    user: RequestWithUser['user'],
+  ): Promise<Article> {
+    return this.databaseService.article.create({
+      data: {
+        title: createArticleDto.title,
+        description: createArticleDto.description,
+        content: createArticleDto.content,
+        authorId: user.id,
+      },
+      include: {
+        author: true,
+      },
+    });
+  } */
+
   async create(
     createArticleDto: CreateArticleDto,
     user: RequestWithUser['user'],
