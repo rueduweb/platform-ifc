@@ -1,0 +1,322 @@
+
+/* ========================================
+   Arrière-plan de la fenêtre modale
+   ======================================== */
+
+.team-edit-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 1.25rem;
+  overflow-y: auto;
+
+  /* Dégradé gris à 30°, avec une opacité légère */
+  background: linear-gradient(
+    30deg,
+    rgb(30 41 59 / 18%),
+    rgb(148 163 184 / 10%),
+    rgb(71 85 105 / 16%)
+  );
+
+  /* Flou très léger */
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+
+  animation: team-backdrop-in 220ms ease-out both;
+}
+
+/* ========================================
+   Carte principale
+   ======================================== */
+
+.team-edit-card {
+  width: min(100%, 370px);
+  padding: 0 1rem 1rem;
+  border-radius: 28px;
+  background: #fff;
+}
+
+.team-edit-header {
+  padding: 0.7rem 1rem 0.2rem;
+  text-align: center;
+}
+
+.team-edit-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+}
+
+.team-edit-subtitle {
+  margin-top: 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #929292;
+}
+
+.team-edit-name {
+  margin: 0.1rem 0 1.1rem;
+}
+
+.team-edit-name .team-edit-input {
+  height: 32px;
+  min-height: 32px;
+  padding: 0.3rem 0.6rem;
+  border-radius: 5px;
+}
+
+/* ========================================
+   En-tête
+   ======================================== */
+
+.team-edit-header {
+  position: relative;
+  padding: 0.25rem 1rem 1.25rem;
+  text-align: center;
+}
+
+.team-edit-title {
+  margin: 0;
+
+  color: #111827;
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.035em;
+}
+
+.team-edit-subtitle {
+  margin: 0.15rem 0 0;
+
+  color: #9ca3af;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.team-edit-close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  z-index: 5;
+
+  display: grid;
+  place-items: center;
+
+  width: 34px;
+  height: 34px;
+
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 50%;
+
+  /* Fond gris foncé et croix fuchsia */
+  background: #27272a;
+  color: #ff38b7;
+
+  font-size: 1.1rem;
+  font-weight: 800;
+  line-height: 1;
+
+  cursor: pointer;
+
+  box-shadow: 0 3px 10px rgb(0 0 0 / 22%);
+
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.team-edit-close:hover {
+  background: #3f3f46;
+  color: #ff70cb;
+  transform: rotate(90deg) scale(1.08);
+  box-shadow: 0 4px 14px rgb(0 0 0 / 30%);
+}
+
+.team-edit-close:focus-visible {
+  outline: 2px solid #ff38b7;
+  outline-offset: 3px;
+}
+
+.team-edit-close:active {
+  transform: scale(0.94);
+}
+
+/* ========================================
+   Nom de l'équipe
+   ======================================== */
+
+.team-edit-stats {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 0.85rem;
+  row-gap: 1.15rem;
+}
+
+.team-edit-field {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 58px;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.team-edit-field label {
+  color: #374151;
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.team-edit-field .team-edit-input {
+  width: 58px;
+  min-width: 0;
+  min-height: 28px;
+  height: 28px;
+  padding: 2px 5px;
+
+  border: 1px solid #c9c9c9;
+  border-radius: 5px;
+  background: #fff;
+
+  color: #111827;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  box-shadow: none;
+}
+
+.team-edit-field .team-edit-input:focus {
+  border-color: #0ea5e9;
+  outline: none;
+  box-shadow: 0 0 0 2px rgb(14 165 233 / 15%);
+}
+
+.team-edit-field:nth-child(5) {
+  grid-column: 1;
+}
+
+.team-edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.85rem;
+  margin-top: 1.5rem;
+  padding-top: 0.75rem;
+  border-top: 0;
+}
+
+.team-edit-btn {
+  min-height: 34px;
+  padding: 0.5rem 0.8rem;
+  border: 0;
+  border-radius: 0;
+  font-size: 0.85rem;
+}
+
+.team-edit-btn-cancel {
+  background: #bdbdbd;
+  color: #fff;
+}
+
+.team-edit-btn-cancel:hover {
+  background: #a3a3a3;
+}
+
+.team-edit-btn-save {
+  background: #00a5e8;
+  color: #fff;
+  box-shadow: none;
+}
+
+.team-edit-btn-save:hover:not(:disabled) {
+  background: #0284c7;
+}
+
+
+/* ========================================
+   Animations
+   ======================================== */
+
+@keyframes team-backdrop-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes team-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Respect des préférences d'accessibilité */
+
+@media (prefers-reduced-motion: reduce) {
+  .team-edit-backdrop,
+  .team-edit-card {
+    animation: none;
+  }
+
+  .team-edit-input,
+  .team-edit-btn,
+  .team-edit-close {
+    transition: none;
+  }
+}
+
+/* ========================================
+   Adaptation mobile
+   ======================================== */
+
+@media (max-width: 420px) {
+  .team-edit-backdrop {
+    padding: 0.75rem;
+  }
+
+  .team-edit-card {
+    padding: 1.15rem;
+    border-radius: 24px;
+    max-height: calc(100dvh - 1.5rem);
+  }
+
+  .team-edit-title {
+    font-size: 1.3rem;
+  }
+
+  .team-edit-subtitle {
+    font-size: 1.05rem;
+  }
+
+  .team-edit-stats {
+    gap: 0.85rem 0.75rem;
+  }
+
+  .team-edit-field label {
+    font-size: 0.8rem;
+  }
+
+  .team-edit-actions {
+    gap: 0.5rem;
+  }
+
+  .team-edit-btn {
+    padding: 0.65rem 0.8rem;
+  }
+}

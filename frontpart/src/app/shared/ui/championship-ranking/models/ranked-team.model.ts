@@ -4,4 +4,5 @@ export type RankedTeam = Team & {
   rank?: number;
   pts: number;
   avg: number;
+  nbMatches: number;
 };

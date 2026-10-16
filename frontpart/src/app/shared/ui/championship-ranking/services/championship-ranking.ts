@@ -17,6 +17,7 @@ export class ChampionshipRanking {
         ...team,
         pts: this.calculatePoints(team),
         avg: this.calculateAverage(team),
+        nbMatches: this.calculateMatches(team),
       }))
       .sort((teamA, teamB) =>
         this.compareTeams(teamA, teamB)
@@ -38,6 +39,10 @@ export class ChampionshipRanking {
 
   private calculateAverage(team: Team): number {
     return team.nbGoal - team.nbConce;
+  }
+
+  private calculateMatches(team: Team): number {
+    return team.nbW + team.nbD + team.nbL;
   }
 
   private compareTeams(

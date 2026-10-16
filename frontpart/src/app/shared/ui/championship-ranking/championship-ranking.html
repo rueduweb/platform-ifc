@@ -26,45 +26,28 @@
 
         <thead>
           <tr>
-            <th class="col-rank">
-              RANK
-            </th>
+            <th class="col-rank">RANG</th>
 
-            <th class="col-team">
-              TEAM
-            </th>
+            <th class="col-team">EQUIPE</th>
 
-            <th>
-              V
-            </th>
+            <th class="col-stat max-[579px]:hidden">MJ</th>
 
-            <th>
-              N
-            </th>
+            <th class="col-stat">V</th>
 
-            <th>
-              D
-            </th>
+            <th class="col-stat">N</th>
 
-            <th class="col-goals">
-              BP
-            </th>
+            <th class="col-stat">D</th>
 
-            <th class="col-goals">
-              BC
-            </th>
+            <th class="col-stat max-[767px]:hidden">+/-</th>
 
-            <th>
-              +/-
-            </th>
+            <th class="col-stat col-goals max-[579px]:hidden">BP</th>
 
-            <th class="col-total">
-              TOTAL
-            </th>
-            @if(auth.user()?.role === 'ADMIN'){
-              <th class="col-actions">
-                ACTIONS
-              </th>
+            <th class="col-stat col-goals max-[579px]:hidden">BC</th>
+
+            <th class="col-total">TOTAL</th>
+
+            @if (auth.user()?.role === 'ADMIN') {
+              <th class="col-actions">ACTIONS</th>
             }
           </tr>
         </thead>
@@ -104,7 +87,6 @@
 
               </td>
 
-
               <!-- Équipe -->
               <td class="team-cell">
                 <span class="team-name">
@@ -112,40 +94,29 @@
                 </span>
               </td>
 
+              <!-- Nb Matchs joués -->
+              <td class="stat-cell col-stat max-[579px]:hidden">
+                {{ team.nbMatches }}
+              </td>
 
               <!-- Victoires -->
-              <td class="stat-cell">
+              <td class="stat-cell col-stat">
                 {{ team.nbW }}
               </td>
 
-
               <!-- Nuls -->
-              <td class="stat-cell">
+              <td class="stat-cell col-stat">
                 {{ team.nbD }}
               </td>
 
-
               <!-- Défaites -->
-              <td class="stat-cell">
+              <td class="stat-cell col-stat">
                 {{ team.nbL }}
               </td>
 
-
-              <!-- Buts pour -->
-              <td class="stat-cell col-goals">
-                {{ team.nbGoal }}
-              </td>
-
-
-              <!-- Buts contre -->
-              <td class="stat-cell col-goals">
-                {{ team.nbConce }}
-              </td>
-
-
               <!-- Différence -->
               <td
-                class="stat-cell goal-average"
+                class="stat-cell col-stat goal-average max-[767px]:hidden"
                 [class.goal-average--positive]="team.avg > 0"
                 [class.goal-average--negative]="team.avg < 0"
               >
@@ -156,6 +127,15 @@
                 }
               </td>
 
+              <!-- Buts marqués -->
+              <td class="stat-cell col-stat col-goals max-[579px]:hidden">
+                {{ team.nbGoal }}
+              </td>
+
+              <!-- Buts concédés -->
+              <td class="stat-cell col-stat col-goals max-[579px]:hidden">
+                {{ team.nbConce }}
+              </td>
 
               <!-- Total -->
               <td class="total-cell">
