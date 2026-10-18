@@ -60,7 +60,12 @@ export class ChampionshipRanking {
       return teamB.avg - teamA.avg;
     }
 
-    // 3. Critère stable
+    // 3. Nombre de buts pour (BP) décroissant
+    if (teamA.nbGoal !== teamB.nbGoal) {
+      return teamB.nbGoal - teamA.nbGoal;
+    }
+
+    // 4. Critère stable
     return teamA.id - teamB.id;
 
   }
