@@ -1,3 +1,4 @@
+import { environment } from '../../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Service, inject } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -14,7 +15,7 @@ import {
 export class UsersApi {
   private readonly http = inject(HttpClient);
 
-  private readonly apiUrl = 'http://localhost:3000/api/users';
+  private readonly apiUrl = `${environment.API_BASE_URL}/users`;
 
   getUsers(): Observable<UserModel[]> {
     return this.http.get<UserModel[]>(this.apiUrl);
