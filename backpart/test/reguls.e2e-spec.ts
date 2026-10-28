@@ -18,13 +18,12 @@ describe('RegulsController (e2e)', () => {
   };
 
   beforeAll(async () => {
-    const moduleFixture: TestingModule =
-      await Test.createTestingModule({
-        imports: [AppModule],
-      })
-        .overrideProvider(PrismaService)
-        .useValue(prismaMock)
-        .compile();
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
+    })
+      .overrideProvider(PrismaService)
+      .useValue(prismaMock)
+      .compile();
 
     app = moduleFixture.createNestApplication();
 
@@ -106,239 +105,239 @@ describe('RegulsController (e2e)', () => {
       });
     });
     it('should reject an empty license', async () => {
-    await request(app.getHttpServer())
+      await request(app.getHttpServer())
         .post('/reguls')
         .send({
-        license: '',
-        amount: 500,
+          license: '',
+          amount: 500,
         })
         .expect(400);
 
-    expect(prismaMock.regul.create).not.toHaveBeenCalled();
+      expect(prismaMock.regul.create).not.toHaveBeenCalled();
     });
 
     it('should reject an amount lower than 1', async () => {
-    await request(app.getHttpServer())
+      await request(app.getHttpServer())
         .post('/reguls')
         .send({
-        license: 'ABC123',
-        amount: 0,
+          license: 'ABC123',
+          amount: 0,
         })
         .expect(400);
 
-    expect(prismaMock.regul.create).not.toHaveBeenCalled();
+      expect(prismaMock.regul.create).not.toHaveBeenCalled();
     });
 
     it('should reject a non-integer amount', async () => {
-    await request(app.getHttpServer())
+      await request(app.getHttpServer())
         .post('/reguls')
         .send({
-        license: 'ABC123',
-        amount: 500.5,
+          license: 'ABC123',
+          amount: 500.5,
         })
         .expect(400);
 
-    expect(prismaMock.regul.create).not.toHaveBeenCalled();
+      expect(prismaMock.regul.create).not.toHaveBeenCalled();
     });
 
     it('should create a regul without an amount', async () => {
-        const createdRegul = {
-            id: 1,
-            license: 'ABC123',
-            items: [],
-            total: 0,
-            createdAt: new Date('2026-09-11T12:00:00.000Z'),
-            updatedAt: new Date('2026-09-11T12:00:00.000Z'),
-        };
+      const createdRegul = {
+        id: 1,
+        license: 'ABC123',
+        items: [],
+        total: 0,
+        createdAt: new Date('2026-09-11T12:00:00.000Z'),
+        updatedAt: new Date('2026-09-11T12:00:00.000Z'),
+      };
 
-        prismaMock.regul.create.mockResolvedValue(createdRegul);
+      prismaMock.regul.create.mockResolvedValue(createdRegul);
 
-        const response = await request(app.getHttpServer())
-            .post('/reguls')
-            .send({
-            license: 'ABC123',
-            })
-            .expect(201);
+      const response = await request(app.getHttpServer())
+        .post('/reguls')
+        .send({
+          license: 'ABC123',
+        })
+        .expect(201);
 
-        expect(response.body).toEqual({
-            id: 1,
-            license: 'ABC123',
-            items: [],
-            total: 0,
-        });
+      expect(response.body).toEqual({
+        id: 1,
+        license: 'ABC123',
+        items: [],
+        total: 0,
+      });
 
-        expect(prismaMock.regul.create).toHaveBeenCalledWith({
-            data: {
-            license: 'ABC123',
-            items: [],
-            total: 0,
-            },
-        });
+      expect(prismaMock.regul.create).toHaveBeenCalledWith({
+        data: {
+          license: 'ABC123',
+          items: [],
+          total: 0,
+        },
+      });
     });
   });
 
   describe('GET /reguls', () => {
-  it('should return all reguls', async () => {
-    const reguls = [
-      {
-        id: 2,
-        license: 'XYZ789',
-        items: [
-          {
-            id: 1,
-            date: new Date('2026-09-11T13:00:00.000Z'),
-            amount: 300,
-          },
-        ],
-        total: 300,
-        createdAt: new Date('2026-09-11T13:00:00.000Z'),
-        updatedAt: new Date('2026-09-11T13:00:00.000Z'),
-      },
-      {
-        id: 1,
-        license: 'ABC123',
-        items: [
-          {
-            id: 1,
-            date: new Date('2026-09-10T12:00:00.000Z'),
-            amount: 500,
-          },
-        ],
-        total: 500,
-        createdAt: new Date('2026-09-10T12:00:00.000Z'),
-        updatedAt: new Date('2026-09-10T12:00:00.000Z'),
-      },
-    ];
+    it('should return all reguls', async () => {
+      const reguls = [
+        {
+          id: 2,
+          license: 'XYZ789',
+          items: [
+            {
+              id: 1,
+              date: new Date('2026-09-11T13:00:00.000Z'),
+              amount: 300,
+            },
+          ],
+          total: 300,
+          createdAt: new Date('2026-09-11T13:00:00.000Z'),
+          updatedAt: new Date('2026-09-11T13:00:00.000Z'),
+        },
+        {
+          id: 1,
+          license: 'ABC123',
+          items: [
+            {
+              id: 1,
+              date: new Date('2026-09-10T12:00:00.000Z'),
+              amount: 500,
+            },
+          ],
+          total: 500,
+          createdAt: new Date('2026-09-10T12:00:00.000Z'),
+          updatedAt: new Date('2026-09-10T12:00:00.000Z'),
+        },
+      ];
 
-    prismaMock.regul.findMany.mockResolvedValue(reguls);
+      prismaMock.regul.findMany.mockResolvedValue(reguls);
 
-    const response = await request(app.getHttpServer())
-      .get('/reguls')
-      .expect(200);
+      const response = await request(app.getHttpServer())
+        .get('/reguls')
+        .expect(200);
 
-    expect(response.body).toEqual([
-      {
-        id: 2,
-        license: 'XYZ789',
-        items: [
-          {
-            id: 1,
-            date: '2026-09-11T13:00:00.000Z',
-            amount: 300,
-          },
-        ],
-        total: 300,
-      },
-      {
-        id: 1,
-        license: 'ABC123',
-        items: [
-          {
-            id: 1,
-            date: '2026-09-10T12:00:00.000Z',
-            amount: 500,
-          },
-        ],
-        total: 500,
-      },
-    ]);
+      expect(response.body).toEqual([
+        {
+          id: 2,
+          license: 'XYZ789',
+          items: [
+            {
+              id: 1,
+              date: '2026-09-11T13:00:00.000Z',
+              amount: 300,
+            },
+          ],
+          total: 300,
+        },
+        {
+          id: 1,
+          license: 'ABC123',
+          items: [
+            {
+              id: 1,
+              date: '2026-09-10T12:00:00.000Z',
+              amount: 500,
+            },
+          ],
+          total: 500,
+        },
+      ]);
 
-    expect(prismaMock.regul.findMany).toHaveBeenCalledTimes(1);
+      expect(prismaMock.regul.findMany).toHaveBeenCalledTimes(1);
 
-    expect(prismaMock.regul.findMany).toHaveBeenCalledWith({
-      orderBy: {
-        createdAt: 'desc',
-      },
+      expect(prismaMock.regul.findMany).toHaveBeenCalledWith({
+        orderBy: {
+          createdAt: 'desc',
+        },
+      });
     });
-  });
 
-  it('should return an empty array when there are no reguls', async () => {
-    prismaMock.regul.findMany.mockResolvedValue([]);
+    it('should return an empty array when there are no reguls', async () => {
+      prismaMock.regul.findMany.mockResolvedValue([]);
 
-    const response = await request(app.getHttpServer())
-      .get('/reguls')
-      .expect(200);
+      const response = await request(app.getHttpServer())
+        .get('/reguls')
+        .expect(200);
 
-    expect(response.body).toEqual([]);
+      expect(response.body).toEqual([]);
 
-    expect(prismaMock.regul.findMany).toHaveBeenCalledWith({
-      orderBy: {
-        createdAt: 'desc',
-      },
+      expect(prismaMock.regul.findMany).toHaveBeenCalledWith({
+        orderBy: {
+          createdAt: 'desc',
+        },
+      });
     });
-  });
   });
 
   describe('GET /reguls/:id', () => {
     it('should return a regul by id', async () => {
-        const regul = {
+      const regul = {
         id: 1,
         license: 'ABC123',
         items: [
-            {
+          {
             id: 1,
             date: new Date('2026-09-11T12:00:00.000Z'),
             amount: 500,
-            },
+          },
         ],
         total: 500,
         createdAt: new Date('2026-09-11T12:00:00.000Z'),
         updatedAt: new Date('2026-09-11T12:00:00.000Z'),
-        };
+      };
 
-        prismaMock.regul.findUnique.mockResolvedValue(regul);
+      prismaMock.regul.findUnique.mockResolvedValue(regul);
 
-        const response = await request(app.getHttpServer())
+      const response = await request(app.getHttpServer())
         .get('/reguls/1')
         .expect(200);
 
-        expect(response.body).toEqual({
+      expect(response.body).toEqual({
         id: 1,
         license: 'ABC123',
         items: [
-            {
+          {
             id: 1,
             date: '2026-09-11T12:00:00.000Z',
             amount: 500,
-            },
+          },
         ],
         total: 500,
-        });
+      });
 
-        expect(prismaMock.regul.findUnique).toHaveBeenCalledTimes(1);
+      expect(prismaMock.regul.findUnique).toHaveBeenCalledTimes(1);
 
-        expect(prismaMock.regul.findUnique).toHaveBeenCalledWith({
+      expect(prismaMock.regul.findUnique).toHaveBeenCalledWith({
         where: {
-            id: 1,
+          id: 1,
         },
       });
     });
 
     it('should return 404 when the regul does not exist', async () => {
-        prismaMock.regul.findUnique.mockResolvedValue(null);
+      prismaMock.regul.findUnique.mockResolvedValue(null);
 
-        const response = await request(app.getHttpServer())
+      const response = await request(app.getHttpServer())
         .get('/reguls/999')
         .expect(404);
 
-        expect(response.body).toEqual({
+      expect(response.body).toEqual({
         statusCode: 404,
         message: 'Regul with id 999 not found',
         error: 'Not Found',
-        });
+      });
 
-        expect(prismaMock.regul.findUnique).toHaveBeenCalledTimes(1);
+      expect(prismaMock.regul.findUnique).toHaveBeenCalledTimes(1);
 
-        expect(prismaMock.regul.findUnique).toHaveBeenCalledWith({
+      expect(prismaMock.regul.findUnique).toHaveBeenCalledWith({
         where: {
-            id: 999,
+          id: 999,
         },
       });
     });
     it('should return 400 when the id is not an integer', async () => {
       const response = await request(app.getHttpServer())
-      .get('/reguls/abc')
-      .expect(400);
+        .get('/reguls/abc')
+        .expect(400);
 
       expect(response.body.statusCode).toBe(400);
 
@@ -405,29 +404,29 @@ describe('RegulsController (e2e)', () => {
       });
 
       expect(prismaMock.regul.findUnique).toHaveBeenCalledWith({
-       where: {
-         id: 1,
-       },
+        where: {
+          id: 1,
+        },
       });
 
-        expect(prismaMock.regul.update).toHaveBeenCalledWith({
+      expect(prismaMock.regul.update).toHaveBeenCalledWith({
         where: {
-            id: 1,
+          id: 1,
         },
         data: {
           items: expect.arrayContaining([
             expect.objectContaining({
-                id: 1,
-                amount: 15,
+              id: 1,
+              amount: 15,
             }),
             expect.objectContaining({
-                id: 2,
-                amount: 5,
+              id: 2,
+              amount: 5,
             }),
           ]),
           total: 20,
         },
-        });
+      });
     });
 
     it('should return 404 when the regul does not exist', async () => {
@@ -446,21 +445,21 @@ describe('RegulsController (e2e)', () => {
     });
 
     it('should return 400 when adding a fifth amount', async () => {
-        const existingRegul = {
-            id: 1,
-            license: '20265301',
-            items: [
-                { id: 1, date: new Date(), amount: 10 },
-                { id: 2, date: new Date(), amount: 10 },
-                { id: 3, date: new Date(), amount: 10 },
-                { id: 4, date: new Date(), amount: 10 },
-            ],
-            total: 40,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-        };
+      const existingRegul = {
+        id: 1,
+        license: '20265301',
+        items: [
+          { id: 1, date: new Date(), amount: 10 },
+          { id: 2, date: new Date(), amount: 10 },
+          { id: 3, date: new Date(), amount: 10 },
+          { id: 4, date: new Date(), amount: 10 },
+        ],
+        total: 40,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
 
-    prismaMock.regul.findUnique.mockResolvedValue(existingRegul);
+      prismaMock.regul.findUnique.mockResolvedValue(existingRegul);
 
       const response = await request(app.getHttpServer())
         .patch('/reguls/1')

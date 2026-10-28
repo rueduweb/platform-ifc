@@ -1,13 +1,14 @@
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 
-import { RegulApi } from './regul-api';
+import { RegulsApi } from './regul-api';
 
-describe('RegulApi', () => {
-  let service: RegulApi;
+describe('RegulsApi', () => {
+  let service: RegulsApi;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(RegulApi);
+    TestBed.configureTestingModule({ providers: [provideHttpClient()] });
+    service = TestBed.inject(RegulsApi);
   });
 
   it('should be created', () => {
