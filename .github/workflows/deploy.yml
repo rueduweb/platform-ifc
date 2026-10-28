@@ -22,6 +22,16 @@ jobs:
     environment: production   # configurer des "required reviewers" dans GitHub
     steps:
       - uses: actions/checkout@v4
+      - name: Vérifier les secrets
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          for v in DEPLOY_HOST DEPLOY_USER DEPLOY_SSH_KEY DEPLOY_KNOWN_HOSTS; do
+            [ -n "${!v}" ] || { echo "::error::Secret $v manquant dans l'environnement production"; exit 1; }
+          done
       - name: Préparer SSH
         run: |
           install -m 700 -d ~/.ssh

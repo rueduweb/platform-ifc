@@ -8,12 +8,6 @@ import { Reflector } from '@nestjs/core';
 import { Role } from '@prisma/client';
 import { ROLES_KEY } from '../../auth/decorators/roles.decorator';
 
-type AuthenticatedRequest = Request & {
-  user: {
-    role: Role;
-  };
-};
-
 @Injectable()
 export class RolesGuard implements CanActivate {
   constructor(private readonly reflector: Reflector) {}

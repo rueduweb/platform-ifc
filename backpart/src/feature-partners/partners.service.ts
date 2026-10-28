@@ -23,7 +23,9 @@ export class PartnersService {
   }
 
   async findOne(id: number): Promise<Partner | null> {
-    const partner = await this.databaseService.partner.findUnique({ where: { id } });
+    const partner = await this.databaseService.partner.findUnique({
+      where: { id },
+    });
     if (!partner) {
       throw new NotFoundException('Partner not found.');
     }
@@ -34,7 +36,9 @@ export class PartnersService {
     id: number,
     updatePartnerDto: UpdatePartnerDto,
   ): Promise<Partner> {
-    const partner = await this.databaseService.partner.findUnique({ where: { id } });
+    const partner = await this.databaseService.partner.findUnique({
+      where: { id },
+    });
     if (!partner) {
       throw new NotFoundException('Partner not found.');
     }
@@ -47,7 +51,9 @@ export class PartnersService {
   }
 
   async remove(id: number): Promise<Partner> {
-    const partner = await this.databaseService.partner.findUnique({ where: { id } });
+    const partner = await this.databaseService.partner.findUnique({
+      where: { id },
+    });
     if (!partner) {
       throw new NotFoundException('Partner not found.');
     }

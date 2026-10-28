@@ -23,6 +23,7 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { UpdateMeDto } from './dto/update-me.dto';
 import { DeleteUserDto } from './dto/delete-user.dto';
+import type { RequestWithUser } from 'src/auth/interfaces/request-with-user.interface';
 
 @Controller('users')
 export class FeatureUserController {
@@ -53,7 +54,7 @@ export class FeatureUserController {
   @UseGuards(JwtAuthGuard)
   @Get('me')
   @HttpCode(HttpStatus.OK)
-  getMe(@Request() req) {
+  getMe(@Request() req: RequestWithUser) {
     return this.featureUserService.findMe(req.user.id);
   }
 
@@ -74,7 +75,7 @@ export class FeatureUserController {
   @UseGuards(JwtAuthGuard)
   @Patch('me')
   @HttpCode(HttpStatus.OK)
-  updateMe(@Request() req, @Body() updateUser: UpdateMeDto) {
+  updateMe(@Request() req: RequestWithUser, @Body() updateUser: UpdateMeDto) {
     return this.featureUserService.update(req.user.id, updateUser);
   }
 
@@ -100,7 +101,7 @@ export class FeatureUserController {
   async remove(
     @Param('id', ParseIntPipe) id: number,
     @Body() deleteUserDto: DeleteUserDto,
-    @Request() req,
+    @Request() req: RequestWithUser,
   ) {
     return this.featureUserService.remove(id, deleteUserDto, req.user.id);
   }

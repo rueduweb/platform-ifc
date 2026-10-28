@@ -4,7 +4,7 @@ import { DashItem } from './dash-item';
 import { PieceData } from '../../data/models/piece-data.model';
 
 
-describe.only('DashItem', () => {
+describe('DashItem', () => {
   let component: DashItem;
   let fixture: ComponentFixture<DashItem>;
 
