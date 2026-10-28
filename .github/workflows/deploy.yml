@@ -1,0 +1,51 @@
+name: Deploy (manuel)
+
+# Jamais automatique : lancement manuel + approbation de l'environnement "production"
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Tapez DEPLOY pour confirmer'
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: inputs.confirm == 'DEPLOY'
+    runs-on: ubuntu-latest
+    environment: production   # configurer des "required reviewers" dans GitHub
+    steps:
+      - uses: actions/checkout@v4
+      - name: Préparer SSH
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          printf '%s\n' "${{ secrets.DEPLOY_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+      - name: Déployer
+        run: |
+          ssh -i ~/.ssh/id_deploy "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" bash -se <<'REMOTE'
+          set -euo pipefail
+          cd /root/platform-ifc
+          # Garde-fous : on n'écrase jamais .env ni les données
+          if git ls-files --error-unmatch .env >/dev/null 2>&1; then
+            echo ".env est encore suivi par git sur le serveur : réconciliation manuelle requise" >&2; exit 1
+          fi
+          test -s .env || { echo ".env introuvable" >&2; exit 1; }
+          # Sauvegarde de la base AVANT toute mise à jour ou migration
+          mkdir -p backups
+          BACKUP="backups/pre-deploy-$(date +%F-%H%M%S).sql"
+          docker compose -f docker-compose.prod.yml exec -T postgres             sh -c 'pg_dump -U "$POSTGRES_USER" "$POSTGRES_DB"' > "$BACKUP"
+          test -s "$BACKUP"
+          git fetch origin main && git merge --ff-only origin/main
+          docker compose -f docker-compose.prod.yml build
+          docker compose -f docker-compose.prod.yml run --rm migrate
+          # Pas de "down -v" : le volume postgres_data est conservé
+          docker compose -f docker-compose.prod.yml up -d
+          REMOTE

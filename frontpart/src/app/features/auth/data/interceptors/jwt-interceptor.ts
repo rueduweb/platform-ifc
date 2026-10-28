@@ -1,3 +1,4 @@
+import { environment } from '../../../../../environments/environment';
 import {
   HttpErrorResponse,
   HttpInterceptorFn,
@@ -21,7 +22,7 @@ import {
 } from '../services/auth';
 
 const AUTH_API_URL =
-  'http://localhost:3000/api/auth';
+  `${environment.API_BASE_URL}/auth`;
 
 export const jwtInterceptor: HttpInterceptorFn = (
   request,

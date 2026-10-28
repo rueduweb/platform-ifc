@@ -1,3 +1,4 @@
+import { environment } from '../../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
@@ -15,7 +16,7 @@ export class GamesApi {
 
   private readonly http = inject(HttpClient);
 
-  private readonly API_URL = 'http://localhost:3000/api/games';
+  private readonly API_URL = `${environment.API_BASE_URL}/games`;
 
   getAll(): Observable<Game[]> {
     return this.http.get<GameDto[]>(this.API_URL)

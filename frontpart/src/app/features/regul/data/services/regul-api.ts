@@ -1,3 +1,4 @@
+import { environment } from '../../../../../environments/environment';
 import { inject, Service } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
@@ -27,7 +28,7 @@ type RegulApiResponse = Omit<
 export class RegulsApi {
   private readonly http = inject(HttpClient);
 
-  private readonly endpoint = 'http://localhost:3000/api/reguls';
+  private readonly endpoint = `${environment.API_BASE_URL}/reguls`;
 
   /**
    * NEW SERVICE APi according new backend API - 17/09/2026
