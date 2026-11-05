@@ -47,7 +47,6 @@ jobs:
         run: |
           ssh -i ~/.ssh/id_deploy "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" bash -se <<'REMOTE'
           set -euo pipefail
-          umask 077
           cd /root/platform-ifc
           # Garde-fous : on n'écrase jamais .env ni les données
           if git ls-files --error-unmatch .env >/dev/null 2>&1; then
@@ -63,11 +62,13 @@ jobs:
           mkdir -p backups
           BACKUP="backups/pre-deploy-$(date +%F-%H%M%S).sql"
           # Le client pg_dump doit être au moins aussi récent que le serveur Neon (18.x)
-          docker run --rm -e DB="$DIRECT_URL" postgres:18-alpine sh -c 'pg_dump "$DB"' > "$BACKUP" || { rm -f "$BACKUP"; echo "pg_dump a échoué : déploiement annulé" >&2; exit 1; }
+          ( umask 077; docker run --rm -e DB="$DIRECT_URL" postgres:18-alpine sh -c 'pg_dump "$DB"' > "$BACKUP" ) || { rm -f "$BACKUP"; echo "pg_dump a échoué : déploiement annulé" >&2; exit 1; }
           test -s "$BACKUP" || { echo "Sauvegarde vide : déploiement annulé" >&2; exit 1; }
           git fetch origin main && git merge --ff-only origin/main
           docker compose -f docker-compose.prod.yml build
-          MIGRATE_DATABASE_URL="$DIRECT_URL" docker compose -f docker-compose.prod.yml run --rm migrate
+          # -T et </dev/null : sans cela, docker lit le reste du script sur l'entrée standard et le up -d ne s'exécute jamais
+          MIGRATE_DATABASE_URL="$DIRECT_URL" docker compose -f docker-compose.prod.yml run --rm -T migrate </dev/null
           # Pas de "down -v" : le volume postgres_data est conservé
-          docker compose -f docker-compose.prod.yml up -d
+          docker compose -f docker-compose.prod.yml up -d </dev/null
+          docker compose -f docker-compose.prod.yml ps
           REMOTE
