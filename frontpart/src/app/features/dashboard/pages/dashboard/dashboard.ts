@@ -55,7 +55,7 @@ export class Dashboard implements OnInit{
 
     stat1: {
       stat: 'Buts',
-      val: 9,
+      val: 14,
     },
 
     stat2: {
@@ -64,7 +64,7 @@ export class Dashboard implements OnInit{
     },
     stat3: {
       stat: 'Concédés',
-      val: 9,
+      val: 13,
     },
 
     routeLink1: {
@@ -92,12 +92,12 @@ export class Dashboard implements OnInit{
 
     color: '#64b484',
 
-    num: 2,
+    num: 3,
     all: 26,
 
     stat1: {
       stat: 'V',
-      val: 1,
+      val: 2,
     },
 
     stat2: {
