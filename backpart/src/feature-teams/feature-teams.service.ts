@@ -46,16 +46,4 @@ export class FeatureTeamsService {
       throw error;
     }
   }
-
-  /* findOne(id: number) {
-    return `This action returns a #${id} featureTeam`;
-  }
-
-  create(createFeatureTeamDto: CreateFeatureTeamDto) {
-    return 'This action adds a new featureTeam';
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} featureTeam`;
-  } */
 }

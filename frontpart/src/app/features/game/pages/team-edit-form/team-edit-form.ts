@@ -38,6 +38,7 @@ export class TeamEditForm {
     nbW: 0,
     nbD: 0,
     nbL: 0,
+    nbForfeit: 0,
     nbGoal: 0,
     nbConce: 0,
   });
@@ -77,6 +78,7 @@ export class TeamEditForm {
     nonNegativeInteger(path.nbW);
     nonNegativeInteger(path.nbD);
     nonNegativeInteger(path.nbL);
+    nonNegativeInteger(path.nbForfeit);
     nonNegativeInteger(path.nbGoal);
     nonNegativeInteger(path.nbConce);
   });

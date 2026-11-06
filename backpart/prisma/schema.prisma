@@ -118,6 +118,7 @@ model Team {
   nbW     Int
   nbD     Int
   nbL     Int
+  nbForfeit Int @default(0)
   nbGoal  Int
   nbConce Int
   avg     Int

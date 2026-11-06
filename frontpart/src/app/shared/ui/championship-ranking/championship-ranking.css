@@ -243,6 +243,12 @@
   width: 66px;
 }
 
+/* Colonne forfait */
+.col-forfeit {
+  width: 65px;
+  text-align: center;
+}
+
 /*
 * Colonne action
 */
@@ -707,6 +713,10 @@
 
   .ranking-table .col-total {
     width: 58px;
+  }
+
+  .ranking-table .col-forfeit {
+    width: 42px;
   }
 
   .ranking-table th {

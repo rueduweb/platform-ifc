@@ -26,7 +26,7 @@ export class Ranking {
 
   onEditTeam(team: RankedTeam): void {
 
-    const { id, name, nbW, nbD, nbL, nbGoal, nbConce } = team;
+    const { id, name, nbW, nbD, nbL, nbForfeit, nbGoal, nbConce } = team;
 
     this.editingTeam.set({
       id,
@@ -34,6 +34,7 @@ export class Ranking {
       nbW,
       nbD,
       nbL,
+      nbForfeit,
       nbGoal,
       nbConce,
     });

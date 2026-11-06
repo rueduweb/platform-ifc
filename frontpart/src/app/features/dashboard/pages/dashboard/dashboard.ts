@@ -64,7 +64,7 @@ export class Dashboard implements OnInit{
     },
     stat3: {
       stat: 'Concédés',
-      val: 13,
+      val: 16,
     },
 
     routeLink1: {
@@ -92,7 +92,7 @@ export class Dashboard implements OnInit{
 
     color: '#64b484',
 
-    num: 3,
+    num: 4,
     all: 26,
 
     stat1: {
@@ -106,7 +106,7 @@ export class Dashboard implements OnInit{
     },
     stat3: {
       stat: 'D',
-      val: 1,
+      val: 2,
     },
 
     routeLink1: {

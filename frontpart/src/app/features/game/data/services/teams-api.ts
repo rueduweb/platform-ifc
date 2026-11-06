@@ -1,3 +1,4 @@
+
 import { inject, Service } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
@@ -14,6 +15,7 @@ type TeamApiResponse = {
   nbW: number;
   nbD: number;
   nbL: number;
+  nbForfeit: number;
 
   nbGoal: number;
   nbConce: number;
@@ -38,6 +40,7 @@ export class TeamsApi {
       nbW: team.nbW,
       nbD: team.nbD,
       nbL: team.nbL,
+      nbForfeit: team.nbForfeit,
       nbGoal: team.nbGoal,
       nbConce: team.nbConce,
     };
@@ -52,16 +55,34 @@ export class TeamsApi {
   }
 
   updateTeam(team: Team): Observable<Team> {
-    const { id, name, nbW, nbD, nbL, nbGoal, nbConce } = team;
+    const {
+      id,
+      name,
+      nbW,
+      nbD,
+      nbL,
+      nbForfeit,
+      nbGoal,
+      nbConce
+    } = team;
 
     return this.http
       .patch<TeamApiResponse>(
         `${TeamsApi.API_URL}/${id}`,
-        { name, nbW, nbD, nbL, nbGoal, nbConce },
+        {
+          name,
+          nbW,
+          nbD,
+          nbL,
+          nbForfeit,
+          nbGoal,
+          nbConce
+        },
       )
       .pipe(
         map(updatedTeam => this.toTeam(updatedTeam)),
       );
   }
 }
+
 

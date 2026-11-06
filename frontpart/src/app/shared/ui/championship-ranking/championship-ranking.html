@@ -46,6 +46,8 @@
 
             <th class="col-total">TOTAL</th>
 
+            <th class="col-forfeit">FORFAIT</th>
+
             @if (auth.user()?.role === 'ADMIN') {
               <th class="col-actions">ACTIONS</th>
             }
@@ -143,6 +145,12 @@
                   {{ team.pts }}
                 </span>
               </td>
+
+              <!-- Forfaits -->
+              <td class="stat-cell col-forfeit">
+                {{ team.nbForfeit }}
+              </td>
+
               @if(auth.user()?.role === 'ADMIN'){
                 <td class="stat-cell col-actions">
                   <button
