@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+  signal
+} from '@angular/core';
 
 import { UserModel } from '../../data/models/user.model';
 import { Users } from '../../data/services/users';
@@ -9,7 +15,7 @@ import { Auth } from '../../../auth/data/services/auth';
 
 @Component({
   selector: 'app-user',
-  imports: [ UserCardComponent, UserRoleModal ],
+  imports: [UserCardComponent, UserRoleModal],
   templateUrl: './user.html',
   styleUrl: './user.css',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -20,12 +26,24 @@ export class User implements OnInit {
   protected readonly auth = inject(Auth);
 
   readonly users = this.usersStore.users;
-
   readonly loading = this.usersStore.loading;
-
   readonly error = this.usersStore.error;
 
   protected readonly selectedUser = signal<UserModel | null>(null);
+
+  // Suppression d'un utilisateur
+  protected readonly userToDelete = signal<UserModel | null>(null);
+  protected readonly targetUserId = signal<number | null>(null);
+  protected readonly deleting = signal(false);
+  protected readonly deleteError = signal<string | null>(null);
+
+  // Destinataires possibles : uniquement les utilisateurs USER
+  protected readonly availableTargets = () =>
+    this.users().filter(
+      user =>
+        user.role === 'USER' &&
+        user.id !== this.userToDelete()?.id
+    );
 
   ngOnInit(): void {
     this.loadUsers();
@@ -35,17 +53,105 @@ export class User implements OnInit {
     await this.usersStore.loadUsers();
   }
 
-  async onDeleteUser(user: UserModel): Promise<void> {
-    const confirmed = window.confirm(`Voulez-vous vraiment supprimer l'utilisateur "${user.username}" ?`);
+  // Ouvre la modale de suppression
+  onDeleteUser(user: UserModel): void {
+    this.userToDelete.set(user);
+    this.targetUserId.set(null);
+    this.deleteError.set(null);
+  }
 
-    if (!confirmed) {
+  // Récupère le destinataire sélectionné
+  onTargetChange(value: string): void {
+    this.targetUserId.set(
+      value === '' ? null : Number(value)
+    );
+  }
+
+  // Ferme la modale de suppression
+  onCloseDeleteModal(): void {
+    if (this.deleting()) {
       return;
     }
 
-    await this.usersStore.deleteUser(user.id);
+    this.userToDelete.set(null);
+    this.targetUserId.set(null);
+    this.deleteError.set(null);
   }
 
-  onEditUser(user: UserModel): void { // Affichage Popup
+  // Confirme et exécute la suppression
+
+  async confirmDeleteUser(): Promise<void> {
+    const user = this.userToDelete();
+    const targetId = this.targetUserId();
+
+    if (!user || targetId === null) {
+      this.deleteError.set(
+        'Veuillez sélectionner un utilisateur destinataire.'
+      );
+      return;
+    }
+
+    if (!Number.isInteger(targetId) || targetId <= 0) {
+      this.deleteError.set('Destinataire invalide.');
+      return;
+    }
+
+    if (user.id === targetId) {
+      this.deleteError.set(
+        'Un utilisateur ne peut pas recevoir ses propres articles.'
+      );
+      return;
+    }
+
+    const targetUser = this.users().find(
+      u => u.id === targetId && u.role === 'USER'
+    );
+
+    if (!targetUser) {
+      this.deleteError.set(
+        'L’utilisateur destinataire est introuvable ou invalide.'
+      );
+      return;
+    }
+
+    this.deleting.set(true);
+    this.deleteError.set(null);
+
+    try {
+      const result = await this.usersStore.deleteUser(
+        user.id,
+        targetId
+      );
+
+      if (!result) {
+        this.deleteError.set(
+          this.usersStore.error() ??
+          'Impossible de supprimer cet utilisateur.'
+        );
+        return;
+      }
+
+      this.userToDelete.set(null);
+      this.targetUserId.set(null);
+
+      alert(
+        `Utilisateur "${user.username}" supprimé avec succès.\n\n` +
+        `${result.transferredArticlesCount} article(s) transféré(s) ` +
+        `à "${targetUser.username}".`
+      );
+
+    } catch {
+      this.deleteError.set(
+        'Une erreur est survenue lors de la suppression.'
+      );
+    } finally {
+      this.deleting.set(false);
+    }
+  }
+
+
+  // Modification du rôle
+  onEditUser(user: UserModel): void {
     this.selectedUser.set(user);
   }
 
@@ -54,7 +160,7 @@ export class User implements OnInit {
     resolve: (result: {
       success: boolean;
       error?: string;
-    })=> void;
+    }) => void;
   }): Promise<void> {
 
     const user = this.selectedUser();
@@ -75,24 +181,19 @@ export class User implements OnInit {
     );
 
     if (!updatedUser) {
-
       event.resolve({
         success: false,
-        error: this.usersStore.error() ?? 'Impossible de modifier le rôle.'
+        error: this.usersStore.error() ??
+          'Impossible de modifier le rôle.'
       });
-
       return;
     }
 
     event.resolve({ success: true });
-
     this.selectedUser.set(null);
   }
-
 
   onCloseRoleModal(): void {
     this.selectedUser.set(null);
   }
-
-
 }

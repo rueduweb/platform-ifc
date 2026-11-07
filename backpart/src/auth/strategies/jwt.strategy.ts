@@ -1,6 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+
 import { FeatureUserService } from 'src/feature-user/feature-user.service';
 
 export interface JwtPayload {
@@ -19,10 +21,16 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: JwtPayload) {
+    if (!Number.isInteger(payload.sub) || payload.sub <= 0) {
+      throw new UnauthorizedException('Token utilisateur invalide.');
+    }
+
     const user = await this.usersService.findOne(payload.sub);
+
     if (!user) {
       throw new UnauthorizedException('Utilisateur non autorisé.');
     }
+
     return user;
   }
 }

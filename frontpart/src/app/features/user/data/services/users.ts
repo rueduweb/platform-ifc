@@ -9,6 +9,7 @@ import { firstValueFrom, Observable } from 'rxjs';
 import {
   CreateUserRequest,
   CurrentUser,
+  DeleteUserResponse,
   UpdateCurrentUserRequest,
   UpdateUserRequest,
   UserModel,
@@ -71,16 +72,24 @@ export class Users {
     return updatedUser;
   }
 
-  async deleteUser(id: number): Promise<boolean> {
-    const deleted = await this.request(this.usersApi.deleteUser(id));
+  async deleteUser(
+  id: number,
+  targetUserId: number,
+  ): Promise<DeleteUserResponse | null> {
+
+    const deleted = await this.request(
+      this.usersApi.deleteUser(id, targetUserId),
+    );
 
     if (deleted === null) {
-      return false;
+      return null;
     }
 
-    this.updateUsers(users => users.filter(user => user.id !== id));
+    this.updateUsers(users =>
+      users.filter(user => user.id !== id),
+    );
 
-    return true;
+    return deleted;
   }
 
   // Methodes sur current user

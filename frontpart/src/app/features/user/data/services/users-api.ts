@@ -8,6 +8,7 @@ import {
   UpdateCurrentUserRequest,
   UpdateUserRequest,
   UserModel,
+  DeleteUserResponse
 } from '../models/user.model';
 
 @Service()
@@ -43,7 +44,18 @@ export class UsersApi {
     return this.http.patch<UserModel>(`${this.apiUrl}/${id}`, request);
   }
 
-  deleteUser(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  deleteUser(
+  id: number,
+  targetUserId: number,
+  ): Observable<DeleteUserResponse> {
+    return this.http.delete<DeleteUserResponse>(
+      `${this.apiUrl}/${id}`,
+      {
+        body: {
+          transferArticlesToUserId: targetUserId,
+        },
+      },
+    );
   }
+
 }

@@ -121,6 +121,102 @@
       />
     }
 
+
+    @if (userToDelete(); as user) {
+      <div
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+        role="presentation"
+      >
+        <div
+          class="w-full max-w-lg rounded-xl bg-white p-6 shadow-xl"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="delete-user-title"
+        >
+          <h2
+            id="delete-user-title"
+            class="mb-3 text-xl font-semibold text-neutral-800"
+          >
+            Supprimer un utilisateur
+          </h2>
+
+          <p class="mb-5 text-sm text-neutral-600">
+            Vous allez supprimer
+            <strong>{{ user.username }}</strong>.
+
+            Tous ses articles doivent être transférés
+            vers un autre utilisateur.
+          </p>
+
+          <label
+            for="targetUser"
+            class="mb-2 block text-sm font-medium text-neutral-700"
+          >
+            Destinataire des articles
+          </label>
+
+          <select
+            id="targetUser"
+            class="w-full rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm"
+            [value]="targetUserId() ?? ''"
+            [disabled]="deleting()"
+            (change)="onTargetChange($any($event.target).value)"
+          >
+            <option value="">
+              Sélectionner un utilisateur
+            </option>
+
+            @for (target of availableTargets(); track target.id) {
+              <option [value]="target.id">
+                {{ target.username }} ({{ target.email }})
+              </option>
+            }
+          </select>
+
+          @if (availableTargets().length === 0) {
+            <p class="mt-2 text-sm text-amber-700">
+              Aucun autre utilisateur avec le rôle USER n'est disponible.
+              Vous devez d'abord créer ou promouvoir un utilisateur.
+            </p>
+          }
+
+          @if (deleteError(); as message) {
+            <p
+              class="mt-3 text-sm text-red-600"
+              role="alert"
+            >
+              {{ message }}
+            </p>
+          }
+
+          <div class="mt-6 flex justify-end gap-3">
+            <button
+              type="button"
+              class="rounded-lg border border-neutral-300 px-4 py-2 text-sm hover:bg-neutral-100"
+              [disabled]="deleting()"
+              (click)="onCloseDeleteModal()"
+            >
+              Annuler
+            </button>
+
+            <button
+              type="button"
+              class="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50"
+              [disabled]="
+                deleting() ||
+                targetUserId() === null ||
+                availableTargets().length === 0
+              "
+              (click)="confirmDeleteUser()"
+            >
+              {{ deleting() ? 'Suppression...' : 'Confirmer la suppression' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+
+
   }
 }
 </section>
