@@ -124,75 +124,142 @@
 
     @if (userToDelete(); as user) {
       <div
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+        class="fixed inset-0 z-50 flex items-center justify-center
+              bg-neutral-950/45 p-4 backdrop-blur-[2px]"
         role="presentation"
       >
+
+        <!-- MODAL -->
         <div
-          class="w-full max-w-lg rounded-xl bg-white p-6 shadow-xl"
+          class="delete-modal w-full max-w-lg rounded-xl shadow-2xl
+                ring-1 ring-black/5"
           role="dialog"
           aria-modal="true"
           aria-labelledby="delete-user-title"
+          aria-describedby="delete-user-description"
         >
-          <h2
-            id="delete-user-title"
-            class="mb-3 text-xl font-semibold text-neutral-800"
-          >
-            Supprimer un utilisateur
-          </h2>
 
-          <p class="mb-5 text-sm text-neutral-600">
-            Vous allez supprimer
-            <strong>{{ user.username }}</strong>.
+          <!-- HEADER -->
+          <div class="mb-4">
 
-            Tous ses articles doivent être transférés
-            vers un autre utilisateur.
-          </p>
+            <h2
+              id="delete-user-title"
+              class="text-xl font-semibold tracking-tight text-neutral-800"
+            >
+              Supprimer un utilisateur
+            </h2>
 
-          <label
-            for="targetUser"
-            class="mb-2 block text-sm font-medium text-neutral-700"
-          >
-            Destinataire des articles
-          </label>
+            <p
+              id="delete-user-description"
+              class="mt-2 text-sm leading-relaxed text-neutral-600"
+            >
+              Vous allez supprimer
+              <strong class="font-semibold text-neutral-800">
+                {{ user.username }}
+              </strong>.
+              Tous ses articles doivent être transférés
+              vers un autre utilisateur.
+            </p>
 
-          <select
-            id="targetUser"
-            class="w-full rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm"
-            [value]="targetUserId() ?? ''"
-            [disabled]="deleting()"
-            (change)="onTargetChange($any($event.target).value)"
-          >
-            <option value="">
-              Sélectionner un utilisateur
-            </option>
+          </div>
 
-            @for (target of availableTargets(); track target.id) {
-              <option [value]="target.id">
-                {{ target.username }} ({{ target.email }})
-              </option>
-            }
-          </select>
+          <!-- DESTINATAIRE -->
+          <div class="space-y-2">
 
+            <label
+              for="targetUser"
+              class="block text-sm font-medium text-neutral-700"
+            >
+              Destinataire des articles
+            </label>
+
+            <div class="relative">
+
+              <select
+                id="targetUser"
+                class="w-full appearance-none rounded-lg border
+                      border-neutral-300 bg-white/90
+                      px-3 py-3 pr-10 text-sm text-neutral-700
+                      outline-none transition-all duration-200
+                      hover:border-red-300
+                      focus:border-red-400
+                      focus:ring-2 focus:ring-pink-200
+                      disabled:cursor-not-allowed disabled:opacity-60"
+                [value]="targetUserId() ?? ''"
+                [disabled]="deleting()"
+                (change)="onTargetChange($any($event.target).value)"
+              >
+
+                <option value="">
+                  Sélectionner un utilisateur
+                </option>
+
+                @for (target of availableTargets(); track target.id) {
+                  <option [value]="target.id">
+                    {{ target.username }} ({{ target.email }})
+                  </option>
+                }
+
+              </select>
+
+              <!-- CHEVRON -->
+              <svg
+                class="pointer-events-none absolute right-3 top-1/2
+                      h-5 w-5 -translate-y-1/2 text-neutral-400"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m6 9 6 6 6-6"
+                />
+              </svg>
+
+            </div>
+
+          </div>
+
+          <!-- AUCUN DESTINATAIRE -->
           @if (availableTargets().length === 0) {
-            <p class="mt-2 text-sm text-amber-700">
+
+            <p
+              class="mt-3 rounded-lg border border-amber-200
+                    bg-amber-50 px-3 py-2 text-xs leading-relaxed
+                    text-amber-800"
+            >
               Aucun autre utilisateur avec le rôle USER n'est disponible.
               Vous devez d'abord créer ou promouvoir un utilisateur.
             </p>
+
           }
 
+          <!-- ERREUR -->
           @if (deleteError(); as message) {
+
             <p
-              class="mt-3 text-sm text-red-600"
+              class="mt-3 rounded-lg border border-red-200
+                    bg-red-50 px-3 py-2 text-sm text-red-700"
               role="alert"
             >
               {{ message }}
             </p>
+
           }
 
-          <div class="mt-6 flex justify-end gap-3">
+          <!-- FOOTER -->
+          <div class="mt-5 flex flex-wrap justify-end gap-2">
+
             <button
               type="button"
-              class="rounded-lg border border-neutral-300 px-4 py-2 text-sm hover:bg-neutral-100"
+              class="rounded-md border border-neutral-300
+                    bg-white/80 px-4 py-2 text-sm font-medium
+                    text-neutral-700 transition-colors
+                    hover:bg-neutral-100
+                    disabled:cursor-not-allowed disabled:opacity-50"
               [disabled]="deleting()"
               (click)="onCloseDeleteModal()"
             >
@@ -201,7 +268,15 @@
 
             <button
               type="button"
-              class="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50"
+              class="rounded-md bg-red-600 px-4 py-2
+                    text-sm font-medium text-white
+                    shadow-sm transition-all duration-200
+                    hover:bg-red-700 hover:shadow-md
+                    focus-visible:outline-2
+                    focus-visible:outline-offset-2
+                    focus-visible:outline-red-500
+                    disabled:cursor-not-allowed
+                    disabled:opacity-50 cursor-pointer"
               [disabled]="
                 deleting() ||
                 targetUserId() === null ||
@@ -211,11 +286,13 @@
             >
               {{ deleting() ? 'Suppression...' : 'Confirmer la suppression' }}
             </button>
+
           </div>
+
         </div>
+
       </div>
     }
-
 
   }
 }

@@ -602,6 +602,10 @@
   font-weight: 300;
 }
 
+/* Délimitation de la 11e place */
+.ranking-row--eleventh > td {
+  border-top: 2px solid #ef4444;
+}
 
 /* =========================================================
    RESPONSIVE
