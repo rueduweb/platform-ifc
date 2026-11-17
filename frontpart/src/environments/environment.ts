@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-  API_BASE_URL: 'http://localhost:3000' // local API address not yet specified (TODO json-server)
+  production: true,
+  API_BASE_URL: 'https://www.plateforme-ifc.com/api' // distant API address not yet specified
 }
