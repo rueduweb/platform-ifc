@@ -9,5 +9,6 @@ export type Team = {
 
   nbGoal: number;
   nbConce: number;
+  penalty: number;
 };
 

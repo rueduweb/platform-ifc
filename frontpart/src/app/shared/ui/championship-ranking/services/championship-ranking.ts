@@ -1,3 +1,4 @@
+
 import { Service } from '@angular/core';
 
 import { RankedTeam } from '../models/ranked-team.model';
@@ -29,14 +30,19 @@ export class ChampionshipRanking {
       }));
   }
 
+  /**
+   * Calcule les points sportifs
+   * puis déduit les points de pénalité.
+   */
   private calculatePoints(team: Team): number {
 
-    return (
+    const sportPoints =
       team.nbW * this.VICTORY_POINTS +
       team.nbD * this.DRAW_POINTS +
       team.nbL * this.LOSS_POINTS +
-      team.nbForfeit * this.FORFAIT_POINTS
-    );
+      team.nbForfeit * this.FORFAIT_POINTS;
+
+    return sportPoints - team.penalty;
   }
 
   private calculateAverage(team: Team): number {

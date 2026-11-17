@@ -10,6 +10,7 @@ export const INITIAL_TEAMS: Team[] = [
     nbForfeit: 0,
     nbGoal: 27,
     nbConce: 14,
+    penalty: 0
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ export const INITIAL_TEAMS: Team[] = [
     nbForfeit: 0,
     nbGoal: 24,
     nbConce: 13,
+    penalty: 0
   },
   {
     id: 3,
@@ -30,6 +32,7 @@ export const INITIAL_TEAMS: Team[] = [
     nbForfeit: 0,
     nbGoal: 25,
     nbConce: 17,
+    penalty: 0
   },
   {
     id: 4,
@@ -39,7 +42,8 @@ export const INITIAL_TEAMS: Team[] = [
     nbL: 0,
     nbForfeit: 0,
     nbGoal: 0,
-    nbConce: 0
+    nbConce: 0,
+    penalty: 0
   },
   {
     id: 5,
@@ -49,7 +53,8 @@ export const INITIAL_TEAMS: Team[] = [
     nbL: 0,
     nbForfeit: 0,
     nbGoal: 0,
-    nbConce: 0
+    nbConce: 0,
+    penalty: 0
   },
   {
     id: 6,
@@ -59,7 +64,8 @@ export const INITIAL_TEAMS: Team[] = [
     nbL: 0,
     nbForfeit: 0,
     nbGoal: 0,
-    nbConce: 0
+    nbConce: 0,
+    penalty: 0
   },
   {
     id: 7,
@@ -69,7 +75,8 @@ export const INITIAL_TEAMS: Team[] = [
     nbL: 0,
     nbForfeit: 0,
     nbGoal: 0,
-    nbConce: 0
+    nbConce: 0,
+    penalty: 0
   },
   {
     id: 8,
@@ -79,7 +86,8 @@ export const INITIAL_TEAMS: Team[] = [
     nbL: 0,
     nbForfeit: 0,
     nbGoal: 0,
-    nbConce: 0
+    nbConce: 0,
+    penalty: 0
   },
   {
     id: 9,
@@ -89,7 +97,8 @@ export const INITIAL_TEAMS: Team[] = [
     nbL: 0,
     nbForfeit: 0,
     nbGoal: 0,
-    nbConce: 0
+    nbConce: 0,
+    penalty: 0
   },
   {
     id: 10,
@@ -99,7 +108,8 @@ export const INITIAL_TEAMS: Team[] = [
     nbL: 0,
     nbForfeit: 0,
     nbGoal: 0,
-    nbConce: 0
+    nbConce: 0,
+    penalty: 0
   },
   {
     id: 11,
@@ -109,7 +119,8 @@ export const INITIAL_TEAMS: Team[] = [
     nbL: 0,
     nbForfeit: 0,
     nbGoal: 0,
-    nbConce: 0
+    nbConce: 0,
+    penalty: 0
   },
   {
     id: 12,
@@ -119,7 +130,8 @@ export const INITIAL_TEAMS: Team[] = [
     nbL: 0,
     nbForfeit: 0,
     nbGoal: 0,
-    nbConce: 0
+    nbConce: 0,
+    penalty: 0
   },
   {
     id: 13,
@@ -129,7 +141,8 @@ export const INITIAL_TEAMS: Team[] = [
     nbL: 0,
     nbForfeit: 0,
     nbGoal: 0,
-    nbConce: 0
+    nbConce: 0,
+    penalty: 0
   },
   {
     id: 14,
@@ -139,6 +152,7 @@ export const INITIAL_TEAMS: Team[] = [
     nbL: 0,
     nbForfeit: 0,
     nbGoal: 0,
-    nbConce: 0
+    nbConce: 0,
+    penalty: 0
   }
 ];

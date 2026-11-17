@@ -22,6 +22,8 @@ type TeamApiResponse = {
 
   avg: number;
 
+  penalty: number;
+
   createdAt: string;
   updatedAt: string;
 };
@@ -43,6 +45,7 @@ export class TeamsApi {
       nbForfeit: team.nbForfeit,
       nbGoal: team.nbGoal,
       nbConce: team.nbConce,
+      penalty: team.penalty
     };
   }
 
@@ -63,7 +66,8 @@ export class TeamsApi {
       nbL,
       nbForfeit,
       nbGoal,
-      nbConce
+      nbConce,
+      penalty
     } = team;
 
     return this.http
@@ -76,7 +80,8 @@ export class TeamsApi {
           nbL,
           nbForfeit,
           nbGoal,
-          nbConce
+          nbConce,
+          penalty
         },
       )
       .pipe(

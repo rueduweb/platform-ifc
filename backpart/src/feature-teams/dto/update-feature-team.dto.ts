@@ -43,4 +43,10 @@ export class UpdateFeatureTeamDto {
   @IsInt()
   @Min(0)
   nbConce?: number;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(0)
+  penalty?: number;
 }
