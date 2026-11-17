@@ -1,0 +1,31 @@
+.delete-modal {
+  padding: 0.5em;
+
+  background: linear-gradient(
+    45deg,
+    #fce7f3 0%,
+    whitesmoke 100%
+  );
+
+  border: 1px solid rgb(255 255 255 / 70%);
+
+  animation: modal-appearance 180ms ease-out;
+}
+
+@keyframes modal-appearance {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .delete-modal {
+    animation: none;
+  }
+}

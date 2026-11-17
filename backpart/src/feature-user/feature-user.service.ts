@@ -127,29 +127,26 @@ export class FeatureUserService {
     const { transferArticlesToUserId } = deleteUserDto;
 
     return this.databaseService.$transaction(async (tx) => {
+      // 1. Empêcher l'administrateur de supprimer son propre compte
       if (userId === authenticatedUserId) {
         throw new ForbiddenException(
           'An administrator cannot delete their own account.',
         );
       }
 
-      // 1. Vérifier que l'utilisateur à supprimer existe
+      // 2. Vérifier l'existence de l'utilisateur à supprimer
       const userToDelete = await tx.user.findUnique({
-        where: {
-          id: userId,
-        },
+        where: { id: userId },
       });
 
       if (!userToDelete) {
         throw new NotFoundException('User not found.');
       }
 
-      // 2. Ne pas supprimer le dernier utilisateur ADMIN
+      // 3. Empêcher la suppression du dernier ADMIN
       if (userToDelete.role === Role.ADMIN) {
         const adminCount = await tx.user.count({
-          where: {
-            role: Role.ADMIN,
-          },
+          where: { role: Role.ADMIN },
         });
 
         if (adminCount <= 1) {
@@ -157,32 +154,30 @@ export class FeatureUserService {
         }
       }
 
-      // 3. Empêcher le transfert vers lui-même
+      // 4. Empêcher le transfert vers le compte supprimé
       if (userId === transferArticlesToUserId) {
         throw new BadRequestException(
           'Cannot transfer articles to the user being deleted.',
         );
       }
 
-      // 4. Vérifier que l'utilisateur destinataire existe
+      // 5. Vérifier le destinataire
       const transferTarget = await tx.user.findUnique({
-        where: {
-          id: transferArticlesToUserId,
-        },
+        where: { id: transferArticlesToUserId },
       });
 
       if (!transferTarget) {
         throw new NotFoundException('Transfer target user not found.');
       }
 
-      // 5. Le destinataire doit obligatoirement être USER
+      // 6. Le destinataire doit être USER
       if (transferTarget.role !== Role.USER) {
         throw new BadRequestException(
           'Articles can only be transferred to a USER.',
         );
       }
 
-      // 6. Transférer tous les articles
+      // 7. Transférer tous les articles
       const transferResult = await tx.article.updateMany({
         where: {
           authorId: userId,
@@ -192,14 +187,12 @@ export class FeatureUserService {
         },
       });
 
-      // 7. Supprimer l'utilisateur
+      // 8. Supprimer l'utilisateur
       await tx.user.delete({
-        where: {
-          id: userId,
-        },
+        where: { id: userId },
       });
 
-      // 8. Ne jamais retourner l'objet User Prisma
+      // 9. Retourner uniquement les informations nécessaires
       return {
         message: 'User deleted successfully.',
         deletedUserId: userId,

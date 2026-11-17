@@ -32,6 +32,12 @@ export class UpdateFeatureTeamDto {
   @Type(() => Number)
   @IsInt()
   @Min(0)
+  nbForfeit?: number;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(0)
   nbGoal?: number;
 
   @IsOptional()
@@ -39,4 +45,10 @@ export class UpdateFeatureTeamDto {
   @IsInt()
   @Min(0)
   nbConce?: number;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(0)
+  penalty?: number;
 }

@@ -38,8 +38,10 @@ export class TeamEditForm {
     nbW: 0,
     nbD: 0,
     nbL: 0,
+    nbForfeit: 0,
     nbGoal: 0,
     nbConce: 0,
+    penalty: 0
   });
 
   readonly teamForm = form(this.model, (path) => {
@@ -60,7 +62,7 @@ export class TeamEditForm {
       field: typeof path.nbW,
     ) => {
       validate(field, ({ value }) => {
-        const currentValue = value();
+        const currentValue = Number(value());
 
         return (
           !Number.isInteger(currentValue) ||
@@ -77,8 +79,10 @@ export class TeamEditForm {
     nonNegativeInteger(path.nbW);
     nonNegativeInteger(path.nbD);
     nonNegativeInteger(path.nbL);
+    nonNegativeInteger(path.nbForfeit);
     nonNegativeInteger(path.nbGoal);
     nonNegativeInteger(path.nbConce);
+    nonNegativeInteger(path.penalty);
   });
 
   constructor() {

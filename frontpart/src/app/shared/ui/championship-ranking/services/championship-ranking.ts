@@ -1,3 +1,4 @@
+
 import { Service } from '@angular/core';
 
 import { RankedTeam } from '../models/ranked-team.model';
@@ -9,6 +10,7 @@ export class ChampionshipRanking {
   private readonly VICTORY_POINTS = 4;
   private readonly DRAW_POINTS = 2;
   private readonly LOSS_POINTS = 1;
+  private readonly FORFAIT_POINTS = 0;
 
   calculateRanking(teams: readonly Team[]): RankedTeam[] {
 
@@ -28,13 +30,19 @@ export class ChampionshipRanking {
       }));
   }
 
+  /**
+   * Calcule les points sportifs
+   * puis déduit les points de pénalité.
+   */
   private calculatePoints(team: Team): number {
 
-    return (
+    const sportPoints =
       team.nbW * this.VICTORY_POINTS +
       team.nbD * this.DRAW_POINTS +
-      team.nbL * this.LOSS_POINTS
-    );
+      team.nbL * this.LOSS_POINTS +
+      team.nbForfeit * this.FORFAIT_POINTS;
+
+    return sportPoints - team.penalty;
   }
 
   private calculateAverage(team: Team): number {
@@ -42,7 +50,12 @@ export class ChampionshipRanking {
   }
 
   private calculateMatches(team: Team): number {
-    return team.nbW + team.nbD + team.nbL;
+    return (
+      team.nbW +
+      team.nbD +
+      team.nbL +
+      team.nbForfeit
+    );
   }
 
   private compareTeams(
@@ -60,14 +73,12 @@ export class ChampionshipRanking {
       return teamB.avg - teamA.avg;
     }
 
-    // 3. Nombre de buts pour (BP) décroissant
+    // 3. Nombre de buts pour décroissant
     if (teamA.nbGoal !== teamB.nbGoal) {
       return teamB.nbGoal - teamA.nbGoal;
     }
 
     // 4. Critère stable
     return teamA.id - teamB.id;
-
   }
 }
-

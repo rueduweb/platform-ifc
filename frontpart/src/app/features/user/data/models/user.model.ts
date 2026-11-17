@@ -48,3 +48,11 @@ export type UsersState = {
   loading: boolean;
   error: string | null;
 };
+
+// Delete utilisateur
+export type DeleteUserResponse = {
+  message: string;
+  deletedUserId: number;
+  transferredArticlesToUserId: number;
+  transferredArticlesCount: number;
+};
