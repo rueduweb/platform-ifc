@@ -41,11 +41,9 @@ services:
       target: build
     profiles: ["tools"]
     environment:
-      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      # Base du backend (Neon). MIGRATE_DATABASE_URL = URL directe (sans pooler), fournie par le déploiement
+      DATABASE_URL: ${MIGRATE_DATABASE_URL:-${DATABASE_URL}}
     command: npx prisma migrate deploy
-    depends_on:
-      postgres:
-        condition: service_healthy
     networks:
       - ifc-network
 

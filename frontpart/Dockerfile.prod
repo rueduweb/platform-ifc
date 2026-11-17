@@ -32,6 +32,9 @@ RUN rm -rf /usr/share/nginx/html/*
 # Copier l'application Angular compilée
 COPY --from=build /app/dist/frontpart/browser /usr/share/nginx/html
 
+# Les fichiers doivent rester lisibles par nginx quel que soit le umask du serveur de build
+RUN chmod -R a+rX /usr/share/nginx/html
+
 # Configuration Nginx Angular
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 

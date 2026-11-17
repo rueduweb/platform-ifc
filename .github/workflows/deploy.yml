@@ -53,14 +53,22 @@ jobs:
             echo ".env est encore suivi par git sur le serveur : réconciliation manuelle requise" >&2; exit 1
           fi
           test -s .env || { echo ".env introuvable" >&2; exit 1; }
+          # Base de production = Neon (DATABASE_URL du backend), pas le PostgreSQL local
+          DB_URL=$(grep '^DATABASE_URL=' .env | cut -d= -f2- | tr -d '"')
+          test -n "$DB_URL" || { echo "DATABASE_URL introuvable dans .env" >&2; exit 1; }
+          # URL directe (sans pooler) et sans paramètre incomplet, pour pg_dump et prisma migrate
+          DIRECT_URL=$(printf '%s' "$DB_URL" | sed -E 's/-pooler//; s/[?&]channel_bind[^&]*//; s/sslmode=verify-full/sslmode=require/')
           # Sauvegarde de la base AVANT toute mise à jour ou migration
           mkdir -p backups
           BACKUP="backups/pre-deploy-$(date +%F-%H%M%S).sql"
-          docker compose -f docker-compose.prod.yml exec -T postgres             sh -c 'pg_dump -U "$POSTGRES_USER" "$POSTGRES_DB"' > "$BACKUP"
-          test -s "$BACKUP"
+          # Le client pg_dump doit être au moins aussi récent que le serveur Neon (18.x)
+          ( umask 077; docker run --rm -e DB="$DIRECT_URL" postgres:18-alpine sh -c 'pg_dump "$DB"' > "$BACKUP" ) || { rm -f "$BACKUP"; echo "pg_dump a échoué : déploiement annulé" >&2; exit 1; }
+          test -s "$BACKUP" || { echo "Sauvegarde vide : déploiement annulé" >&2; exit 1; }
           git fetch origin main && git merge --ff-only origin/main
           docker compose -f docker-compose.prod.yml build
-          docker compose -f docker-compose.prod.yml run --rm migrate
+          # -T et </dev/null : sans cela, docker lit le reste du script sur l'entrée standard et le up -d ne s'exécute jamais
+          MIGRATE_DATABASE_URL="$DIRECT_URL" docker compose -f docker-compose.prod.yml run --rm -T migrate </dev/null
           # Pas de "down -v" : le volume postgres_data est conservé
-          docker compose -f docker-compose.prod.yml up -d
+          docker compose -f docker-compose.prod.yml up -d </dev/null
+          docker compose -f docker-compose.prod.yml ps
           REMOTE
