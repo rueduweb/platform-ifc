@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-  API_BASE_URL: 'http://localhost:3000/api'
+  production: true,
+  API_BASE_URL: 'https://www.plateforme-ifc.com/api' // distant API address not yet specified
 }

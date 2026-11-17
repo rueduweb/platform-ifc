@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 
 import { Team } from '../../../../shared/ui/championship-ranking/models/team.model';
+import { environment } from '../../../../../environments/environment';
 
 type TeamApiResponse = {
   id: number;
@@ -33,7 +34,7 @@ export class TeamsApi {
 
   private readonly http = inject(HttpClient);
 
-  private static readonly API_URL = 'http://localhost:3000/api/teams';
+  private static readonly API_URL = `${environment.API_BASE_URL}/teams`;
 
   private toTeam(team: TeamApiResponse): Team {
     return {
