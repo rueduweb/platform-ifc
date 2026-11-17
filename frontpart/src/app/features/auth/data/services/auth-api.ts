@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Service, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { environment } from '../../../../../environments/environment';
+
 import {
   SigninRequest,
   SigninResponse,
@@ -13,7 +15,7 @@ import {
 export class AuthApi {
   private readonly http = inject(HttpClient);
 
-  private readonly apiUrl = 'http://localhost:3000/api/auth';
+  private readonly apiUrl = `${environment.API_BASE_URL}/auth`;
 
   signup(request: SignupRequest): Observable<SignupResponse> {
     return this.http.post<SignupResponse>(`${this.apiUrl}/signup`, request);

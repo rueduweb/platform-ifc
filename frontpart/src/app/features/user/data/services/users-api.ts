@@ -11,11 +11,13 @@ import {
   DeleteUserResponse
 } from '../models/user.model';
 
+import { environment } from '../../../../../environments/environment';
+
 @Service()
 export class UsersApi {
   private readonly http = inject(HttpClient);
 
-  private readonly apiUrl = 'http://localhost:3000/api/users';
+  private readonly apiUrl = `${environment.API_BASE_URL}/users`;
 
   getUsers(): Observable<UserModel[]> {
     return this.http.get<UserModel[]>(this.apiUrl);

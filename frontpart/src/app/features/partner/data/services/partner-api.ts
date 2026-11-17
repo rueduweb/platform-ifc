@@ -1,11 +1,12 @@
 import { inject, Service } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../../environments/environment';
 import type { Observable } from 'rxjs';
 
 import type { Partner } from '../models/partner.model';
 import type { CreatePartnerDto, UpdatePartnerDto } from '../models/partner-dto.model';
 
-const URL_API = 'http://localhost:3000/api/partners';
+const URL_API = `${environment.API_BASE_URL}/partners`;
 
 @Service()
 export class PartnersApi {

@@ -3,12 +3,14 @@ import { inject, Service } from '@angular/core';
 import { Player } from '../models/player.model';
 import { map, Observable } from 'rxjs';
 
+import { environment } from '../../../../../environments/environment';
+
 @Service()
 export class PlayersApi {
 
   private readonly http = inject(HttpClient);
 
-  private readonly API_URL = 'http://localhost:3000/api/players';
+  private readonly API_URL = `${environment.API_BASE_URL}/players`;
 
   getPlayers(): Observable<Player[]> {
     return this.http

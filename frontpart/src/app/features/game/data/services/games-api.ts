@@ -5,6 +5,8 @@ import { map, Observable } from 'rxjs';
 import { GameDto } from '../models/game-dto';
 import { Game } from '../models/game.model';
 
+import { environment } from '../../../../../environments/environment';
+
 export type CreateGame = Omit<Game, 'id'>;
 export type UpdateGame = Partial<CreateGame>;
 
@@ -15,7 +17,7 @@ export class GamesApi {
 
   private readonly http = inject(HttpClient);
 
-  private readonly API_URL = 'http://localhost:3000/api/games';
+  private readonly API_URL = `${environment.API_BASE_URL}/games`;
 
   getAll(): Observable<Game[]> {
     return this.http.get<GameDto[]>(this.API_URL)
