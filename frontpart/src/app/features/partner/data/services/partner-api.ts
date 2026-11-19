@@ -1,6 +1,7 @@
 import { environment } from '../../../../../environments/environment';
 import { inject, Service } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../../environments/environment';
 import type { Observable } from 'rxjs';
 
 import type { Partner } from '../models/partner.model';

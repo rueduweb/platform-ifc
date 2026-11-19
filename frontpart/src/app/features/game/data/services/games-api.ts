@@ -6,6 +6,8 @@ import { map, Observable } from 'rxjs';
 import { GameDto } from '../models/game-dto';
 import { Game } from '../models/game.model';
 
+import { environment } from '../../../../../environments/environment';
+
 export type CreateGame = Omit<Game, 'id'>;
 export type UpdateGame = Partial<CreateGame>;
 

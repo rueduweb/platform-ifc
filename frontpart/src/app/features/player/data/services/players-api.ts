@@ -4,6 +4,8 @@ import { inject, Service } from '@angular/core';
 import { Player } from '../models/player.model';
 import { map, Observable } from 'rxjs';
 
+import { environment } from '../../../../../environments/environment';
+
 @Service()
 export class PlayersApi {
 

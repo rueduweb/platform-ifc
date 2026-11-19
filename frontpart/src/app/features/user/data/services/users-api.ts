@@ -12,6 +12,8 @@ import {
   DeleteUserResponse
 } from '../models/user.model';
 
+import { environment } from '../../../../../environments/environment';
+
 @Service()
 export class UsersApi {
   private readonly http = inject(HttpClient);
