@@ -1,4 +1,3 @@
-import { environment } from '../../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
 import { Player } from '../models/player.model';
